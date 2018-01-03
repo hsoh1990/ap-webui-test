@@ -28,6 +28,9 @@
   <!-- Custom Fonts -->
   <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+  <!-- Custom CSS -->
+  <link href="dist/css/custom.css" title="main" rel="stylesheet">
+
   <link rel="shortcut icon" type="image/png" href="../img/favicon.png">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -112,7 +115,12 @@
           <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-dashboard fa-fw"></i> Dashboard </div>
             <div class="panel-body">
-              <p>showMessages()부분입니다.</p>
+              <p>
+                <div class="alert alert-success alert-dismissable">
+                  Interface is up
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                </div>
+              </p>
               <div class="row">
                 <div class="col-md-6">
                   <div class="panel panel-default">
@@ -120,29 +128,23 @@
                       <h4>Interface Information</h4>
                       <div class="info-item">Interface Name</div> wlan0</br>
                       <div class="info-item">IP Address</div>
-                      <?php echo $strIPAddress ?>
+                      192.168.0.1
                       </br>
                       <div class="info-item">Subnet Mask</div>
-                      <?php echo $strNetMask ?>
                       </br>
                       <div class="info-item">Mac Address</div>
-                      <?php echo $strHWAddress ?>
                       </br>
                       </br>
 
                       <h4>Interface Statistics</h4>
                       <div class="info-item">Received Packets</div>
-                      <?php echo $strRxPackets ?>
                       </br>
                       <div class="info-item">Received Bytes</div>
-                      <?php echo $strRxBytes ?>
                       </br>
                       </br>
                       <div class="info-item">Transferred Packets</div>
-                      <?php echo $strTxPackets ?>
                       </br>
                       <div class="info-item">Transferred Bytes</div>
-                      <?php echo $strTxBytes ?>
                       </br>
                     </div>
                     <!-- /.panel-body -->
@@ -156,28 +158,22 @@
                     <div class="panel-body wireless">
                       <h4>Wireless Information</h4>
                       <div class="info-item">Connected To</div>
-                      <?php echo $strSSID ?>
                       </br>
                       <div class="info-item">AP Mac Address</div>
-                      <?php echo $strBSSID ?>
                       </br>
                       <div class="info-item">Bitrate</div>
-                      <?php echo $strBitrate ?>
                       </br>
                       <div class="info-item">Signal Level</div>
-                      <?php echo $strSignalLevel ?>
                       </br>
                       <div class="info-item">Transmit Power</div>
-                      <?php echo $strTxPower ?>
                       </br>
                       <div class="info-item">Frequency</div>
-                      <?php echo $strFrequency ?>
                       </br>
                       </br>
                       <div class="info-item">Link Quality</div>
                       <div class="progress">
                         <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="<?php echo $strLinkQuality ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $strLinkQuality ?>%;">
-                          <?php echo $strLinkQuality ?>%
+
                         </div>
                       </div>
                     </div>

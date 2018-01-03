@@ -28,6 +28,9 @@
   <!-- Custom Fonts -->
   <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+  <!-- Custom CSS -->
+  <link href="dist/css/custom.css" title="main" rel="stylesheet">
+  
   <link rel="shortcut icon" type="image/png" href="../ap-webui-test/img/favicon.png">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -115,7 +118,6 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
               <p>
-                showMessages()부분입니다.
               </p>
               <h4>Client settings</h4>
               <div class="btn-group btn-block">
@@ -132,15 +134,9 @@
                     <th>Security</th>
                     <th>Passphrase</th>
                     <th></th>
-                  </tr>$ssid => $network부분입니다.
+                  </tr>
                   <tr>
                     <td>
-                      <?php if ($network['configured']) { ?>
-                      <i class="fa fa-check-circle fa-fw"></i>
-                      <?php } ?>
-                      <?php if ($network['connected']) { ?>
-                      <i class="fa fa-exchange fa-fw"></i>
-                      <?php } ?>
                     </td>
                     <td>
                       <input type="hidden" name="ssid<?php echo $index ?>" value="<?php echo htmlentities($ssid) ?>" />
@@ -151,26 +147,15 @@
                       <?php echo $network['channel'] ?>
                     </td>
                     <?php } else { ?>
-                    <td><span class="label label-warning">X</span></td>
+                    <td></td>
                     <?php } ?>
                     <td><input type="hidden" name="protocol<?php echo $index ?>" value="<?php echo $network['protocol'] ?>" />
                       <?php echo $network['protocol'] ?>
                     </td>
                     <?php if ($network['protocol'] === 'Open') { ?>
-                    <td><input type="hidden" name="passphrase<?php echo $index ?>" value="" />---</td>
+                    <td><input type="hidden" name="passphrase<?php echo $index ?>" value="" /></td>
                     <?php } else { ?>
-                    <td><input type="text" class="form-control" name="passphrase<?php echo $index ?>" value="$network['passphrase']값 부분" onKeyUp="CheckPSK(this, 'update<?php echo $index?>')" />
-                      <?php } ?>
-                      <td>
-                        <div class="btn-group btn-block">
-                          <?php if ($network['configured']) { ?>
-                          <input type="submit" class="col-md-6 btn btn-warning" value="Update" id="update<?php echo $index ?>" name="update<?php echo $index ?>" <?php echo ($network[ 'protocol']==='Open' ? ' disabled' : '')?>
-                          <?php } else { ?>
-                          <input type="submit" class="col-md-6 btn btn-info" value="Add" id="update<?php echo $index ?>" name="update<?php echo $index ?>" <?php echo ($network[ 'protocol']==='Open' ? '' : ' disabled')?>
-                          <?php } ?>
-                          <input type="submit" class="col-md-6 btn btn-danger" value="Delete" name="delete<?php echo $index ?>" <?php echo ($network[ 'configured'] ? '' : ' disabled')?>
-                        </div>
-                      </td>
+
                   </tr>
                   <?php $index += 1; ?>
                   <?php } ?>
