@@ -44,6 +44,13 @@
     var current_setting_wlan0 =
       "3:wlan0: mtu 1500 qdisc pfifo_fast state DOWN group default qlen 1000<br>link/ether b8:27:eb:c6:4f:e3 brd ff:ff:ff:ff:ff:ff<br>inet 192.168.0.1/24 brd 192.168.0.255 scope global wlan0<br>valid_lft forever preferred_lft forever<br>inet6 fe80::ba27::ebff::fec6::4fe3/64 scope link<br>valid_lft forever preferred_lft forever";
   </script>
+  <script>
+    function auth_data() {
+      var json = {"id":"admin", "old password":"111111", "new password":"222222", "repeat new password":"222222"}
+
+      alert(json)
+    }
+  </script>
 </head>
 
 <body>
