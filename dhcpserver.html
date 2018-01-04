@@ -88,7 +88,7 @@
               <a href=""><i class="fa fa-wrench fa-fw"></i> Change Theme</a>
             </li>
             <li>
-              <a href=""><i class="fa fa-cube fa-fw"></i> System</a>
+              <a href="system.html"><i class="fa fa-cube fa-fw"></i> System</a>
             </li>
           </ul>
         </div>
@@ -117,12 +117,8 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-              <p></p>
-                <div class="alert alert-success alert-dismissable">
-                  Dnsmasq is running
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                </div>
-              <p></p>
+              <p id="alert_decide">
+              </p>
               <!-- Nav tabs -->
               <ul class="nav nav-tabs">
                 <li class="active"><a href="#server-settings" data-toggle="tab">Server settings</a>
@@ -171,14 +167,19 @@
                       </div>
                     </div>
 
-                    <input type="submit" class="btn btn-outline btn-primary" value="Save settings" name="savedhcpdsettings" />
+                    <input type="button" class="btn btn-outline btn-primary" value="Save settings" name="savedhcpdsettings" onclick="savesettingbutton()"/>
                     <input type="submit" class="btn btn-warning" value="Stop dnsmasq" name="stopdhcpd" />
                   </form>
                 </div>
                 <!-- /.tab-pane -->
 
                 <div class="tab-pane fade in" id="client-list">
+                  <br>
                   <h4>Client list</h4>
+                  <div class="btn-group btn-block">
+                    <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" value="Rescan" onclick="rescanbutton()" />
+                    <!--<a href="" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" id="update">Rescan</a>-->
+                  </div>
                   <div class="col-lg-12">
                     <div class="panel panel-default">
                       <div class="panel-heading">
@@ -187,7 +188,7 @@
                       <!-- /.panel-heading -->
                       <div class="panel-body">
                         <div class="table-responsive">
-                          <table class="table table-hover">
+                          <table class="table table-hover" id="client_infor">
                             <thead>
                               <tr>
                                 <th>Expire time</th>
@@ -249,7 +250,84 @@
 
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
+  <script>
+    function clientlistdata() {
 
+      var data = {
+        example_1: {
+          "Expire time": "1",
+          "MAC Address": "aa.aa.aa.aa.aa.aa",
+          "IP Address": "1.1.1.1",
+          "Host name": "qqqq",
+          "Client ID": "lee"
+        },
+        example_2: {
+          "Expire time": "2",
+          "MAC Address": "bb.bb.bb.bb.bb.bb",
+          "IP Address": "2.2.2.2",
+          "Host name": "wwww",
+          "Client ID": "park"
+        },
+        example_3: {
+          "Expire time": "3",
+          "MAC Address": "cc.cc.cc.cc.cc.cc",
+          "IP Address": "3.3.3.3",
+          "Host name": "eeee",
+          "Client ID": "kim"
+        },
+        example_4: {
+          "Expire time": "4",
+          "MAC Address": "dd.dd.dd.dd.dd.dd",
+          "IP Address": "4.4.4.4",
+          "Host name": "rrrr",
+          "Client ID": "yune"
+        },
+        alert_select: {
+          "Dnsmasq is": true
+        }
+      }
+      return data;
+    }
+
+    function clientsetting_data_fill() {
+      var list = clientlistdata();
+      var content = "";
+      var type = "example_";
+
+        content += "<thead><tr><th>Expire time</th><th>MAC Address</th><th>IP Address</th><th>Host name</th><th>Client ID</th></tr></thead>";
+        for(var i = 1;i < 5;i++){
+          var a = String(i);
+          type = "example_";
+          type += a;
+          content += "<tbody><tr>";
+          for (var name in list[type]) {
+            content += "<td>" + list[type][name] + "</td>";
+          }
+          content += "</tr></tbody>";
+        }
+        return content;
+    }
+
+    function rescanbutton() {
+      document.getElementById("client_infor").innerHTML = clientsetting_data_fill();
+    }
+    function alertupdown() {
+      var list = clientlistdata();
+      var content = "<div class='alert alert-success alert-dismissable'>";
+      content += "Dnsmasq is ";
+      if (list['alert_select']['Dnsmasq is'] == true) {
+        content += "running";
+      } else {
+        content += "stop";
+      }
+      content += "<button type=button class=close data-dismiss=alert aria-hidden=true>x</button>";
+      content += "</div>";
+      return content;
+    }
+    function savesettingbutton() {
+      document.getElementById("alert_decide").innerHTML = alertupdown();
+    }
+  </script>
 </body>
 
 </html>
