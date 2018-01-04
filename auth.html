@@ -116,28 +116,28 @@
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" name="username" value="admin" />
+                    <input type="text" class="form-control" name="username" value="admin" id="username_id"/>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label for="password">Old password</label>
-                    <input type="password" class="form-control" name="oldpass" />
+                    <input type="password" class="form-control" name="oldpass" id="Oldpassword_id"/>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label for="password">New password</label>
-                    <input type="password" class="form-control" name="newpass" />
+                    <input type="password" class="form-control" name="newpass" id="Newpassword_id"/>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label for="password">Repeat new password</label>
-                    <input type="password" class="form-control" name="newpassagain" />
+                    <input type="password" class="form-control" name="newpassagain" id="RepeatNewpassword_id"/>
                   </div>
                 </div>
-                <input type="submit" class="btn btn-outline btn-primary" name="UpdateAdminPassword" value="Save settings" />
+                <input type="button" class="btn btn-outline btn-primary" name="UpdateAdminPassword" value="Save settings" onclick="savesettingbutton()"/>
               </form>
             </div>
             <!-- /.panel-body -->
@@ -172,7 +172,19 @@
 
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
+  <script>
+    function savesettingbutton(){
 
+      var tmp_interid = document.getElementById("username_id").value;
+      var tmp_ssidid = document.getElementById("Oldpassword_id").value;
+      var tmp_wmid = document.getElementById("Newpassword_id").value;
+      var tmp_channelid = document.getElementById("RepeatNewpassword_id").value;
+
+      alert("Username : "+tmp_interid+"\nOld password : "+tmp_ssidid+"\nNew password : "+tmp_wmid+"\nRepeat new password : "+tmp_channelid);
+
+    }
+
+  </script>
 </body>
 
 </html>
