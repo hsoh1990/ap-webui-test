@@ -111,11 +111,13 @@
             <div class="panel-heading"><i class="fa fa-dot-circle-o fa-fw"></i> Configure hotspot</div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-              <p>
+              <p id="alert_decide">
+                <!--
                 <div class="alert alert-success alert-dismissable">
                   HostAPD is running
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                 </div>
+              -->
               </p>
               <form role="form" action="?page=hostapd_conf" method="POST">
                 <!-- Nav tabs -->
@@ -131,11 +133,10 @@
                   <div class="tab-pane fade in active" id="basic">
 
                     <h4>Basic settings</h4>
-                    <?php CSRFToken() ?>
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="code">Interface</label>
-                        <select class="form-control" name="interface">
+                        <select class="form-control" name="interface" id="interfaceid">
                           <option value="lo">lo</option>
                           <option value="eth0">eth0</option>
                           <option value="wlan0" selected>wlan0</option>
@@ -145,13 +146,13 @@
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="code">SSID</label>
-                        <input type="text" class="form-control" name="ssid" value="test" />
+                        <input type="text" class="form-control" name="ssid" id="ssidid" value="test" />
                       </div>
                     </div>
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="code">Wireless Mode</label>
-                        <select class="form-control" name="hw_mode">
+                        <select class="form-control" name="hw_mode" id="w_mode">
                           <option value="a">a</option>
                           <option value="b">b</option>
                           <option value="g" selected>g</option>
@@ -161,7 +162,7 @@
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="code">Channel</label>
-                        <select class="form-control" name="channel">
+                        <select class="form-control" name="channel" id="channelid">
                           <option value="1" selected>1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -185,7 +186,7 @@
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="code">Security type</label>
-                        <select class="form-control" name="wpa">
+                        <select class="form-control" name="wpa" id="wpaid">
                           <option value="1" selected>WPA</option>
                           <option value="2">WPA2</option>
                           <option value="3">WPA+WPA2</option>
@@ -195,7 +196,7 @@
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="code">Encryption Type</label>
-                        <select class="form-control" name="wpa_pairwise">
+                        <select class="form-control" name="wpa_pairwise" id="wpa_pairwiseid">
                           <option value="TKIP" selected>TKIP</option>
                           <option value="CCMP">CCMP</option>
                           <option value="TKIP CCMP">TKIP+CCMP</option>
@@ -205,7 +206,7 @@
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="code">PSK</label>
-                        <input type="text" class="form-control" name="wpa_passphrase" value="00000000">
+                        <input type="text" class="form-control" id="pskid" name="wpa_passphrase" value="00000000">
                       </div>
                     </div>
                   </div>
@@ -501,7 +502,7 @@
                     <!-- /.panel-body -->
                   </div>
                   <!-- /.panel-primary -->
-                  <input type="submit" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings">
+                  <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="savesettingbutton()">
                   <input type="submit" class="btn btn-warning" name="StopHotspot" value="Stop hotspot">
               </form>
               </div>
@@ -538,6 +539,125 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="dist/js/sb-admin-2.js"></script>
+    <script>
+      function hotspotdata() {
+
+        var dashboardData = {
+          Interface_Information: {
+            "Interface Name": "wlan0",
+            "IP Address": "192.168.0.1",
+            "Subnet Mask": "255.255.255.0",
+            "Mac Address": "b8.27.eb.c6.4f.e3"
+          },
+          Interface_Statistics: {
+            "Received Packets": "No Data",
+            "Received Bytes": "No Data",
+            "Transferred Packets": "No Data",
+            "Transferred Bytes": "No Data"
+          },
+          Wireless_Information: {
+            "Connected To": "Not connected",
+            "AP Mac Address": "",
+            "Bitrate": "",
+            "Signal Level": "",
+            "Transmit Power": "31 dBm",
+            "Frequency": "",
+            "Link Quality": "50"
+          },
+          alert_select: {
+            "HostAPD is": true
+          }
+        }
+        return dashboardData;
+      }
+
+      function dashboard_data_fill(index) {
+        var list = hotspotdata();
+        var content = "";
+        var type = "";
+
+        if (index == 0) {
+          type = "Interface_Information";
+          content += "<h4>Interface Information</h4>";
+          for (var name in list[type]) {
+            content += "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
+          }
+          type = "Interface_Statistics";
+          content += "<h4>Interface Statistics</h4>";
+          for (var name in list[type]) {
+            content += "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
+          }
+          return content;
+        }
+        /*
+        if (index == 1) {
+          var type = "Interface_Statistics";
+          content += "<h4>Interface Statistics</h4>";
+          for (var name in list[type]) {
+            content +=  "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
+          }
+          return content;
+        }*/
+        if (index == 1) {
+          var type = "Wireless_Information";
+          content += "<h4>Wireless Information</h4>";
+          for (var name in list[type]) {
+            if (name == "Link Quality") {
+              content += "<div class=info-item>" + name + "</div><div class=progress><div class=progress-bar progress-bar-info progress-bar-striped active role=progressbar aria-valuenow aria-valuemin=0 aria-valuemax=100 style=width:50%;></div></div>"
+              break;
+            }
+            content += "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
+          }
+          return content;
+          /*
+          <div class="info-item">Link Quality</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+
+            </div>
+          </div>
+          */
+        }
+      }
+
+      function alertupdown() {
+        var list = hotspotdata();
+        var content = "<div class='alert alert-success alert-dismissable'>";
+        content += "HostAPD is ";
+        if (list['alert_select']['HostAPD is'] == true) {
+          content += "running";
+        } else {
+          content += "stop";
+        }
+        content += "<button type=button class=close data-dismiss=alert aria-hidden=true>x</button>";
+        content += "</div>";
+        return content;
+      }
+
+      function savesettingbutton(){
+
+        var tmp_interid = document.getElementById("interfaceid").value;
+        var tmp_ssidid = document.getElementById("ssidid").value;
+        var tmp_wmid = document.getElementById("w_mode").value;
+        var tmp_channelid = document.getElementById("channelid").value;
+        var selected_content_BS = tmp_interid +" "+ tmp_ssidid +" "+ tmp_wmid +" "+ tmp_channelid;
+
+        var tmp_stid = document.getElementById("wpaid").value;
+        var tmp_etid = document.getElementById("wpa_pairwiseid").value;
+        var tmp_pskid = document.getElementById("pskid").value;
+        var selected_content_SS = tmp_stid +" "+ tmp_etid +" "+ tmp_pskid;
+
+        tmp_logEnable = document.getElementById("logEnable").value;
+        tmp_countries = document.getElementById("countries").value;
+        var selected_content_AS = tmp_logEnable +" "+ tmp_countries;
+
+        alert("Basic settings\n"+selected_content_BS+"\nSecurity settings\n"+selected_content_SS+"\nAdvanced settings\n"+selected_content_AS);
+
+        document.getElementById("ssidid").value = "test1234";
+        document.getElementById("alert_decide").innerHTML = alertupdown();
+      }
+
+    </script>
 
 </body>
 

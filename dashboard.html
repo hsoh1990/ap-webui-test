@@ -38,74 +38,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-  <script>
-    function dashboarddata() {
-
-      var dashboardData = {
-        Interface_Information: [{
-          "Interface Name": "wlan0",
-          "IP Address": "192.168.0.1",
-          "Subnet Mask": "255.255.255.0",
-          "Mac Address": "b8.27.eb.c6.4f.e3"
-        }],
-        Interface_Statistics: [{
-          "Received Packets": "No Data",
-          "Received Bytes": "No Data",
-          "Transferred Packets": "No Data",
-          "Transferred Bytes": "No Data"
-        }],
-        Wireless_Information: [{
-          "Connected To": "Not connected",
-          "AP Mac Address": "",
-          "Bitrate": "",
-          "Signal Level": "",
-          "Transmit Power": "31 dBm",
-          "Frequency": "",
-          "Link Quality": "50"
-        }]
-      }
-      return dashboardData;
-    }
-
-    function dashboard_data_fill(index) {
-      var list = dashboarddata();
-      if(index == 0){
-        document.write("<h4>Interface Information</h4>");
-        for(var name in list['Interface_Information'][0]){
-          document.write("<div class=" + "info-item" + ">" ,name, "</div>",list['Interface_Information'][0][name], "</br>");
-        }
-      }
-      if(index == 1){
-        document.write("<h4>Interface Statistics</h4>");
-        for(var name in list['Interface_Statistics'][0]){
-          document.write("<div class=" + "info-item" + ">" ,name, "</div>",list['Interface_Statistics'][0][name], "</br>");
-        }
-      }
-      if(index == 2){
-        document.write("<h4>Wireless Information</h4>");
-        for(var name in list['Wireless_Information'][0]){
-          if(name =="Link Quality"){
-            document.write("<div class=" + "info-item" + ">" ,name, "</div>");
-            document.write("<div class=" + "progress" + ">");
-            document.write("<div class="+"progress-bar progress-bar-info progress-bar-striped active"+" role="+"progressbar"+" aria-valuenow="+"50"+" aria-valuemin="+"0"+" aria-valuemax="+"100"+" style="+"width: 50%"+"></div></div>");
-            break;
-          }
-          document.write("<div class=" + "info-item" + ">" ,name, "</div>",list['Wireless_Information'][0][name], "</br>");
-        }
-        /*
-        <div class="info-item">Link Quality</div>
-        <div class="progress">
-          <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
-
-          </div>
-        </div>
-        */
-      }
-    }
-  </script>
 </head>
 
-<body>
+<body onload="refreshbutton()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -173,20 +108,12 @@
           <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-dashboard fa-fw"></i> Dashboard </div>
             <div class="panel-body">
-              <p>
-                <div class="alert alert-success alert-dismissable">
-                  Interface is up
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                </div>
+              <p id="alert_decide">
               </p>
               <div class="row">
                 <div class="col-md-6">
                   <div class="panel panel-default">
-                    <div class="panel-body">
-                      <script>
-                        dashboard_data_fill(0);
-                        dashboard_data_fill(1);
-                      </script>
+                    <div class="panel-body" id="content1-2">
                     </div>
                     <!-- /.panel-body -->
                   </div>
@@ -196,10 +123,7 @@
 
                 <div class="col-md-6">
                   <div class="panel panel-default">
-                    <div class="panel-body wireless">
-                      <script>
-                        dashboard_data_fill(2);
-                      </script>
+                    <div class="panel-body wireless" id="content3">
                     </div>
                     <!-- /.panel-body -->
                   </div>
@@ -217,7 +141,7 @@
 
                     <!--<input type="submit" class="btn btn-warning" value="Stop wlan0" name="ifdown_wlan0" />-->
 
-                    <input type="button" class="btn btn-outline btn-primary" value="Refresh" onclick="document.location.reload(true)" />
+                    <input type="button" id="refreshbuttonid" class="btn btn-outline btn-primary" value="Refresh" onclick="refreshbutton()" />
                   </form>
                 </div>
               </div>
@@ -255,6 +179,109 @@
 
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
+  <script>
+    function dashboarddata() {
+
+      var dashboardData = {
+        Interface_Information: {
+          "Interface Name": "wlan0",
+          "IP Address": "192.168.0.1",
+          "Subnet Mask": "255.255.255.0",
+          "Mac Address": "b8.27.eb.c6.4f.e3"
+        },
+        Interface_Statistics: {
+          "Received Packets": "No Data",
+          "Received Bytes": "No Data",
+          "Transferred Packets": "No Data",
+          "Transferred Bytes": "No Data"
+        },
+        Wireless_Information: {
+          "Connected To": "Not connected",
+          "AP Mac Address": "",
+          "Bitrate": "",
+          "Signal Level": "",
+          "Transmit Power": "31 dBm",
+          "Frequency": "",
+          "Link Quality": "50"
+        },
+        alert_select: {
+          "Interface is": true
+        }
+      }
+      return dashboardData;
+    }
+
+    function dashboard_data_fill(index) {
+      var list = dashboarddata();
+      var content = "";
+      var type = "";
+
+      if (index == 0) {
+        type = "Interface_Information";
+        content += "<h4>Interface Information</h4>";
+        for (var name in list[type]) {
+          content += "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
+        }
+        type = "Interface_Statistics";
+        content += "<h4>Interface Statistics</h4>";
+        for (var name in list[type]) {
+          content += "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
+        }
+        return content;
+      }
+      /*
+      if (index == 1) {
+        var type = "Interface_Statistics";
+        content += "<h4>Interface Statistics</h4>";
+        for (var name in list[type]) {
+          content +=  "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
+        }
+        return content;
+      }*/
+      if (index == 1) {
+        var type = "Wireless_Information";
+        content += "<h4>Wireless Information</h4>";
+        var qwe = "width : 50%;";
+        for (var name in list[type]) {
+          if (name == "Link Quality") {
+            content += "<div class=info-item>" + name + "</div><div class=progress><div class=progress-bar progress-bar-info progress-bar-striped active role=progressbar aria-valuenow aria-valuemin=0 aria-valuemax=100 style=width:50%;></div></div>"
+            break;
+          }
+          content += "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
+        }
+        return content;
+        /*
+        <div class="info-item">Link Quality</div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+
+          </div>
+        </div>
+        */
+      }
+    }
+
+    function refreshbutton() {
+      document.getElementById("content1-2").innerHTML = dashboard_data_fill(0);
+      document.getElementById("content3").innerHTML = dashboard_data_fill(1);
+      document.getElementById("alert_decide").innerHTML = alertupdown();
+    }
+
+    function alertupdown() {
+      var list = dashboarddata();
+      var content = "<div class='alert alert-success alert-dismissable'>";
+      content += "Interface is ";
+      if (list['alert_select']['Interface is'] == true) {
+        content += "up";
+      } else {
+        content += "down";
+      }
+      content += "<button type=button class=close data-dismiss=alert aria-hidden=true>x</button>";
+      content += "</div>";
+      return content;
+    }
+
+  </script>
 
 </body>
 

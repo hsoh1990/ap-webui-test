@@ -115,12 +115,13 @@
               </p>
               <h4>Client settings</h4>
               <div class="btn-group btn-block">
-                <a href="" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" id="update">Rescan</a>
+                <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" value="Rescan" onclick="rescanbutton()" />
+                <!--<a href="" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" id="update">Rescan</a>-->
               </div>
               <form method="POST" action="?page=wpa_conf" name="wpa_conf_form">
-                <?php CSRFToken() ?>
                 <input type="hidden" name="client_settings" ?>
-                <table class="table table-responsive table-striped">
+                <table class="table table-responsive table-striped" id="client_infor">
+                  <!--
                   <tr>
                     <th></th>
                     <th>SSID</th>
@@ -133,26 +134,22 @@
                     <td>
                     </td>
                     <td>
-                      <input type="hidden" name="ssid<?php echo $index ?>" value="<?php echo htmlentities($ssid) ?>" />
-                      <?php echo $ssid ?>
-                    </td>
-                    <?php if ($network['visible']) { ?>
-                    <td>
-                      <?php echo $network['channel'] ?>
-                    </td>
-                    <?php } else { ?>
-                    <td></td>
-                    <?php } ?>
-                    <td><input type="hidden" name="protocol<?php echo $index ?>" value="<?php echo $network['protocol'] ?>" />
-                      <?php echo $network['protocol'] ?>
-                    </td>
-                    <?php if ($network['protocol'] === 'Open') { ?>
-                    <td><input type="hidden" name="passphrase<?php echo $index ?>" value="" /></td>
-                    <?php } else { ?>
 
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+
+                    <td>
+                    </td>
                   </tr>
-                  <?php $index += 1; ?>
-                  <?php } ?>
+                -->
                 </table>
               </form>
             </div>
@@ -190,7 +187,62 @@
 
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
+  <script>
+    function clientsettingdata() {
 
+      var data = {
+        example_1: {
+          "SSID": "1",
+          "Channel": "10",
+          "Security": "yes",
+          "Passpharse": "a"
+        },
+        example_2: {
+          "SSID": "2",
+          "Channel": "20",
+          "Security": "no",
+          "Passpharse": "b"
+        },
+        example_3: {
+          "SSID": "3",
+          "Channel": "30",
+          "Security": "yes",
+          "Passpharse": "c"
+        },
+        example_4: {
+          "SSID": "4",
+          "Channel": "40",
+          "Security": "no",
+          "Passpharse": "d"
+        }
+      }
+      return data;
+    }
+
+    function clientsetting_data_fill() {
+      var list = clientsettingdata();
+      var content = "";
+      var type = "example_";
+
+        content += "<tr><th></th><th>SSID</th><th>Channel</th><th>Security</th><th>Passphrase</th><th></th></tr>"
+        for(var i = 1;i < 5;i++){
+          var a = String(i);
+          type = "example_";
+          type += a;
+          content += "<tr><td></td>";
+          for (var name in list[type]) {
+            content += "<td>" + list[type][name] + "</td>";
+          }
+          content += "<td></td></tr>";
+        }
+        return content;
+    }
+
+    function rescanbutton() {
+      document.getElementById("client_infor").innerHTML = clientsetting_data_fill();
+    }
+
+  </script>
 </body>
 
 </html>

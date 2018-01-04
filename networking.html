@@ -38,12 +38,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-  <script>
-    var current_setting_eth0 =
-      "2:eth0: mtu 1500 qdisc pfifo_fast state UP group default qlen 1000<br>link/ether b8:27:eb:93:la:b6 brd ff:ff:ff:ff:ff:ff<br>inet 10.100.2.100/16 brd 10.100.255.255 scope global eth0<br>valid_lft forever preferred_lft forever<br>inet6 fdle:5cca:1fae:0:ba27:ebff:fe93:lab6/64 scope global mngtmpaddr dynamic<br>valid_lft forever preferred_lft forever<br>inet6 fe80::ba27:ebff:fe93:lab6/64 scope link<br>valid_lft forever preferred_lft forever";
-      var current_setting_wlan0 =
-        "3:wlan0: mtu 1500 qdisc pfifo_fast state DOWN group default qlen 1000<br>link/ether b8:27:eb:c6:4f:e3 brd ff:ff:ff:ff:ff:ff<br>inet 192.168.0.1/24 brd 192.168.0.255 scope global wlan0<br>valid_lft forever preferred_lft forever<br>inet6 fe80::ba27::ebff::fec6::4fe3/64 scope link<br>valid_lft forever preferred_lft forever";
-  </script>
 </head>
 
 <body>
@@ -134,9 +128,6 @@
                       <div class="panel panel-default">
                         <div class="panel-heading">eth0</div>
                         <div class="panel-body" id="eth0-summary">
-                          <script>
-                            document.write(current_setting_eth0);
-                          </script>
                           <broadcast,multicast,up,lower_up>
                           </broadcast,multicast,up,lower_up>
                         </div>
@@ -146,9 +137,6 @@
                       <div class="panel panel-default">
                         <div class="panel-heading">wlan0</div>
                         <div class="panel-body" id="wlan0-summary">
-                          <script>
-                            document.write(current_setting_wlan0);
-                          </script>
                           <no-carrier,broadcast,multicast,up>
                           </no-carrier,broadcast,multicast,up>
                         </div>
@@ -158,7 +146,7 @@
                   <!-- /.row -->
                   <div class="col-lg-12">
                     <div class="row">
-                      <a href="#" class="btn btn-outline btn-primary" id="btnSummaryRefresh">
+                      <a href="#" class="btn btn-outline btn-primary" id="btnSummaryRefresh" onclick="Load()">
                         <i class="fa fa-refresh">
                         </i> Refresh</a>
 
@@ -316,7 +304,39 @@
 
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
+  <script>
+  function values_SC(){
+    var SCvalue = {
+      current_setting_eth0: {
+        "eth0" : "2:eth0: mtu 1500 qdisc pfifo_fast state UP group default qlen 1000<br>link/ether b8:27:eb:93:la:b6 brd ff:ff:ff:ff:ff:ff<br>inet 10.100.2.100/16 brd 10.100.255.255 scope global eth0<br>valid_lft forever preferred_lft forever<br>inet6 fdle:5cca:1fae:0:ba27:ebff:fe93:lab6/64 scope global mngtmpaddr dynamic<br>valid_lft forever preferred_lft forever<br>inet6 fe80::ba27:ebff:fe93:lab6/64 scope link<br>valid_lft forever preferred_lft forever"
+      },
+      current_setting_wlan0: {
+        "wlan0" : "3:wlan0: mtu 1500 qdisc pfifo_fast state DOWN group default qlen 1000<br>link/ether b8:27:eb:c6:4f:e3 brd ff:ff:ff:ff:ff:ff<br>inet 192.168.0.1/24 brd 192.168.0.255 scope global wlan0<br>valid_lft forever preferred_lft forever<br>inet6 fe80::ba27::ebff::fec6::4fe3/64 scope link<br>valid_lft forever preferred_lft forever"
+      }
+    }
+    return SCvalue;
+  }
+  function networking_data_fill(index) {
+    var list = values_SC();
+    var content = "";
+    var type = "";
 
+    if (index == 0) {
+      content += list['current_setting_eth0']['eth0'];
+      content += "<broadcast,multicast,up,lower_up></broadcast,multicast,up,lower_up>";
+      return content;
+    }
+    if (index == 1) {
+      content += list['current_setting_wlan0']['wlan0'];
+      content += "<no-carrier,broadcast,multicast,up></no-carrier,broadcast,multicast,up>";
+      return content;
+    }
+  }
+  function Load(){
+    document.getElementById("eth0-summary").innerHTML = networking_data_fill(0);
+    document.getElementById("wlan0-summary").innerHTML = networking_data_fill(1);
+  }
+  </script>
 </body>
 
 </html>
