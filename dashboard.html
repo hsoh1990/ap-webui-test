@@ -262,9 +262,10 @@
     }
 
     function refreshbutton() {
-      document.getElementById("content1-2").innerHTML = dashboard_data_fill(0);
+      var data = dashboarddata();
+      document.getElementById("interface_box_div").innerHTML = dashboard_data_fill(0);//interface_box_fill(data-target)
       document.getElementById("content3").innerHTML = dashboard_data_fill(1);
-      document.getElementById("alert_decide").innerHTML = alertupdown();
+      document.getElementById("interface_statud_div").innerHTML = alertupdown();//inteface_status(data)
     }
 
     function alertupdown() {
