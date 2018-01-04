@@ -79,7 +79,7 @@
               <a href="auth.html"><i class="fa fa-lock fa-fw"></i> Configure Auth</a>
             </li>
             <li>
-              <a href=""><i class="fa fa-wrench fa-fw"></i> Change Theme</a>
+              <a href="changetheme.html"><i class="fa fa-wrench fa-fw"></i> Change Theme</a>
             </li>
             <li>
               <a href="system.html"><i class="fa fa-cube fa-fw"></i> System</a>
@@ -108,12 +108,12 @@
           <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-dashboard fa-fw"></i> Dashboard </div>
             <div class="panel-body">
-              <p id="alert_decide">
+              <p id="inteface_status_pid">
               </p>
               <div class="row">
                 <div class="col-md-6">
                   <div class="panel panel-default">
-                    <div class="panel-body" id="content1-2">
+                    <div class="panel-body" id="interface_box_div">
                     </div>
                     <!-- /.panel-body -->
                   </div>
@@ -123,7 +123,7 @@
 
                 <div class="col-md-6">
                   <div class="panel panel-default">
-                    <div class="panel-body wireless" id="content3">
+                    <div class="panel-body wireless" id="wireless_infor_box_div">
                     </div>
                     <!-- /.panel-body -->
                   </div>
@@ -180,7 +180,7 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
-    function dashboarddata() {
+    function dashboard_data() {
 
       var dashboardData = {
         Interface_Information: {
@@ -211,68 +211,46 @@
       return dashboardData;
     }
 
-    function dashboard_data_fill(index) {
-      var list = dashboarddata();
-      var content = "";
-      var type = "";
+    function interface_box_fill(data) {
+        var content = "";
+        var type = "";
 
-      if (index == 0) {
         type = "Interface_Information";
         content += "<h4>Interface Information</h4>";
-        for (var name in list[type]) {
-          content += "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
+        for (var name in data[type]) {
+          content += "<div class=info-item>" + name + "</div>" + data[type][name] + "</br>";
         }
         type = "Interface_Statistics";
         content += "<h4>Interface Statistics</h4>";
-        for (var name in list[type]) {
-          content += "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
+        for (var name in data[type]) {
+          content += "<div class=info-item>" + name + "</div>" + data[type][name] + "</br>";
         }
         return content;
-      }
-      /*
-      if (index == 1) {
-        var type = "Interface_Statistics";
-        content += "<h4>Interface Statistics</h4>";
-        for (var name in list[type]) {
-          content +=  "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
-        }
-        return content;
-      }*/
-      if (index == 1) {
-        var type = "Wireless_Information";
-        content += "<h4>Wireless Information</h4>";
-        var qwe = "width : 50%;";
-        for (var name in list[type]) {
-          if (name == "Link Quality") {
-            content += "<div class=info-item>" + name + "</div><div class=progress><div class=progress-bar progress-bar-info progress-bar-striped active role=progressbar aria-valuenow aria-valuemin=0 aria-valuemax=100 style=width:50%;></div></div>"
-            break;
-          }
-          content += "<div class=info-item>" + name + "</div>" + list[type][name] + "</br>";
-        }
-        return content;
-        /*
-        <div class="info-item">Link Quality</div>
-        <div class="progress">
-          <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
-
-          </div>
-        </div>
-        */
-      }
     }
-
+    function wireless_infor_box_fill(data) {
+      var content = "";
+      var type = "Wireless_Information";
+      content += "<h4>Wireless Information</h4>";
+      for (var name in data[type]) {
+        if (name == "Link Quality") {
+          content += "<div class=info-item>" + name + "</div><div class=progress><div class=progress-bar progress-bar-info progress-bar-striped active role=progressbar aria-valuenow aria-valuemin=0 aria-valuemax=100 style=width:50%;></div></div>"
+          break;
+        }
+        content += "<div class=info-item>" + name + "</div>" + data[type][name] + "</br>";
+      }
+      return content;
+    }
     function refreshbutton() {
-      var data = dashboarddata();
-      document.getElementById("interface_box_div").innerHTML = dashboard_data_fill(0);//interface_box_fill(data-target)
-      document.getElementById("content3").innerHTML = dashboard_data_fill(1);
-      document.getElementById("interface_statud_div").innerHTML = alertupdown();//inteface_status(data)
+      var data = dashboard_data();
+      document.getElementById("interface_box_div").innerHTML = interface_box_fill(data);//interface_box_fill(data-target)
+      document.getElementById("wireless_infor_box_div").innerHTML = wireless_infor_box_fill(data);
+      document.getElementById("inteface_status_pid").innerHTML = inteface_status(data);//inteface_status(data)
     }
 
-    function alertupdown() {
-      var list = dashboarddata();
+    function inteface_status(data) {
       var content = "<div class='alert alert-success alert-dismissable'>";
       content += "Interface is ";
-      if (list['alert_select']['Interface is'] == true) {
+      if (data['alert_select']['Interface is'] == true) {
         content += "up";
       } else {
         content += "down";

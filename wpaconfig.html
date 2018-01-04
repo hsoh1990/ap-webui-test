@@ -41,7 +41,7 @@
 
 </head>
 
-<body>
+<body onload="rescan_button()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -80,7 +80,7 @@
               <a href="auth.html"><i class="fa fa-lock fa-fw"></i> Configure Auth</a>
             </li>
             <li>
-              <a href=""><i class="fa fa-wrench fa-fw"></i> Change Theme</a>
+              <a href="changetheme.html"><i class="fa fa-wrench fa-fw"></i> Change Theme</a>
             </li>
             <li>
               <a href="system.html"><i class="fa fa-cube fa-fw"></i> System</a>
@@ -115,12 +115,12 @@
               </p>
               <h4>Client settings</h4>
               <div class="btn-group btn-block">
-                <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" value="Rescan" onclick="rescanbutton()" />
+                <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" value="Rescan" onclick="rescan_button()" />
                 <!--<a href="" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" id="update">Rescan</a>-->
               </div>
               <form method="POST" action="?page=wpa_conf" name="wpa_conf_form">
                 <input type="hidden" name="client_settings" ?>
-                <table class="table table-responsive table-striped" id="client_infor">
+                <table class="table table-responsive table-striped" id="client_information">
                   <!--
                   <tr>
                     <th></th>
@@ -188,7 +188,7 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
-    function clientsettingdata() {
+    function clientsetting_data() {
 
       var data = {
         example_1: {
@@ -220,7 +220,7 @@
     }
 
     function clientsetting_data_fill() {
-      var list = clientsettingdata();
+      var list = clientsetting_data();
       var content = "";
       var type = "example_";
 
@@ -238,8 +238,8 @@
         return content;
     }
 
-    function rescanbutton() {
-      document.getElementById("client_infor").innerHTML = clientsetting_data_fill();
+    function rescan_button() {
+      document.getElementById("client_information").innerHTML = clientsetting_data_fill();
     }
 
   </script>
