@@ -109,10 +109,10 @@
         <div class="col-lg-12">
           <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-lock fa-fw"></i>Configure Auth</div>
-            <div class="panel-body">
+            <div class="panel-body" id="user_id_password_input_id">
               <p>
               </p>
-              <form role="form" action="?page=auth_conf" method="POST">
+              <form role="form" method="POST">
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label for="username">Username</label>
@@ -125,19 +125,7 @@
                     <input type="password" class="form-control" name="oldpass" id="Oldpassword_id" pattern="[A-Za-z0-9]{8,}" title="8자 이상 입력하세요." required/>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="form-group col-md-4">
-                    <label for="password">New password</label>
-                    <input type="password" class="form-control" name="newpass" id="Newpassword_id" pattern="[A-Za-z0-9]{8,}" title="8자 이상 입력하세요." required/>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-4">
-                    <label for="password">Repeat new password</label>
-                    <input type="password" class="form-control" name="newpassagain" id="RepeatNewpassword_id" pattern="[A-Za-z0-9]{8,}" title="8자 이상 입력하세요." required/>
-                  </div>
-                </div>
-                <input type="submit" class="btn btn-outline btn-primary" name="UpdateAdminPassword" value="Save settings" onclick="savesetting_button()" />
+                <input type="submit" class="btn btn-outline btn-primary" name="UpdateAdminPassword" value="Login" onclick="user_name_password_confirm()" />
               </form>
             </div>
             <!-- /.panel-body -->
@@ -183,23 +171,18 @@
       return userData;
     }
 
-    function savesetting_button() {
+    function user_name_password_confirm() {
 
       var username_data = document.getElementById("username_id").value;
       var oldpwd_data = document.getElementById("Oldpassword_id").value;
-      var newpwd_data = document.getElementById("Newpassword_id").value;
-      var repeatnewpwd_data = document.getElementById("RepeatNewpassword_id").value;
 
       var myRe = /[A-Za-z0-9]{8,}/;
       var oldpwd_data_check_Re = myRe.test(oldpwd_data);
-      var newpwd_data_check_Re = myRe.test(newpwd_data);
-      var repeatnewpwd_data_check_Re = myRe.test(repeatnewpwd_data);
 
-      if (username_data == "") {} else if (oldpwd_data == "" || oldpwd_data_check_Re == false) {} else if (newpwd_data == "" || newpwd_data_check_Re == false) {} else if (repeatnewpwd_data == "" || repeatnewpwd_data_check_Re == false) {} else {
+      if (username_data == "") {} else if (oldpwd_data == "" || oldpwd_data_check_Re == false) {} else {
         var admin_check = admin_evaluate(username_data, oldpwd_data);
         if (admin_check == true) {
-          password_equal_decide(newpwd_data, repeatnewpwd_data);
-          alert("Username : " + username_data + "\nOld password : " + oldpwd_data + "\nNew password : " + newpwd_data + "\nRepeat new password : " + repeatnewpwd_data);
+          new_password_box_show();
         } else {}
       }
     }
@@ -207,22 +190,63 @@
     function admin_evaluate(username_data, oldpwd_data) {
       var data = user_data();
       if (username_data == data['admin']['username'] && oldpwd_data == data['admin']['password']) {
-        alert("관리자 확인되었습니다.")
+        alert("관리자 확인되었습니다.");
+
         return true;
       } else {
-        alert("아이디 혹은 비밀번호가 다릅니다.")
+        alert("아이디 혹은 비밀번호가 다릅니다.");
         return false;
       }
     }
 
     function password_equal_decide(newpwd_data, repeatnewpwd_data) {
       if (newpwd_data == repeatnewpwd_data) {
-        alert("새로운 비밀번호가 같습니다.")
-        return true
+        alert("새로운 비밀번호가 같습니다.");
+        return true;
       } else if (newpwd_data != repeatnewpwd_data) {
-        alert("새로운 비밀번호가 다릅니다.")
-        return false
+        alert("새로운 비밀번호가 다릅니다.");
+        return false;
       }
+    }
+
+    function next_password_input_box() {
+      var content = "<p><p><form role=form method=POST>";
+      content += "<div class=row>";
+      content += "<div class='form-group col-md-4'>";
+      content += "<label for=password>New password</label>";
+      content += "<input type=password class=form-control name=newpass id=Newpassword_id pattern=[A-Za-z0-9]{8,} title='8자 이상 입력하세요.' required/>";
+      content += "</div></div><div class=row>";
+      content += "<div class='form-group col-md-4'>";
+      content += "<label for=password>Repeat New password</label>";
+      content += "<input type=password class=form-control name=newpassagain id=RepeatNewpassword_id pattern=[A-Za-z0-9]{8,} title='8자 이상 입력하세요.' required/>";
+      content += "</div></div>";
+      content += "<input type=submit class='btn btn-outline btn-primary' name='UpdateAdminPassword' value='Save settings' onclick='new_password_confirm()' />";
+      content += "</form>";
+      return content;
+    }
+    function new_password_confirm() {
+
+      var newpwd_data = document.getElementById("Newpassword_id").value;
+      var repeatnewpwd_data = document.getElementById("RepeatNewpassword_id").value;
+
+      var myRe = /[A-Za-z0-9]{8,}/;
+      var newpwd_data_check_Re = myRe.test(newpwd_data);
+      var repeatnewpwd_data_check_Re = myRe.test(repeatnewpwd_data);
+
+      if (newpwd_data == "" || newpwd_data_check_Re == false) {} else if (repeatnewpwd_data == "" || repeatnewpwd_data_check_Re == false) {} else {
+
+          var password_check = password_equal_decide(newpwd_data, repeatnewpwd_data);
+          if(password_check == true){
+            save_setting_2_button();
+          } else {}
+          //alert("Username : " + username_data + "\nOld password : " + oldpwd_data + "\nNew password : " + newpwd_data + "\nRepeat new password : " + repeatnewpwd_data);
+        }
+      }
+    function new_password_box_show() {
+      document.getElementById("user_id_password_input_id").innerHTML = next_password_input_box(); //interface_box_fill(data-target)
+    }
+    function save_setting_2_button() {
+      event.PreventDefault();
     }
   </script>
 </body>
