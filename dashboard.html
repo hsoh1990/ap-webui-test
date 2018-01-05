@@ -40,7 +40,7 @@
     <![endif]-->
 </head>
 
-<body onload="refreshbutton()">
+<body onload="refresh_button()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -141,7 +141,7 @@
 
                     <!--<input type="submit" class="btn btn-warning" value="Stop wlan0" name="ifdown_wlan0" />-->
 
-                    <input type="button" id="refreshbuttonid" class="btn btn-outline btn-primary" value="Refresh" onclick="refreshbutton()" />
+                    <input type="button" id="refreshbuttonid" class="btn btn-outline btn-primary" value="Refresh" onclick="refresh_button()" />
                   </form>
                 </div>
               </div>
@@ -227,6 +227,7 @@
         }
         return content;
     }
+
     function wireless_infor_box_fill(data) {
       var content = "";
       var type = "Wireless_Information";
@@ -240,7 +241,8 @@
       }
       return content;
     }
-    function refreshbutton() {
+
+    function refresh_button() {
       var data = dashboard_data();
       document.getElementById("interface_box_div").innerHTML = interface_box_fill(data);//interface_box_fill(data-target)
       document.getElementById("wireless_infor_box_div").innerHTML = wireless_infor_box_fill(data);

@@ -116,28 +116,28 @@
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" name="username" value="admin" id="username_id"/>
+                    <input type="text" class="form-control" name="username" value="admin" id="username_id" required/>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label for="password">Old password</label>
-                    <input type="password" class="form-control" name="oldpass" id="Oldpassword_id"/>
+                    <input type="password" class="form-control" name="oldpass" id="Oldpassword_id" pattern="[A-Za-z0-9]{8,}" title="8자 이상 입력하세요." required/>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label for="password">New password</label>
-                    <input type="password" class="form-control" name="newpass" id="Newpassword_id"/>
+                    <input type="password" class="form-control" name="newpass" id="Newpassword_id" pattern="[A-Za-z0-9]{8,}" title="8자 이상 입력하세요." required/>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label for="password">Repeat new password</label>
-                    <input type="password" class="form-control" name="newpassagain" id="RepeatNewpassword_id"/>
+                    <input type="password" class="form-control" name="newpassagain" id="RepeatNewpassword_id" pattern="[A-Za-z0-9]{8,}" title="8자 이상 입력하세요." required/>
                   </div>
                 </div>
-                <input type="button" class="btn btn-outline btn-primary" name="UpdateAdminPassword" value="Save settings" onclick="savesettingbutton()"/>
+                <input type="submit" class="btn btn-outline btn-primary" name="UpdateAdminPassword" value="Save settings" onclick="savesetting_button()" />
               </form>
             </div>
             <!-- /.panel-body -->
@@ -173,17 +173,57 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
-    function savesettingbutton(){
-
-      var tmp_interid = document.getElementById("username_id").value;
-      var tmp_ssidid = document.getElementById("Oldpassword_id").value;
-      var tmp_wmid = document.getElementById("Newpassword_id").value;
-      var tmp_channelid = document.getElementById("RepeatNewpassword_id").value;
-
-      alert("Username : "+tmp_interid+"\nOld password : "+tmp_ssidid+"\nNew password : "+tmp_wmid+"\nRepeat new password : "+tmp_channelid);
-
+    function user_data() {
+      var userData = {
+        admin: {
+          "username": "admin",
+          "password": "00000000"
+        }
+      }
+      return userData;
     }
 
+    function savesetting_button() {
+
+      var username_data = document.getElementById("username_id").value;
+      var oldpwd_data = document.getElementById("Oldpassword_id").value;
+      var newpwd_data = document.getElementById("Newpassword_id").value;
+      var repeatnewpwd_data = document.getElementById("RepeatNewpassword_id").value;
+
+      var myRe = /[A-Za-z0-9]{8,}/;
+      var oldpwd_data_check_Re = myRe.test(oldpwd_data);
+      var newpwd_data_check_Re = myRe.test(newpwd_data);
+      var repeatnewpwd_data_check_Re = myRe.test(repeatnewpwd_data);
+
+      if (username_data == "") {} else if (oldpwd_data == "" || oldpwd_data_check_Re == false) {} else if (newpwd_data == "" || newpwd_data_check_Re == false) {} else if (repeatnewpwd_data == "" || repeatnewpwd_data_check_Re == false) {} else {
+        var admin_check = admin_evaluate(username_data, oldpwd_data);
+        if (admin_check == true) {
+          password_equal_decide(newpwd_data, repeatnewpwd_data);
+          alert("Username : " + username_data + "\nOld password : " + oldpwd_data + "\nNew password : " + newpwd_data + "\nRepeat new password : " + repeatnewpwd_data);
+        } else {}
+      }
+    }
+
+    function admin_evaluate(username_data, oldpwd_data) {
+      var data = user_data();
+      if (username_data == data['admin']['username'] && oldpwd_data == data['admin']['password']) {
+        alert("관리자 확인되었습니다.")
+        return true;
+      } else {
+        alert("아이디 혹은 비밀번호가 다릅니다.")
+        return false;
+      }
+    }
+
+    function password_equal_decide(newpwd_data, repeatnewpwd_data) {
+      if (newpwd_data == repeatnewpwd_data) {
+        alert("새로운 비밀번호가 같습니다.")
+        return true
+      } else if (newpwd_data != repeatnewpwd_data) {
+        alert("새로운 비밀번호가 다릅니다.")
+        return false
+      }
+    }
   </script>
 </body>
 

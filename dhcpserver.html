@@ -38,15 +38,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-  <script>
-    var current_setting_eth0 =
-      "2:eth0: mtu 1500 qdisc pfifo_fast state UP group default qlen 1000<br>link/ether b8:27:eb:93:la:b6 brd ff:ff:ff:ff:ff:ff<br>inet 10.100.2.100/16 brd 10.100.255.255 scope global eth0<br>valid_lft forever preferred_lft forever<br>inet6 fdle:5cca:1fae:0:ba27:ebff:fe93:lab6/64 scope global mngtmpaddr dynamic<br>valid_lft forever preferred_lft forever<br>inet6 fe80::ba27:ebff:fe93:lab6/64 scope link<br>valid_lft forever preferred_lft forever";
-    var current_setting_wlan0 =
-      "3:wlan0: mtu 1500 qdisc pfifo_fast state DOWN group default qlen 1000<br>link/ether b8:27:eb:c6:4f:e3 brd ff:ff:ff:ff:ff:ff<br>inet 192.168.0.1/24 brd 192.168.0.255 scope global wlan0<br>valid_lft forever preferred_lft forever<br>inet6 fe80::ba27::ebff::fec6::4fe3/64 scope link<br>valid_lft forever preferred_lft forever";
-  </script>
 </head>
 
-<body>
+<body onload="rescan_button()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -117,7 +111,7 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-              <p id="alert_decide">
+              <p id="interface_decide_id">
               </p>
               <!-- Nav tabs -->
               <ul class="nav nav-tabs">
@@ -135,7 +129,7 @@
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="code">Interface</label>
-                        <select class="form-control" name="interface">
+                        <select class="form-control" name="interface" id="interface_id">
                           <option value="lo">lo</option>
                           <option value="eth0">eth0</option>
                           <option value="wlan0" selected>wlan0</option>
@@ -145,29 +139,29 @@
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="code">Starting IP Address</label>
-                        <input type="text" class="form-control" name="RangeStart" value="10.3.141.50" />
+                        <input type="text" class="form-control" name="RangeStart" id="starting_IP_address_id" value="10.3.141.50" />
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="code">Ending IP Address</label>
-                        <input type="text" class="form-control" name="RangeEnd" value="10.3.141.255" />
+                        <input type="text" class="form-control" name="RangeEnd" id="ending_IP_address_id" value="10.3.141.255" />
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="form-group col-xs-4 col-sm-2">
                         <label for="code">Lease Time</label>
-                        <input type="text" class="form-control" name="RangeLeaseTime" value="12" />
+                        <input type="text" class="form-control" name="RangeLeaseTime" id="Lease_time_id" value="12" />
                       </div>
                       <div class="col-xs-4 col-sm-2">
                         <label for="code">Interval</label>
-                        <select name="RangeLeaseTimeUnits" class="form-control"><option value="m" >Minute(s)</option><option value="h" >Hour(s)</option><option value="d" >Day(s)</option><option value="infinite">Infinite</option></select>
+                        <select name="RangeLeaseTimeUnits" class="form-control" id="interval_id"><option value="m" >Minute(s)</option><option value="h" >Hour(s)</option><option value="d" >Day(s)</option><option value="infinite">Infinite</option></select>
                       </div>
                     </div>
 
-                    <input type="button" class="btn btn-outline btn-primary" value="Save settings" name="savedhcpdsettings" onclick="savesettingbutton()"/>
+                    <input type="button" class="btn btn-outline btn-primary" value="Save settings" name="savedhcpdsettings" onclick="savesetting_button()"/>
                     <input type="submit" class="btn btn-warning" value="Stop dnsmasq" name="stopdhcpd" />
                   </form>
                 </div>
@@ -177,7 +171,7 @@
                   <br>
                   <h4>Client list</h4>
                   <div class="btn-group btn-block">
-                    <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" value="Rescan" onclick="rescanbutton()" />
+                    <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" value="Rescan" onclick="rescan_button()" />
                     <!--<a href="" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" id="update">Rescan</a>-->
                   </div>
                   <div class="col-lg-12">
@@ -188,7 +182,7 @@
                       <!-- /.panel-heading -->
                       <div class="panel-body">
                         <div class="table-responsive">
-                          <table class="table table-hover" id="client_infor">
+                          <table class="table table-hover" id="client_information_table">
                             <thead>
                               <tr>
                                 <th>Expire time</th>
@@ -251,9 +245,8 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
-    function clientlistdata() {
-
-      var data = {
+    function dhcpserver_clientlist_data() {
+      var clientlist_data = {
         example_1: {
           "Expire time": "1",
           "MAC Address": "aa.aa.aa.aa.aa.aa",
@@ -286,11 +279,24 @@
           "Dnsmasq is": true
         }
       }
-      return data;
+      return clientlist_data;
     }
 
-    function clientsetting_data_fill() {
-      var list = clientlistdata();
+    function savesetting_button(){
+      var data = dhcpserver_clientlist_data();
+
+      var interface_data = document.getElementById("interface_id").value;
+      var starting_IP_address_data = document.getElementById("starting_IP_address_id").value;
+      var ending_IP_address_data = document.getElementById("ending_IP_address_id").value;
+      var Lease_time_data = document.getElementById("Lease_time_id").value;
+      var interval_data = document.getElementById("interval_id").value;
+
+      alert("interface\n"+interface_data+"\nstarting IP address\n"+starting_IP_address_data+"\nending IP address\n"+ending_IP_address_data+"\nLease time\n"+Lease_time_data+"\ninterval\n"+interval_data);
+
+      document.getElementById("interface_decide_id").innerHTML = Dnsmasq_updown(data);
+    }
+
+    function dhcpserver_clientlist_data_fill(data) {
       var content = "";
       var type = "example_";
 
@@ -300,22 +306,23 @@
           type = "example_";
           type += a;
           content += "<tbody><tr>";
-          for (var name in list[type]) {
-            content += "<td>" + list[type][name] + "</td>";
+          for (var name in data[type]) {
+            content += "<td>" + data[type][name] + "</td>";
           }
           content += "</tr></tbody>";
         }
         return content;
     }
 
-    function rescanbutton() {
-      document.getElementById("client_infor").innerHTML = clientsetting_data_fill();
+    function rescan_button() {
+      var data = dhcpserver_clientlist_data();
+      document.getElementById("client_information_table").innerHTML = dhcpserver_clientlist_data_fill(data);
     }
-    function alertupdown() {
-      var list = clientlistdata();
+
+    function Dnsmasq_updown(data) {
       var content = "<div class='alert alert-success alert-dismissable'>";
       content += "Dnsmasq is ";
-      if (list['alert_select']['Dnsmasq is'] == true) {
+      if (data['alert_select']['Dnsmasq is'] == true) {
         content += "running";
       } else {
         content += "stop";
@@ -323,9 +330,6 @@
       content += "<button type=button class=close data-dismiss=alert aria-hidden=true>x</button>";
       content += "</div>";
       return content;
-    }
-    function savesettingbutton() {
-      document.getElementById("alert_decide").innerHTML = alertupdown();
     }
   </script>
 </body>
