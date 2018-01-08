@@ -532,7 +532,9 @@
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
+    <!-- json data JavaScript -->
+    <script src="sampledata.js"></script>
+    
     <!-- Morris Charts JavaScript -->
     <!--script src="bower_components/raphael/raphael-min.js"></script-->
     <!--script src="bower_components/morrisjs/morris.min.js"></script-->
@@ -541,37 +543,6 @@
     <!-- Custom Theme JavaScript -->
     <script src="dist/js/sb-admin-2.js"></script>
     <script>
-      function hotspot_data() {
-        var hotspotData = {
-          Interface_Information: {
-            "Interface Name": "wlan0",
-            "IP Address": "192.168.0.1",
-            "Subnet Mask": "255.255.255.0",
-            "Mac Address": "b8.27.eb.c6.4f.e3"
-          },
-          Interface_Statistics: {
-            "Received Packets": "No Data",
-            "Received Bytes": "No Data",
-            "Transferred Packets": "No Data",
-            "Transferred Bytes": "No Data"
-          },
-          Wireless_Information: {
-            "Connected To": "Not connected",
-            "AP Mac Address": "",
-            "Bitrate": "",
-            "Signal Level": "",
-            "Transmit Power": "31 dBm",
-            "Frequency": "",
-            "Link Quality": "50"
-          },
-          alert_select: {
-            "HostAPD is": true
-          }
-        }
-        return hotspotData;
-      }
-
-
       function HostAPD_updown(data) {
         var content = "<div class='alert alert-success alert-dismissable'>";
         content += "HostAPD is ";

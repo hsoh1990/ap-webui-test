@@ -180,6 +180,9 @@
   <!-- Metis Menu Plugin JavaScript -->
   <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
+  <!-- json data JavaScript -->
+  <script src="sampledata.js"></script>
+  
   <!-- Morris Charts JavaScript -->
   <!--script src="bower_components/raphael/raphael-min.js"></script-->
   <!--script src="bower_components/morrisjs/morris.min.js"></script-->
@@ -188,37 +191,6 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
-    function clientsetting_data() {
-
-      var data = {
-        example_1: {
-          "SSID": "1",
-          "Channel": "10",
-          "Security": "yes",
-          "Passpharse": "a"
-        },
-        example_2: {
-          "SSID": "2",
-          "Channel": "20",
-          "Security": "no",
-          "Passpharse": "b"
-        },
-        example_3: {
-          "SSID": "3",
-          "Channel": "30",
-          "Security": "yes",
-          "Passpharse": "c"
-        },
-        example_4: {
-          "SSID": "4",
-          "Channel": "40",
-          "Security": "no",
-          "Passpharse": "d"
-        }
-      }
-      return data;
-    }
-
     function clientsetting_data_fill() {
       var list = clientsetting_data();
       var content = "";

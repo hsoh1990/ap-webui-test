@@ -152,7 +152,9 @@
 
   <!-- Metis Menu Plugin JavaScript -->
   <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
+  <!-- json data JavaScript -->
+  <script src="sampledata.js"></script>
+  
   <!-- Morris Charts JavaScript -->
   <!--script src="bower_components/raphael/raphael-min.js"></script-->
   <!--script src="bower_components/morrisjs/morris.min.js"></script-->
@@ -161,16 +163,6 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
-    function user_data() {
-      var userData = {
-        admin: {
-          "username": "admin",
-          "password": "00000000"
-        }
-      }
-      return userData;
-    }
-
     function user_name_password_confirm() {
 
       var username_data = document.getElementById("username_id").value;

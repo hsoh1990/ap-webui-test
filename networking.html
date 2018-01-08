@@ -296,7 +296,9 @@
 
   <!-- Metis Menu Plugin JavaScript -->
   <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
+  <!-- json data JavaScript -->
+  <script src="sampledata.js"></script>
+  
   <!-- Morris Charts JavaScript -->
   <!--script src="bower_components/raphael/raphael-min.js"></script-->
   <!--script src="bower_components/morrisjs/morris.min.js"></script-->
@@ -305,18 +307,6 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
-    function current_setting_data() {
-      var SCvalue = {
-        current_setting_eth0: {
-          "eth0": "2:eth0: mtu 1500 qdisc pfifo_fast state UP group default qlen 1000<br>link/ether b8:27:eb:93:la:b6 brd ff:ff:ff:ff:ff:ff<br>inet 10.100.2.100/16 brd 10.100.255.255 scope global eth0<br>valid_lft forever preferred_lft forever<br>inet6 fdle:5cca:1fae:0:ba27:ebff:fe93:lab6/64 scope global mngtmpaddr dynamic<br>valid_lft forever preferred_lft forever<br>inet6 fe80::ba27:ebff:fe93:lab6/64 scope link<br>valid_lft forever preferred_lft forever"
-        },
-        current_setting_wlan0: {
-          "wlan0": "3:wlan0: mtu 1500 qdisc pfifo_fast state DOWN group default qlen 1000<br>link/ether b8:27:eb:c6:4f:e3 brd ff:ff:ff:ff:ff:ff<br>inet 192.168.0.1/24 brd 192.168.0.255 scope global wlan0<br>valid_lft forever preferred_lft forever<br>inet6 fe80::ba27::ebff::fec6::4fe3/64 scope link<br>valid_lft forever preferred_lft forever"
-        }
-      }
-      return SCvalue;
-    }
-
     function current_setting_eth0_fill(data) {
       var content = "";
       var type = "";
