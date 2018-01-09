@@ -5,7 +5,7 @@ module.exports = function(app) {
   app.get('/dashboard', function(req, res) {
     res.render('dashboard.html');
   });
-  app.get('/wificlient', function(req, res) {
+  app.get('/wpaconfig', function(req, res) {
     res.render('wpaconfig.html');
   });
   app.get('/hotspot', function(req, res) {
@@ -20,7 +20,7 @@ module.exports = function(app) {
   app.get('/auth', function(req, res) {
     res.render('auth.html');
   });
-  app.get('/theme', function(req, res) {
+  app.get('/changetheme', function(req, res) {
     res.render('changetheme.html');
   });
   app.get('/system', function(req, res) {
