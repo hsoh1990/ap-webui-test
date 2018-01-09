@@ -1,5 +1,5 @@
 # Build and Release Folders
-bin/
+server/node_modules/
 bin-debug/
 bin-release/
 [Oo]bj/ # FlashDevelop obj
