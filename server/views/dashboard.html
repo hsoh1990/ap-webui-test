@@ -210,6 +210,7 @@
 
     function refresh_button() {
       var data = dashboard_data();
+      console.log(data);
       document.getElementById("interface_box_div").innerHTML = interface_box_fill(data);//interface_box_fill(data-target)
       document.getElementById("wireless_infor_box_div").innerHTML = wireless_infor_box_fill(data);
       document.getElementById("inteface_status_pid").innerHTML = inteface_status(data);//inteface_status(data)

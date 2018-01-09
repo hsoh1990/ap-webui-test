@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function(app, fs) {
   app.get('/', function(req, res) {
     res.render('index.html');
   });
@@ -6,8 +6,11 @@ module.exports = function(app) {
     res.render('dashboard.html');
   });
   app.get('/api/dashboard', function(req, res) {
-    var json = "{"a":3,"b":4}"
-    res.send(json);
+    fs.readFile( __dirname + "/../data/" + "dashboarddata.json", 'utf8', function (err, data) {
+      var dashboarddata = JSON.parse(data);
+      //console.log("서버의 json 데이터");
+      res.send(dashboarddata);
+    })
   });
   app.get('/wpaconfig', function(req, res) {
     res.render('wpaconfig.html');

@@ -1,34 +1,24 @@
-function dashboard_data() {
-  Ajax 프로그램밍. http://172.16.171.171/api/dashboardData
 
-/*
-  var dashboardData = {
-    Interface_Information: {
-      "Interface Name": "wlan0",
-      "IP Address": "192.168.0.1",
-      "Subnet Mask": "255.255.255.0",
-      "Mac Address": "b8.27.eb.c6.4f.e3"
-    },
-    Interface_Statistics: {
-      "Received Packets": "No Data",
-      "Received Bytes": "No Data",
-      "Transferred Packets": "No Data",
-      "Transferred Bytes": "No Data"
-    },
-    Wireless_Information: {
-      "Connected To": "Not connected",
-      "AP Mac Address": "",
-      "Bitrate": "",
-      "Signal Level": "",
-      "Transmit Power": "31 dBm",
-      "Frequency": "",
-      "Link Quality": "50"
-    },
-    alert_select: {
-      "Interface is": true
+function dashboard_data() {
+  console.log("확인");
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', '/api/dashboard'); // by default async
+  xhr.responseType = 'json'; // in which format you expect the response to be
+
+
+  xhr.onload = function() {
+    if (this.status == 200) { // onload called even on 404 etc so check the status
+      var data = this.response;
+      console.log("확인");
+      //console.log(data); // No need for JSON.parse()
     }
-  }*/
-  return dashboardData;
+  };
+  xhr.onerror = function() {
+    console.log("confirm");
+    // error
+  };
+
+  xhr.send();
 }
 
 function user_data() {

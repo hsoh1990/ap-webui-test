@@ -281,6 +281,7 @@
 
     function rescan_button() {
       var data = dhcpserver_clientlist_data();
+      console.log(data);
       document.getElementById("client_information_table").innerHTML = dhcpserver_clientlist_data_fill(data);
     }
 
