@@ -1,5 +1,7 @@
 function dashboard_data() {
+  Ajax 프로그램밍. http://172.16.171.171/api/dashboardData
 
+/*
   var dashboardData = {
     Interface_Information: {
       "Interface Name": "wlan0",
@@ -25,7 +27,7 @@ function dashboard_data() {
     alert_select: {
       "Interface is": true
     }
-  }
+  }*/
   return dashboardData;
 }
 

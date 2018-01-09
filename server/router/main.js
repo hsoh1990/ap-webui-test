@@ -5,6 +5,10 @@ module.exports = function(app) {
   app.get('/dashboard', function(req, res) {
     res.render('dashboard.html');
   });
+  app.get('/api/dashboard', function(req, res) {
+    var json = "{"a":3,"b":4}"
+    res.send(json);
+  });
   app.get('/wpaconfig', function(req, res) {
     res.render('wpaconfig.html');
   });
