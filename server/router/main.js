@@ -9,7 +9,7 @@ module.exports = function(app, fs) {
     console.log(__dirname)
     fs.readFile( __dirname + "/../data/" + "dashboarddata.json", 'utf8', function (err, data) {
       var dashboarddata = JSON.parse(data);//json text -> json object
-      alert(dashboarddata);
+      console.log(dashboarddata);
       res.send(dashboarddata);
     })
   });
