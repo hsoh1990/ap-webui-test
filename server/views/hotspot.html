@@ -41,7 +41,7 @@
 
 </head>
 
-<body onload="init()">
+<body onload="connect_hotspot_data_get(1)">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -214,8 +214,7 @@
                     <h4>Logfile output</h4>
                     <div class="row">
                       <div class="form-group col-md-8">
-                        <br>
-                        Logfile output not enabled
+                        <br> Logfile output not enabled
                       </div>
                     </div>
                   </div>
@@ -487,23 +486,23 @@
                     <option value="ZW">Zimbabwe</option>
         	  </select>
                         <script>
-                        /*
-                          country = document.getElementById("selected_country").value;
-                          countries = document.getElementById("countries");
-                          ops = countries.getElementsByTagName("option");
-                          for (i = 0; i < ops.length; i++) {
-                            if (ops[i].value == country) {
-                              ops[i].selected = true;
-                              break;
-                            }
-                          }*/
+                          /*
+                                                    country = document.getElementById("selected_country").value;
+                                                    countries = document.getElementById("countries");
+                                                    ops = countries.getElementsByTagName("option");
+                                                    for (i = 0; i < ops.length; i++) {
+                                                      if (ops[i].value == country) {
+                                                        ops[i].selected = true;
+                                                        break;
+                                                      }
+                                                    }*/
                         </script>
                       </div>
                     </div>
                     <!-- /.panel-body -->
                   </div>
                   <!-- /.panel-primary -->
-                  <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="savesetting_button()">
+                  <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="connect_hotspot_data_get(2)">
                   <input type="submit" class="btn btn-warning" name="StopHotspot" value="Stop hotspot">
               </form>
               </div>
@@ -533,7 +532,6 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
     <!-- json data JavaScript -->
-    <script src="sampledata.js"></script>
 
     <!-- Morris Charts JavaScript -->
     <!--script src="bower_components/raphael/raphael-min.js"></script-->
@@ -556,34 +554,52 @@
         return content;
       }
 
-      function init() {
-        var data = hotspot_data();
+      function init(data) {
         document.getElementById("HostAPD_decide_id").innerHTML = HostAPD_updown(data);
       }
 
-      function savesetting_button(){
-        var data = hotspot_data();
+      function connect_hotspot_data_get(index) {
+        const xhr = new XMLHttpRequest();
+        // by default async
+        xhr.onload = function() {
+          if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+            var data = this.response;
+            if (index == 1) {
+              init(data);
+            } else if (index == 2) {
+              savesetting_button(data);
+            }
+          }
+        };
+        xhr.onerror = function() {
+          console.log("confirm");
+        };
+        xhr.open("GET", "/api/hotspot");
+        xhr.responseType = 'json';
+        xhr.send();
+      }
+
+      function savesetting_button(data) {
 
         var tmp_interid = document.getElementById("interfaceid").value;
         var tmp_ssidid = document.getElementById("ssidid").value;
         var tmp_wmid = document.getElementById("w_mode").value;
         var tmp_channelid = document.getElementById("channelid").value;
-        var selected_content_BS = tmp_interid +" "+ tmp_ssidid +" "+ tmp_wmid +" "+ tmp_channelid;
+        var selected_content_BS = tmp_interid + " " + tmp_ssidid + " " + tmp_wmid + " " + tmp_channelid;
 
         var tmp_stid = document.getElementById("wpaid").value;
         var tmp_etid = document.getElementById("wpa_pairwiseid").value;
         var tmp_pskid = document.getElementById("pskid").value;
-        var selected_content_SS = tmp_stid +" "+ tmp_etid +" "+ tmp_pskid;
+        var selected_content_SS = tmp_stid + " " + tmp_etid + " " + tmp_pskid;
 
         tmp_logEnable = document.getElementById("logEnable").value;
         tmp_countries = document.getElementById("countries").value;
-        var selected_content_AS = tmp_logEnable +" "+ tmp_countries;
+        var selected_content_AS = tmp_logEnable + " " + tmp_countries;
 
-        alert("Basic settings\n"+selected_content_BS+"\nSecurity settings\n"+selected_content_SS+"\nAdvanced settings\n"+selected_content_AS);
+        alert("Basic settings\n" + selected_content_BS + "\nSecurity settings\n" + selected_content_SS + "\nAdvanced settings\n" + selected_content_AS);
 
         document.getElementById("HostAPD_decide_id").innerHTML = HostAPD_updown(data);
       }
-
     </script>
 
 </body>

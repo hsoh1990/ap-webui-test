@@ -1,0 +1,7 @@
+{
+	"interface": "wlan0",
+	"starting_IP_address": "10.3.141.50",
+	"ending_IP_address": "10.3.141.255",
+	"Lease_time": "12",
+	"interval": "m"
+}

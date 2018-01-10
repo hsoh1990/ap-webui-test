@@ -40,7 +40,7 @@
     <![endif]-->
 </head>
 
-<body onload="rescan_button()">
+<body onload="rescan_button(1)">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -171,7 +171,7 @@
                   <br>
                   <h4>Client list</h4>
                   <div class="btn-group btn-block">
-                    <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" value="Rescan" onclick="rescan_button()" />
+                    <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" value="Rescan" onclick="rescan_button(2)" />
                     <!--<a href="" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" id="update">Rescan</a>-->
                   </div>
                   <div class="col-lg-12">
@@ -237,7 +237,6 @@
   <!-- Metis Menu Plugin JavaScript -->
   <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
   <!-- json data JavaScript -->
-  <script src="sampledata.js"></script>
 
   <!-- Morris Charts JavaScript -->
   <!--script src="bower_components/raphael/raphael-min.js"></script-->
@@ -248,7 +247,6 @@
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
     function savesetting_button(){
-      var data = dhcpserver_clientlist_data();
 
       var interface_data = document.getElementById("interface_id").value;
       var starting_IP_address_data = document.getElementById("starting_IP_address_id").value;
@@ -256,11 +254,35 @@
       var Lease_time_data = document.getElementById("Lease_time_id").value;
       var interval_data = document.getElementById("interval_id").value;
 
-      alert("interface\n"+interface_data+"\nstarting IP address\n"+starting_IP_address_data+"\nending IP address\n"+ending_IP_address_data+"\nLease time\n"+Lease_time_data+"\ninterval\n"+interval_data);
+      var obj = new Object();
 
-      document.getElementById("interface_decide_id").innerHTML = Dnsmasq_updown(data);
+      obj.interface = interface_data;
+      obj.starting_IP_address = starting_IP_address_data;
+      obj.ending_IP_address = ending_IP_address_data;
+      obj.Lease_time = Lease_time_data;
+      obj.interval = interval_data;
+
+      var json_data = JSON.stringify(obj);
+      alert(json_data);
+      savesetting_data_send(json_data);
     }
+    function savesetting_data_send(json_data){
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.open("POST", "/api/dhcpserver/send", true);
+      xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+      xhr.responseType = 'json';
 
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.send(json_data);
+    }
     function dhcpserver_clientlist_data_fill(data) {
       var content = "";
       var type = "example_";
@@ -282,13 +304,23 @@
     function client_list_output(data) {
       document.getElementById("client_information_table").innerHTML = dhcpserver_clientlist_data_fill(data);
     }
-    function rescan_button(){
+    function dnsmasq_output(data) {
+      document.getElementById("interface_decide_id").innerHTML = Dnsmasq_updown(data);
+    }
+
+    function rescan_button(index){
       const xhr = new XMLHttpRequest();
       // by default async
       xhr.onload = function() {
         if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-          var data = this.response;
-          client_list_output(data);
+          var data = this.response;//object 값
+          if (index == 1) {
+            dnsmasq_output(data);
+            client_list_output(data);
+          }
+          else if (index == 2) {
+            client_list_output(data);
+          }
         }
       };
       xhr.onerror = function() {
