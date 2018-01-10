@@ -67,6 +67,10 @@ module.exports = function(app, fs) {
 
     console.log('interface :' + json.interface);
     console.log('starting_IP_address :' + json.starting_IP_address);
+    console.log('ending_IP_address :' + json.ending_IP_address);
+    console.log('Lease_time :' + json.Lease_time);
+    console.log('interval :' + json.interval);
+
     // output message
     fs.writeFile(__dirname + "/../data/dhcpserver/" + "serversetting.json",
       JSON.stringify(json, null, '\t'), "utf8",
