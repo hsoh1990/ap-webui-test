@@ -279,10 +279,24 @@
         return content;
     }
 
-    function rescan_button() {
-      var data = dhcpserver_clientlist_data();
-      console.log(data);
+    function client_list_output(data) {
       document.getElementById("client_information_table").innerHTML = dhcpserver_clientlist_data_fill(data);
+    }
+    function rescan_button(){
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          client_list_output(data);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/dhcpserver");
+      xhr.responseType = 'json';
+      xhr.send();
     }
 
     function Dnsmasq_updown(data) {

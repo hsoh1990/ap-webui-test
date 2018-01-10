@@ -325,11 +325,25 @@
       return content;
     }
 
-    function Load() {
-      var data = current_setting_data();
-
+    function refresh_button(data) {
       document.getElementById("eth0-summary").innerHTML = current_setting_eth0_fill(data);
       document.getElementById("wlan0-summary").innerHTML = current_setting_wlan0_fill(data);
+    }
+    function Load(){
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          refresh_button(data);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/networking");
+      xhr.responseType = 'json';
+      xhr.send();
     }
   </script>
 </body>

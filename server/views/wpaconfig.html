@@ -191,9 +191,7 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
-    function clientsetting_data_fill() {
-      var list = clientsetting_data();
-      alert(list);
+    function clientsetting_data_fill(data) {
       var content = "";
       var type = "example_";
 
@@ -203,8 +201,8 @@
           type = "example_";
           type += a;
           content += "<tr><td></td>";
-          for (var name in list[type]) {
-            content += "<td>" + list[type][name] + "</td>";
+          for (var name in data[type]) {
+            content += "<td>" + data[type][name] + "</td>";
           }
           content += "<td></td></tr>";
         }
@@ -212,9 +210,24 @@
     }
 
     function rescan_button() {
-      document.getElementById("client_information").innerHTML = clientsetting_data_fill();
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          wpa_infor(data);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/wpaconfig");
+      xhr.responseType = 'json';
+      xhr.send();
     }
-
+    function wpa_infor(data){
+      document.getElementById("client_information").innerHTML = clientsetting_data_fill(data);
+    }
   </script>
 </body>
 

@@ -37,7 +37,7 @@
     <![endif]-->
 </head>
 
-<body>
+<body onload="refresh_button()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -138,7 +138,7 @@
 
                     <!--<input type="submit" class="btn btn-warning" value="Stop wlan0" name="ifdown_wlan0" />-->
 
-                    <input type="button" id="refreshbuttonid" class="btn btn-outline btn-primary" value="Refresh" onclick="dashboard_data()" />
+                    <input type="button" id="refreshbuttonid" class="btn btn-outline btn-primary" value="Refresh" onclick="refresh_button()" />
                   </form>
                 </div>
               </div>
@@ -209,23 +209,27 @@
       return content;
     }
 
-    function refresh_button(data) {
-      console.log("1");
+    function refresh_button() {
       const xhr = new XMLHttpRequest();
       // by default async
-      xhr.onreadystatechange = function() {
+      xhr.onload = function() {
         if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-          var data = this.responseText;
-          document.getElementById("interface_box_div").innerHTML = interface_box_fill(data); //interface_box_fill(data-target)
-          document.getElementById("wireless_infor_box_div").innerHTML = wireless_infor_box_fill(data);
-          document.getElementById("inteface_status_pid").innerHTML = inteface_status(data); //inteface_status(data)
+          var data = this.response;
+          infor_output(data);
         }
       };
       xhr.onerror = function() {
         console.log("confirm");
       };
-      xhr.open("GET", "/api/dashboard", false);
+      xhr.open("GET", "/api/dashboard");
+      xhr.responseType = 'json';
       xhr.send();
+    }
+
+    function infor_output(data) {
+      document.getElementById("interface_box_div").innerHTML = interface_box_fill(data); //interface_box_fill(data-target)
+      document.getElementById("wireless_infor_box_div").innerHTML = wireless_infor_box_fill(data);
+      document.getElementById("inteface_status_pid").innerHTML = inteface_status(data); //inteface_status(data)
     }
 
     function inteface_status(data) {

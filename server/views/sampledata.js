@@ -1,26 +1,3 @@
-function dashboard_data() {
-  console.log("1");
-  const xhr = new XMLHttpRequest();
-  // by default async
-  xhr.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-      console.log("5");
-      alert(this.responseText);
-      //console.log(data); // No need for JSON.parse()
-    }
-  };
-
-  xhr.onerror = function() {
-    console.log("confirm");
-    // error
-  };
-  console.log("2");
-  xhr.open("GET", "/api/dashboard", false);
-
-  console.log("3");
-  xhr.send();
-  console.log("4");
-}
 
 function clientsetting_data() {
 
