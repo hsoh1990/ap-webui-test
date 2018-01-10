@@ -7,8 +7,8 @@ module.exports = function(app, fs) {
   });
   app.get('/api/dashboard', function(req, res) {
     fs.readFile( __dirname + "/../data/" + "dashboarddata.json", 'utf8', function (err, data) {
-      var dashboarddata = JSON.parse(data);
-      //console.log("서버의 json 데이터");
+      var dashboarddata = JSON.parse(data);//json text -> json object
+      alert(dashboarddata);
       res.send(dashboarddata);
     })
   });

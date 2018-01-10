@@ -1,24 +1,57 @@
-
 function dashboard_data() {
-  console.log("확인");
+  console.log("1");
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', '/api/dashboard'); // by default async
-  xhr.responseType = 'json'; // in which format you expect the response to be
-
-
+  // by default async
   xhr.onload = function() {
     if (this.status == 200) { // onload called even on 404 etc so check the status
-      var data = this.response;
-      console.log("확인");
+      console.log("2");
+      alert(this.response);
       //console.log(data); // No need for JSON.parse()
     }
   };
+
   xhr.onerror = function() {
     console.log("confirm");
     // error
   };
 
+  xhr.open('GET', '/api/dashboard');
+  xhr.responseType = 'json';
+
+  console.log("3");
   xhr.send();
+  console.log("4");
+}
+
+function clientsetting_data() {
+
+  var data = {
+    example_1: {
+      "SSID": "1",
+      "Channel": "10",
+      "Security": "yes",
+      "Passpharse": "a"
+    },
+    example_2: {
+      "SSID": "2",
+      "Channel": "20",
+      "Security": "no",
+      "Passpharse": "b"
+    },
+    example_3: {
+      "SSID": "3",
+      "Channel": "30",
+      "Security": "yes",
+      "Passpharse": "c"
+    },
+    example_4: {
+      "SSID": "4",
+      "Channel": "40",
+      "Security": "no",
+      "Passpharse": "d"
+    }
+  }
+  return data;
 }
 
 function user_data() {
@@ -122,35 +155,4 @@ function system_information_data() {
     }
   }
   return system_info_Data;
-}
-
-function clientsetting_data() {
-
-  var data = {
-    example_1: {
-      "SSID": "1",
-      "Channel": "10",
-      "Security": "yes",
-      "Passpharse": "a"
-    },
-    example_2: {
-      "SSID": "2",
-      "Channel": "20",
-      "Security": "no",
-      "Passpharse": "b"
-    },
-    example_3: {
-      "SSID": "3",
-      "Channel": "30",
-      "Security": "yes",
-      "Passpharse": "c"
-    },
-    example_4: {
-      "SSID": "4",
-      "Channel": "40",
-      "Security": "no",
-      "Passpharse": "d"
-    }
-  }
-  return data;
 }

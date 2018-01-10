@@ -28,7 +28,7 @@
   <!-- Custom CSS -->
   <link href="dist/css/jwleecustom.css" title="main" rel="stylesheet">
 
-  <link rel="shortcut icon" type="image/png" href="../ap-webui-test/img/favicon.png">
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -37,7 +37,7 @@
     <![endif]-->
 </head>
 
-<body onload="refresh_button()">
+<body>
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -138,7 +138,7 @@
 
                     <!--<input type="submit" class="btn btn-warning" value="Stop wlan0" name="ifdown_wlan0" />-->
 
-                    <input type="button" id="refreshbuttonid" class="btn btn-outline btn-primary" value="Refresh" onclick="refresh_button()" />
+                    <input type="button" id="refreshbuttonid" class="btn btn-outline btn-primary" value="Refresh" onclick="dashboard_data()" />
                   </form>
                 </div>
               </div>
@@ -178,20 +178,20 @@
 
   <script>
     function interface_box_fill(data) {
-        var content = "";
-        var type = "";
+      var content = "";
+      var type = "";
 
-        type = "Interface_Information";
-        content += "<h4>Interface Information</h4>";
-        for (var name in data[type]) {
-          content += "<div class=info-item>" + name + "</div>" + data[type][name] + "</br>";
-        }
-        type = "Interface_Statistics";
-        content += "<h4>Interface Statistics</h4>";
-        for (var name in data[type]) {
-          content += "<div class=info-item>" + name + "</div>" + data[type][name] + "</br>";
-        }
-        return content;
+      type = "Interface_Information";
+      content += "<h4>Interface Information</h4>";
+      for (var name in data[type]) {
+        content += "<div class=info-item>" + name + "</div>" + data[type][name] + "</br>";
+      }
+      type = "Interface_Statistics";
+      content += "<h4>Interface Statistics</h4>";
+      for (var name in data[type]) {
+        content += "<div class=info-item>" + name + "</div>" + data[type][name] + "</br>";
+      }
+      return content;
     }
 
     function wireless_infor_box_fill(data) {
@@ -200,7 +200,8 @@
       content += "<h4>Wireless Information</h4>";
       for (var name in data[type]) {
         if (name == "Link Quality") {
-          content += "<div class=info-item>" + name + "</div><div class=progress><div class='progress-bar progress-bar-info progress-bar-striped active' role=progressbar aria-valuenow aria-valuemin=0 aria-valuemax=100 style=width:"+data[type][name]+"%;></div></div>"
+          content += "<div class=info-item>" + name + "</div><div class=progress><div class='progress-bar progress-bar-info progress-bar-striped active' role=progressbar aria-valuenow aria-valuemin=0 aria-valuemax=100 style=width:" + data[type][name] +
+            "%;></div></div>"
           break;
         }
         content += "<div class=info-item>" + name + "</div>" + data[type][name] + "</br>";
@@ -208,12 +209,10 @@
       return content;
     }
 
-    function refresh_button() {
-      var data = dashboard_data();
-      console.log(data);
-      document.getElementById("interface_box_div").innerHTML = interface_box_fill(data);//interface_box_fill(data-target)
+    function refresh_button(data) {
+      document.getElementById("interface_box_div").innerHTML = interface_box_fill(data); //interface_box_fill(data-target)
       document.getElementById("wireless_infor_box_div").innerHTML = wireless_infor_box_fill(data);
-      document.getElementById("inteface_status_pid").innerHTML = inteface_status(data);//inteface_status(data)
+      document.getElementById("inteface_status_pid").innerHTML = inteface_status(data); //inteface_status(data)
     }
 
     function inteface_status(data) {
@@ -228,7 +227,6 @@
       content += "</div>";
       return content;
     }
-
   </script>
 
 </body>
