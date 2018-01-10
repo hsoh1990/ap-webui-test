@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var fs = require("fs");
+
 console.log(__dirname)
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
