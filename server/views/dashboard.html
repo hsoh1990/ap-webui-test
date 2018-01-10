@@ -215,8 +215,7 @@
       // by default async
       xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-          console.log("5");
-          alert(this.responseText);
+          var data = this.responseText;
           document.getElementById("interface_box_div").innerHTML = interface_box_fill(data); //interface_box_fill(data-target)
           document.getElementById("wireless_infor_box_div").innerHTML = wireless_infor_box_fill(data);
           document.getElementById("inteface_status_pid").innerHTML = inteface_status(data); //inteface_status(data)
