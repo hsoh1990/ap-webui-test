@@ -1,0 +1,9 @@
+{
+  "eth0": {
+    "ip_address" : "1.2.3.4",
+    "subnet_mask" : "255.255.255.0",
+    "default_gateway" : "1.1.1.1",
+    "dns_server" : "2.2.2.2",
+    "alternate_dns_server" : "3.3.3.3"
+  }
+}

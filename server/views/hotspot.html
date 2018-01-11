@@ -31,7 +31,7 @@
   <!-- Custom CSS -->
   <link href="dist/css/custom.css" title="main" rel="stylesheet">
 
-  <link rel="shortcut icon" type="image/png" href="../ap-webui-test/img/favicon.png">
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -41,7 +41,7 @@
 
 </head>
 
-<body onload="connect_hotspot_data_get(1)">
+<body onload="basic_data_store_button()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -131,7 +131,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                   <div class="tab-pane fade in active" id="basic">
-
+                    <form role="form" action="" method="POST">
                     <h4>Basic settings</h4>
                     <div class="row">
                       <div class="form-group col-md-4">
@@ -180,8 +180,12 @@
                         </select>
                       </div>
                     </div>
+                    <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="basic_data_store_button()">
+                    <input type="submit" class="btn btn-warning" name="StopHotspot" value="Stop hotspot">
+                  </form>
                   </div>
                   <div class="tab-pane fade" id="security">
+                    <form role="form" action="" method="POST">
                     <h4>Security settings</h4>
                     <div class="row">
                       <div class="form-group col-md-4">
@@ -209,6 +213,9 @@
                         <input type="text" class="form-control" id="pskid" name="wpa_passphrase" value="00000000">
                       </div>
                     </div>
+                    <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="security_data_store_button()">
+                    <input type="submit" class="btn btn-warning" name="StopHotspot" value="Stop hotspot">
+                  </form>
                   </div>
                   <div class="tab-pane fade" id="logoutput">
                     <h4>Logfile output</h4>
@@ -219,6 +226,7 @@
                     </div>
                   </div>
                   <div class="tab-pane fade" id="advanced">
+                    <form role="form" action="" method="POST">
                     <h4>Advanced settings</h4>
                     <div class="row">
                       <div class="col-md-4">
@@ -500,10 +508,11 @@
                       </div>
                     </div>
                     <!-- /.panel-body -->
+                    <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="advanced_data_store_button()">
+                    <input type="submit" class="btn btn-warning" name="StopHotspot" value="Stop hotspot">
+                  </form>
                   </div>
                   <!-- /.panel-primary -->
-                  <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="connect_hotspot_data_get(2)">
-                  <input type="submit" class="btn btn-warning" name="StopHotspot" value="Stop hotspot">
               </form>
               </div>
             </div>
@@ -558,47 +567,70 @@
         document.getElementById("HostAPD_decide_id").innerHTML = HostAPD_updown(data);
       }
 
-      function connect_hotspot_data_get(index) {
+      function basic_data_store_button(){
+        var tmp_interid = document.getElementById("interfaceid").value;
+        var tmp_ssidid = document.getElementById("ssidid").value;
+        var tmp_wmid = document.getElementById("w_mode").value;
+        var tmp_channelid = document.getElementById("channelid").value;
+
+        var obj = new Object();
+
+        obj.type = "basic";
+        obj.interface = tmp_interid;
+        obj.ssid = tmp_ssidid;
+        obj.wireless_mode = tmp_wmid;
+        obj.channel = tmp_channelid;
+
+        obj_text_convert(obj);
+      }
+      function security_data_store_button(){
+        var tmp_stid = document.getElementById("wpaid").value;
+        var tmp_etid = document.getElementById("wpa_pairwiseid").value;
+        var tmp_pskid = document.getElementById("pskid").value;
+
+        var obj = new Object();
+
+        obj.type = "security";
+        obj.security_type = tmp_stid;
+        obj.encryption_type = tmp_etid;
+        obj.psk = tmp_pskid;
+
+        obj_text_convert(obj);
+      }
+      function advanced_data_store_button(){
+        tmp_logEnable = document.getElementById("logEnable").value;
+        tmp_countries = document.getElementById("countries").value;
+
+        var obj = new Object();
+
+        obj.type = "advanced";
+        obj.enable_logging = tmp_logEnable;
+        obj.country_code = tmp_countries;
+
+        obj_text_convert(obj);
+      }
+
+      function obj_text_convert(obj) {
+        var json_data = JSON.stringify(obj);
+        data_server_send(json_data);
+      }
+
+      function data_server_send(json_data){
         const xhr = new XMLHttpRequest();
         // by default async
+        xhr.open("POST", "/api/hotspot/send", true);
+        xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+        xhr.responseType = 'json';
+
         xhr.onload = function() {
           if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-            var data = this.response;
-            if (index == 1) {
-              init(data);
-            } else if (index == 2) {
-              savesetting_button(data);
-            }
+            //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
           }
         };
         xhr.onerror = function() {
           console.log("confirm");
         };
-        xhr.open("GET", "/api/hotspot");
-        xhr.responseType = 'json';
-        xhr.send();
-      }
-
-      function savesetting_button(data) {
-
-        var tmp_interid = document.getElementById("interfaceid").value;
-        var tmp_ssidid = document.getElementById("ssidid").value;
-        var tmp_wmid = document.getElementById("w_mode").value;
-        var tmp_channelid = document.getElementById("channelid").value;
-        var selected_content_BS = tmp_interid + " " + tmp_ssidid + " " + tmp_wmid + " " + tmp_channelid;
-
-        var tmp_stid = document.getElementById("wpaid").value;
-        var tmp_etid = document.getElementById("wpa_pairwiseid").value;
-        var tmp_pskid = document.getElementById("pskid").value;
-        var selected_content_SS = tmp_stid + " " + tmp_etid + " " + tmp_pskid;
-
-        tmp_logEnable = document.getElementById("logEnable").value;
-        tmp_countries = document.getElementById("countries").value;
-        var selected_content_AS = tmp_logEnable + " " + tmp_countries;
-
-        alert("Basic settings\n" + selected_content_BS + "\nSecurity settings\n" + selected_content_SS + "\nAdvanced settings\n" + selected_content_AS);
-
-        document.getElementById("HostAPD_decide_id").innerHTML = HostAPD_updown(data);
+        xhr.send(json_data);
       }
     </script>
 

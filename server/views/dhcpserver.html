@@ -31,7 +31,7 @@
   <!-- Custom CSS -->
   <link href="dist/css/custom.css" title="main" rel="stylesheet">
 
-  <link rel="shortcut icon" type="image/png" href="../ap-webui-test/img/favicon.png">
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -263,9 +263,10 @@
       obj.interval = interval_data;
 
       var json_data = JSON.stringify(obj);
-      alert(json_data);
+      //alert(json_data);
       savesetting_data_send(json_data);
     }
+
     function savesetting_data_send(json_data){
       const xhr = new XMLHttpRequest();
       // by default async
@@ -275,7 +276,7 @@
 
       xhr.onload = function() {
         if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-          alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+          //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
         }
       };
       xhr.onerror = function() {

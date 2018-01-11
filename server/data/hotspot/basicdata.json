@@ -1,0 +1,7 @@
+{
+	"type": "basic",
+	"interface": "wlan0",
+	"ssid": "test",
+	"wireless_mode": "g",
+	"channel": "1"
+}

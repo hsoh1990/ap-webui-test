@@ -1,0 +1,6 @@
+{
+	"type": "security",
+	"security_type": "1",
+	"encryption_type": "TKIP",
+	"psk": "00000000"
+}

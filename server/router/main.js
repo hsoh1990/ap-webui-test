@@ -36,6 +36,46 @@ module.exports = function(app, fs) {
       res.send(hotspotdata);
     })
   });
+  app.post('/api/hotspot/send', function(req, res) {
+    req.accepts('application/json');
+    // input message handling
+    var data_name = "serversetting_data";
+    json = req.body;
+
+    console.log('type :' + json.type);
+
+    if (json.type == "basic") {
+      fs.writeFile(__dirname + "/../data/hotspot/" + "basicdata.json",
+        JSON.stringify(json, null, '\t'), "utf8",
+        function(err, data) {
+          result = {
+            "success": 1
+          };
+          res.json(result);
+        })
+    }
+    else if (json.type == "security"){
+      fs.writeFile(__dirname + "/../data/hotspot/" + "securitydata.json",
+        JSON.stringify(json, null, '\t'), "utf8",
+        function(err, data) {
+          result = {
+            "success": 1
+          };
+          res.json(result);
+        })
+    }
+    else if (json.type == "advanced") {
+      fs.writeFile(__dirname + "/../data/hotspot/" + "advanceddata.json",
+        JSON.stringify(json, null, '\t'), "utf8",
+        function(err, data) {
+          result = {
+            "success": 1
+          };
+          res.json(result);
+        })
+    }
+  });
+
 
   app.get('/networking', function(req, res) {
     res.render('networking.html');
