@@ -160,20 +160,20 @@
                           <h4>Adapter IP Address Settings</h4>
                           <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary">
-                                    <input type="radio" name="eth0-addresstype" id="eth0-dhcp" autocomplete="off">DHCP
+                                    <input type="radio" name="eth0-addresstype" id="eth0-dhcp" value="1" autocomplete="off">DHCP
                                   </label>
                             <label class="btn btn-primary">
-                                    <input type="radio" name="eth0-addresstype" id="eth0-static" autocomplete="off">Static IP
+                                    <input type="radio" name="eth0-addresstype" id="eth0-static" value="2" autocomplete="off">Static IP
                                   </label>
                           </div>
                           <!-- /.btn-group -->
                           <h4>Enable Fallback to Static Option</h4>
                           <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary">
-                                    <input type="radio" name="eth0-dhcpfailover" id="eth0-failover" autocomplete="off">Enabled
+                                    <input type="radio" name="eth0-dhcpfailover" id="eth0-failover" value="1" autocomplete="off">Enabled
                                   </label>
                             <label class="btn btn-warning">
-                                    <input type="radio" name="eth0-dhcpfailover" id="eth0-nofailover" autocomplete="off">Disabled
+                                    <input type="radio" name="eth0-dhcpfailover" id="eth0-nofailover" value="0" autocomplete="off">Disabled
                                   </label>
                           </div>
                           <!-- /.btn-group -->
@@ -191,7 +191,7 @@
                         </div>
                         <div class="form-group">
                           <label for="eth0-gateway">Default Gateway</label>
-                          <input type="text" class="form-control" id="eth0'-gateway" placeholder="0.0.0.0">
+                          <input type="text" class="form-control" id="eth0-gateway" placeholder="0.0.0.0">
                         </div>
                         <div class="form-group">
                           <label for="eth0-dnsssvr">DNS Server</label>
@@ -201,7 +201,7 @@
                           <label for="eth0-dnssvralt">Alternate DNS Server</label>
                           <input type="text" class="form-control" id="eth0-dnssvralt" placeholder="0.0.0.0">
                         </div>
-                        <a href="#" class="btn btn-outline btn-primary intsave" data-int="eth0">Save Settings</a>
+                        <input type="button" class="btn btn-outline btn-primary" value="Save settings" name="savedhcpdsettings" onclick="savesetting_button(0)" />
                         <a href="#" class="btn btn-warning intapply" data-int="eth0">Apply Settings</a>
                       </form>
                     </div>
@@ -216,20 +216,20 @@
                           <h4>Adapter IP Address Settings</h4>
                           <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary">
-                                  <input type="radio" name="wlan0-addresstype" id="wlan0-dhcp" autocomplete="off">DHCP
+                                  <input type="radio" name="wlan0-addresstype" id="wlan0-dhcp" value="1" autocomplete="off">DHCP
                                 </label>
                             <label class="btn btn-primary">
-                                  <input type="radio" name="wlan0-addresstype" id="wlan0-static" autocomplete="off">Static IP
+                                  <input type="radio" name="wlan0-addresstype" id="wlan0-static" value="2" autocomplete="off">Static IP
                                 </label>
                           </div>
                           <!-- /.btn-group -->
                           <h4>Enable Fallback to Static Option</h4>
                           <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary">
-                                  <input type="radio" name="wlan0-dhcpfailover" id="wlan0-failover" autocomplete="off">Enabled
+                                  <input type="radio" name="wlan0-dhcpfailover" id="wlan0-failover" value="1" autocomplete="off">Enabled
                                 </label>
                             <label class="btn btn-warning">
-                                  <input type="radio" name="wlan0-dhcpfailover" id="wlan0-nofailover" autocomplete="off">Disabled
+                                  <input type="radio" name="wlan0-dhcpfailover" id="wlan0-nofailover" value="0" autocomplete="off">Disabled
                                 </label>
                           </div>
                           <!-- /.btn-group -->
@@ -257,7 +257,7 @@
                           <label for="wlan0-dnssvralt">Alternate DNS Server</label>
                           <input type="text" class="form-control" id="wlan0-dnssvralt" placeholder="0.0.0.0">
                         </div>
-                        <a href="#" class="btn btn-outline btn-primary intsave" data-int="wlan0">Save Settings</a>
+                        <input type="button" class="btn btn-outline btn-primary" value="Save settings" name="savedhcpdsettings" onclick="savesetting_button(1)" />
                         <a href="#" class="btn btn-warning intapply" data-int="wlan0">Apply Settings</a>
                       </form>
                     </div>
@@ -301,6 +301,64 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
+    function savesetting_button(index) {
+      var select = "";
+      if (index == 0) {
+        select = "eth0";
+      }
+      else if (index == 1) {
+        select = "wlan0";
+      }
+      var adapt_ip_address_select = document.getElementsByName(select + "-addresstype");
+
+      var fallback_select = document.getElementsByName(select + "-dhcpfailover");
+
+      var ip_address_data = document.getElementById(select + "-ipaddress").value;
+      var subnet_mask_data = document.getElementById(select + "-netmask").value;
+      var default_gateway_data = document.getElementById(select + "-gateway").value;
+      var dns_server_data = document.getElementById(select + "-dnssvr").value;
+      var alternate_dns_server_data = document.getElementById(select + "-dnssvralt").value;
+
+      var obj = new Object();
+
+      for(var i = 0;i < adapt_ip_address_select.length; i++){
+        if (adapt_ip_address_select[i].checked == true) {
+          obj.adapt_ip_address_select = adapt_ip_address_select[i].value;
+        }
+        if (fallback_select[i].checked == true) {
+          obj.fallback_select = fallback_select[i].value;
+        }
+      }
+
+      obj.ip_address = ip_address_data;
+      obj.subnet_mask = subnet_mask_data;
+      obj.default_gateway = default_gateway_data;
+      obj.dns_server = dns_server_data;
+      obj.alternate_dns_server = alternate_dns_server_data;
+
+      var json_data = JSON.stringify(obj);
+      //alert(json_data);
+      savesetting_data_send(json_data, select);
+    }
+
+    function savesetting_data_send(json_data, select){
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.open("POST", "/api/networking/send?adaptname=" + select, true);
+      xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+      xhr.responseType = 'json';
+
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.send(json_data);
+    }
+
     function current_setting_eth0_fill(data) {
       var content = "";
       var type = "";
@@ -323,7 +381,8 @@
       document.getElementById("eth0-summary").innerHTML = current_setting_eth0_fill(data);
       document.getElementById("wlan0-summary").innerHTML = current_setting_wlan0_fill(data);
     }
-    function Load(){
+
+    function Load() {
       const xhr = new XMLHttpRequest();
       // by default async
       xhr.onload = function() {

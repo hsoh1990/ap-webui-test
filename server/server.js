@@ -3,6 +3,9 @@ var app = express();
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var fs = require("fs");
+var http = require('http');
+var url = require('url');
+var querystring = require('querystring');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');

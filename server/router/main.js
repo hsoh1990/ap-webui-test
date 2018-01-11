@@ -1,4 +1,4 @@
-module.exports = function(app, fs) {
+module.exports = function(app, fs, url) {
   app.get('/', function(req, res) {
     res.render('index.html');
   });
@@ -53,8 +53,7 @@ module.exports = function(app, fs) {
           };
           res.json(result);
         })
-    }
-    else if (json.type == "security"){
+    } else if (json.type == "security") {
       fs.writeFile(__dirname + "/../data/hotspot/" + "securitydata.json",
         JSON.stringify(json, null, '\t'), "utf8",
         function(err, data) {
@@ -63,8 +62,7 @@ module.exports = function(app, fs) {
           };
           res.json(result);
         })
-    }
-    else if (json.type == "advanced") {
+    } else if (json.type == "advanced") {
       fs.writeFile(__dirname + "/../data/hotspot/" + "advanceddata.json",
         JSON.stringify(json, null, '\t'), "utf8",
         function(err, data) {
@@ -81,13 +79,44 @@ module.exports = function(app, fs) {
     res.render('networking.html');
   });
   app.get('/api/networking', function(req, res) {
-    fs.readFile(__dirname + "/../data/" + "networkingdata.json", 'utf8', function(err, data) {
+    fs.readFile(__dirname + "/../data/networking/" + "summary.json", 'utf8', function(err, data) {
       var wpaconfigdata = JSON.parse(data); //json text -> json object
       console.log(wpaconfigdata);
       res.send(wpaconfigdata);
     })
   });
+  app.post('/api/networking/send', function(req, res) {
+    req.accepts('application/json');
+    // input message handling
+    var result = {};
+    var adapt_name = req.query.adaptname;
+    json = req.body;
+    console.log(adapt_name);
+    console.log('--------------------------------------');
+    console.log('ip_address :' + json.ip_address);
+    console.log('subnet_mask :' + json.subnet_mask);
+    console.log('default_gateway :' + json.default_gateway);
+    console.log('dns_server :' + json.dns_server);
+    console.log('alternate_dns_server :' + json.alternate_dns_server);
 
+    // output message
+    fs.readFile(__dirname + "/../data/networking/" + "connecting_lan_data.json", 'utf8', function(err, data) {
+      var users = JSON.parse(data);
+
+      // ADD TO DATA
+      users[adapt_name] = req.body;
+
+      // SAVE DATA
+      fs.writeFile(__dirname + "/../data/networking/" + "connecting_lan_data.json",
+        JSON.stringify(users, null, '\t'), "utf8",
+        function(err, data) {
+          result = {
+            "success": 1
+          };
+          res.json(result);
+        })
+    })
+  });
 
   app.get('/dhcpserver', function(req, res) {
     res.render('dhcpserver.html');
@@ -124,6 +153,41 @@ module.exports = function(app, fs) {
 
   app.get('/auth', function(req, res) {
     res.render('auth.html');
+  });
+  app.get('/api/auth', function(req, res) {
+    fs.readFile(__dirname + "/../data/" + "userdata.json", 'utf8', function(err, data) {
+      var userdata = JSON.parse(data); //json text -> json object
+      console.log(userdata);
+      res.send(userdata);
+    })
+  });
+  app.post('/api/auth/send', function(req, res) {
+    req.accepts('application/json');
+    // input message handling
+    var result = {};
+    var user_name = req.query.id;
+    json = req.body;
+    console.log(user_name);
+    console.log('--------------------------------------');
+    console.log('password :' + json.password);
+
+    // output message
+    fs.readFile(__dirname + "/../data/" + "userdata.json", 'utf8', function(err, data) {
+      var users = JSON.parse(data);
+
+      // ADD TO DATA
+      users[user_name] = req.body;
+
+      // SAVE DATA
+      fs.writeFile(__dirname + "/../data/" + "userdata.json",
+        JSON.stringify(users, null, '\t'), "utf8",
+        function(err, data) {
+          result = {
+            "success": 1
+          };
+          res.json(result);
+        })
+    })
   });
 
 

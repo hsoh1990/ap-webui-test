@@ -125,7 +125,7 @@
                     <input type="password" class="form-control" name="oldpass" id="Oldpassword_id" pattern="[A-Za-z0-9]{8,}" title="8자 이상 입력하세요." required/>
                   </div>
                 </div>
-                <input type="submit" class="btn btn-outline btn-primary" name="UpdateAdminPassword" value="Login" onclick="user_name_password_confirm()" />
+                <input type="button" class="btn btn-outline btn-primary" name="UpdateAdminPassword" value="Login" onclick="server_get_userdata(1)" />
               </form>
             </div>
             <!-- /.panel-body -->
@@ -162,7 +162,7 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
-    function user_name_password_confirm() {
+    function user_name_password_confirm(data) {
 
       var username_data = document.getElementById("username_id").value;
       var oldpwd_data = document.getElementById("Oldpassword_id").value;
@@ -171,15 +171,36 @@
       var oldpwd_data_check_Re = myRe.test(oldpwd_data);
 
       if (username_data == "") {} else if (oldpwd_data == "" || oldpwd_data_check_Re == false) {} else {
-        var admin_check = admin_evaluate(username_data, oldpwd_data);
+        var admin_check = admin_evaluate(username_data, oldpwd_data, data);
         if (admin_check == true) {
           new_password_box_show();
         } else {}
       }
     }
 
-    function admin_evaluate(username_data, oldpwd_data) {
-      var data = user_data();
+    function server_get_userdata(select) {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          if (select == 1){
+            user_name_password_confirm(data);
+          }
+          else if (select == 2) {//관리자일 경우
+            new_password_confirm("admin");
+          }
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/auth");
+      xhr.responseType = 'json';
+      xhr.send();
+    }
+
+    function admin_evaluate(username_data, oldpwd_data, data) {
       if (username_data == data['admin']['username'] && oldpwd_data == data['admin']['password']) {
         alert("관리자 확인되었습니다.");
 
@@ -199,6 +220,9 @@
         return false;
       }
     }
+    function new_password_box_show() {
+      document.getElementById("user_id_password_input_id").innerHTML = next_password_input_box(); //interface_box_fill(data-target)
+    }
 
     function next_password_input_box() {
       var content = "<p><p><form role=form method=POST>";
@@ -211,11 +235,12 @@
       content += "<label for=password>Repeat New password</label>";
       content += "<input type=password class=form-control name=newpassagain id=RepeatNewpassword_id pattern=[A-Za-z0-9]{8,} title='8자 이상 입력하세요.' required/>";
       content += "</div></div>";
-      content += "<input type=submit class='btn btn-outline btn-primary' name='UpdateAdminPassword' value='Save settings' onclick='new_password_confirm()' />";
+      content += "<input type=button class='btn btn-outline btn-primary' name='UpdateAdminPassword' value='Save settings' onclick='server_get_userdata(2)' />";
       content += "</form>";
       return content;
     }
-    function new_password_confirm() {
+
+    function new_password_confirm(username) {
 
       var newpwd_data = document.getElementById("Newpassword_id").value;
       var repeatnewpwd_data = document.getElementById("RepeatNewpassword_id").value;
@@ -226,18 +251,41 @@
 
       if (newpwd_data == "" || newpwd_data_check_Re == false) {} else if (repeatnewpwd_data == "" || repeatnewpwd_data_check_Re == false) {} else {
 
-          var password_check = password_equal_decide(newpwd_data, repeatnewpwd_data);
-          if(password_check == true){
-            save_setting_2_button();
-          } else {}
-          //alert("Username : " + username_data + "\nOld password : " + oldpwd_data + "\nNew password : " + newpwd_data + "\nRepeat new password : " + repeatnewpwd_data);
-        }
+        var password_check = password_equal_decide(newpwd_data, repeatnewpwd_data);
+        if (password_check == true) {
+          save_pwd_data(newpwd_data, username);
+        } else {}
+        //alert("Username : " + username_data + "\nOld password : " + oldpwd_data + "\nNew password : " + newpwd_data + "\nRepeat new password : " + repeatnewpwd_data);
       }
-    function new_password_box_show() {
-      document.getElementById("user_id_password_input_id").innerHTML = next_password_input_box(); //interface_box_fill(data-target)
     }
-    function save_setting_2_button() {
-      event.PreventDefault();
+
+    function save_pwd_data(newpwd_data, username) {
+      var obj = new Object();
+
+      obj.username = username;
+      obj.password = newpwd_data;
+
+      var json_data = JSON.stringify(obj);
+
+      pwd_data_send(json_data, username)
+    }
+
+    function pwd_data_send(json_data, username) {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.open("POST", "/api/auth/send?id=" + username, true);
+      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+      xhr.responseType = 'json';
+
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.send(json_data);
     }
   </script>
 </body>
