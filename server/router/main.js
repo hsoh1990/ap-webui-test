@@ -165,7 +165,7 @@ module.exports = function(app, fs, url) {
     req.accepts('application/json');
     // input message handling
     var result = {};
-    var user_name = req.query.adaptname;
+    var user_name = req.query.username;
     json = req.body;
     console.log(user_name);
     console.log('--------------------------------------');
