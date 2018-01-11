@@ -36,51 +36,25 @@ module.exports = function(app, fs) {
       res.send(hotspotdata);
     })
   });
-  app.post('/api/hotspot/send', function(req, res) {
-    req.accepts('application/json');
-    // input message handling
-    var data_name = "serversetting_data";
-    json = req.body;
-
-    console.log('type :' + json.type);
-
-    if (json.type == "basic") {
-      fs.writeFile(__dirname + "/../data/hotspot/" + "basicdata.json",
-        JSON.stringify(json, null, '\t'), "utf8",
-        function(err, data) {
-          result = {
-            "success": 1
-          };
-          res.json(result);
-        })
-    }
-    else if (json.type == "security"){
-      fs.writeFile(__dirname + "/../data/hotspot/" + "securitydata.json",
-        JSON.stringify(json, null, '\t'), "utf8",
-        function(err, data) {
-          result = {
-            "success": 1
-          };
-          res.json(result);
-        })
-    }
-    else if (json.type == "advanced") {
-      fs.writeFile(__dirname + "/../data/hotspot/" + "advanceddata.json",
-        JSON.stringify(json, null, '\t'), "utf8",
-        function(err, data) {
-          result = {
-            "success": 1
-          };
-          res.json(result);
-        })
-    }
-  });
-
 
   app.get('/networking', function(req, res) {
     res.render('networking.html');
   });
   app.get('/api/networking', function(req, res) {
+    /*
+    /api/networking/summary
+    /api/networking/eth0
+    /api/networking/wlan0
+
+    /api/networking?iface=summary
+    /api/networking?iface=eth0
+    /api/networking?iface=wlan0
+
+    {"iface":"summary"}
+    {"iface":"eth0"}
+    {"iface":"wlan0"}
+    
+    */
     fs.readFile(__dirname + "/../data/" + "networkingdata.json", 'utf8', function(err, data) {
       var wpaconfigdata = JSON.parse(data); //json text -> json object
       console.log(wpaconfigdata);
@@ -99,7 +73,7 @@ module.exports = function(app, fs) {
       res.send(dhcpserverdata);
     })
   });
-  app.post('/api/dhcpserver/send', function(req, res) {
+  app.put('/api/dhcpserver/send', function(req, res) {
     req.accepts('application/json');
     // input message handling
     var data_name = "serversetting_data";
