@@ -1,20 +1,9 @@
 {
-	"eth100": {
-		"dhcp_setting": "on",
-		"static_setting": "on",
-		"fallback_enable": "on",
-		"fallback_disable": "on",
-		"ip_address": "",
-		"subnet_mask": "",
-		"default_gateway": "",
-		"dns_server": "",
-		"alternate_dns_server": ""
-	},
 	"eth0": {
+		"fallback_select": "1",
 		"adapt_ip_address_select": "2",
-		"fallback_select": "0",
-		"ip_address": "",
-		"subnet_mask": "22223333",
+		"ip_address": "1.1.1.1",
+		"subnet_mask": "",
 		"default_gateway": "",
 		"dns_server": "",
 		"alternate_dns_server": ""
