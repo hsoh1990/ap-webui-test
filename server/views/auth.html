@@ -162,6 +162,27 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
+    function server_get_userdata(select) {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          if (select == 1) {
+            user_name_password_confirm(data);
+          } else if (select == 2) { //관리자일 경우
+            new_password_confirm("admin");
+          }
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/auth");
+      xhr.responseType = 'json';
+      xhr.send();
+    }
+
     function user_name_password_confirm(data) {
 
       var username_data = document.getElementById("username_id").value;
@@ -178,28 +199,6 @@
       }
     }
 
-    function server_get_userdata(select) {
-      const xhr = new XMLHttpRequest();
-      // by default async
-      xhr.onload = function() {
-        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-          var data = this.response;
-          if (select == 1){
-            user_name_password_confirm(data);
-          }
-          else if (select == 2) {//관리자일 경우
-            new_password_confirm("admin");
-          }
-        }
-      };
-      xhr.onerror = function() {
-        console.log("confirm");
-      };
-      xhr.open("GET", "/api/auth");
-      xhr.responseType = 'json';
-      xhr.send();
-    }
-
     function admin_evaluate(username_data, oldpwd_data, data) {
       if (username_data == data['admin']['username'] && oldpwd_data == data['admin']['password']) {
         alert("관리자 확인되었습니다.");
@@ -211,15 +210,6 @@
       }
     }
 
-    function password_equal_decide(newpwd_data, repeatnewpwd_data) {
-      if (newpwd_data == repeatnewpwd_data) {
-        alert("새로운 비밀번호가 같습니다.");
-        return true;
-      } else if (newpwd_data != repeatnewpwd_data) {
-        alert("새로운 비밀번호가 다릅니다.");
-        return false;
-      }
-    }
     function new_password_box_show() {
       document.getElementById("user_id_password_input_id").innerHTML = next_password_input_box(); //interface_box_fill(data-target)
     }
@@ -259,6 +249,16 @@
       }
     }
 
+    function password_equal_decide(newpwd_data, repeatnewpwd_data) {
+      if (newpwd_data == repeatnewpwd_data) {
+        alert("새로운 비밀번호가 같습니다.\n비밀번호를 저장하였습니다.");
+        return true;
+      } else if (newpwd_data != repeatnewpwd_data) {
+        alert("새로운 비밀번호가 다릅니다.");
+        return false;
+      }
+    }
+
     function save_pwd_data(newpwd_data, username) {
       var obj = new Object();
 
@@ -273,19 +273,23 @@
     function pwd_data_send(json_data, username) {
       const xhr = new XMLHttpRequest();
       // by default async
-      xhr.open("POST", "/api/auth/send?id=" + username, true);
+      xhr.open("POST", "/api/auth?id=" + username, true);
       xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
       xhr.responseType = 'json';
 
       xhr.onload = function() {
         if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
           //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+          reload();
         }
       };
       xhr.onerror = function() {
         console.log("confirm");
       };
       xhr.send(json_data);
+    }
+    function reload() {
+      window.location.reload();
     }
   </script>
 </body>

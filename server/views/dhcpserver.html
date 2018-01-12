@@ -270,7 +270,7 @@
     function savesetting_data_send(json_data){
       const xhr = new XMLHttpRequest();
       // by default async
-      xhr.open("POST", "/api/dhcpserver/send", true);
+      xhr.open("POST", "/api/dhcpserver", true);
       xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
       xhr.responseType = 'json';
 

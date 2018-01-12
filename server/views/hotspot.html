@@ -41,7 +41,7 @@
 
 </head>
 
-<body onload="basic_data_store_button()">
+<body onload="basic_data_store_button(),data_server_get()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -181,7 +181,7 @@
                       </div>
                     </div>
                     <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="basic_data_store_button()">
-                    <input type="submit" class="btn btn-warning" name="StopHotspot" value="Stop hotspot">
+                    <input type="button" class="btn btn-warning" name="StopHotspot" value="Stop hotspot" onclick="data_server_get()">
                   </form>
                   </div>
                   <div class="tab-pane fade" id="security">
@@ -618,7 +618,7 @@
       function data_server_send(json_data){
         const xhr = new XMLHttpRequest();
         // by default async
-        xhr.open("POST", "/api/hotspot/send", true);
+        xhr.open("POST", "/api/hotspot", true);
         xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
         xhr.responseType = 'json';
 
@@ -631,6 +631,24 @@
           console.log("confirm");
         };
         xhr.send(json_data);
+      }
+      function data_server_get(){
+        const xhr = new XMLHttpRequest();
+        // by default async
+        xhr.open("GET", "/api/hotspot", true);
+        xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+        xhr.responseType = 'json';
+
+        xhr.onload = function() {
+          if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+            //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+            init(this.response);
+          }
+        };
+        xhr.onerror = function() {
+          console.log("confirm");
+        };
+        xhr.send();
       }
     </script>
 

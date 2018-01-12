@@ -14,7 +14,7 @@
 		"adapt_ip_address_select": "2",
 		"fallback_select": "0",
 		"ip_address": "",
-		"subnet_mask": "",
+		"subnet_mask": "22223333",
 		"default_gateway": "",
 		"dns_server": "",
 		"alternate_dns_server": ""

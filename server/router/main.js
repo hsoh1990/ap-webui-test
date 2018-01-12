@@ -30,19 +30,17 @@ module.exports = function(app, fs, url) {
     res.render('hotspot.html');
   });
   app.get('/api/hotspot', function(req, res) {
-    fs.readFile(__dirname + "/../data/" + "hotspotdata.json", 'utf8', function(err, data) {
+    fs.readFile(__dirname + "/../data/hotspot/" + "hotspotdata.json", 'utf8', function(err, data) {
       var hotspotdata = JSON.parse(data); //json text -> json object
-      console.log(hotspotdata);
       res.send(hotspotdata);
     })
   });
   app.post('/api/hotspot', function(req, res) {
     req.accepts('application/json');
     // input message handling
-    var data_name = "serversetting_data";
     json = req.body;
 
-    console.log('type :' + json.type);
+    console.log('type : ' + json.type);
 
     if (json.type == "basic") {
       fs.writeFile(__dirname + "/../data/hotspot/" + "basicdata.json",
@@ -81,11 +79,11 @@ module.exports = function(app, fs, url) {
   app.get('/api/networking', function(req, res) {
     fs.readFile(__dirname + "/../data/networking/" + "summary.json", 'utf8', function(err, data) {
       var wpaconfigdata = JSON.parse(data); //json text -> json object
-      console.log(wpaconfigdata);
+      //console.log(wpaconfigdata);
       res.send(wpaconfigdata);
     })
   });
-  app.post('/api/networking/send', function(req, res) {
+  app.post('/api/networking', function(req, res) {
     req.accepts('application/json');
     // input message handling
     var result = {};
@@ -93,16 +91,15 @@ module.exports = function(app, fs, url) {
     json = req.body;
     console.log(adapt_name);
     console.log('--------------------------------------');
-    console.log('ip_address :' + json.ip_address);
-    console.log('subnet_mask :' + json.subnet_mask);
-    console.log('default_gateway :' + json.default_gateway);
-    console.log('dns_server :' + json.dns_server);
-    console.log('alternate_dns_server :' + json.alternate_dns_server);
+    console.log('ip_address : ' + json.ip_address);
+    console.log('subnet_mask : ' + json.subnet_mask);
+    console.log('default_gateway : ' + json.default_gateway);
+    console.log('dns_server : ' + json.dns_server);
+    console.log('alternate_dns_server : ' + json.alternate_dns_server);
 
     // output message
     fs.readFile(__dirname + "/../data/networking/" + "connecting_lan_data.json", 'utf8', function(err, data) {
       var users = JSON.parse(data);
-
       // ADD TO DATA
       users[adapt_name] = req.body;
 
@@ -128,17 +125,16 @@ module.exports = function(app, fs, url) {
       res.send(dhcpserverdata);
     })
   });
-  app.post('/api/dhcpserver/send', function(req, res) {
+  app.post('/api/dhcpserver', function(req, res) {
     req.accepts('application/json');
     // input message handling
-    var data_name = "serversetting_data";
     json = req.body;
 
-    console.log('interface :' + json.interface);
-    console.log('starting_IP_address :' + json.starting_IP_address);
-    console.log('ending_IP_address :' + json.ending_IP_address);
-    console.log('Lease_time :' + json.Lease_time);
-    console.log('interval :' + json.interval);
+    console.log('interface : ' + json.interface);
+    console.log('starting_IP_address : ' + json.starting_IP_address);
+    console.log('ending_IP_address : ' + json.ending_IP_address);
+    console.log('Lease_time : ' + json.Lease_time);
+    console.log('interval : ' + json.interval);
 
     // output message
     fs.writeFile(__dirname + "/../data/dhcpserver/" + "serversetting.json",
@@ -161,7 +157,7 @@ module.exports = function(app, fs, url) {
       res.send(userdata);
     })
   });
-  app.post('/api/auth/send', function(req, res) {
+  app.post('/api/auth', function(req, res) {
     req.accepts('application/json');
     // input message handling
     var result = {};
@@ -169,7 +165,7 @@ module.exports = function(app, fs, url) {
     json = req.body;
     console.log(user_name);
     console.log('--------------------------------------');
-    console.log('password :' + json.password);
+    console.log('changed password : ' + json.password);
 
     // output message
     fs.readFile(__dirname + "/../data/" + "userdata.json", 'utf8', function(err, data) {

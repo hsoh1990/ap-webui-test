@@ -303,7 +303,7 @@
   <script>
     function savesetting_button(index) {
       var select = "";
-      if (index == 0) {
+      if (index == 0) {//adapt 결정하는 부분
         select = "eth0";
       }
       else if (index == 1) {
@@ -344,7 +344,7 @@
     function savesetting_data_send(json_data, select){
       const xhr = new XMLHttpRequest();
       // by default async
-      xhr.open("POST", "/api/networking/send?adaptname=" + select, true);
+      xhr.open("POST", "/api/networking?adaptname=" + select, true);
       xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
       xhr.responseType = 'json';
 
