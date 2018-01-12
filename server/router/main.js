@@ -36,7 +36,7 @@ module.exports = function(app, fs, url) {
       res.send(hotspotdata);
     })
   });
-  app.post('/api/hotspot/send', function(req, res) {
+  app.post('/api/hotspot', function(req, res) {
     req.accepts('application/json');
     // input message handling
     var data_name = "serversetting_data";
