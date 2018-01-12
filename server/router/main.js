@@ -207,5 +207,3 @@ module.exports = function(app, fs, url) {
     })
   });
 }
-
-test 부분
