@@ -11,8 +11,12 @@ exports.api_get = function (req, res) {
     console.log('stdout: ' + stdout);
     stdout = stdout.replace(/\s\s+/,' ');
     console.log('replace: ' + stdout);
-    stdout = stdout.match(/link\/ether ([0-9a-f:]+)/i);
-    console.log('mac: ' + stdout[1]);
+    var mac = stdout.match(/link\/ether ([0-9a-f:]+)/i);
+    console.log('mac: ' + mac[1]);
+    var ip = stdout.match(/inet ([0-9.]+)/i);
+    console.log('ip: ' + ip[1]);
+    var numReturn = stdout.indexOf("UP");
+    console.log('indexOf: ' + numReturn);
     console.log('stderr: ' + stderr);
         if (error !== null) {
             console.log('exec error: ' + error);
