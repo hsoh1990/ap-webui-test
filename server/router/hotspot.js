@@ -1,8 +1,18 @@
 var fs = require("fs");
+var exec = require('child_process').exec,
+    child;
 
 exports.api_get = function (req, res) {
   fs.readFile(__dirname + "/../data/hotspot/" + "hotspotdata.json", 'utf8', function(err, data) {
     var hotspotdata = JSON.parse(data); //json text -> json object
+    child = exec("cat /etc/hostapd/hostapd.conf", function (error, stdout, stderr) {
+    console.log('hostapd: ' + stdout);
+    var arr = stdout.split("\n");
+    //console.log('split: ' + arr[0]);
+    console.log('split: ' + arr[0]);
+    //console.log('split: ' + arr[2]);
+    //console.log('split: ' + arr[3]);
+    });
     res.send(hotspotdata);
   })
 }
