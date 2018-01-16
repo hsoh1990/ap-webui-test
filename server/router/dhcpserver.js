@@ -7,9 +7,10 @@ exports.api_get = function (req, res) {
     var dhcpserverdata = JSON.parse(data); //json text -> json object
     //console.log(dhcpserverdata);
     child = exec("cat /var/lib/misc/dnsmasq.leases", function (error, stdout, stderr) {
-    console.log('stdout: ' + stdout);
+    console.log('stdout: ' + stdout[0]);
     var arr = [];
-    for (var i = 0;i < stdout.length;i++){
+
+    /*for (var i = 0;i < stdout.length;i++){
       arr = arr.push(stdout[i]);
     }
     var result = [];
@@ -19,7 +20,8 @@ exports.api_get = function (req, res) {
       for (var j = 0;j < result.length;j++){
         console.log(result[j]);
       }
-    }
+    }*/
+
     //var arr = stdout.split(" ");
     //console.log('stdout: ' + arr[0] + ', ' + arr[1]);
     });
