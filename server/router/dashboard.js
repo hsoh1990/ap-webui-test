@@ -18,8 +18,16 @@ exports.api_get = function (req, res) {
         console.log('netmask: ' + netmask[1]);
         var mac = text.match(/link\/ether ([0-9a-f:]+)/i);
         console.log('mac: ' + mac[1]);
+        var RX_packets = text.match(/RX packets:(\d+)/);
+        console.log('mac: ' + RX_packets[1]);
 
         var numReturn = text.indexOf("UP");
+        if (numReturn != -1){
+          console.log('indexOf: UP');
+        }
+        else {
+          console.log('indexOf: DOWN');
+        }
         console.log('indexOf: ' + numReturn);
 
         console.log('stderr: ' + stderr);
