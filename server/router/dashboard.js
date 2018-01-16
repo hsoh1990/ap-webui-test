@@ -10,8 +10,8 @@ exports.api_get = function (req, res) {
       console.log('text: ' + text);
       stdout = text.replace(/\s\s+/,' ');
       console.log('replace: ' + text);
-      child = exec("ifconfig wlan0", function (error, stdout2, stderr) {});
-      console.log('ifconfig wlan0: ' + JSON.stringify(child));
+      child = exec("ifconfig wlan0", function (error, stdout2, stderr) {return stdout2});
+      console.log('ifconfig wlan0: ' + child);
       var ip = text.match(/inet ([0-9.]+)/i);
       console.log('ip: ' + ip[1]);
       var netmask = text.match(/[0-9.]+\/([0-3][0-9])/i);
