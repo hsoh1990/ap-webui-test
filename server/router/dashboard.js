@@ -19,7 +19,6 @@ exports.api_get = function(req, res) {
         var mac = text.match(/link\/ether ([0-9a-f:]+)/i);
         console.log('mac: ' + mac[1]);
         var RX_packets = text.match(/RX packets:(\d+)/);
-        console.log(RX_packets);
         try {
           if (RX_packets != null) {
             console.log('RX_packets: ' + RX_packets[1]);
@@ -27,7 +26,7 @@ exports.api_get = function(req, res) {
             throw "RX_packets: No Data";
           }
         } catch (e) {
-          console.log(e);
+          //console.log(e);
         }
 
         var numReturn = text.indexOf("UP");
