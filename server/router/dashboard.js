@@ -25,8 +25,8 @@ exports.api_get = function(req, res) {
           } else {
             throw "RX_packets: No Data";
           }
-        } catch () {
-          console.log();
+        } catch (e) {
+          console.log(e);
         }
 
         var numReturn = text.indexOf("UP");
