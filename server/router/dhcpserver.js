@@ -8,10 +8,10 @@ exports.api_get = function (req, res) {
 
   var arr = [];//줄 단위로 배열 저장(마지막은 빈배열이 들어감.)
   arr = stdout.split("\n");
-  for (var i = 0;i < arr.length - 1;i++){//2차원 배열 저장
+  for (var i = 0;i < arr.length - 1;i++){//2차원 배열에 data 저장
     arr[i] = arr[i].split(" ");
     console.log('arr ' + i + ' : ' + arr[i]);
-    console.log('arr ' + i + '[] : ' + arr[i][5]);
+    console.log('arr ' + i + '[] : ' + arr[i][0]);
   }
 
   });
