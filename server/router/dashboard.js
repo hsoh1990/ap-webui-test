@@ -19,6 +19,7 @@ exports.api_get = function(req, res) {
         var mac = text.match(/link\/ether ([0-9a-f:]+)/i);
         console.log('mac: ' + mac[1]);
         var RX_packets = text.match(/RX packets:(\d+)/);
+        console.log(RX_packets);
         try {
           if (RX_packets[1] != null) {
             console.log('RX_packets: ' + RX_packets[1]);
@@ -31,9 +32,9 @@ exports.api_get = function(req, res) {
 
         var numReturn = text.indexOf("UP");
         if (numReturn != -1) {
-          console.log('indexOf: UP');
+          console.log('Interface is: UP');
         } else {
-          console.log('indexOf: DOWN');
+          console.log('Interface is: DOWN');
         }
         console.log('indexOf: ' + numReturn);
 
