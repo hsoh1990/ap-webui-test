@@ -6,26 +6,27 @@ exports.api_get = function (req, res) {
 
   child = exec("ip a s wlan0", function (error, stdout1, stderr) {
     child = exec("iwconfig wlan0", function (error, stdout2, stderr) {
-      var text = stdout1 + stdout2;
-      console.log('text: ' + text);
-      stdout = text.replace(/\s\s+/,' ');
-      console.log('replace: ' + text);
-      child = exec("ifconfig wlan0", function (error, stdout2, stderr) {return stdout2});
-      console.log('ifconfig wlan0: ' + child);
-      var ip = text.match(/inet ([0-9.]+)/i);
-      console.log('ip: ' + ip[1]);
-      var netmask = text.match(/[0-9.]+\/([0-3][0-9])/i);
-      console.log('netmask: ' + netmask[1]);
-      var mac = text.match(/link\/ether ([0-9a-f:]+)/i);
-      console.log('mac: ' + mac[1]);
+      child = exec("ifconfig wlan0", function (error, stdout3, stderr) {
+        var text = stdout1 + stdout2;
+        console.log('text: ' + text);
+        stdout = text.replace(/\s\s+/,' ');
+        console.log('replace: ' + text);
 
-      var numReturn = text.indexOf("UP");
-      console.log('indexOf: ' + numReturn);
+        var ip = text.match(/inet ([0-9.]+)/i);
+        console.log('ip: ' + ip[1]);
+        var netmask = stdout3.match(/netmask ([0-9.]+)/i);
+        console.log('netmask: ' + netmask[1]);
+        var mac = text.match(/link\/ether ([0-9a-f:]+)/i);
+        console.log('mac: ' + mac[1]);
 
-      console.log('stderr: ' + stderr);
-          if (error !== null) {
-              console.log('exec error: ' + error);
-          }
+        var numReturn = text.indexOf("UP");
+        console.log('indexOf: ' + numReturn);
+
+        console.log('stderr: ' + stderr);
+            if (error !== null) {
+                console.log('exec error: ' + error);
+            }
+      });
     });
   });
 
