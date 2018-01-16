@@ -8,8 +8,8 @@ exports.api_get = function (req, res) {
     //console.log(dhcpserverdata);
     child = exec("cat /var/lib/misc/dnsmasq.leases", function (error, stdout, stderr) {
     console.log('stdout: ' + stdout);
-    var arr =stdout.split(" ");
-    console.log('stdout: ' + arr[0] ', 'arr[1]);
+    var arr = stdout.split(" ");
+    console.log('stdout: ' + arr[0] + ', ' + arr[1]);
     });
     res.send(dhcpserverdata);
   })
