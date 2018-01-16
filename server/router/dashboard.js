@@ -21,7 +21,7 @@ exports.api_get = function(req, res) {
         var RX_packets = text.match(/RX packets:(\d+)/);
         console.log(RX_packets);
         try {
-          if (RX_packets[1] != null) {
+          if (RX_packets != null) {
             console.log('RX_packets: ' + RX_packets[1]);
           } else {
             throw "RX_packets: No Data";
