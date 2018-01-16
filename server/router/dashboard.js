@@ -10,12 +10,17 @@ exports.api_get = function (req, res) {
       console.log('text: ' + text);
       stdout = text.replace(/\s\s+/,' ');
       console.log('replace: ' + text);
-      var mac = text.match(/link\/ether ([0-9a-f:]+)/i);
-      console.log('mac: ' + mac[1]);
+
       var ip = text.match(/inet ([0-9.]+)/i);
       console.log('ip: ' + ip[1]);
+      var netmask = text.match(/[0-9.]+\/([0-3][0-9])/i);
+      console.log('mac: ' + netmask[1]);
+      var mac = text.match(/link\/ether ([0-9a-f:]+)/i);
+      console.log('mac: ' + mac[1]);
+
       var numReturn = text.indexOf("UP");
       console.log('indexOf: ' + numReturn);
+
       console.log('stderr: ' + stderr);
           if (error !== null) {
               console.log('exec error: ' + error);
