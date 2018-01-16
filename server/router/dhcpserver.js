@@ -1,5 +1,7 @@
 var fs = require("fs");
-
+var exec = require('child_process').exec,
+    child;
+    
 exports.api_get = function (req, res) {
   fs.readFile(__dirname + "/../data/dhcpserver/" + "clientlist.json", 'utf8', function(err, data) {
     var dhcpserverdata = JSON.parse(data); //json text -> json object
