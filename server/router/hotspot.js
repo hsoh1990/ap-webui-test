@@ -22,10 +22,10 @@ exports.api_get = function(req, res) {
 exports.savedata_dasic = function(arr) {
   var basic_data = {}; //오브젝트
   basic_data["type"] = "basic";
-  basic_data["interface"] = arr[0];
-  basic_data["ssid"] = arr[2];
-  basic_data["wireless_mode"] = arr[3];
-  basic_data["channel"] = arr[4];
+  basic_data["interface"] = arr[0][1];
+  basic_data["ssid"] = arr[2][1];
+  basic_data["wireless_mode"] = arr[3][1];
+  basic_data["channel"] = arr[4][1];
   console.log(JSON.stringify(basic_data));
   // SAVE DATA
   fs.writeFile(__dirname + "/../data/hotspot/" + "basicdata.json",
