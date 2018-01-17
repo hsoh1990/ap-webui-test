@@ -695,7 +695,7 @@
       function data_server_get() {
         const xhr = new XMLHttpRequest();
         // by default async
-        xhr.open("GET", "/api/hotspot", true);
+        xhr.open("GET", "/api/hotspot?type=get", true);
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.responseType = 'json';
 

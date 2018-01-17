@@ -31,20 +31,20 @@ module.exports = function(app, fs, url) {
     res.render('hotspot.html');
   });
   app.get('/api/hotspot', function(req, res) {
-    router_hotspot.api_get(req, res);
-  });
-  app.get('/api/hotspot', function(req, res) {
     req.accepts('application/json');
     // input message handling
     var type = req.query.type;
+    
     if (type == "basic") {
       router_hotspot.api_get_basic();
     } else if (type == "security") {
       router_hotspot.api_get_advanced();
     } else if (type == "advanced") {
       router_hotspot.api_get_security();
-    }else if (type == "awk") {
+    } else if (type == "awk") {
       router_hotspot.api_get_awk();
+    } else if(type == "get") {
+      router_hotspot.api_get(req, res);
     }
   });
   app.post('/api/hotspot', function(req, res) {
