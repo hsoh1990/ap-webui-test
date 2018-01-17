@@ -603,10 +603,9 @@
         xhr.send();
       }
       function interface_option_select(data, response){
-        data = JSON.stringify(data);
-        response = JSON.stringify(response);
-        alert(response[0]);
+        alert(data['interface']);
         for(var a = 0;a < response.length; a++){
+          a = String(a);
           var op = new Option();
           op.value = response[a];
           op.text = response[a];
