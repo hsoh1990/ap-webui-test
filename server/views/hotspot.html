@@ -603,6 +603,8 @@
         xhr.send();
       }
       function interface_option_select(data, response){
+        data = JSON.stringify(data);
+        response = JSON.stringify(response);
         alert(response[0]);
         for(var a = 0;a < response.length; a++){
           var op = new Option();
