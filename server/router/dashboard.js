@@ -17,7 +17,6 @@ exports.consolelog_serverdata = function () {
       child = exec("ifconfig wlan0", function(error, stdout3, stderr) {
         var text = stdout1 + stdout2;
 
-        //ifconfig wlan0
         exports.serverdata_get_ip(text);
         exports.serverdata_get_netmask(stdout3);
         exports.serverdata_get_mac(text);
@@ -25,22 +24,13 @@ exports.consolelog_serverdata = function () {
         exports.serverdata_RX_bytes(stdout3);
         exports.serverdata_TX_packets(stdout3);
         exports.serverdata_TX_bytes(stdout3);
-        var ssid = text.match(/ESSID:\"([a-zA-Z0-9\s]+)\"/i);
-        var access_point = text.match(/Access Point: ([0-9a-f:]+)/i);
-        var Bit_Rate = text.match(/Bit Rate=([0-9\.]+ Mb\/s)/i);
-        var Tx_Power = text.match(/Tx-Power=([0-9]+ dBm)/i);
-        var Link_Quality = text.match(/Link Quality=([0-9]+)/i);
-        var Signal_level = text.match(/Signal level=(-?[0-9]+ dBm)/i);
-        var Frequency = text.match(/Frequency:(\d+.\d+ GHz)/i);
-
-        var numReturn = text.indexOf("UP");
-        if (numReturn != -1) {
-          console.log('Interface is: UP');
-        } else {
-          console.log('Interface is: DOWN');
-        }
-        console.log('indexOf: ' + numReturn);
-
+        exports.serverdata_ssid(stdout3);
+        exports.serverdata_access_point(stdout3);
+        exports.serverdata_Bit_Rate(stdout3);
+        exports.serverdata_Signal_level(stdout3);
+        exports.serverdata_Tx_Power(stdout3);
+        exports.serverdata_Frequency(stdout3);
+        exports.serverdata_Link_Quality(stdout3);
         console.log('stderr: ' + stderr);
         if (error !== null) {
           console.log('exec error: ' + error);
@@ -48,6 +38,14 @@ exports.consolelog_serverdata = function () {
       });
     });
   });
+}
+exports.serverdata_get_interfaceis = function (text) {
+  var numReturn = text.indexOf("UP");
+  if (numReturn != -1) {
+    console.log('Interface is: UP');
+  } else {
+    console.log('Interface is: DOWN');
+  }
 }
 exports.serverdata_get_ip = function (text) {
   var ip = text.match(/inet ([0-9.]+)/i);
@@ -134,6 +132,97 @@ exports.serverdata_TX_bytes = function (text) {
       console.log('TX bytes: ' + TX_bytes);
     } else {
       throw "No Data";
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+exports.serverdata_ssid = function (text) {
+  var ssid = text.match(/ESSID:\"([a-zA-Z0-9\s]+)\"/i);
+
+  try {
+    if (ssid != null) {
+      console.log('ssid: ' + ssid[1]);
+    } else {
+      throw "Not connected";
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+exports.serverdata_access_point = function (text) {
+  var access_point = text.match(/Access Point: ([0-9a-f:]+)/i);
+
+  try {
+    if (access_point != null) {
+      console.log('access point: ' + access_point[1]);
+    } else {
+      throw "";
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+exports.serverdata_Bit_Rate = function (text) {
+  var Bit_Rate = text.match(/Bit Rate=([0-9\.]+ Mb\/s)/i);
+
+  try {
+    if (Bit_Rate != null) {
+      console.log('Bit Rate: ' + Bit_Rate[1]);
+    } else {
+      throw "";
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+exports.serverdata_Signal_level = function (text) {
+  var Signal_level = text.match(/Signal level=(-?[0-9]+ dBm)/i);
+
+  try {
+    if (Signal_level != null) {
+      console.log('Signal level: ' + Signal_level[1]);
+    } else {
+      throw "";
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+exports.serverdata_Tx_Power = function (text) {
+  var Tx_Power = text.match(/Tx-Power=([0-9]+ dBm)/i);
+
+  try {
+    if (Tx_Power != null) {
+      console.log('Tx Power: ' + Tx_Power[1]);
+    } else {
+      throw "";
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+exports.serverdata_Frequency = function (text) {
+  var Frequency = text.match(/Frequency:(\d+.\d+ GHz)/i);
+
+  try {
+    if (Frequency != null) {
+      console.log('Frequency: ' + Frequency[1]);
+    } else {
+      throw "";
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+exports.serverdata_Link_Quality = function (text) {
+  var Link_Quality = text.match(/Link Quality=([0-9]+)/i);
+
+  try {
+    if (Link_Quality != null) {
+      console.log('Link Quality: ' + Link_Quality[1]);
+    } else {
+      throw "";
     }
   } catch (e) {
     console.log(e);
