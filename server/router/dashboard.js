@@ -127,10 +127,11 @@ exports.serverdata_RX_bytes = function (text) {
 }
 exports.serverdata_TX_bytes = function (text) {
   var TX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/gi);
-
+  var split_TX_bytes = TX_bytes[1].split(" ");
+  TX_bytes = split_TX_bytes[1] +" "+ split_TX_bytes[2];
   try {
     if (TX_bytes != null) {
-      console.log('TX bytes: ' + TX_bytes[0]);
+      console.log('TX bytes: ' + TX_bytes);
     } else {
       throw "No Data";
     }
