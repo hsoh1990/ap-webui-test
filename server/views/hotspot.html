@@ -137,12 +137,8 @@
                         <div class="form-group col-md-4">
                           <label for="code">Interface</label>
                           <select class="form-control" name="interface" id="interfaceid">
-                          <!--
-                          <option value="lo">lo</option>
-                          <option value="eth0">eth0</option>
-                          <option value="wlan0">wlan0</option>
-                        -->
-                        </select>
+
+                          </select>
                         </div>
                       </div>
                       <div class="row">
@@ -497,15 +493,15 @@
         	  </select>
                           <script>
                             /*
-                                                                                country = document.getElementById("selected_country").value;
-                                                                                countries = document.getElementById("countries");
-                                                                                ops = countries.getElementsByTagName("option");
-                                                                                for (i = 0; i < ops.length; i++) {
-                                                                                  if (ops[i].value == country) {
-                                                                                    ops[i].selected = true;
-                                                                                    break;
-                                                                                  }
-                                                                                }*/
+                                                                                                            country = document.getElementById("selected_country").value;
+                                                                                                            countries = document.getElementById("countries");
+                                                                                                            ops = countries.getElementsByTagName("option");
+                                                                                                            for (i = 0; i < ops.length; i++) {
+                                                                                                              if (ops[i].value == country) {
+                                                                                                                ops[i].selected = true;
+                                                                                                                break;
+                                                                                                              }
+                                                                                                            }*/
                           </script>
                         </div>
                       </div>
@@ -565,7 +561,7 @@
         return content;
       }
 
-      function server_get_basic() {//베이직 데이터를 받아옵니다
+      function server_get_basic() { //베이직 데이터를 받아옵니다
         const xhr = new XMLHttpRequest();
         // by default async
         xhr.open("GET", "/api/hotspot?type=basic", true);
@@ -584,7 +580,7 @@
         xhr.send();
       }
 
-      function interface_option_get(data) {//받아온 데이터를 이용해서 한번더 판단(awk)
+      function interface_option_get(data) { //받아온 데이터를 이용해서 한번더 판단(awk)
         const xhr = new XMLHttpRequest();
         // by default async
         xhr.open("GET", "/api/hotspot?type=awk", true);
@@ -602,17 +598,16 @@
         };
         xhr.send();
       }
-      function interface_option_select(data, response){
-        alert(response['0']);
-        for(var a = 0;a < response.length; a++){
+
+      function interface_option_select(data, response) {
+        for (var a = 0; a < response.length; a++) {
           a = String(a);
           var op = new Option();
           op.value = response[a];
           op.text = response[a];
           if (data['interface'] == op.value) {
             op.selected = true;
-          }
-          else {
+          } else {
             op.selected = false;
           }
           document.getElementById("interfaceid").options.add(op);
