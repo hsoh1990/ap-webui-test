@@ -9,7 +9,10 @@ exports.api_get = function (req, res) {
     console.log('hostapd: ' + stdout);
     var arr = stdout.split("\n");
     //console.log('split: ' + arr[0]);
-    console.log('split: ' + arr[0]);
+    for(var i = 0;i < arr.length;i++){
+      arr[i] = arr[i].split("=");
+      console.log('split: ' + arr[i][0] + ", " + arr[i][1]);
+    }
     //console.log('split: ' + arr[2]);
     //console.log('split: ' + arr[3]);
     });
