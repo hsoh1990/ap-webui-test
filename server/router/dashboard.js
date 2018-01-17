@@ -44,7 +44,7 @@ exports.consolelog_serverdata = function () {
           var boarddata = JSON.parse(data);//텍스트 -> 오브젝트
           // ADD TO DATA
           var Interface_Information = {};//오브젝트
-          Interface_Information["Interface Name"] = "wlan0";
+          Interface_Information["Interface Name"] = "wlan1";
           Interface_Information["IP Address"] = ip;
           Interface_Information["Subnet Mask"] = netmask;
           Interface_Information["Mac Address"] = mac;
