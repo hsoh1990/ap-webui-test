@@ -31,15 +31,6 @@ exports.consolelog_serverdata = function () {
         var Link_Quality = text.match(/Link Quality=([0-9]+)/i);
         var Signal_level = text.match(/Signal level=(-?[0-9]+ dBm)/i);
         var Frequency = text.match(/Frequency:(\d+.\d+ GHz)/i);
-        try {
-          if (RX_packets != null) {
-            console.log('RX_packets: ' + RX_packets[1]);
-          } else {
-            throw "RX_packets: No Data";
-          }
-        } catch (e) {
-          console.log(e);
-        }
 
         var numReturn = text.indexOf("UP");
         if (numReturn != -1) {
@@ -124,8 +115,21 @@ exports.serverdata_RX_bytes = function (text) {
   var RX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/i);
 
   try {
-    if (TX_packets != null) {
-      console.log('TX packets: ' + TX_packets[1]);
+    if (RX_bytes != null) {
+      console.log('RX bytes: ' + RX_bytes[1]);
+    } else {
+      throw "No Data";
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+exports.serverdata_TX_bytes = function (text) {
+  var TX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/i);
+
+  try {
+    if (TX_bytes != null) {
+      console.log('TX bytes: ' + TX_bytes[1]);
     } else {
       throw "No Data";
     }
