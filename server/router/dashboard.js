@@ -130,7 +130,7 @@ exports.serverdata_TX_bytes = function (text) {
 
   try {
     if (TX_bytes != null) {
-      console.log('TX bytes: ' + TX_bytes[1]);
+      console.log('TX bytes: ' + TX_bytes[3]);
     } else {
       throw "No Data";
     }
