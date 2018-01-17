@@ -142,7 +142,7 @@
                           <option value="lo">lo</option>
                           -->
                           <option value="eth0">eth0</option>
-                          <option value="wlan0" selected>wlan0</option>
+                          <option value="wlan0">wlan0</option>
 
                         </select>
                       </div>
@@ -568,9 +568,9 @@
       }
       function interface_option(){
         var frm = document.form_basic;
-        var op = new option();
-        op.value = 'lo';
-        op.text = "lo";
+        var op = new Option();
+        op.value = 'lo' + frm.interface.length;
+        op.text = "lo" frm.interface.length;
         op.selected = true;
         frm.interface.options.add(op);
       }
