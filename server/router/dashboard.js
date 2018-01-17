@@ -6,7 +6,6 @@ exports.api_get = function(req, res) {
   exports.consolelog_serverdata();
   fs.readFile(__dirname + "/../data/" + "dashboarddata.json", 'utf8', function(err, data) {
     var dashboarddata = JSON.parse(data); //json text -> json object
-    var execresult;
     //console.log(dashboarddata);
     res.send(dashboarddata);
   })
