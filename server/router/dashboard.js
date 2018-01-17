@@ -11,7 +11,7 @@ exports.api_get = function(req, res) {
   })
 }
 
-exports.consolelog_serverdata = function () {
+exports.consolelog_serverdata = function() {
   child = exec("ip a s wlan0", function(error, stdout1, stderr) {
     child = exec("iwconfig wlan0", function(error, stdout2, stderr) {
       child = exec("ifconfig wlan0", function(error, stdout3, stderr) {
@@ -40,53 +40,51 @@ exports.consolelog_serverdata = function () {
           console.log('exec error: ' + error);
         }
 
-        fs.readFile(__dirname + "/../data/" + "dashboarddata.json", 'utf8', function(err, data) {
-          var boarddata = JSON.parse(data);//텍스트 -> 오브젝트
-          // ADD TO DATA
-          var Interface_Information = {};//오브젝트
-          Interface_Information["Interface Name"] = "wlan1";
-          Interface_Information["IP Address"] = ip;
-          Interface_Information["Subnet Mask"] = netmask;
-          Interface_Information["Mac Address"] = mac;
+        // ADD TO DATA
+        var Interface_Information = {}; //오브젝트
+        Interface_Information["Interface Name"] = "wlan1";
+        Interface_Information["IP Address"] = ip;
+        Interface_Information["Subnet Mask"] = netmask;
+        Interface_Information["Mac Address"] = mac;
 
-          var Interface_Statistics = {};//오브젝트
-          Interface_Statistics["Received Packets"] = rx_packet;
-          Interface_Statistics["Received Bytes"] = rx_byte;
-          Interface_Statistics["Transferred Packets"] = tx_packet;
-          Interface_Statistics["Transferred Bytes"] = tx_byte;
+        var Interface_Statistics = {}; //오브젝트
+        Interface_Statistics["Received Packets"] = rx_packet;
+        Interface_Statistics["Received Bytes"] = rx_byte;
+        Interface_Statistics["Transferred Packets"] = tx_packet;
+        Interface_Statistics["Transferred Bytes"] = tx_byte;
 
-          var Wireless_Information = {};//오브젝트
-          Wireless_Information["Connected To"] = ssid;
-          Wireless_Information["AP Mac Address"] = access_point;
-          Wireless_Information["Bitrate"] = bitrate;
-          Wireless_Information["Signal Level"] = signallevel;
-          Wireless_Information["Transmit Power"] = tx_power;
-          Wireless_Information["Frequency"] = frequency;
-          Wireless_Information["Link Quality"] = link_quality;
+        var Wireless_Information = {}; //오브젝트
+        Wireless_Information["Connected To"] = ssid;
+        Wireless_Information["AP Mac Address"] = access_point;
+        Wireless_Information["Bitrate"] = bitrate;
+        Wireless_Information["Signal Level"] = signallevel;
+        Wireless_Information["Transmit Power"] = tx_power;
+        Wireless_Information["Frequency"] = frequency;
+        Wireless_Information["Link Quality"] = link_quality;
 
-          var alert_select = {};
-          alert_select["Interface is"] = interfaceis;
-          var dashboard_json = {};
-          dashboard_json["Interface_Information"] = Interface_Information;
-          dashboard_json["Interface_Statistics"] = Interface_Statistics;
-          dashboard_json["Wireless_Information"] = Wireless_Information;
-          dashboard_json["alert_select"] = alert_select;
+        var alert_select = {};
+        alert_select["Interface is"] = interfaceis;
+        var dashboard_json = {};
+        dashboard_json["Interface_Information"] = Interface_Information;
+        dashboard_json["Interface_Statistics"] = Interface_Statistics;
+        dashboard_json["Wireless_Information"] = Wireless_Information;
+        dashboard_json["alert_select"] = alert_select;
 
-          // SAVE DATA
-          fs.writeFile(__dirname + "/../data/" + "dashboarddata.json",
-            JSON.stringify(dashboard_json, null, '\t'), "utf8",
-            function(err, data) {
-              result = {
-                "success": 1
-              };
-            })
-        })
+        // SAVE DATA
+        fs.writeFile(__dirname + "/../data/" + "dashboarddata.json",
+          JSON.stringify(dashboard_json, null, '\t'), "utf8",
+          function(err, data) {
+            result = {
+              "success": 1
+            };
+          })
+
 
       });
     });
   });
 }
-exports.serverdata_get_interfaceis = function (text) {
+exports.serverdata_get_interfaceis = function(text) {
   var numReturn = text.indexOf("UP");
   if (numReturn != -1) {
     console.log('Interface is: UP');
@@ -96,7 +94,7 @@ exports.serverdata_get_interfaceis = function (text) {
     return false;
   }
 }
-exports.serverdata_get_ip = function (text) {
+exports.serverdata_get_ip = function(text) {
   var ip = text.match(/inet ([0-9.]+)/i);
   try {
     if (ip != null) {
@@ -110,7 +108,7 @@ exports.serverdata_get_ip = function (text) {
     return "No IP Address Found";
   }
 }
-exports.serverdata_get_netmask = function (text) {
+exports.serverdata_get_netmask = function(text) {
   var netmask = text.match(/netmask ([0-9.]+)/i);
   try {
     if (netmask != null) {
@@ -124,7 +122,7 @@ exports.serverdata_get_netmask = function (text) {
     return "No Subnet Mask Found";
   }
 }
-exports.serverdata_get_mac = function (text) {
+exports.serverdata_get_mac = function(text) {
   var mac = text.match(/link\/ether ([0-9a-f:]+)/i);
 
   try {
@@ -139,7 +137,7 @@ exports.serverdata_get_mac = function (text) {
     return "No MAC Address Found";
   }
 }
-exports.serverdata_RX_packets = function (text) {
+exports.serverdata_RX_packets = function(text) {
   var RX_packets = text.match(/RX packets (\d+)/);
 
   try {
@@ -154,7 +152,7 @@ exports.serverdata_RX_packets = function (text) {
     return "No Data";
   }
 }
-exports.serverdata_TX_packets = function (text) {
+exports.serverdata_TX_packets = function(text) {
   var TX_packets = text.match(/TX packets (\d+)/);
 
   try {
@@ -169,7 +167,7 @@ exports.serverdata_TX_packets = function (text) {
     return "No Data";
   }
 }
-exports.serverdata_RX_bytes = function (text) {
+exports.serverdata_RX_bytes = function(text) {
   var RX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/i);
 
   try {
@@ -184,10 +182,10 @@ exports.serverdata_RX_bytes = function (text) {
     return "No Data";
   }
 }
-exports.serverdata_TX_bytes = function (text) {
+exports.serverdata_TX_bytes = function(text) {
   var TX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/gi);
   var split_TX_bytes = TX_bytes[1].split(" ");
-  TX_bytes = split_TX_bytes[1] +" "+ split_TX_bytes[2] +" "+ split_TX_bytes[3];
+  TX_bytes = split_TX_bytes[1] + " " + split_TX_bytes[2] + " " + split_TX_bytes[3];
   try {
     if (TX_bytes != null) {
       console.log('TX bytes: ' + TX_bytes);
@@ -200,7 +198,7 @@ exports.serverdata_TX_bytes = function (text) {
     return "No Data";
   }
 }
-exports.serverdata_ssid = function (text) {
+exports.serverdata_ssid = function(text) {
   var ssid = text.match(/ESSID:\"([a-zA-Z0-9\s]+)\"/i);
 
   try {
@@ -215,7 +213,7 @@ exports.serverdata_ssid = function (text) {
     return "Not connected";
   }
 }
-exports.serverdata_access_point = function (text) {
+exports.serverdata_access_point = function(text) {
   var access_point = text.match(/Access Point: ([0-9a-f:]+)/i);
 
   try {
@@ -230,7 +228,7 @@ exports.serverdata_access_point = function (text) {
     return "";
   }
 }
-exports.serverdata_Bit_Rate = function (text) {
+exports.serverdata_Bit_Rate = function(text) {
   var Bit_Rate = text.match(/Bit Rate=([0-9\.]+ Mb\/s)/i);
 
   try {
@@ -245,7 +243,7 @@ exports.serverdata_Bit_Rate = function (text) {
     return "";
   }
 }
-exports.serverdata_Signal_level = function (text) {
+exports.serverdata_Signal_level = function(text) {
   var Signal_level = text.match(/Signal level=(-?[0-9]+ dBm)/i);
 
   try {
@@ -260,7 +258,7 @@ exports.serverdata_Signal_level = function (text) {
     return "";
   }
 }
-exports.serverdata_Tx_Power = function (text) {
+exports.serverdata_Tx_Power = function(text) {
   var Tx_Power = text.match(/Tx-Power=([0-9]+ dBm)/i);
 
   try {
@@ -275,7 +273,7 @@ exports.serverdata_Tx_Power = function (text) {
     return "";
   }
 }
-exports.serverdata_Frequency = function (text) {
+exports.serverdata_Frequency = function(text) {
   var Frequency = text.match(/Frequency:(\d+.\d+ GHz)/i);
 
   try {
@@ -290,7 +288,7 @@ exports.serverdata_Frequency = function (text) {
     return "";
   }
 }
-exports.serverdata_Link_Quality = function (text) {
+exports.serverdata_Link_Quality = function(text) {
   var Link_Quality = text.match(/Link Quality=([0-9]+)/i);
 
   try {
