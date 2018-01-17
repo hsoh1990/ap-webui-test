@@ -43,9 +43,10 @@ exports.consolelog_serverdata = function () {
         fs.readFile(__dirname + "/../data/" + "dashboarddata.json", 'utf8', function(err, data) {
           var boarddata = JSON.parse(data);//텍스트 -> 오브젝트
           // ADD TO DATA
-          var qwe = {};
+          var qwe = {};//오브젝트
           qwe[0] = "wlan0";
           qwe[1] = ip;
+          qwe = JSON.stringify(qwe);
           console.log('boarddata: ' + qwe);
 
           // SAVE DATA
