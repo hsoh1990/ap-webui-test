@@ -13,13 +13,13 @@ exports.api_get = function(req, res) {
         arr[i] = arr[i].split("=");
         console.log('split: ' + arr[i][0] + ", " + arr[i][1]);
       }
-
+      exports.savedata_dasic(arr);
 
     });
     res.send(hotspotdata);
   })
 }
-exports.savedata_dasic(arr) {
+exports.savedata_dasic = function(arr) {
   var basic_data = {}; //오브젝트
   basic_data["type"] = "basic";
   basic_data["interface"] = arr[0];
@@ -36,6 +36,7 @@ exports.savedata_dasic(arr) {
       };
     })
 }
+
 exports.api_post_basic = function(req, res) {
   fs.writeFile(__dirname + "/../data/hotspot/" + "basicdata.json",
     JSON.stringify(json, null, '\t'), "utf8",
