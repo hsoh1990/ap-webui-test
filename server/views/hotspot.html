@@ -131,15 +131,18 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                   <div class="tab-pane fade in active" id="basic">
-                    <form role="form" action="" method="POST">
+                    <form role="form" name="form_basic" method="POST">
                     <h4>Basic settings</h4>
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="code">Interface</label>
                         <select class="form-control" name="interface" id="interfaceid">
+
+                          <!--
                           <option value="lo">lo</option>
                           <option value="eth0">eth0</option>
                           <option value="wlan0" selected>wlan0</option>
+                        -->
                         </select>
                       </div>
                     </div>
@@ -562,9 +565,18 @@
         content += "</div>";
         return content;
       }
+      function interface_option(){
+        var frm = document.form_basic;
+        var op = new option();
+        op.value = 'lo';
+        op.text = "lo";
+        op.selected = true;
+        frm.interface.options.add(op);
+      }
 
       function init(data) {
         document.getElementById("HostAPD_decide_id").innerHTML = HostAPD_updown(data);
+        interface_option();
       }
 
       function basic_data_store_button(){
