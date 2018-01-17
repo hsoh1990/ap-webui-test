@@ -22,8 +22,9 @@ exports.consolelog_serverdata = function () {
         exports.serverdata_get_netmask(stdout3);
         exports.serverdata_get_mac(text);
         exports.serverdata_RX_packets(stdout3);
-
-        var TX_bytes = text.match(/TX Bytes:(\d+ \(\d+.\d+ [K|M|G]iB\))/i);
+        exports.serverdata_RX_bytes(stdout3);
+        exports.serverdata_TX_packets(stdout3);
+        exports.serverdata_TX_bytes(stdout3);
         var ssid = text.match(/ESSID:\"([a-zA-Z0-9\s]+)\"/i);
         var access_point = text.match(/Access Point: ([0-9a-f:]+)/i);
         var Bit_Rate = text.match(/Bit Rate=([0-9\.]+ Mb\/s)/i);
