@@ -43,23 +43,43 @@ exports.consolelog_serverdata = function () {
         fs.readFile(__dirname + "/../data/" + "dashboarddata.json", 'utf8', function(err, data) {
           var boarddata = JSON.parse(data);//텍스트 -> 오브젝트
           // ADD TO DATA
-          var qwe = {};//오브젝트
-          qwe["Interface Name"] = "wlan0";
-          qwe["IP Address"] = ip;
-          var asd = {};
-          asd["Interface_Information"] = qwe;
-          asd = JSON.stringify(asd);
-          console.log('boarddata: ' + asd);
+          var Interface_Information = {};//오브젝트
+          Interface_Information["Interface Name"] = "wlan0";
+          Interface_Information["IP Address"] = ip;
+          Interface_Information["Subnet Mask"] = netmask;
+          Interface_Information["Mac Address"] = mac;
+
+          var Interface_Statistics = {};//오브젝트
+          Interface_Statistics["Received Packets"] = rx_packet;
+          Interface_Statistics["Received Bytes"] = rx_byte;
+          Interface_Statistics["Transferred Packets"] = tx_packet;
+          Interface_Statistics["Transferred Bytes"] = tx_byte;
+
+          var Wireless_Information = {};//오브젝트
+          Wireless_Information["Connected To"] = ssid;
+          Wireless_Information["AP Mac Address"] = access_point;
+          Wireless_Information["Bitrate"] = bitrate;
+          Wireless_Information["Signal Level"] = signallevel;
+          Wireless_Information["Transmit Power"] = tx_power;
+          Wireless_Information["Frequency"] = frequency;
+          Wireless_Information["Link Quality"] = link_quality;
+
+          var alert_select = {};
+          alert_select["Interface is"] = interfaceis;
+          var dashboard_json = {};
+          dashboard_json["Interface_Information"] = Interface_Information;
+          dashboard_json["Interface_Statistics"] = Interface_Statistics;
+          dashboard_json["Wireless_Information"] = Wireless_Information;
+          dashboard_json["alert_select"] = alert_select;
 
           // SAVE DATA
-          /*fs.writeFile(__dirname + "/../data/" + "dashboarddata.json",
-            JSON.stringify(users, null, '\t'), "utf8",
+          fs.writeFile(__dirname + "/../data/" + "dashboarddata.json",
+            JSON.stringify(dashboard_json, null, '\t'), "utf8",
             function(err, data) {
               result = {
                 "success": 1
               };
-              res.json(result);
-            })*/
+            })
         })
 
       });
@@ -70,10 +90,10 @@ exports.serverdata_get_interfaceis = function (text) {
   var numReturn = text.indexOf("UP");
   if (numReturn != -1) {
     console.log('Interface is: UP');
-    return "UP";
+    return true;
   } else {
     console.log('Interface is: DOWN');
-    return "DOWN";
+    return false;
   }
 }
 exports.serverdata_get_ip = function (text) {
