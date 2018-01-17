@@ -142,9 +142,8 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group col-md-4">
-                          <label for="code">SSID</label>
-                          <input type="text" class="form-control" name="ssid" id="ssidid" value="test" />
+                        <div class="form-group col-md-4" id="div_ssid">
+
                         </div>
                       </div>
                       <div class="row">
@@ -591,6 +590,7 @@
           if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
             //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
             interface_option_select(data, this.response);
+            ssid_option_select(data);
           }
         };
         xhr.onerror = function() {
@@ -600,8 +600,6 @@
       }
 
       function interface_option_select(data, response) {
-        alert(JSON.stringify(response) + ", " + Object.keys(response).length);
-
         for (var a = 0; a < Object.keys(response).length - 1; a++) {
           a = String(a);
           var op = new Option();
@@ -615,7 +613,28 @@
           document.getElementById("interfaceid").options.add(op);
         }
       }
+      function ssid_option_select(data) {
+        var ssid = data['ssid'];
+        var content = "<label for=code>SSID</label>";
+        content += "<input type=text class=form-control name=ssid id=ssidid value="+ssid+" />"
+        document.getElementById("div_ssid").innerHTML = content;
+      }
 
+      function w_mode_option_select(data) {
+        var wmode = {'0':'a','1':'b','2':'g'}
+        for (var a = 0; a < Object.keys(response).length - 1; a++) {
+          a = String(a);
+          var op = new Option();
+          op.value = response[a];
+          op.text = response[a];
+          if (data['interface'] == op.value) {
+            op.selected = true;
+          } else {
+            op.selected = false;
+          }
+          document.getElementById("interfaceid").options.add(op);
+        }
+      }
       function init(data) {
         document.getElementById("HostAPD_decide_id").innerHTML = HostAPD_updown(data);
         server_get_basic();
