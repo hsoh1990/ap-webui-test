@@ -600,8 +600,9 @@
       }
 
       function interface_option_select(data, response) {
-        alert(JSON.stringify(response) + ", " + JSON.stringify(response).length);
-        for (var a = 0; a < response.length - 1; a++) {
+        alert(JSON.stringify(response) + ", " + Object.keys(response).length);
+
+        for (var a = 0; a < Object.keys(response).length - 1; a++) {
           a = String(a);
           var op = new Option();
           op.value = response[a];
