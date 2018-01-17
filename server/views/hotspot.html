@@ -158,20 +158,7 @@
                         <div class="form-group col-md-4">
                           <label for="code">Channel</label>
                           <select class="form-control" name="channel" id="channelid">
-                          <option value="1" selected>1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                          <option value="11">11</option>
-                          <option value="12">12</option>
-                          <option value="13">13</option>
-                          <option value="14">14</option>
+
                         </select>
                         </div>
                       </div>
@@ -567,7 +554,7 @@
 
         xhr.onload = function() {
           if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-            alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+            //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
             interface_option_get(this.response);
           }
         };
@@ -590,7 +577,7 @@
             interface_option_select(data, this.response);
             ssid_option_select(data);
             w_mode_option_select(data);
-
+            channel_option_select(data);
             basic_data_store_button();
           }
         };
@@ -634,6 +621,21 @@
             op.selected = false;
           }
           document.getElementById("w_mode").options.add(op);
+        }
+      }
+      function channel_option_select(data) {
+        var channel = {'0':'1','1':'2','2':'3','3':'4','4':'5','5':'6','6':'7','7':'8','8':'9','9':'10','10':'11','11':'12','12':'13','13':'14'}
+        for (var a = 0; a < Object.keys(channel).length; a++) {
+          a = String(a);
+          var op = new Option();
+          op.value = channel[a];
+          op.text = channel[a];
+          if (data['channel'] == op.value) {
+            op.selected = true;
+          } else {
+            op.selected = false;
+          }
+          document.getElementById("channelid").options.add(op);
         }
       }
       function init(data) {
