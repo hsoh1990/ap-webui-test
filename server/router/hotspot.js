@@ -22,7 +22,6 @@ exports.api_get = function(req, res) {
 exports.api_get_basic = function(req, res) {
   fs.readFile(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8', function(err, data) {
     var basicdata = JSON.parse(data); //json text -> json object
-    console.log("확인");
     res.send(basicdata);
   })
 }
@@ -43,7 +42,6 @@ exports.api_get_security = function(req, res) {
 exports.api_get_awk = function(req, res) {
 
   child = exec("ip -o link show | awk -F': ' '{print $2}'", function(error, stdout, stderr) {
-    console.log('awk: ' + stdout);
     var arr = stdout.split("\n");
     var awkdata = {};//오브젝트
     for(var a = 0;a < arr.length;a++){
