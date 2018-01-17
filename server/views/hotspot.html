@@ -563,6 +563,7 @@
       function init(data) {
         document.getElementById("HostAPD_decide_id").innerHTML = HostAPD_updown(data);
         server_get_basic();
+        server_get_security();
       }
       function server_get_basic() { //베이직 데이터를 받아옵니다
         const xhr = new XMLHttpRequest();
