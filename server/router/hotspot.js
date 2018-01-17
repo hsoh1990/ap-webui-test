@@ -22,7 +22,7 @@ exports.api_get = function(req, res) {
 exports.api_get_basic = function() {
   fs.readFile(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8', function(err, data) {
     var basicdata = JSON.parse(data); //json text -> json object
-    colsole.log("확인");
+    console.log("확인");
     res.send(basicdata);
   })
 }
