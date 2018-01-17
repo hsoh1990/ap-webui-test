@@ -40,21 +40,21 @@ exports.consolelog_serverdata = function () {
           console.log('exec error: ' + error);
         }
 
-        /*fs.readFile(__dirname + "/../data/" + "dashboarddata.json", 'utf8', function(err, data) {
+        fs.readFile(__dirname + "/../data/" + "dashboarddata.json", 'utf8', function(err, data) {
           var boarddata = JSON.parse(data);
           // ADD TO DATA
-          boarddata[adapt_name] = req.body;
+          console.log('boarddata: ' + boarddata);
 
           // SAVE DATA
-          fs.writeFile(__dirname + "/../data/" + "dashboarddata.json",
+          /*fs.writeFile(__dirname + "/../data/" + "dashboarddata.json",
             JSON.stringify(users, null, '\t'), "utf8",
             function(err, data) {
               result = {
                 "success": 1
               };
               res.json(result);
-            })
-        })*/
+            })*/
+        })
 
       });
     });
