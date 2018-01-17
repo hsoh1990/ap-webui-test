@@ -132,37 +132,39 @@
                 <div class="tab-content">
                   <div class="tab-pane fade in active" id="basic">
                     <form role="form" name="form_basic" method="POST">
-                    <h4>Basic settings</h4>
-                    <div class="row">
-                      <div class="form-group col-md-4">
-                        <label for="code">Interface</label>
-                        <select class="form-control" name="interface" id="interfaceid">
+                      <h4>Basic settings</h4>
+                      <div class="row">
+                        <div class="form-group col-md-4">
+                          <label for="code">Interface</label>
+                          <select class="form-control" name="interface" id="interfaceid">
+                          <!--
                           <option value="lo">lo</option>
                           <option value="eth0">eth0</option>
                           <option value="wlan0">wlan0</option>
+                        -->
                         </select>
+                        </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-md-4">
-                        <label for="code">SSID</label>
-                        <input type="text" class="form-control" name="ssid" id="ssidid" value="test" />
+                      <div class="row">
+                        <div class="form-group col-md-4">
+                          <label for="code">SSID</label>
+                          <input type="text" class="form-control" name="ssid" id="ssidid" value="test" />
+                        </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-md-4">
-                        <label for="code">Wireless Mode</label>
-                        <select class="form-control" name="hw_mode" id="w_mode">
+                      <div class="row">
+                        <div class="form-group col-md-4">
+                          <label for="code">Wireless Mode</label>
+                          <select class="form-control" name="hw_mode" id="w_mode">
                           <option value="a">a</option>
                           <option value="b">b</option>
                           <option value="g" selected>g</option>
                         </select>
+                        </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-md-4">
-                        <label for="code">Channel</label>
-                        <select class="form-control" name="channel" id="channelid">
+                      <div class="row">
+                        <div class="form-group col-md-4">
+                          <label for="code">Channel</label>
+                          <select class="form-control" name="channel" id="channelid">
                           <option value="1" selected>1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -178,44 +180,44 @@
                           <option value="13">13</option>
                           <option value="14">14</option>
                         </select>
+                        </div>
                       </div>
-                    </div>
-                    <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="basic_data_store_button()">
-                    <input type="button" class="btn btn-warning" name="StopHotspot" value="Stop hotspot" onclick="data_server_get()">
-                  </form>
+                      <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="basic_data_store_button()">
+                      <input type="button" class="btn btn-warning" name="StopHotspot" value="Stop hotspot" onclick="data_server_get()">
+                    </form>
                   </div>
                   <div class="tab-pane fade" id="security">
                     <form role="form" action="" method="POST">
-                    <h4>Security settings</h4>
-                    <div class="row">
-                      <div class="form-group col-md-4">
-                        <label for="code">Security type</label>
-                        <select class="form-control" name="wpa" id="wpaid">
+                      <h4>Security settings</h4>
+                      <div class="row">
+                        <div class="form-group col-md-4">
+                          <label for="code">Security type</label>
+                          <select class="form-control" name="wpa" id="wpaid">
                           <option value="1" selected>WPA</option>
                           <option value="2">WPA2</option>
                           <option value="3">WPA+WPA2</option>
                         </select>
+                        </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-md-4">
-                        <label for="code">Encryption Type</label>
-                        <select class="form-control" name="wpa_pairwise" id="wpa_pairwiseid">
+                      <div class="row">
+                        <div class="form-group col-md-4">
+                          <label for="code">Encryption Type</label>
+                          <select class="form-control" name="wpa_pairwise" id="wpa_pairwiseid">
                           <option value="TKIP" selected>TKIP</option>
                           <option value="CCMP">CCMP</option>
                           <option value="TKIP CCMP">TKIP+CCMP</option>
                         </select>
+                        </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-md-4">
-                        <label for="code">PSK</label>
-                        <input type="text" class="form-control" id="pskid" name="wpa_passphrase" value="00000000">
+                      <div class="row">
+                        <div class="form-group col-md-4">
+                          <label for="code">PSK</label>
+                          <input type="text" class="form-control" id="pskid" name="wpa_passphrase" value="00000000">
+                        </div>
                       </div>
-                    </div>
-                    <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="security_data_store_button()">
-                    <input type="submit" class="btn btn-warning" name="StopHotspot" value="Stop hotspot">
-                  </form>
+                      <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="security_data_store_button()">
+                      <input type="submit" class="btn btn-warning" name="StopHotspot" value="Stop hotspot">
+                    </form>
                   </div>
                   <div class="tab-pane fade" id="logoutput">
                     <h4>Logfile output</h4>
@@ -227,22 +229,22 @@
                   </div>
                   <div class="tab-pane fade" id="advanced">
                     <form role="form" action="" method="POST">
-                    <h4>Advanced settings</h4>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-check">
-                          <label class="form-check-label">
+                      <h4>Advanced settings</h4>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-check">
+                            <label class="form-check-label">
                         Enable Logging
                         <input id="logEnable" name ="logEnable" type="checkbox" class="form-check-input" value="1">
                     </label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-md-4">
-                        <label for="code">Country Code</label>
-                        <input type="hidden" id="selected_country" value="<?php echo $arrConfig['country_code'] ?>">
-                        <select class="form-control" id="countries" name="country_code">
+                      <div class="row">
+                        <div class="form-group col-md-4">
+                          <label for="code">Country Code</label>
+                          <input type="hidden" id="selected_country" value="<?php echo $arrConfig['country_code'] ?>">
+                          <select class="form-control" id="countries" name="country_code">
                     <option value="AF">Afghanistan</option>
                     <option value="AX">Åland Islands</option>
                     <option value="AL">Albania</option>
@@ -493,24 +495,24 @@
                     <option value="ZM">Zambia</option>
                     <option value="ZW">Zimbabwe</option>
         	  </select>
-                        <script>
-                          /*
-                                                    country = document.getElementById("selected_country").value;
-                                                    countries = document.getElementById("countries");
-                                                    ops = countries.getElementsByTagName("option");
-                                                    for (i = 0; i < ops.length; i++) {
-                                                      if (ops[i].value == country) {
-                                                        ops[i].selected = true;
-                                                        break;
-                                                      }
-                                                    }*/
-                        </script>
+                          <script>
+                            /*
+                                                                                country = document.getElementById("selected_country").value;
+                                                                                countries = document.getElementById("countries");
+                                                                                ops = countries.getElementsByTagName("option");
+                                                                                for (i = 0; i < ops.length; i++) {
+                                                                                  if (ops[i].value == country) {
+                                                                                    ops[i].selected = true;
+                                                                                    break;
+                                                                                  }
+                                                                                }*/
+                          </script>
+                        </div>
                       </div>
-                    </div>
-                    <!-- /.panel-body -->
-                    <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="advanced_data_store_button()">
-                    <input type="submit" class="btn btn-warning" name="StopHotspot" value="Stop hotspot">
-                  </form>
+                      <!-- /.panel-body -->
+                      <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="advanced_data_store_button()">
+                      <input type="submit" class="btn btn-warning" name="StopHotspot" value="Stop hotspot">
+                    </form>
                   </div>
                   <!-- /.panel-primary -->
               </form>
@@ -562,12 +564,57 @@
         content += "</div>";
         return content;
       }
-      function interface_option(){
-        var op = new Option();
-        op.value = 'lee';
-        op.text = "lee";
-        op.selected = true;
-        document.getElementById( "interfaceid" ).options.add(op);
+
+      function server_get_basic() {//베이직 데이터를 받아옵니다
+        const xhr = new XMLHttpRequest();
+        // by default async
+        xhr.open("GET", "/api/hotspot?type=basic", true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.responseType = 'json';
+
+        xhr.onload = function() {
+          if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+            //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+            interface_option_get(this.response);
+          }
+        };
+        xhr.onerror = function() {
+          console.log("confirm");
+        };
+        xhr.send();
+      }
+
+      function interface_option_get(data) {//받아온 데이터를 이용해서 한번더 판단(awk)
+        const xhr = new XMLHttpRequest();
+        // by default async
+        xhr.open("GET", "/api/hotspot?type=awk", true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.responseType = 'json';
+
+        xhr.onload = function() {
+          if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+            //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+            interface_option_select(data, this.response);
+          }
+        };
+        xhr.onerror = function() {
+          console.log("confirm");
+        };
+        xhr.send();
+      }
+      function interface_option_select(data, response){
+        for(var a = 0;a < response.length; a++){
+          var op = new Option();
+          op.value = response[a];
+          op.text = response[a];
+          if (data['interface'] == op.value) {
+            op.selected = true;
+          }
+          else {
+            op.selected = false;
+          }
+          document.getElementById("interfaceid").options.add(op);
+        }
       }
 
       function init(data) {
@@ -575,7 +622,7 @@
         interface_option();
       }
 
-      function basic_data_store_button(){
+      function basic_data_store_button() {
         var tmp_interid = document.getElementById("interfaceid").value;
         var tmp_ssidid = document.getElementById("ssidid").value;
         var tmp_wmid = document.getElementById("w_mode").value;
@@ -591,7 +638,8 @@
 
         obj_text_convert(obj);
       }
-      function security_data_store_button(){
+
+      function security_data_store_button() {
         var tmp_stid = document.getElementById("wpaid").value;
         var tmp_etid = document.getElementById("wpa_pairwiseid").value;
         var tmp_pskid = document.getElementById("pskid").value;
@@ -605,7 +653,8 @@
 
         obj_text_convert(obj);
       }
-      function advanced_data_store_button(){
+
+      function advanced_data_store_button() {
         tmp_logEnable = document.getElementById("logEnable").value;
         tmp_countries = document.getElementById("countries").value;
 
@@ -623,11 +672,11 @@
         data_server_send(json_data);
       }
 
-      function data_server_send(json_data){
+      function data_server_send(json_data) {
         const xhr = new XMLHttpRequest();
         // by default async
         xhr.open("POST", "/api/hotspot", true);
-        xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.responseType = 'json';
 
         xhr.onload = function() {
@@ -640,11 +689,12 @@
         };
         xhr.send(json_data);
       }
-      function data_server_get(){
+
+      function data_server_get() {
         const xhr = new XMLHttpRequest();
         // by default async
         xhr.open("GET", "/api/hotspot", true);
-        xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.responseType = 'json';
 
         xhr.onload = function() {

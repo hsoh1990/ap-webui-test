@@ -19,6 +19,40 @@ exports.api_get = function(req, res) {
     res.send(hotspotdata);
   })
 }
+exports.api_get_basic = function() {
+  fs.readFile(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8', function(err, data) {
+    var basicdata = JSON.parse(data); //json text -> json object
+
+    res.send(basicdata);
+  })
+}
+exports.api_get_advanced = function() {
+  fs.readFile(__dirname + "/../data/hotspot/" + "advanceddata.json", 'utf8', function(err, data) {
+    var advanceddata = JSON.parse(data); //json text -> json object
+
+    res.send(advanceddata);
+  })
+}
+exports.api_get_security = function() {
+  fs.readFile(__dirname + "/../data/hotspot/" + "securitydata.json", 'utf8', function(err, data) {
+    var securitydata = JSON.parse(data); //json text -> json object
+
+    res.send(securitydata);
+  })
+}
+exports.api_get_awk = function() {
+
+  child = exec("ip -o link show | awk -F': ' '{print $2}'", function(error, stdout, stderr) {
+    console.log('awk: ' + stdout);
+    var arr = stdout.split("\n");
+    var awkdata = {};//오브젝트
+    for(var a = 0;a < arr.length;a++){
+      awkdata[a] = arr[a];
+    }
+    res.send(awkdata);
+
+  });
+}
 exports.savedata_dasic = function(arr) {
   var basic_data = {}; //오브젝트
   basic_data["type"] = "basic";
