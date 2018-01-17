@@ -46,8 +46,10 @@ exports.consolelog_serverdata = function () {
           var qwe = {};//오브젝트
           qwe[0] = "wlan0";
           qwe[1] = ip;
-          qwe = JSON.stringify(qwe);
-          console.log('boarddata: ' + qwe);
+          var asd = {};
+          asd["Interface_Information"] = qwe;
+          asd = JSON.stringify(asd);
+          console.log('boarddata: ' + asd);
 
           // SAVE DATA
           /*fs.writeFile(__dirname + "/../data/" + "dashboarddata.json",
