@@ -17,24 +17,45 @@ exports.consolelog_serverdata = function () {
       child = exec("ifconfig wlan0", function(error, stdout3, stderr) {
         var text = stdout1 + stdout2 + stdout3;
 
-        exports.serverdata_get_ip(text);
-        exports.serverdata_get_netmask(text);
-        exports.serverdata_get_mac(text);
-        exports.serverdata_RX_packets(text);
-        exports.serverdata_RX_bytes(text);
-        exports.serverdata_TX_packets(text);
-        exports.serverdata_TX_bytes(text);
-        exports.serverdata_ssid(text);
-        exports.serverdata_access_point(text);
-        exports.serverdata_Bit_Rate(text);
-        exports.serverdata_Signal_level(text);
-        exports.serverdata_Tx_Power(text);
-        exports.serverdata_Frequency(text);
-        exports.serverdata_Link_Quality(text);
+        var interface_name = "wlan0";
+        var ip = exports.serverdata_get_ip(text);
+        var netmask = exports.serverdata_get_netmask(text);
+        var mac = exports.serverdata_get_mac(text);
+
+        var rx_packet = exports.serverdata_RX_packets(text);
+        var rx_byte = exports.serverdata_RX_bytes(text);
+        var tx_packet = exports.serverdata_TX_packets(text);
+        var tx_byte = exports.serverdata_TX_bytes(text);
+
+        var ssid = exports.serverdata_ssid(text);
+        var access_point = exports.serverdata_access_point(text);
+        var bitrate = exports.serverdata_Bit_Rate(text);
+        var signallevel = exports.serverdata_Signal_level(text);
+        var tx_power = exports.serverdata_Tx_Power(text);
+        var frequency = exports.serverdata_Frequency(text);
+        var link_quality = exports.serverdata_Link_Quality(text);
+        var interfaceis = exports.serverdata_get_interfaceis(stdout1);
         console.log('stderr: ' + stderr);
         if (error !== null) {
           console.log('exec error: ' + error);
         }
+
+        /*fs.readFile(__dirname + "/../data/" + "dashboarddata.json", 'utf8', function(err, data) {
+          var boarddata = JSON.parse(data);
+          // ADD TO DATA
+          boarddata[adapt_name] = req.body;
+
+          // SAVE DATA
+          fs.writeFile(__dirname + "/../data/" + "dashboarddata.json",
+            JSON.stringify(users, null, '\t'), "utf8",
+            function(err, data) {
+              result = {
+                "success": 1
+              };
+              res.json(result);
+            })
+        })*/
+
       });
     });
   });
@@ -43,8 +64,10 @@ exports.serverdata_get_interfaceis = function (text) {
   var numReturn = text.indexOf("UP");
   if (numReturn != -1) {
     console.log('Interface is: UP');
+    return "UP";
   } else {
     console.log('Interface is: DOWN');
+    return "DOWN";
   }
 }
 exports.serverdata_get_ip = function (text) {
@@ -52,11 +75,13 @@ exports.serverdata_get_ip = function (text) {
   try {
     if (ip != null) {
       console.log('ip: ' + ip[1]);
+      return ip[1];
     } else {
       throw "No IP Address Found";
     }
   } catch (e) {
     console.log(e);
+    return "No IP Address Found";
   }
 }
 exports.serverdata_get_netmask = function (text) {
@@ -64,11 +89,13 @@ exports.serverdata_get_netmask = function (text) {
   try {
     if (netmask != null) {
       console.log('netmask: ' + netmask[1]);
+      return netmask[1];
     } else {
       throw "No Subnet Mask Found";
     }
   } catch (e) {
     console.log(e);
+    return "No Subnet Mask Found";
   }
 }
 exports.serverdata_get_mac = function (text) {
@@ -77,11 +104,13 @@ exports.serverdata_get_mac = function (text) {
   try {
     if (mac != null) {
       console.log('mac: ' + mac[1]);
+      return mac[1];
     } else {
       throw "No MAC Address Found";
     }
   } catch (e) {
     console.log(e);
+    return "No MAC Address Found";
   }
 }
 exports.serverdata_RX_packets = function (text) {
@@ -90,11 +119,13 @@ exports.serverdata_RX_packets = function (text) {
   try {
     if (RX_packets != null) {
       console.log('RX packets: ' + RX_packets[1]);
+      return RX_packets[1];
     } else {
       throw "No Data";
     }
   } catch (e) {
     console.log(e);
+    return "No Data";
   }
 }
 exports.serverdata_TX_packets = function (text) {
@@ -103,11 +134,13 @@ exports.serverdata_TX_packets = function (text) {
   try {
     if (TX_packets != null) {
       console.log('TX packets: ' + TX_packets[1]);
+      return TX_packets[1];
     } else {
       throw "No Data";
     }
   } catch (e) {
     console.log(e);
+    return "No Data";
   }
 }
 exports.serverdata_RX_bytes = function (text) {
@@ -116,11 +149,13 @@ exports.serverdata_RX_bytes = function (text) {
   try {
     if (RX_bytes != null) {
       console.log('RX bytes: ' + RX_bytes[1]);
+      return RX_bytes[1];
     } else {
       throw "No Data";
     }
   } catch (e) {
     console.log(e);
+    return "No Data";
   }
 }
 exports.serverdata_TX_bytes = function (text) {
@@ -130,11 +165,13 @@ exports.serverdata_TX_bytes = function (text) {
   try {
     if (TX_bytes != null) {
       console.log('TX bytes: ' + TX_bytes);
+      return TX_bytes;
     } else {
       throw "No Data";
     }
   } catch (e) {
     console.log(e);
+    return "No Data";
   }
 }
 exports.serverdata_ssid = function (text) {
@@ -143,11 +180,13 @@ exports.serverdata_ssid = function (text) {
   try {
     if (ssid != null) {
       console.log('ssid: ' + ssid[1]);
+      return ssid[1];
     } else {
       throw "Not connected";
     }
   } catch (e) {
     console.log(e);
+    return "Not connected";
   }
 }
 exports.serverdata_access_point = function (text) {
@@ -156,11 +195,13 @@ exports.serverdata_access_point = function (text) {
   try {
     if (access_point != null) {
       console.log('access point: ' + access_point[1]);
+      return access_point[1];
     } else {
       throw "";
     }
   } catch (e) {
     console.log(e);
+    return "";
   }
 }
 exports.serverdata_Bit_Rate = function (text) {
@@ -169,11 +210,13 @@ exports.serverdata_Bit_Rate = function (text) {
   try {
     if (Bit_Rate != null) {
       console.log('Bit Rate: ' + Bit_Rate[1]);
+      return Bit_Rate[1];
     } else {
       throw "";
     }
   } catch (e) {
     console.log(e);
+    return "";
   }
 }
 exports.serverdata_Signal_level = function (text) {
@@ -182,11 +225,13 @@ exports.serverdata_Signal_level = function (text) {
   try {
     if (Signal_level != null) {
       console.log('Signal level: ' + Signal_level[1]);
+      return Signal_level[1];
     } else {
       throw "";
     }
   } catch (e) {
     console.log(e);
+    return "";
   }
 }
 exports.serverdata_Tx_Power = function (text) {
@@ -195,11 +240,13 @@ exports.serverdata_Tx_Power = function (text) {
   try {
     if (Tx_Power != null) {
       console.log('Tx Power: ' + Tx_Power[1]);
+      return Tx_Power[1];
     } else {
       throw "";
     }
   } catch (e) {
     console.log(e);
+    return "";
   }
 }
 exports.serverdata_Frequency = function (text) {
@@ -208,11 +255,13 @@ exports.serverdata_Frequency = function (text) {
   try {
     if (Frequency != null) {
       console.log('Frequency: ' + Frequency[1]);
+      return Frequency[1];
     } else {
       throw "";
     }
   } catch (e) {
     console.log(e);
+    return "";
   }
 }
 exports.serverdata_Link_Quality = function (text) {
@@ -221,10 +270,12 @@ exports.serverdata_Link_Quality = function (text) {
   try {
     if (Link_Quality != null) {
       console.log('Link Quality: ' + Link_Quality[1]);
+      return Link_Quality[1];
     } else {
       throw "";
     }
   } catch (e) {
     console.log(e);
+    return "";
   }
 }
