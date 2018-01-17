@@ -15,22 +15,22 @@ exports.consolelog_serverdata = function () {
   child = exec("ip a s wlan0", function(error, stdout1, stderr) {
     child = exec("iwconfig wlan0", function(error, stdout2, stderr) {
       child = exec("ifconfig wlan0", function(error, stdout3, stderr) {
-        var text = stdout1 + stdout2;
+        var text = stdout1 + stdout2 + stdout3;
 
         exports.serverdata_get_ip(text);
-        exports.serverdata_get_netmask(stdout3);
+        exports.serverdata_get_netmask(text);
         exports.serverdata_get_mac(text);
-        exports.serverdata_RX_packets(stdout3);
-        exports.serverdata_RX_bytes(stdout3);
-        exports.serverdata_TX_packets(stdout3);
-        exports.serverdata_TX_bytes(stdout3);
-        exports.serverdata_ssid(stdout3);
-        exports.serverdata_access_point(stdout3);
-        exports.serverdata_Bit_Rate(stdout3);
-        exports.serverdata_Signal_level(stdout3);
-        exports.serverdata_Tx_Power(stdout3);
-        exports.serverdata_Frequency(stdout3);
-        exports.serverdata_Link_Quality(stdout3);
+        exports.serverdata_RX_packets(text);
+        exports.serverdata_RX_bytes(text);
+        exports.serverdata_TX_packets(text);
+        exports.serverdata_TX_bytes(text);
+        exports.serverdata_ssid(text);
+        exports.serverdata_access_point(text);
+        exports.serverdata_Bit_Rate(text);
+        exports.serverdata_Signal_level(text);
+        exports.serverdata_Tx_Power(text);
+        exports.serverdata_Frequency(text);
+        exports.serverdata_Link_Quality(text);
         console.log('stderr: ' + stderr);
         if (error !== null) {
           console.log('exec error: ' + error);
