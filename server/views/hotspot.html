@@ -41,7 +41,7 @@
 
 </head>
 
-<body onload="basic_data_store_button(),data_server_get()">
+<body onload="data_server_get()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -591,6 +591,7 @@
             //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
             interface_option_select(data, this.response);
             ssid_option_select(data);
+            basic_data_store_button();
           }
         };
         xhr.onerror = function() {
