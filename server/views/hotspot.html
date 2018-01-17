@@ -137,13 +137,9 @@
                       <div class="form-group col-md-4">
                         <label for="code">Interface</label>
                         <select class="form-control" name="interface" id="interfaceid">
-
-                          <!--
                           <option value="lo">lo</option>
-                          -->
                           <option value="eth0">eth0</option>
                           <option value="wlan0">wlan0</option>
-
                         </select>
                       </div>
                     </div>
@@ -567,12 +563,11 @@
         return content;
       }
       function interface_option(){
-        var frm = document.form_basic;
         var op = new Option();
-        op.value = 'lo' + frm.interface.length;
-        op.text = "lo" frm.interface.length;
+        op.value = 'lee';
+        op.text = "lee";
         op.selected = true;
-        frm.interface.options.add(op);
+        document.getElementById( "interfaceid" ).options.add(op);
       }
 
       function init(data) {
