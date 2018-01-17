@@ -19,28 +19,28 @@ exports.api_get = function(req, res) {
     res.send(hotspotdata);
   })
 }
-exports.api_get_basic = function() {
+exports.api_get_basic = function(req, res) {
   fs.readFile(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8', function(err, data) {
     var basicdata = JSON.parse(data); //json text -> json object
     console.log("확인");
     res.send(basicdata);
   })
 }
-exports.api_get_advanced = function() {
+exports.api_get_advanced = function(req, res) {
   fs.readFile(__dirname + "/../data/hotspot/" + "advanceddata.json", 'utf8', function(err, data) {
     var advanceddata = JSON.parse(data); //json text -> json object
 
     res.send(advanceddata);
   })
 }
-exports.api_get_security = function() {
+exports.api_get_security = function(req, res) {
   fs.readFile(__dirname + "/../data/hotspot/" + "securitydata.json", 'utf8', function(err, data) {
     var securitydata = JSON.parse(data); //json text -> json object
 
     res.send(securitydata);
   })
 }
-exports.api_get_awk = function() {
+exports.api_get_awk = function(req, res) {
 
   child = exec("ip -o link show | awk -F': ' '{print $2}'", function(error, stdout, stderr) {
     console.log('awk: ' + stdout);
