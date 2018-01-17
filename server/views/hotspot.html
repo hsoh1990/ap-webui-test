@@ -150,9 +150,7 @@
                         <div class="form-group col-md-4">
                           <label for="code">Wireless Mode</label>
                           <select class="form-control" name="hw_mode" id="w_mode">
-                          <option value="a">a</option>
-                          <option value="b">b</option>
-                          <option value="g" selected>g</option>
+
                         </select>
                         </div>
                       </div>
@@ -591,6 +589,8 @@
             //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
             interface_option_select(data, this.response);
             ssid_option_select(data);
+            w_mode_option_select(data);
+
             basic_data_store_button();
           }
         };
@@ -623,17 +623,17 @@
 
       function w_mode_option_select(data) {
         var wmode = {'0':'a','1':'b','2':'g'}
-        for (var a = 0; a < Object.keys(response).length - 1; a++) {
+        for (var a = 0; a < Object.keys(wmode).length; a++) {
           a = String(a);
           var op = new Option();
-          op.value = response[a];
-          op.text = response[a];
-          if (data['interface'] == op.value) {
+          op.value = wmode[a];
+          op.text = wmode[a];
+          if (data['wireless_mode'] == op.value) {
             op.selected = true;
           } else {
             op.selected = false;
           }
-          document.getElementById("interfaceid").options.add(op);
+          document.getElementById("w_mode").options.add(op);
         }
       }
       function init(data) {
