@@ -678,6 +678,7 @@
         xhr.send();
       }
       function security_type_option_select(data) {
+        alert(JSON.stringify(data));
         var s_type = {'0':'WPA','1':'WPA2','2':'WPA+WPA2'}
         for (var a = 0; a < Object.keys(s_type).length; a++) {
           a = String(a);
