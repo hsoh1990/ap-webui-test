@@ -13,7 +13,7 @@ exports.api_get = function(req, res) {
         arr[i] = arr[i].split("=");
         console.log('split: ' + arr[i][0] + ", " + arr[i][1]);
       }
-      exports.savedata_dasic(arr);
+      exports.savedata_basic(arr);
 
     });
     res.send(hotspotdata);
@@ -51,7 +51,7 @@ exports.api_get_awk = function(req, res) {
 
   });
 }
-exports.savedata_dasic = function(arr) {
+exports.savedata_basic = function(arr) {
   var basic_data = {}; //오브젝트
   basic_data["type"] = "basic";
   basic_data["interface"] = arr[0][1];
@@ -68,6 +68,39 @@ exports.savedata_dasic = function(arr) {
       };
     })
 }
+exports.savedata_security = function(arr) {
+  var security_data = {}; //오브젝트
+  security_data["type"] = "security";
+  security_data["security_type"] = arr[8][1];
+  security_data["encryption_type"] = arr[10][1];
+  security_data["psk"] = arr[9][1];
+  console.log(JSON.stringify(security_data));
+  // SAVE DATA
+  fs.writeFile(__dirname + "/../data/hotspot/" + "securitydata.json",
+    JSON.stringify(security_data, null, '\t'), "utf8",
+    function(err, data) {
+      result = {
+        "success": 1
+      };
+    })
+}
+
+exports.savedata_advanced = function(arr) {
+  var advanced_data = {}; //오브젝트
+  advanced_data["type"] = "advanced";
+  advanced_data["enable_logging"] = arr[0][1];
+  advanced_data["country_code"] = arr[2][1];
+  console.log(JSON.stringify(advanced_data));
+  // SAVE DATA
+  fs.writeFile(__dirname + "/../data/hotspot/" + "advancedata.json",
+    JSON.stringify(advanced_data, null, '\t'), "utf8",
+    function(err, data) {
+      result = {
+        "success": 1
+      };
+    })
+}
+
 
 exports.api_post_basic = function(req, res) {
   fs.writeFile(__dirname + "/../data/hotspot/" + "basicdata.json",

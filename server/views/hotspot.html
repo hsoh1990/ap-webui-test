@@ -173,9 +173,7 @@
                         <div class="form-group col-md-4">
                           <label for="code">Security type</label>
                           <select class="form-control" name="wpa" id="wpaid">
-                          <option value="1" selected>WPA</option>
-                          <option value="2">WPA2</option>
-                          <option value="3">WPA+WPA2</option>
+
                         </select>
                         </div>
                       </div>
@@ -544,7 +542,28 @@
         content += "</div>";
         return content;
       }
+      function data_server_get() {
+        const xhr = new XMLHttpRequest();
+        // by default async
+        xhr.open("GET", "/api/hotspot?type=get", true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.responseType = 'json';
 
+        xhr.onload = function() {
+          if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+            //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+            init(this.response);
+          }
+        };
+        xhr.onerror = function() {
+          console.log("confirm");
+        };
+        xhr.send();
+      }
+      function init(data) {
+        document.getElementById("HostAPD_decide_id").innerHTML = HostAPD_updown(data);
+        server_get_basic();
+      }
       function server_get_basic() { //베이직 데이터를 받아옵니다
         const xhr = new XMLHttpRequest();
         // by default async
@@ -638,9 +657,39 @@
           document.getElementById("channelid").options.add(op);
         }
       }
-      function init(data) {
-        document.getElementById("HostAPD_decide_id").innerHTML = HostAPD_updown(data);
-        server_get_basic();
+
+      function server_get_security() { //security 데이터를 받아옵니다
+        const xhr = new XMLHttpRequest();
+        // by default async
+        xhr.open("GET", "/api/hotspot?type=security", true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.responseType = 'json';
+
+        xhr.onload = function() {
+          if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+            //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+            security_type_option_select(this.response);
+          }
+        };
+        xhr.onerror = function() {
+          console.log("confirm");
+        };
+        xhr.send();
+      }
+      function security_type_option_select(data) {
+        var s_type = {'0':'WPA','1':'WPA2','2':'WPA+WPA2'}
+        for (var a = 0; a < Object.keys(s_type).length; a++) {
+          a = String(a);
+          var op = new Option();
+          op.value = s_type[a];
+          op.text = s_type[a];
+          if (data['security_type'] == a) {
+            op.selected = true;
+          } else {
+            op.selected = false;
+          }
+          document.getElementById("wpaid").options.add(op);
+        }
       }
 
       function basic_data_store_button() {
@@ -709,25 +758,6 @@
           console.log("confirm");
         };
         xhr.send(json_data);
-      }
-
-      function data_server_get() {
-        const xhr = new XMLHttpRequest();
-        // by default async
-        xhr.open("GET", "/api/hotspot?type=get", true);
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        xhr.responseType = 'json';
-
-        xhr.onload = function() {
-          if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-            //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
-            init(this.response);
-          }
-        };
-        xhr.onerror = function() {
-          console.log("confirm");
-        };
-        xhr.send();
       }
     </script>
 
