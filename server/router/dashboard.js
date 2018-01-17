@@ -44,8 +44,8 @@ exports.consolelog_serverdata = function () {
           var boarddata = JSON.parse(data);//텍스트 -> 오브젝트
           // ADD TO DATA
           var qwe = {};//오브젝트
-          qwe[0] = "wlan0";
-          qwe[1] = ip;
+          qwe["Interface Name"] = "wlan0";
+          qwe["IP Address"] = ip;
           var asd = {};
           asd["Interface_Information"] = qwe;
           asd = JSON.stringify(asd);
