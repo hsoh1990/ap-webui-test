@@ -493,15 +493,15 @@
         	  </select>
                           <script>
                             /*
-                                                                                                            country = document.getElementById("selected_country").value;
-                                                                                                            countries = document.getElementById("countries");
-                                                                                                            ops = countries.getElementsByTagName("option");
-                                                                                                            for (i = 0; i < ops.length; i++) {
-                                                                                                              if (ops[i].value == country) {
-                                                                                                                ops[i].selected = true;
-                                                                                                                break;
-                                                                                                              }
-                                                                                                            }*/
+                                                                                                                                        country = document.getElementById("selected_country").value;
+                                                                                                                                        countries = document.getElementById("countries");
+                                                                                                                                        ops = countries.getElementsByTagName("option");
+                                                                                                                                        for (i = 0; i < ops.length; i++) {
+                                                                                                                                          if (ops[i].value == country) {
+                                                                                                                                            ops[i].selected = true;
+                                                                                                                                            break;
+                                                                                                                                          }
+                                                                                                                                        }*/
                           </script>
                         </div>
                       </div>
@@ -600,6 +600,7 @@
       }
 
       function interface_option_select(data, response) {
+        alert(JSON.stringify(response));
         for (var a = 0; a < response.length; a++) {
           a = String(a);
           var op = new Option();
