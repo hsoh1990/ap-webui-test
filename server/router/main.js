@@ -38,9 +38,9 @@ module.exports = function(app, fs, url) {
     if (type == "basic") {
       router_hotspot.api_get_basic(req, res);
     } else if (type == "security") {
-      router_hotspot.api_get_advanced(req, res);
-    } else if (type == "advanced") {
       router_hotspot.api_get_security(req, res);
+    } else if (type == "advanced") {
+      router_hotspot.api_get_advanced(req, res);
     } else if (type == "awk") {
       router_hotspot.api_get_awk(req, res);
     } else if(type == "get") {
