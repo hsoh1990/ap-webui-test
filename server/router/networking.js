@@ -1,7 +1,7 @@
 var fs = require("fs");
 var exec = require('child_process').exec,
   child;
-var cp = require('child_process');
+const { execSync } = require('child_process');
 
 exports.api_get = function(req, res) {
   exports.test_();
@@ -14,7 +14,7 @@ exports.api_get = function(req, res) {
   })
 }
 exports.test_ = function() {
-  var asd = child_process.execSync('ls /sys/class/net | grep -v lo');
+  var asd = execSync('ls /sys/class/net | grep -v lo');
   console.log(asd);
 }
 exports.savedata_1 = function() {
