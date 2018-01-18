@@ -34,7 +34,7 @@ exports.savedata_2 = function(text) {
     console.log("eth : " + text[a]);
     var eng = "current_setting_" + text[a];
     result_data[eng] = eth;
-    console.log("eth : " + result_data);
+    console.log("eth : " + JSON.stringify(result_data));
   }
   fs.writeFile(__dirname + "/../data/networking/" + "summary.json",
     JSON.stringify(result_data, null, '\t'), "utf8",
