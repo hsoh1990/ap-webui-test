@@ -23,12 +23,12 @@ exports.savedata_ = function() {
     for (var i = 0; i < arr.length - 1; i++) {
       console.log("for : " + arr[i]);
       child = exec("ip a show " + arr[i], function(error, stdout2, stderr) {
-        child = exec("ls /sys/class/net | grep -v lo", function(error, stdout1, stderr) {
-          var arr = stdout1.split("\n");
+        child = exec("ls /sys/class/net | grep -v lo", function(error, stdout3, stderr) {
+          var arr_ = stdout3.split("\n");
           var eth = {};
-          console.log("eth : " + arr[i]);
-          eth[arr[i]] = stdout2.replace(/\n/gi, "<br>");
-          var eng = "current_setting_" + arr[i];
+          console.log("eth : " + arr_[i]);
+          eth[arr_[i]] = stdout2.replace(/\n/gi, "<br>");
+          var eng = "current_setting_" + arr_[i];
           result_data[eng] = eth;
           console.log("----------------------------------------------------");
         });
