@@ -677,7 +677,7 @@
         xhr.send();
       }
       function security_type_option_select(data) {//security에서 1번째 항목(타입 항목)
-        alert(JSON.stringify(data));
+        //alert(JSON.stringify(data));
         var s_type = {'0':'WPA','1':'WPA2','2':'WPA+WPA2'}
         for (var a = 0; a < Object.keys(s_type).length; a++) {
           a = String(a);
@@ -696,10 +696,10 @@
         //alert(JSON.stringify(data));
         var enc_type = {'TKIP':'TKIP','CCMP':'CCMP','TKIP CCMP':'TKIP+CCMP'}
         var enc_type_key = Object.getOwnPropertyNames(enc_type);
-        alert(enc_type_key[0]);
+        //alert(enc_type_key[0]);
         for (var a = 0; a < Object.keys(enc_type).length; a++) {
           //a = String(a);
-          alert(enc_type[enc_type_key[a]]);
+          //alert(enc_type[enc_type_key[a]]);
           var op = new Option();
           op.value = enc_type[enc_type_key[a]];
           op.text = enc_type[enc_type_key[a]];
