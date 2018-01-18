@@ -17,7 +17,7 @@ exports.savedata_ = function () {
     for(var a = 0;a < arr.length;a++){
       cs_data[a] = arr[a];
     }
-
+    console.log(arr[0]);
     var result_data = {};
     for(var i = 0;i < arr.length - 1;i++){
       child = exec("ip a show " + arr[i], function (error, stdout2, stderr) {
