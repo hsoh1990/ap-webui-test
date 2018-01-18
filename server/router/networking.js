@@ -21,16 +21,25 @@ exports.savedata_ = function () {
     for(var a = 0;a < arr.length;a++){
       cs_data[a] = arr[a];
     }
-    child = exec("ip a show " + arr[0], function (error, stdout2, stderr) {
-      var eth = {};
-      eth['eth0'] = stdout2.replace(/\n/gi, "<br>");
-      var result_data = {};
-      result_data['current_setting_eth0'] = eth;
 
-      console.log(result_data);
-    });
+    var result_data = {};
+    for(var i = 0;i < arr.length;i++){
+      child = exec("ip a show " + arr[i], function (error, stdout2, stderr) {
+        var eth = {};
+        eth[arr[i]] = stdout2.replace(/\n/gi, "<br>");
+        var eng = "current_setting_" + arr[i];
+        result_data[eng] = eth;
+      });
+    }
+    fs.writeFile(__dirname + "/../data/networking/" + "summary.json",
+      JSON.stringify(result_data, null, '\t'), "utf8",
+      function(err, data) {
+        result = {
+          "success": 1
+        };
+        res.json(result);
+      })
   });
-
 }
 exports.api_post = function (req, res) {
   req.accepts('application/json');
