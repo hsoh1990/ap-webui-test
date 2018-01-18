@@ -25,7 +25,10 @@ exports.savedata_1 = function() {
 }
 exports.savedata_2 = function(text) {
   for (var a = 0; a < text.length - 1; a++) {
-    child = exec("ip a show " + text[a], function(error, stdout2, stderr) {
+    const stdout2 = execSync('ip a show ' + text[a], {
+      encoding: 'utf8'
+    });
+
       var eth = {};
       var result_data = {};
       eth[text[a]] = stdout2.replace(/\n/gi, "<br>");
@@ -40,7 +43,6 @@ exports.savedata_2 = function(text) {
             "success": 1
           };
         })
-    });
   }
 }
 exports.api_post = function(req, res) {
