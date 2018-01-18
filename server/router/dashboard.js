@@ -22,10 +22,10 @@ exports.consolelog_serverdata = function() {
         var netmask = exports.serverdata_get_netmask(text);
         var mac = exports.serverdata_get_mac(text);
 
-        var rx_packet = exports.serverdata_RX_packets(text);
-        var rx_byte = exports.serverdata_RX_bytes(text);
-        var tx_packet = exports.serverdata_TX_packets(text);
-        var tx_byte = exports.serverdata_TX_bytes(text);
+        var rx_packet = exports.serverdata_RX_packets(stdout3);
+        var rx_byte = exports.serverdata_RX_bytes(stdout3);
+        var tx_packet = exports.serverdata_TX_packets(stdout3);
+        var tx_byte = exports.serverdata_TX_bytes(stdout3);
 
         var ssid = exports.serverdata_ssid(text);
         var access_point = exports.serverdata_access_point(text);
