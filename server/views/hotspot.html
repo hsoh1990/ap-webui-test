@@ -181,9 +181,7 @@
                         <div class="form-group col-md-4">
                           <label for="code">Encryption Type</label>
                           <select class="form-control" name="wpa_pairwise" id="wpa_pairwiseid">
-                          <option value="TKIP" selected>TKIP</option>
-                          <option value="CCMP">CCMP</option>
-                          <option value="TKIP CCMP">TKIP+CCMP</option>
+
                         </select>
                         </div>
                       </div>
@@ -700,16 +698,16 @@
         var enc_type_key = Object.getOwnPropertyNames(enc_type);
         alert(enc_type_key[0]);
         for (var a = 0; a < Object.keys(s_type).length; a++) {
-          a = String(a);
+          //a = String(a);
           var op = new Option();
-          op.value = enc_type[a];
-          op.text = enc_type[a];
-          if (data['encryption_type'] == a) {
+          op.value = enc_type[enc_type_key[a]];
+          op.text = enc_type[enc_type_key[a]];
+          if (data['encryption_type'] == enc_type_key[a]) {
             op.selected = true;
           } else {
             op.selected = false;
           }
-          document.getElementById("wpaid").options.add(op);
+          document.getElementById("wpa_pairwiseid").options.add(op);
         }
       }
 
