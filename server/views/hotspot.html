@@ -698,7 +698,7 @@
         //alert(JSON.stringify(data));
         var enc_type = {'TKIP':'TKIP','CCMP':'CCMP','TKIP CCMP':'TKIP+CCMP'}
         var enc_type_key = Object.getOwnPropertyNames(enc_type);
-        alert(enc_type_key);
+        alert(enc_type_key[0]);
         for (var a = 0; a < Object.keys(s_type).length; a++) {
           a = String(a);
           var op = new Option();
