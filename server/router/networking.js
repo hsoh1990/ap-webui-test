@@ -37,7 +37,6 @@ exports.savedata_ = function () {
         result = {
           "success": 1
         };
-        res.json(result);
       })
   });
 }
