@@ -506,6 +506,7 @@
     </div>
     <!-- /#wrapper -->
 
+    <script src="../data/hotspot/countrydata.json"></script>
     <!-- RaspAP JavaScript -->
     <script src="dist/js/functions.js"></script>
 
@@ -563,6 +564,7 @@
         document.getElementById("HostAPD_decide_id").innerHTML = HostAPD_updown(data);
         server_get_basic();
         server_get_security();
+        server_get_advanced();
       }
 
       function server_get_basic() { //베이직 데이터를 받아옵니다
@@ -751,6 +753,42 @@
         var content = "<label for=code>PSK</label>";
         content += "<input type=text class=form-control id=pskid name=wpa_passphrase value=" + psk + ">"
         document.getElementById("psk_div_id").innerHTML = content;
+      }
+      function server_get_advanced() { //security 데이터를 받아옵니다
+        const xhr = new XMLHttpRequest();
+        // by default async
+        xhr.open("GET", "/api/hotspot?type=advanced", true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.responseType = 'json';
+
+        xhr.onload = function() {
+          if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+            //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+            country_select(this.response);
+          }
+        };
+        xhr.onerror = function() {
+          console.log("confirm");
+        };
+        xhr.send();
+      }
+      function country_select(data) {
+        var country_data = countrydata;
+        //var enc_type_key = Object.getOwnPropertyNames(enc_type);
+        alert(country_data['AF']);
+        /*for (var a = 0; a < Object.keys(enc_type).length; a++) {
+          //a = String(a);
+          //alert(enc_type[enc_type_key[a]]);
+          var op = new Option();
+          op.value = enc_type[enc_type_key[a]];
+          op.text = enc_type[enc_type_key[a]];
+          if (data['encryption_type'] == enc_type_key[a]) {
+            op.selected = true;
+          } else {
+            op.selected = false;
+          }
+          document.getElementById("wpa_pairwiseid").options.add(op);
+        }*/
       }
 
       function basic_data_store_button() {
