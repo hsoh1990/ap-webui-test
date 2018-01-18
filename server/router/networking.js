@@ -29,6 +29,7 @@ exports.savedata_ = function () {
         console.log("----------------------------------------------------");
       });
     }
+    console.log("! == " + result_data);
     fs.writeFile(__dirname + "/../data/networking/" + "summary.json",
       JSON.stringify(result_data, null, '\t'), "utf8",
       function(err, data) {
