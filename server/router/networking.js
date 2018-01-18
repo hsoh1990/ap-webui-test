@@ -16,7 +16,7 @@ exports.api_get = function (req, res) {
 }
 exports.savedata_ = function () {
   child = exec("ls /sys/class/net | grep -v lo", function (error, stdout1, stderr) {
-    var arr = stdout.split("\n");
+    var arr = stdout1.split("\n");
     var cs_data = {};//오브젝트
     for(var a = 0;a < arr.length;a++){
       cs_data[a] = arr[a];
