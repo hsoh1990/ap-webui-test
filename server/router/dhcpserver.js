@@ -23,7 +23,7 @@ exports.api_get = function (req, res) {
     console.log('arr ' + i + ' : ' + arr[i]);
     console.log('arr ' + i + '[] : ' + arr[i][0]);
   }
-  fs.writeFile(__dirname + "/../data/dhcpserver/" + "clientlist.json",
+  fs.writeFileSync(__dirname + "/../data/dhcpserver/" + "clientlist.json",
     JSON.stringify(data__, null, '\t'), "utf8",
     function(err, data) {
       result = {
@@ -41,7 +41,7 @@ exports.api_get = function (req, res) {
 exports.api_get_dnsmasq = function (req, res) {
   exports.read_pidof_dnsmasq();
 
-  fs.readFile(__dirname + "/../data/dhcpserver/" + "dnsmasq_dec.json", 'utf8', function(err, data) {
+  fs.readFileSync(__dirname + "/../data/dhcpserver/" + "dnsmasq_dec.json", 'utf8', function(err, data) {
     var dnsmasqdata = JSON.parse(data); //json text -> json object
     //console.log(dhcpserverdata);
     res.send(dnsmasqdata);
@@ -59,7 +59,7 @@ exports.read_pidof_dnsmasq = function() {
     var dnsmasqdata = {};
     dnsmasqdata['alert_select'] = data;
 
-    fs.writeFile(__dirname + "/../data/dhcpserver/" + "dnsmasq_dec.json",
+    fs.writeFileSync(__dirname + "/../data/dhcpserver/" + "dnsmasq_dec.json",
       JSON.stringify(dnsmasqdata, null, '\t'), "utf8",
       function(err, data) {
         result = {
