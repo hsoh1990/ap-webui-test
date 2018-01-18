@@ -4,7 +4,7 @@ var exec = require('child_process').exec,
 
 exports.api_get = function(req, res) {
   var arr = exports.savedata_1();
-  exports.savedata_2(arr[0]);
+  //exports.savedata_2(arr[0]);
   fs.readFile(__dirname + "/../data/networking/" + "summary.json", 'utf8', function(err, data) {
     var wpaconfigdata = JSON.parse(data); //json text -> json object
     //console.log(wpaconfigdata);
@@ -14,6 +14,7 @@ exports.api_get = function(req, res) {
 exports.savedata_1 = function() {
   child = exec("ls /sys/class/net | grep -v lo", function(error, stdout1, stderr) {
     var arr = stdout1.split("\n");
+    console.log(arr);
     return arr;
   });
 }
