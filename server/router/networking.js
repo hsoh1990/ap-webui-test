@@ -15,7 +15,8 @@ exports.api_get = function(req, res) {
 }
 exports.savedata_ = function() {
   let stdout1 = execSync('ls /sys/class/net | grep -v lo')
-  var arr = stdout1.split("\n");
+  console.log(stdout1);
+  /*var arr = stdout1.split("\n");
   var count = 0;
   var result_data = {};
   for (var i = 0; i < arr.length - 1; i++) {
@@ -34,7 +35,7 @@ exports.savedata_ = function() {
       result = {
         "success": 1
       };
-    })
+    })*/
 }
 exports.api_post = function(req, res) {
   req.accepts('application/json');
