@@ -16,6 +16,7 @@ exports.api_get = function(req, res) {
 exports.savedata_1 = function() {
   child = exec("ls /sys/class/net | grep -v lo", function(error, stdout1, stderr) {
     if (error) throw error;
+    console.log(stdout1);
     var arr = stdout1.split("\n");
     return arr;
   });
