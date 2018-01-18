@@ -19,7 +19,7 @@ exports.api_get = function (req, res) {
     tmp['IP Address'] = arr[i][2];
     tmp['Host name'] = arr[i][3];
     tmp['Client ID'] = arr[i][4];
-    data[string_num] = tmp;
+    data__[string_num] = tmp;
     console.log('arr ' + i + ' : ' + arr[i]);
     console.log('arr ' + i + '[] : ' + arr[i][0]);
   }
