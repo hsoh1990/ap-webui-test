@@ -7,10 +7,6 @@ exports.api_get = function (req, res) {
   fs.readFile(__dirname + "/../data/networking/" + "summary.json", 'utf8', function(err, data) {
     var wpaconfigdata = JSON.parse(data); //json text -> json object
     //console.log(wpaconfigdata);
-    var select_lan = "eth0";
-    child = exec("ip a show " + select_lan, function (error, stdout, stderr) {
-    console.log("stdout: " + stdout);
-    });
     res.send(wpaconfigdata);
   })
 }
