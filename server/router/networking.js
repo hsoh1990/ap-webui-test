@@ -29,6 +29,7 @@ exports.savedata_ = function () {
         eth[arr[i]] = stdout2.replace(/\n/gi, "<br>");
         var eng = "current_setting_" + arr[i];
         result_data[eng] = eth;
+        console.log(result_data);
       });
     }
     fs.writeFile(__dirname + "/../data/networking/" + "summary.json",
