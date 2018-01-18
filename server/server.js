@@ -18,9 +18,9 @@ var server = app.listen(80, function() {
 });
 
 app.use(express.json());
+app.use(express.static('data'));
 app.use(express.static('public'));
 app.use(express.static('views'));
-app.use(express.static('data'));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
