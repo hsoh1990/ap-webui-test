@@ -12,7 +12,6 @@ exports.api_get = function (req, res) {
 }
 exports.savedata_ = function () {
   child = exec("ls /sys/class/net | grep -v lo", function (error, stdout1, stderr) {
-    var arr = stdout1.split("\n");
     var cs_data = {};//오브젝트
     for(var a = 0;a < arr.length;a++){
       cs_data[a] = arr[a];
@@ -22,6 +21,7 @@ exports.savedata_ = function () {
     var result_data = {};
     for(var i = 0;i < arr.length - 1;i++){
       child = exec("ip a show " + arr[i], function (error, stdout2, stderr) {
+        var arr = stdout1.split("\n");
         var eth = {};
         eth[arr[i]] = stdout2.replace(/\n/gi, "<br>");
         var eng = "current_setting_" + arr[i];
