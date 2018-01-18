@@ -8,12 +8,28 @@ exports.api_get = function (req, res) {
 
   var arr = [];//줄 단위로 배열 저장(마지막은 빈배열이 들어감.)
   arr = stdout.split("\n");
+  var data__ = {};
   for (var i = 0;i < arr.length - 1;i++){//2차원 배열에 data 저장
     arr[i] = arr[i].split(" ");
+    var tmp = {};
+    var string_num = "example_";
+    string_num += String(i + 1);
+    tmp['Expire time'] = arr[i][0];
+    tmp['MAC Address'] = arr[i][1];
+    tmp['IP Address'] = arr[i][2];
+    tmp['Host name'] = arr[i][3];
+    tmp['Client ID'] = arr[i][4];
+    data[string_num] = tmp;
     console.log('arr ' + i + ' : ' + arr[i]);
     console.log('arr ' + i + '[] : ' + arr[i][0]);
   }
-
+  fs.writeFile(__dirname + "/../data/dhcpserver/" + "clientlist.json",
+    JSON.stringify(data__, null, '\t'), "utf8",
+    function(err, data) {
+      result = {
+        "success": 1
+      };
+    })
   });
 
   fs.readFile(__dirname + "/../data/dhcpserver/" + "clientlist.json", 'utf8', function(err, data) {
