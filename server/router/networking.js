@@ -1,40 +1,47 @@
 var fs = require("fs");
 var exec = require('child_process').exec,
   child;
-const { execSync } = require('child_process');
+const {
+  execSync
+} = require('child_process');
 
 exports.api_get = function(req, res) {
-  var qwe = exports.test_();
+  var qwe = exports.savedata_1();
   console.log(qwe);
-  //exports.savedata_2(arr[0]);
+  exports.savedata_2(qwe);
   fs.readFile(__dirname + "/../data/networking/" + "summary.json", 'utf8', function(err, data) {
     var wpaconfigdata = JSON.parse(data); //json text -> json object
     //console.log(wpaconfigdata);
     res.send(wpaconfigdata);
   })
 }
-exports.test_ = function() {
-  const asd = execSync('ls /sys/class/net | grep -v lo',{encoding: 'utf8'});
-  return asd;
-}
 exports.savedata_1 = function() {
-  child = exec("ls /sys/class/net | grep -v lo", function(error, stdout1, stderr) {
-    if (error) throw error;
-    console.log(stdout1);
-    var arr = stdout1.split("\n");
-    return arr;
+  const asd = execSync('ls /sys/class/net | grep -v lo', {
+    encoding: 'utf8'
   });
+  console.log(asd);
+  var arr = asd.split("\n");
+  return arr;
 }
 exports.savedata_2 = function(text) {
-  child = exec("ip a show " + text, function(error, stdout2, stderr) {
-    var eth = {};
-    var result_data = {};
-    eth[text] = stdout2.replace(/\n/gi, "<br>");
-    console.log("eth : " + text);
-    var eng = "current_setting_" + text;
-    result_data[eng] = eth;
-    console.log("eth : " + result_data);
-  });
+  for (var a = 0; a < text.length - 1; a++) {
+    child = exec("ip a show " + text[a], function(error, stdout2, stderr) {
+      var eth = {};
+      var result_data = {};
+      eth[text[a]] = stdout2.replace(/\n/gi, "<br>");
+      console.log("eth : " + text[a]);
+      var eng = "current_setting_" + text[a];
+      result_data[eng] = eth;
+      console.log("eth : " + result_data);
+      fs.writeFile(__dirname + "/../data/networking/" + "summary.json",
+        JSON.stringify(result_data, null, '\t'), "utf8",
+        function(err, data) {
+          result = {
+            "success": 1
+          };
+        })
+    });
+  }
 }
 exports.api_post = function(req, res) {
   req.accepts('application/json');
