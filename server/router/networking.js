@@ -15,6 +15,7 @@ exports.api_get = function(req, res) {
 }
 exports.test_ = function() {
   var asd = execSync('ls /sys/class/net | grep -v lo');
+  asd = asd.prototype.toString()
   console.log(asd);
 }
 exports.savedata_1 = function() {
