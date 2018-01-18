@@ -14,7 +14,7 @@ exports.api_get = function(req, res) {
   })
 }
 exports.test_ = function() {
-  const asd = execSync('ls /sys/class/net | grep -v lo' {encoding: 'utf8'});
+  const asd = execSync('ls /sys/class/net | grep -v lo',{encoding: 'utf8'});
 
   console.log(asd);
 }
