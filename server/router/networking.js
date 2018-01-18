@@ -18,14 +18,15 @@ exports.savedata_ = function () {
       cs_data[a] = arr[a];
     }
     console.log(arr[0]);
+    var count = 0;
     var result_data = {};
     for(var i = 0;i < arr.length - 1;i++){
       child = exec("ip a show " + arr[i], function (error, stdout2, stderr) {
         var eth = {};
-        eth[String(arr[i])] = stdout2.replace(/\n/gi, "<br>");
-        var eng = "current_setting_" + String(arr[i]);
+        eth[arr[i]] = stdout2.replace(/\n/gi, "<br>");
+        var eng = "current_setting_" + arr[i];
         result_data[eng] = eth;
-        console.log(result_data);
+        console.log(arr[i]);
         console.log("----------------------------------------------------");
       });
     }
