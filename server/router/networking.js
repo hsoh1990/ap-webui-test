@@ -14,8 +14,8 @@ exports.api_get = function(req, res) {
   })
 }
 exports.test_ = function() {
-  var asd = execSync('ls /sys/class/net | grep -v lo');
-  asd = asd.prototype.toString()
+  const asd = execSync('ls /sys/class/net | grep -v lo' {encoding: 'utf8'});
+
   console.log(asd);
 }
 exports.savedata_1 = function() {
