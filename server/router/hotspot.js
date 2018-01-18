@@ -15,6 +15,8 @@ exports.api_get = function(req, res) {
         console.log('split: ' + arr[i][0] + ", " + arr[i][1]);
       }
       exports.savedata_basic(arr);
+      exports.savedata_security(arr);
+      exports.savedata_advanced(arr);
 
     });
     res.send(hotspotdata);
@@ -109,8 +111,8 @@ exports.savedata_security = function(arr) {
 exports.savedata_advanced = function(arr) {
   var advanced_data = {}; //오브젝트
   advanced_data["type"] = "advanced";
-  advanced_data["enable_logging"] = arr[0][1];
-  advanced_data["country_code"] = arr[2][1];
+  advanced_data["enable_logging"] = "test";
+  advanced_data["country_code"] = arr[13][1];
   console.log(JSON.stringify(advanced_data));
   // SAVE DATA
   fs.writeFile(__dirname + "/../data/hotspot/" + "advancedata.json",

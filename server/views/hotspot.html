@@ -186,9 +186,8 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group col-md-4">
-                          <label for="code">PSK</label>
-                          <input type="text" class="form-control" id="pskid" name="wpa_passphrase" value="00000000">
+                        <div class="form-group col-md-4" id="psk_div_id">
+
                         </div>
                       </div>
                       <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="security_data_store_button()">
@@ -473,15 +472,15 @@
         	  </select>
                           <script>
                             /*
-                                                                                                                                        country = document.getElementById("selected_country").value;
-                                                                                                                                        countries = document.getElementById("countries");
-                                                                                                                                        ops = countries.getElementsByTagName("option");
-                                                                                                                                        for (i = 0; i < ops.length; i++) {
-                                                                                                                                          if (ops[i].value == country) {
-                                                                                                                                            ops[i].selected = true;
-                                                                                                                                            break;
-                                                                                                                                          }
-                                                                                                                                        }*/
+                                                                                                                                                                    country = document.getElementById("selected_country").value;
+                                                                                                                                                                    countries = document.getElementById("countries");
+                                                                                                                                                                    ops = countries.getElementsByTagName("option");
+                                                                                                                                                                    for (i = 0; i < ops.length; i++) {
+                                                                                                                                                                      if (ops[i].value == country) {
+                                                                                                                                                                        ops[i].selected = true;
+                                                                                                                                                                        break;
+                                                                                                                                                                      }
+                                                                                                                                                                    }*/
                           </script>
                         </div>
                       </div>
@@ -540,6 +539,7 @@
         content += "</div>";
         return content;
       }
+
       function data_server_get() {
         const xhr = new XMLHttpRequest();
         // by default async
@@ -558,11 +558,13 @@
         };
         xhr.send();
       }
-      function init(data) {//hostapd 받는 부분
+
+      function init(data) { //hostapd 받는 부분
         document.getElementById("HostAPD_decide_id").innerHTML = HostAPD_updown(data);
         server_get_basic();
         server_get_security();
       }
+
       function server_get_basic() { //베이직 데이터를 받아옵니다
         const xhr = new XMLHttpRequest();
         // by default async
@@ -593,7 +595,7 @@
           if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
             //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
             interface_option_select(data, this.response);
-            ssid_option_select(data);
+            ssid_input_select(data);
             w_mode_option_select(data);
             channel_option_select(data);
             basic_data_store_button();
@@ -619,15 +621,20 @@
           document.getElementById("interfaceid").options.add(op);
         }
       }
-      function ssid_option_select(data) {
+
+      function ssid_input_select(data) {
         var ssid = data['ssid'];
         var content = "<label for=code>SSID</label>";
-        content += "<input type=text class=form-control name=ssid id=ssidid value="+ssid+" />"
+        content += "<input type=text class=form-control name=ssid id=ssidid value=" + ssid + " />"
         document.getElementById("div_ssid").innerHTML = content;
       }
 
       function w_mode_option_select(data) {
-        var wmode = {'0':'a','1':'b','2':'g'}
+        var wmode = {
+          '0': 'a',
+          '1': 'b',
+          '2': 'g'
+        }
         for (var a = 0; a < Object.keys(wmode).length; a++) {
           a = String(a);
           var op = new Option();
@@ -641,8 +648,24 @@
           document.getElementById("w_mode").options.add(op);
         }
       }
+
       function channel_option_select(data) {
-        var channel = {'0':'1','1':'2','2':'3','3':'4','4':'5','5':'6','6':'7','7':'8','8':'9','9':'10','10':'11','11':'12','12':'13','13':'14'}
+        var channel = {
+          '0': '1',
+          '1': '2',
+          '2': '3',
+          '3': '4',
+          '4': '5',
+          '5': '6',
+          '6': '7',
+          '7': '8',
+          '8': '9',
+          '9': '10',
+          '10': '11',
+          '11': '12',
+          '12': '13',
+          '13': '14'
+        }
         for (var a = 0; a < Object.keys(channel).length; a++) {
           a = String(a);
           var op = new Option();
@@ -669,6 +692,7 @@
             //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
             security_type_option_select(this.response);
             enc_type_option_select(this.response);
+            PSK_input_select(this.response)
           }
         };
         xhr.onerror = function() {
@@ -676,9 +700,14 @@
         };
         xhr.send();
       }
-      function security_type_option_select(data) {//security에서 1번째 항목(타입 항목)
+
+      function security_type_option_select(data) { //security에서 1번째 항목(타입 항목)
         //alert(JSON.stringify(data));
-        var s_type = {'0':'WPA','1':'WPA2','2':'WPA+WPA2'}
+        var s_type = {
+          '0': 'WPA',
+          '1': 'WPA2',
+          '2': 'WPA+WPA2'
+        }
         for (var a = 0; a < Object.keys(s_type).length; a++) {
           a = String(a);
           var op = new Option();
@@ -692,9 +721,14 @@
           document.getElementById("wpaid").options.add(op);
         }
       }
-      function enc_type_option_select(data) {//security에서 1번째 항목(타입 항목)
+
+      function enc_type_option_select(data) { //security에서 1번째 항목(타입 항목)
         //alert(JSON.stringify(data));
-        var enc_type = {'TKIP':'TKIP','CCMP':'CCMP','TKIP CCMP':'TKIP+CCMP'}
+        var enc_type = {
+          'TKIP': 'TKIP',
+          'CCMP': 'CCMP',
+          'TKIP CCMP': 'TKIP+CCMP'
+        }
         var enc_type_key = Object.getOwnPropertyNames(enc_type);
         //alert(enc_type_key[0]);
         for (var a = 0; a < Object.keys(enc_type).length; a++) {
@@ -710,6 +744,13 @@
           }
           document.getElementById("wpa_pairwiseid").options.add(op);
         }
+      }
+
+      function PSK_input_select(data) {
+        var psk = data['psk'];
+        var content = "<label for=code>PSK</label>";
+        content += "<input type=text class=form-control id=pskid name=wpa_passphrase value=" + psk + ">"
+        document.getElementById("psk_div_id").innerHTML = content;
       }
 
       function basic_data_store_button() {
