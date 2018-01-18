@@ -3,6 +3,7 @@ var exec = require('child_process').exec,
   child;
 
 exports.api_get = function(req, res) {
+  var hostapd_dec = exports.read_pidof_hostapd();
   fs.readFile(__dirname + "/../data/hotspot/" + "hotspotdata.json", 'utf8', function(err, data) {
     var hotspotdata = JSON.parse(data); //json text -> json object
     child = exec("cat /etc/hostapd/hostapd.conf", function(error, stdout, stderr) {
@@ -18,6 +19,26 @@ exports.api_get = function(req, res) {
     });
     res.send(hotspotdata);
   })
+}
+exports.read_pidof_hostapd = function() {
+  child = exec("pidof hostapd | wc -l", function(error, stdout, stderr) {
+    var data = {};//오브젝트
+    if (stdout[0] == 0){
+      data['HostAPD is'] = false;
+    }else if (stdout[0] == 1){
+      data['HostAPD is'] = true;
+    }
+    var hostapddata = {};
+    hostapddata['alert_select'] = data;
+
+    fs.writeFile(__dirname + "/../data/hotspot/" + "hotspotdata.json",
+      JSON.stringify(hostapddata, null, '\t'), "utf8",
+      function(err, data) {
+        result = {
+          "success": 1
+        };
+      })
+  });
 }
 exports.api_get_basic = function(req, res) {
   fs.readFile(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8', function(err, data) {
