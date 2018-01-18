@@ -536,7 +536,7 @@
         if (data['alert_select']['HostAPD is'] == true) {
           content += "running";
         } else {
-          content += "stop";
+          content += "not running";
         }
         content += "<button type=button class=close data-dismiss=alert aria-hidden=true>x</button>";
         content += "</div>";
@@ -670,6 +670,7 @@
           if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
             //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
             security_type_option_select(this.response);
+            enc_type_option_select(this.response);
           }
         };
         xhr.onerror = function() {
@@ -677,8 +678,8 @@
         };
         xhr.send();
       }
-      function security_type_option_select(data) {
-        alert(JSON.stringify(data));
+      function security_type_option_select(data) {//security에서 1번째 항목(타입 항목)
+        //alert(JSON.stringify(data));
         var s_type = {'0':'WPA','1':'WPA2','2':'WPA+WPA2'}
         for (var a = 0; a < Object.keys(s_type).length; a++) {
           a = String(a);
@@ -686,6 +687,23 @@
           op.value = s_type[a];
           op.text = s_type[a];
           if (data['security_type'] == a) {
+            op.selected = true;
+          } else {
+            op.selected = false;
+          }
+          document.getElementById("wpaid").options.add(op);
+        }
+      }
+      function enc_type_option_select(data) {//security에서 1번째 항목(타입 항목)
+        //alert(JSON.stringify(data));
+        var enc_type = {'TKIP':'TKIP','CCMP':'CCMP','TKIP CCMP':'TKIP+CCMP'}
+        alert(enc_type[0]);
+        for (var a = 0; a < Object.keys(s_type).length; a++) {
+          a = String(a);
+          var op = new Option();
+          op.value = enc_type[a];
+          op.text = enc_type[a];
+          if (data['encryption_type'] == a) {
             op.selected = true;
           } else {
             op.selected = false;
