@@ -697,7 +697,7 @@
         var enc_type = {'TKIP':'TKIP','CCMP':'CCMP','TKIP CCMP':'TKIP+CCMP'}
         var enc_type_key = Object.getOwnPropertyNames(enc_type);
         alert(enc_type_key[0]);
-        for (var a = 0; a < Object.keys(s_type).length; a++) {
+        for (var a = 0; a < Object.keys(enc_type).length; a++) {
           //a = String(a);
           alert(enc_type[enc_type_key[a]]);
           var op = new Option();
