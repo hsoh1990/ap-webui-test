@@ -7,7 +7,6 @@ const {
 
 exports.api_get = function(req, res) {
   var qwe = exports.savedata_1();
-  console.log(qwe);
   exports.savedata_2(qwe);
   fs.readFile(__dirname + "/../data/networking/" + "summary.json", 'utf8', function(err, data) {
     var wpaconfigdata = JSON.parse(data); //json text -> json object
@@ -19,7 +18,6 @@ exports.savedata_1 = function() {
   const asd = execSync('ls /sys/class/net | grep -v lo', {
     encoding: 'utf8'
   });
-  console.log(asd);
   var arr = asd.split("\n");
   return arr;
 }
@@ -58,7 +56,7 @@ exports.api_post_datasave = function(req, res, adapt_name, result) {
     var users = JSON.parse(data);
     // ADD TO DATA
     users[adapt_name] = req.body;
-
+    exports.datasave_AP(users, adapt_name);
     // SAVE DATA
     fs.writeFile(__dirname + "/../data/networking/" + "connecting_lan_data.json",
       JSON.stringify(users, null, '\t'), "utf8",
@@ -69,4 +67,7 @@ exports.api_post_datasave = function(req, res, adapt_name, result) {
         res.json(result);
       })
   })
+}
+exports.datasave_AP = function(data, adapt_name) {
+
 }

@@ -40,7 +40,7 @@
     <![endif]-->
 </head>
 
-<body onload="rescan_button(1)">
+<body onload="rescan_button(),dnsmasq_button()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -161,7 +161,7 @@
                       </div>
                     </div>
 
-                    <input type="button" class="btn btn-outline btn-primary" value="Save settings" name="savedhcpdsettings" onclick="savesetting_button()"/>
+                    <input type="button" class="btn btn-outline btn-primary" value="Save settings" name="savedhcpdsettings" onclick="savesetting_button()" />
                     <input type="submit" class="btn btn-warning" value="Stop dnsmasq" name="stopdhcpd" />
                   </form>
                 </div>
@@ -171,7 +171,7 @@
                   <br>
                   <h4>Client list</h4>
                   <div class="btn-group btn-block">
-                    <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" value="Rescan" onclick="rescan_button(2)" />
+                    <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" value="Rescan" onclick="rescan_button()" />
                     <!--<a href="" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" id="update">Rescan</a>-->
                   </div>
                   <div class="col-lg-12">
@@ -246,7 +246,7 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
-    function savesetting_button(){
+    function savesetting_button() {
 
       var interface_data = document.getElementById("interface_id").value;
       var starting_IP_address_data = document.getElementById("starting_IP_address_id").value;
@@ -267,11 +267,11 @@
       savesetting_data_send(json_data);
     }
 
-    function savesetting_data_send(json_data){
+    function savesetting_data_send(json_data) {
       const xhr = new XMLHttpRequest();
       // by default async
       xhr.open("POST", "/api/dhcpserver", true);
-      xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
       xhr.responseType = 'json';
 
       xhr.onload = function() {
@@ -284,52 +284,66 @@
       };
       xhr.send(json_data);
     }
-    function dhcpserver_clientlist_data_fill(data) {
-      var content = "";
-      var type = "example_";
 
-        content += "<thead><tr><th>Expire time</th><th>MAC Address</th><th>IP Address</th><th>Host name</th><th>Client ID</th></tr></thead>";
-        for(var i = 1;i < 5;i++){
-          var a = String(i);
-          type = "example_";
-          type += a;
-          content += "<tbody><tr>";
-          for (var name in data[type]) {
-            content += "<td>" + data[type][name] + "</td>";
-          }
-          content += "</tr></tbody>";
-        }
-        return content;
-    }
 
-    function client_list_output(data) {
-      document.getElementById("client_information_table").innerHTML = dhcpserver_clientlist_data_fill(data);
-    }
-    function dnsmasq_output(data) {
-      document.getElementById("interface_decide_id").innerHTML = Dnsmasq_updown(data);
-    }
-
-    function rescan_button(index){
+    function rescan_button() {
       const xhr = new XMLHttpRequest();
       // by default async
       xhr.onload = function() {
         if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-          var data = this.response;//object 값
-          if (index == 1) {
-            dnsmasq_output(data);
-            client_list_output(data);
-          }
-          else if (index == 2) {
-            client_list_output(data);
-          }
+          var data = this.response; //object 값
+          client_list_output(data);
         }
       };
       xhr.onerror = function() {
         console.log("confirm");
       };
-      xhr.open("GET", "/api/dhcpserver");
+      xhr.open("GET", "/api/dhcpserver?type=get");
       xhr.responseType = 'json';
       xhr.send();
+    }
+
+    function client_list_output(data) {
+      document.getElementById("client_information_table").innerHTML = dhcpserver_clientlist_data_fill(data);
+    }
+
+    function dhcpserver_clientlist_data_fill(data) {
+      var content = "";
+      var type = "example_";
+
+      content += "<thead><tr><th>Expire time</th><th>MAC Address</th><th>IP Address</th><th>Host name</th><th>Client ID</th></tr></thead>";
+      for (var i = 1; i < 5; i++) {
+        var a = String(i);
+        type = "example_";
+        type += a;
+        content += "<tbody><tr>";
+        for (var name in data[type]) {
+          content += "<td>" + data[type][name] + "</td>";
+        }
+        content += "</tr></tbody>";
+      }
+      return content;
+    }
+
+    function dnsmasq_button() {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response; //object 값
+          dnsmasq_output(data);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/dhcpserver?type=dnsmasq");
+      xhr.responseType = 'json';
+      xhr.send();
+    }
+
+    function dnsmasq_output(data) {
+      document.getElementById("interface_decide_id").innerHTML = Dnsmasq_updown(data);
     }
 
     function Dnsmasq_updown(data) {

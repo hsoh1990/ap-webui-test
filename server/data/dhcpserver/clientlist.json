@@ -26,8 +26,5 @@
     "IP Address": "4.4.4.4",
     "Host name": "rrrr",
     "Client ID": "yune"
-  },
-  "alert_select": {
-    "Dnsmasq is": true
   }
 }

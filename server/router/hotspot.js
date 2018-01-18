@@ -3,7 +3,7 @@ var exec = require('child_process').exec,
   child;
 
 exports.api_get = function(req, res) {
-  var hostapd_dec = exports.read_pidof_hostapd();
+  exports.read_pidof_hostapd();
   fs.readFile(__dirname + "/../data/hotspot/" + "hotspotdata.json", 'utf8', function(err, data) {
     var hotspotdata = JSON.parse(data); //json text -> json object
     child = exec("cat /etc/hostapd/hostapd.conf", function(error, stdout, stderr) {

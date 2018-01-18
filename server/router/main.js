@@ -78,7 +78,17 @@ module.exports = function(app, fs, url) {
     res.render('dhcpserver.html');
   });
   app.get('/api/dhcpserver', function(req, res) {
-    router_dhcpserver.api_get(req, res);
+    req.accepts('application/json');
+    // input message handling
+    var type = req.query.type;
+
+    if (type == "setting") {
+      router_hotspot.api_get_basic(req, res);
+    } else if(type == "get") {
+      router_hotspot.api_get(req, res);
+    } else if(type == "dnsmasq") {
+      router_hotspot.api_get_dnsmasq(req, res);
+    }
   });
   app.post('/api/dhcpserver', function(req, res) {
     router_dhcpserver.api_post(req, res);
