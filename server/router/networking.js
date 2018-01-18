@@ -23,7 +23,7 @@ exports.savedata_ = function () {
     }
 
     var result_data = {};
-    for(var i = 0;i < arr.length;i++){
+    for(var i = 0;i < arr.length - 1;i++){
       child = exec("ip a show " + arr[i], function (error, stdout2, stderr) {
         var eth = {};
         eth[arr[i]] = stdout2.replace(/\n/gi, "<br>");
