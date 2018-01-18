@@ -32,7 +32,7 @@ exports.api_get_dnsmasq = function (req, res) {
   })
 }
 
-exports.read_pidof_dnsmasq = function(req, res) {
+exports.read_pidof_dnsmasq = function() {
   child = exec("pidof dnsmasq | wc -l", function(error, stdout, stderr) {
     var data = {};//오브젝트
     if (stdout[0] == 0){

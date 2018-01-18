@@ -83,11 +83,11 @@ module.exports = function(app, fs, url) {
     var type = req.query.type;
 
     if (type == "setting") {
-      router_hotspot.api_get_basic(req, res);
+      //router_dhcpserver.api_get_basic(req, res);
     } else if(type == "get") {
-      router_hotspot.api_get(req, res);
+      router_dhcpserver.api_get(req, res);
     } else if(type == "dnsmasq") {
-      router_hotspot.api_get_dnsmasq(req, res);
+      router_dhcpserver.api_get_dnsmasq(req, res);
     }
   });
   app.post('/api/dhcpserver', function(req, res) {
