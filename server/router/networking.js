@@ -1,6 +1,7 @@
 var fs = require("fs");
 var exec = require('child_process').exec,
   child;
+var cp = require('child_process');
 
 exports.api_get = function(req, res) {
   var arr = exports.savedata_1();
@@ -14,6 +15,7 @@ exports.api_get = function(req, res) {
 }
 exports.savedata_1 = function() {
   child = exec("ls /sys/class/net | grep -v lo", function(error, stdout1, stderr) {
+    if (error) throw error;
     var arr = stdout1.split("\n");
     return arr;
   });
