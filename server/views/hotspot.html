@@ -697,7 +697,8 @@
       function enc_type_option_select(data) {//security에서 1번째 항목(타입 항목)
         //alert(JSON.stringify(data));
         var enc_type = {'TKIP':'TKIP','CCMP':'CCMP','TKIP CCMP':'TKIP+CCMP'}
-        alert(enc_type[0]);
+        var enc_type_key = Object.getOwnPropertyNames(enc_type);
+        alert(enc_type_key);
         for (var a = 0; a < Object.keys(s_type).length; a++) {
           a = String(a);
           var op = new Option();
