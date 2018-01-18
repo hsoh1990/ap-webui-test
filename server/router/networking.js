@@ -31,10 +31,10 @@ exports.savedata_2 = function(text) {
     });
     var eth = {};
     eth[text[a]] = stdout2.replace(/\n/gi, "<br>");
-    console.log("eth : " + text[a]);
+    //console.log("eth : " + text[a]);
     var eng = "current_setting_" + text[a];
     result_data[eng] = eth;
-    console.log("eth : " + JSON.stringify(result_data));
+    //console.log("eth : " + JSON.stringify(result_data));
   }
   fs.writeFile(__dirname + "/../data/networking/" + "summary.json",
     JSON.stringify(result_data, null, '\t'), "utf8",
