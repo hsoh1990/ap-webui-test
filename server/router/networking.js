@@ -24,25 +24,24 @@ exports.savedata_1 = function() {
   return arr;
 }
 exports.savedata_2 = function(text) {
+  var result_data = {};
   for (var a = 0; a < text.length - 1; a++) {
     const stdout2 = execSync('ip a show ' + text[a], {
       encoding: 'utf8'
     });
-
-      var eth = {};
-      var result_data = {};
-      eth[text[a]] = stdout2.replace(/\n/gi, "<br>");
-      console.log("eth : " + text[a]);
-      var eng = "current_setting_" + text[a];
-      result_data[eng] = eth;
-      console.log("eth : " + result_data);
-      fs.writeFile(__dirname + "/../data/networking/" + "summary.json",
-        JSON.stringify(result_data, null, '\t'), "utf8",
-        function(err, data) {
-          result = {
-            "success": 1
-          };
-        })
+    var eth = {};
+    eth[text[a]] = stdout2.replace(/\n/gi, "<br>");
+    console.log("eth : " + text[a]);
+    var eng = "current_setting_" + text[a];
+    result_data[eng] = eth;
+    console.log("eth : " + result_data);
+    fs.writeFile(__dirname + "/../data/networking/" + "summary.json",
+      JSON.stringify(result_data, null, '\t'), "utf8",
+      function(err, data) {
+        result = {
+          "success": 1
+        };
+      })
   }
 }
 exports.api_post = function(req, res) {
