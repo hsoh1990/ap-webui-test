@@ -23,9 +23,10 @@ exports.savedata_ = function () {
     }
     child = exec("ip a show " + arr[0], function (error, stdout2, stderr) {
       var eth = {};
-      eth['eth0'] = stdout2;
+      eth['eth0'] = stdout2.replace(/\n/gi, "<br>");
       var result_data = {};
       result_data['current_setting_eth0'] = eth;
+
       console.log(result_data);
     });
   });
