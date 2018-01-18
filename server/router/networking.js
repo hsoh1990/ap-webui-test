@@ -22,8 +22,8 @@ exports.savedata_ = function () {
     for(var i = 0;i < arr.length - 1;i++){
       child = exec("ip a show " + arr[i], function (error, stdout2, stderr) {
         var eth = {};
-        eth[arr[i]] = stdout2.replace(/\n/gi, "<br>");
-        var eng = "current_setting_" + arr[i];
+        eth[String(arr[i])] = stdout2.replace(/\n/gi, "<br>");
+        var eng = "current_setting_" + String(arr[i]);
         result_data[eng] = eth;
         console.log(result_data);
         console.log("----------------------------------------------------");
