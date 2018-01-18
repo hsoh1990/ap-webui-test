@@ -184,7 +184,8 @@ exports.serverdata_RX_bytes = function(text) {
 }
 exports.serverdata_TX_bytes = function(text) {
   var TX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [Ki|Mi|Gi]B\))/gi);
-  var split_TX_bytes = TX_bytes[1].split(" ");
+  console.log(TX_bytes);
+  /*var split_TX_bytes = TX_bytes[1].split(" ");
   TX_bytes = split_TX_bytes[1] + " " + split_TX_bytes[2] + " " + split_TX_bytes[3];
   try {
     if (TX_bytes != null) {
@@ -196,7 +197,7 @@ exports.serverdata_TX_bytes = function(text) {
   } catch (e) {
     console.log(e);
     return "No Data";
-  }
+  }*/
 }
 exports.serverdata_ssid = function(text) {
   var ssid = text.match(/ESSID:\"([a-zA-Z0-9\s]+)\"/i);
