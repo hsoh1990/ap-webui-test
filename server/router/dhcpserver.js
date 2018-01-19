@@ -3,7 +3,7 @@ var exec = require('child_process').exec,
     child;
 
 exports.api_get = function (req, res) {
-  exports.write_clientlist();
+  exports.write_clientlist(req, res);
   /*
   fs.readFileSync(__dirname + "/../data/dhcpserver/" + "clientlist.json", 'utf8', function(err, data) {
     var clientlistdata = JSON.parse(data); //json text -> json object
@@ -11,7 +11,7 @@ exports.api_get = function (req, res) {
     res.json(clientlistdata);
   })*/
 }
-exports.write_clientlist = function() {
+exports.write_clientlist = function(req, res) {
   child = exec("cat /var/lib/misc/dnsmasq.leases", function (error, stdout, stderr) {
   console.log('stdout: ' + stdout[11]);
 
@@ -43,7 +43,7 @@ exports.write_clientlist = function() {
   });
 }
 exports.api_get_dnsmasq = function (req, res) {
-  exports.write_pidof_dnsmasq();
+  exports.write_pidof_dnsmasq(req, res);
   /*
   fs.readFileSync(__dirname + "/../data/dhcpserver/" + "dnsmasq_dec.json", 'utf8', function(err, data) {
     var dnsmasqdata = JSON.parse(data); //json text -> json object
@@ -52,7 +52,7 @@ exports.api_get_dnsmasq = function (req, res) {
   })*/
 }
 
-exports.write_pidof_dnsmasq = function() {
+exports.write_pidof_dnsmasq = function(req, res) {
   child = exec("pidof dnsmasq | wc -l", function(error, stdout, stderr) {
     var data = {};//오브젝트
     if (stdout[0] == 0){
