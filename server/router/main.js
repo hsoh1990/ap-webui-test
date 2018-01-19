@@ -43,7 +43,14 @@ module.exports = function(app, fs, url) {
 
 
   app.get('/dashboard', function(req, res) {
-    res.render('dashboard.html');
+    var sess;
+    sess = req.session;
+    console.log('session : ' + sess.logincheck);
+    if (sess.logincheck == "1") {
+      res.render('dashboard.html');
+    } else {
+      res.render('index.html');
+    }
   });
   app.get('/api/dashboard', function(req, res) {
     router_dashboard.api_get(req, res);
@@ -51,7 +58,14 @@ module.exports = function(app, fs, url) {
 
 
   app.get('/wpaconfig', function(req, res) {
-    res.render('wpaconfig.html');
+    var sess;
+    sess = req.session;
+    console.log('session : ' + sess.logincheck);
+    if (sess.logincheck == "1") {
+      res.render('wpaconfig.html');
+    } else {
+      res.render('index.html');
+    }
   });
   app.get('/api/wpaconfig', function(req, res) {
     router_wpaconfig.api_get(req, res);
@@ -59,7 +73,14 @@ module.exports = function(app, fs, url) {
 
 
   app.get('/hotspot', function(req, res) {
-    res.render('hotspot.html');
+    var sess;
+    sess = req.session;
+    console.log('session : ' + sess.logincheck);
+    if (sess.logincheck == "1") {
+      res.render('hotspot.html');
+    } else {
+      res.render('index.html');
+    }
   });
   app.get('/api/hotspot', function(req, res) {
     req.accepts('application/json');
@@ -96,7 +117,14 @@ module.exports = function(app, fs, url) {
 
 
   app.get('/networking', function(req, res) {
-    res.render('networking.html');
+    var sess;
+    sess = req.session;
+    console.log('session : ' + sess.logincheck);
+    if (sess.logincheck == "1") {
+      res.render('networking.html');
+    } else {
+      res.render('index.html');
+    }
   });
   app.get('/api/networking', function(req, res) {
     router_networking.api_get(req, res);
@@ -106,7 +134,14 @@ module.exports = function(app, fs, url) {
   });
 
   app.get('/dhcpserver', function(req, res) {
-    res.render('dhcpserver.html');
+    var sess;
+    sess = req.session;
+    console.log('session : ' + sess.logincheck);
+    if (sess.logincheck == "1") {
+      res.render('dhcpserver.html');
+    } else {
+      res.render('index.html');
+    }
   });
   app.get('/api/dhcpserver', function(req, res) {
     req.accepts('application/json');
@@ -128,7 +163,14 @@ module.exports = function(app, fs, url) {
   });
 
   app.get('/auth', function(req, res) {
-    res.render('auth.html');
+    var sess;
+    sess = req.session;
+    console.log('session : ' + sess.logincheck);
+    if (sess.logincheck == "1") {
+      res.render('auth.html');
+    } else {
+      res.render('index.html');
+    }
   });
   app.get('/api/auth', function(req, res) {
     router_auth.api_get(req, res);
@@ -139,12 +181,26 @@ module.exports = function(app, fs, url) {
 
 
   app.get('/changetheme', function(req, res) {
-    res.render('changetheme.html');
+    var sess;
+    sess = req.session;
+    console.log('session : ' + sess.logincheck);
+    if (sess.logincheck == "1") {
+      res.render('changetheme.html');
+    } else {
+      res.render('index.html');
+    }
   });
 
 
   app.get('/system', function(req, res) {
-    res.render('system.html');
+    var sess;
+    sess = req.session;
+    console.log('session : ' + sess.logincheck);
+    if (sess.logincheck == "1") {
+      res.render('system.html');
+    } else {
+      res.render('index.html');
+    }
   });
   app.get('/api/system', function(req, res) {
     router_system.api_get(req, res);

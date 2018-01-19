@@ -1,6 +1,6 @@
 var fs = require("fs");
 
-exports.api_get = function (req, res) {
+exports.api_get = function(req, res) {
   fs.readFile(__dirname + "/../data/" + "userdata.json", 'utf8', function(err, data) {
     var userdata = JSON.parse(data); //json text -> json object
     console.log(userdata);
@@ -8,7 +8,7 @@ exports.api_get = function (req, res) {
   })
 }
 
-exports.api_post = function (req, res) {
+exports.api_post = function(req, res) {
   req.accepts('application/json');
   // input message handling
   var result = {};
@@ -20,7 +20,7 @@ exports.api_post = function (req, res) {
   exports.api_post_datasave(req, res, user_name, result);
 }
 
-exports.api_post_datasave = function (req, res, user_name, result) {
+exports.api_post_datasave = function(req, res, user_name, result) {
 
   fs.readFile(__dirname + "/../data/" + "userdata.json", 'utf8', function(err, data) {
     var users = JSON.parse(data);
@@ -36,6 +36,14 @@ exports.api_post_datasave = function (req, res, user_name, result) {
           "success": 1
         };
         res.json(result);
+        req.session.destroy(function(err) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.redirect('/');
+          }
+        })
       })
+
   })
 }
