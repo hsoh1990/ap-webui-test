@@ -33,10 +33,10 @@ exports.api_get = function(req, res) {
   }
   console.log(struptime);
 
-  const std_memfull = execSync('free -m | awk '/Mem:/ {print $2}'', {
+  const std_memfull = execSync('free -m | awk "/Mem:/ {print $2}"', {
     encoding: 'utf8'
   });
-  const std_memused = execSync('free -m | awk '/Mem:/ {print $3}'', {
+  const std_memused = execSync('free -m | awk "/Mem:/ {print $2}"', {
     encoding: 'utf8'
   });
   console.log(std_memfull + ", " + std_memused);
