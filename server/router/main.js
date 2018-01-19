@@ -9,10 +9,10 @@ module.exports = function(app, fs, url) {
   var router_system = require('./system.js');
 
   app.get('/', function(req, res) {
-    res.render('index.html');
+    res.render('login.html');
   });
   app.get('/index_login', function(req, res) {
-    res.render('index_login.html');
+    res.render('index.html');
   });
   app.get('/dashboard', function(req, res) {
     res.render('dashboard.html');
