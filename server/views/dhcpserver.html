@@ -135,27 +135,23 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="form-group col-md-4">
-                        <label for="code">Starting IP Address</label>
-                        <input type="text" class="form-control" name="RangeStart" id="starting_IP_address_id" value="10.3.141.50" />
+                      <div class="form-group col-md-4" id="starting_IP_address_div_id">
+
                       </div>
                     </div>
 
                     <div class="row">
-                      <div class="form-group col-md-4">
-                        <label for="code">Ending IP Address</label>
-                        <input type="text" class="form-control" name="RangeEnd" id="ending_IP_address_id" value="10.3.141.255" />
+                      <div class="form-group col-md-4" id="ending_IP_address_div_id">
                       </div>
                     </div>
 
                     <div class="row">
-                      <div class="form-group col-xs-4 col-sm-2">
-                        <label for="code">Lease Time</label>
-                        <input type="text" class="form-control" name="RangeLeaseTime" id="Lease_time_id" value="12" />
+                      <div class="form-group col-xs-4 col-sm-2" id="Lease_time_div_id">
                       </div>
-                      <div class="col-xs-4 col-sm-2">
+                      <div class="col-xs-4 col-sm-2" id="interval_div_id">
                         <label for="code">Interval</label>
-                        <select name="RangeLeaseTimeUnits" class="form-control" id="interval_id"><option value="m" >Minute(s)</option><option value="h" >Hour(s)</option><option value="d" >Day(s)</option><option value="infinite">Infinite</option></select>
+                        <select name="RangeLeaseTimeUnits" class="form-control" id="interval_id">
+                        </select>
                       </div>
                     </div>
 
@@ -367,12 +363,58 @@
         if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
           //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
           interface_option_get(this.response);
+          starting_IP_address_select(this.response);
+          ending_IP_address_select(this.response);
+          lease_time_select(this.response);
+          interval_type_option_select(this.response);
         }
       };
       xhr.onerror = function() {
         console.log("confirm");
       };
       xhr.send();
+    }
+    function starting_IP_address_select(data) {
+      var starting_IP_address = data['starting_IP_address'];
+      var content = "<label for=code>Starting IP Address</label>";
+      content += "<input type=text class=form-control name=RangeStart id=starting_IP_address_id value=" + starting_IP_address + " />"
+      document.getElementById("starting_IP_address_div_id").innerHTML = content;
+    }
+    function ending_IP_address_select(data) {
+      var ending_IP_address = data['ending_IP_address'];
+      var content = "<label for=code>Ending IP Address</label>";
+      content += "<input type=text class=form-control name=RangeEnd id=ending_IP_address_id value=" + ending_IP_address + " />"
+      document.getElementById("ending_IP_address_div_id").innerHTML = content;
+    }
+    function lease_time_select(data) {
+      var lease_time = data['Lease_time'];
+      var content = "<label for=code>Lease time</label>";
+      content += "<input type=text class=form-control name=RangeLeaseTime id=Lease_time_id value=" + lease_time + " />"
+      document.getElementById("Lease_time_div_id").innerHTML = content;
+    }
+    function interval_type_option_select(data) { //security에서 1번째 항목(타입 항목)
+      //alert(JSON.stringify(data));
+      var interval_type = {
+        'm': 'Minute(s)',
+        'h': 'Hour(s)',
+        'd': 'Day(s)',
+        'i': 'Infinite'
+      }
+      var interval_type_key = Object.getOwnPropertyNames(interval_type);
+      //alert(enc_type_key[0]);
+      for (var a = 0; a < Object.keys(interval_type).length; a++) {
+        //a = String(a);
+        //alert(enc_type[enc_type_key[a]]);
+        var op = new Option();
+        op.value = interval_type[interval_type_key[a]];
+        op.text = interval_type[interval_type_key[a]];
+        if (data['interval'] == interval_type_key[a]) {
+          op.selected = true;
+        } else {
+          op.selected = false;
+        }
+        document.getElementById("interval_id").options.add(op);
+      }
     }
     function interface_option_get(data) { //받아온 데이터를 이용해서 한번더 판단(awk)
       const xhr = new XMLHttpRequest();
