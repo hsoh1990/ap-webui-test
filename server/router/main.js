@@ -173,7 +173,20 @@ module.exports = function(app, fs, url) {
     }
   });
   app.get('/api/auth', function(req, res) {
-    router_auth.api_get(req, res);
+    var sess;
+    sess = req.session;
+    var id = req.query.id;
+    var password = req.query.password;
+    fs.readFile(__dirname + "/../data/" + "userdata.json", 'utf8', function(err, data) {
+      var userdata = JSON.parse(data); //json text -> json object
+      var check = {};
+      if (id == userdata['admin']['username'] && password == userdata['admin']['password']) {
+        check['check'] = "1";
+      } else {
+        check['check'] = "0";
+      }
+      res.send(check);
+    })
   });
   app.post('/api/auth', function(req, res) {
     router_auth.api_post(req, res);
