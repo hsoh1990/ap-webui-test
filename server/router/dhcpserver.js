@@ -11,8 +11,11 @@ exports.api_get = function(req, res) {
   });
   var arr = stdout2.split("\n");
   var interface_type = arr[0].split("=");
-  console.log(interface_type[1]);
-  //exports.savedata_serversetting(req, res);
+  var tmp = arr[6].split("=");
+  var range = arr[1].split(",");
+  range[2] = range[2].match(/([0-9]*)([a-z])/i);
+  console.log(range[2][0] + ", " + range[2[1]] + ", " + range[2][2]);
+  //exports.savedata_serversetting(interface_type[1], data);
 
 }
 exports.api_get_awk = function(req, res) {
