@@ -15,8 +15,8 @@ exports.api_get = function(req, res) {
   var range = tmp[1].split(",");
   range[2] = range[2].match(/([0-9]*)([a-z])/i);
   var qwe = range[2][0].match(/([0-9]*)/i);
-  //exports.savedata_serversetting(interface_type[1], range, qwe[0]);
-  console.log(interface_type[1] + ", " + range[0] + ", " + range[1] + ", " + qwe[0] + ", " + range[2][2]);
+  exports.savedata_serversetting(interface_type[1], range, qwe[0]);
+  //console.log(interface_type[1] + ", " + range[0] + ", " + range[1] + ", " + qwe[0] + ", " + range[2][2]);
 }
 exports.api_get_awk = function(req, res) {
 
@@ -30,13 +30,13 @@ exports.api_get_awk = function(req, res) {
 
   });
 }
-exports.savedata_serversetting = function(arr) {
+exports.savedata_serversetting = function(interface_type, range, interval) {
   var s_setting_data = {}; //오브젝트
-  s_setting_data["interface"] = "basic";
-  s_setting_data["starting_IP_address"] = arr[0][1];
-  s_setting_data["ending_IP_address"] = arr[2][1];
-  s_setting_data["Lease_time"] = arr[3][1];
-  s_setting_data["interval"] = arr[4][1];
+  s_setting_data["interface"] = interface_type;
+  s_setting_data["starting_IP_address"] = range[0];
+  s_setting_data["ending_IP_address"] = range[1];
+  s_setting_data["Lease_time"] = interval;
+  s_setting_data["interval"] = range[2][2];
   // SAVE DATA
   fs.writeFile(__dirname + "/../data/dhcpserver/" + "serversetting.json",
     JSON.stringify(s_setting_data, null, '\t'), "utf8",
