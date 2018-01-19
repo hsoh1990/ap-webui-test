@@ -22,7 +22,6 @@ module.exports = function(app, fs, url) {
   })
 
   app.get('/login_check', function(req, res) {
-    router_login.userdata_check(req, res);
     var sess;
     sess = req.session;
     var id = req.query.id;
@@ -37,6 +36,7 @@ module.exports = function(app, fs, url) {
       }
       check['check'] = sess.logincheck;
       console.log('session : ' + sess.logincheck);
+      res.send(check);
     })
   })
 
