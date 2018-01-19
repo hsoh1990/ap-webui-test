@@ -163,50 +163,51 @@
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
     function server_get_userdata(select) {
-      var username_data = document.getElementById("username_id").value;
-      var oldpwd_data = document.getElementById("Oldpassword_id").value;
-      var myRe = /[A-Za-z0-9]{8,}/;
-      var oldpwd_data_check_Re = myRe.test(oldpwd_data);
-      if (username_data == "") {} else if (oldpwd_data == "" || oldpwd_data_check_Re == false) {} else {
-        const xhr = new XMLHttpRequest();
-        // by default async
-        xhr.onload = function() {
-          if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-            var data = this.response;
-            if (select == 1) {
+      if (select == 1) {
+        var username_data = document.getElementById("username_id").value;
+        var oldpwd_data = document.getElementById("Oldpassword_id").value;
+        var myRe = /[A-Za-z0-9]{8,}/;
+        var oldpwd_data_check_Re = myRe.test(oldpwd_data);
+        if (username_data == "") {} else if (oldpwd_data == "" || oldpwd_data_check_Re == false) {} else {
+          const xhr = new XMLHttpRequest();
+          // by default async
+          xhr.onload = function() {
+            if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+              var data = this.response;
               var admin_check = admin_evaluate(data);
               if (admin_check == true) {
                 new_password_box_show();
               } else {}
-            } else if (select == 2) { //관리자일 경우
-              new_password_confirm("admin");
+
             }
-          }
-        };
-        xhr.onerror = function() {
-          console.log("confirm");
-        };
-        xhr.open("GET", "/api/auth?id=" + username_data + "&password=" + oldpwd_data);
-        xhr.responseType = 'json';
-        xhr.send();
+          };
+          xhr.onerror = function() {
+            console.log("confirm");
+          };
+          xhr.open("GET", "/api/auth?id=" + username_data + "&password=" + oldpwd_data);
+          xhr.responseType = 'json';
+          xhr.send();
+        }
+      } else if (select == 2) {
+        new_password_confirm("admin");
       }
     }
-/*
-    function user_name_password_confirm(data) {
+    /*
+        function user_name_password_confirm(data) {
 
-      var username_data = document.getElementById("username_id").value;
-      var oldpwd_data = document.getElementById("Oldpassword_id").value;
+          var username_data = document.getElementById("username_id").value;
+          var oldpwd_data = document.getElementById("Oldpassword_id").value;
 
-      var myRe = /[A-Za-z0-9]{8,}/;
-      var oldpwd_data_check_Re = myRe.test(oldpwd_data);
+          var myRe = /[A-Za-z0-9]{8,}/;
+          var oldpwd_data_check_Re = myRe.test(oldpwd_data);
 
-      if (username_data == "") {} else if (oldpwd_data == "" || oldpwd_data_check_Re == false) {} else {
-        var admin_check = admin_evaluate(username_data, oldpwd_data, data);
-        if (admin_check == true) {
-          new_password_box_show();
-        } else {}
-      }
-    }*/
+          if (username_data == "") {} else if (oldpwd_data == "" || oldpwd_data_check_Re == false) {} else {
+            var admin_check = admin_evaluate(username_data, oldpwd_data, data);
+            if (admin_check == true) {
+              new_password_box_show();
+            } else {}
+          }
+        }*/
 
     function admin_evaluate(data) {
       if (data['check'] = "1") {
