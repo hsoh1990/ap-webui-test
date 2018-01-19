@@ -15,7 +15,7 @@
  </style>
 </head>
 
-<body onload="login()">
+<body>
 
   <fieldset>
     <input type="hidden" name="url" value="">
@@ -42,7 +42,7 @@
         alert("로그인 성공");
         location.href="index_login";
       } else {
-        document.write("Not authorized");
+        document.write("id와 password가 올바르지 않습니다.");
       }
     }
   </script>
