@@ -10,6 +10,7 @@ exports.api_get = function(req, res) {
   });
   var hostname = std_hostname.split("\n");
   console.log(hostname);
+
   const std_uptime = execSync('cat /proc/uptime', {
     encoding: 'utf8'
   });
@@ -31,6 +32,12 @@ exports.api_get = function(req, res) {
     struptime += minutes + " minutes";
   }
   console.log(struptime);
+
+  const std_mem = execSync('free -m', {
+    encoding: 'utf8'
+  });
+  var qwe = std_mem.match(/Mem: ([0-9]*)/i);
+  console.log(qwe);
   fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
     var systeminfordata = JSON.parse(data); //json text -> json object
     //console.log(systeminfordata);
