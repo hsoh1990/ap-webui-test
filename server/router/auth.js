@@ -40,7 +40,7 @@ exports.api_post_datasave = function(req, res, user_name, result) {
           if (err) {
             console.log(err);
           } else {
-            res.redirect('/');
+            console.log("session is destroy");
           }
         })
       })
