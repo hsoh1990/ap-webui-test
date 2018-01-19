@@ -33,11 +33,13 @@ exports.api_get = function(req, res) {
   }
   console.log(struptime);
 
-  const std_mem = execSync('free -m', {
+  const std_memfull = execSync('free -m | awk '/Mem:/ {print $2}'', {
     encoding: 'utf8'
   });
-  var qwe = std_mem.match(/Mem: ([0-9])/);
-  console.log(qwe);
+  const std_memused = execSync('free -m | awk '/Mem:/ {print $3}'', {
+    encoding: 'utf8'
+  });
+  console.log(std_memfull + ", " + std_memused);
   fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
     var systeminfordata = JSON.parse(data); //json text -> json object
     //console.log(systeminfordata);
