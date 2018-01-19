@@ -37,7 +37,7 @@ exports.api_get = function(req, res) {
     encoding: 'utf8'
   });
   var qwe = std_mem.match(/Mem: ([0-9]*)/i);
-  console.log(qwe);
+  console.log(std_mem);
   fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
     var systeminfordata = JSON.parse(data); //json text -> json object
     //console.log(systeminfordata);
