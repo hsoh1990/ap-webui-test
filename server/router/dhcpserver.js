@@ -1,6 +1,9 @@
 var fs = require("fs");
 var exec = require('child_process').exec,
   child;
+  const {
+    execSync
+  } = require('child_process');
 
 exports.api_get = function(req, res) {
   const stdout2 = execSync('cat /etc/dnsmasq.conf', {
