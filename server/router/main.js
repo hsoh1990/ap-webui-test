@@ -12,6 +12,12 @@ module.exports = function(app, fs, url) {
     res.render('index.html');
   });
   app.get('/index_login', function(req, res) {
+    var sess;
+    sess = req.session;
+    if (sess.logincheck != "1") {
+      res.render('index.html');
+      return;
+    }
     res.render('index_login.html');
   })
 
