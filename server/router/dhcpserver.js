@@ -15,7 +15,7 @@ exports.api_get = function(req, res) {
   var range = tmp[1].split(",");
   range[2] = range[2].match(/([0-9]*)([a-z])/i);
   var qwe = range[2][0].match(/([0-9]*)/i);
-  exports.savedata_serversetting(interface_type[1], range, qwe[0]);
+  //exports.savedata_serversetting(interface_type[1], range, qwe[0]);
   console.log(interface_type[1] + ", " + range[0] + ", " + range[1] + ", " + qwe[0] + ", " + range[2][2]);
 }
 exports.api_get_awk = function(req, res) {
