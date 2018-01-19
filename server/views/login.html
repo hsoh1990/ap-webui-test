@@ -172,11 +172,11 @@
 <body>
   <form class="form-1">
     <p class="field">
-      <input type="text" name="login" placeholder="Username or email">
+      <input type="text" name="login" id="id" placeholder="Username or email">
       <i class="icon-user icon-large"></i>
     </p>
     <p class="field">
-      <input type="password" name="password" placeholder="Password">
+      <input type="password" name="password" id="pwd" placeholder="Password">
       <i class="icon-lock icon-large"></i>
     </p>
     <p class="submit">
@@ -186,8 +186,8 @@
 
   <script>
   function login() {
-    var username_data = document.getElementById("username_id").value;
-    var oldpwd_data = document.getElementById("Oldpassword_id").value;
+    var id = document.getElementById("id").value;
+    var password = document.getElementById("pwd").value;
   }
   </script>
 </body>

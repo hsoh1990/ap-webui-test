@@ -13,7 +13,7 @@ module.exports = function(app, fs, url) {
   });
   app.get('/index_login', function(req, res) {
     res.render('index.html');
-  });
+  })
   app.get('/dashboard', function(req, res) {
     res.render('dashboard.html');
   });
