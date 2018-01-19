@@ -41,7 +41,7 @@
 
 </head>
 
-<body>
+<body onload="login()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -128,7 +128,16 @@
 
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
-
+  <script>
+  function login() {
+    password = prompt("비밀번호");
+    if(password==1234){
+      document.write("로그인 성공");
+    }else{
+      document.write("누구세요");
+    }
+  }
+  </script>
 </body>
 
 </html>
