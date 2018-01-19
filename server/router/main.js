@@ -82,9 +82,7 @@ module.exports = function(app, fs, url) {
     // input message handling
     var type = req.query.type;
 
-    if (type == "setting") {
-      //router_dhcpserver.api_get_basic(req, res);
-    } else if(type == "get") {
+    if(type == "get") {
       router_dhcpserver.api_get(req, res);
     } else if(type == "dnsmasq") {
       router_dhcpserver.api_get_dnsmasq(req, res);
