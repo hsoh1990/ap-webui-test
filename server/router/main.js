@@ -15,10 +15,10 @@ module.exports = function(app, fs, url) {
     var sess;
     sess = req.session;
     console.log('session : ' + sess.logincheck);
-    if (sess.logincheck == "0") {
-      res.render('index.html');
-    } else {
+    if (sess.logincheck == "1") {
       res.render('index_login.html');
+    } else {
+      res.render('index.html');
     }
   })
 
