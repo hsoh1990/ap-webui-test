@@ -4,11 +4,12 @@ var exec = require('child_process').exec,
 
 exports.api_get = function (req, res) {
   exports.write_clientlist();
+  /*
   fs.readFileSync(__dirname + "/../data/dhcpserver/" + "clientlist.json", 'utf8', function(err, data) {
-    var dhcpserverdata = JSON.parse(data); //json text -> json object
+    var clientlistdata = JSON.parse(data); //json text -> json object
     //console.log(dhcpserverdata);
-    res.send(dhcpserverdata);
-  })
+    res.json(clientlistdata);
+  })*/
 }
 exports.write_clientlist = function() {
   child = exec("cat /var/lib/misc/dnsmasq.leases", function (error, stdout, stderr) {
@@ -31,23 +32,24 @@ exports.write_clientlist = function() {
     console.log('arr ' + i + ' : ' + arr[i]);
     console.log('arr ' + i + '[] : ' + arr[i][0]);
   }
-  fs.writeFileSync(__dirname + "/../data/dhcpserver/" + "clientlist.json",
+  fs.writeFile(__dirname + "/../data/dhcpserver/" + "clientlist.json",
     JSON.stringify(data__, null, '\t'), "utf8",
     function(err, data) {
       result = {
         "success": 1
       };
+      res.json(data__);
     })
   });
 }
 exports.api_get_dnsmasq = function (req, res) {
   exports.write_pidof_dnsmasq();
-
+  /*
   fs.readFileSync(__dirname + "/../data/dhcpserver/" + "dnsmasq_dec.json", 'utf8', function(err, data) {
     var dnsmasqdata = JSON.parse(data); //json text -> json object
     //console.log(dhcpserverdata);
-    res.send(dnsmasqdata);
-  })
+    res.json(dnsmasqdata);
+  })*/
 }
 
 exports.write_pidof_dnsmasq = function() {
@@ -61,12 +63,13 @@ exports.write_pidof_dnsmasq = function() {
     var dnsmasqdata = {};
     dnsmasqdata['alert_select'] = data;
 
-    fs.writeFileSync(__dirname + "/../data/dhcpserver/" + "dnsmasq_dec.json",
+    fs.writeFile(__dirname + "/../data/dhcpserver/" + "dnsmasq_dec.json",
       JSON.stringify(dnsmasqdata, null, '\t'), "utf8",
       function(err, data) {
         result = {
           "success": 1
         };
+        res.json(dnsmasqdata);
       })
   });
 }
