@@ -36,7 +36,7 @@ exports.api_get = function(req, res) {
   const std_mem = execSync('free -m', {
     encoding: 'utf8'
   });
-  var qwe = std_mem.match(/Mem: ([0-9]*)/i);
+  var qwe = std_mem.match(/Mem: ([0-9])/);
   console.log(std_mem);
   fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
     var systeminfordata = JSON.parse(data); //json text -> json object
