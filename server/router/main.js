@@ -43,7 +43,7 @@ module.exports = function(app, fs, url) {
       router_hotspot.api_get_advanced(req, res);
     } else if (type == "awk") {
       router_hotspot.api_get_awk(req, res);
-    } else if(type == "get") {
+    } else if (type == "get") {
       router_hotspot.api_get(req, res);
     }
   });
@@ -82,10 +82,14 @@ module.exports = function(app, fs, url) {
     // input message handling
     var type = req.query.type;
 
-    if(type == "get") {
-      router_dhcpserver.api_get(req, res);
-    } else if(type == "dnsmasq") {
+    if (type == "clientlist") {
+      router_dhcpserver.api_get_clientlist(req, res);
+    } else if (type == "dnsmasq") {
       router_dhcpserver.api_get_dnsmasq(req, res);
+    } else if (type == "get") {
+      router_dhcpserver.api_get(req, res);
+    } else if (type == "awk") {
+      router_dhcpserver.api_get_awk(req, res);
     }
   });
   app.post('/api/dhcpserver', function(req, res) {

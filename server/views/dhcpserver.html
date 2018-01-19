@@ -40,7 +40,7 @@
     <![endif]-->
 </head>
 
-<body onload="rescan_button(),dnsmasq_button()">
+<body onload="rescan_button(),dnsmasq_button(),test_get()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -298,7 +298,7 @@
       xhr.onerror = function() {
         console.log("confirm");
       };
-      xhr.open("GET", "/api/dhcpserver?type=get");
+      xhr.open("GET", "/api/dhcpserver?type=clientlist");
       xhr.responseType = 'json';
       xhr.send();
     }
@@ -357,6 +357,57 @@
       content += "<button type=button class=close data-dismiss=alert aria-hidden=true>x</button>";
       content += "</div>";
       return content;
+    }
+
+    function interface_option_get() { //받아온 데이터를 이용해서 한번더 판단(awk)
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.open("GET", "/api/dhcpserver?type=awk", true);
+      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+      xhr.responseType = 'json';
+
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+          interface_option_select(this.response);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.send();
+    }
+    function interface_option_select(data, response) {
+      for (var a = 0; a < Object.keys(response).length - 1; a++) {
+        a = String(a);
+        var op = new Option();
+        op.value = response[a];
+        op.text = response[a];
+        if (data['interface'] == op.value) {
+          op.selected = true;
+        } else {
+          op.selected = false;
+        }
+        document.getElementById("interfaceid").options.add(op);
+      }
+    }
+    function test_get() { //받아온 데이터를 이용해서 한번더 판단(awk)
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.open("GET", "/api/dhcpserver?type=get", true);
+      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+      xhr.responseType = 'json';
+
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+          //interface_option_select(this.response);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.send();
     }
   </script>
 </body>
