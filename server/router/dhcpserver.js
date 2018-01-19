@@ -12,7 +12,7 @@ exports.api_get = function(req, res) {
   var arr = stdout2.split("\n");
   var interface_type = arr[0].split("=");
   console.log(interface_type[1]);
-  exports.savedata_serversetting(req, res);
+  //exports.savedata_serversetting(req, res);
 
 }
 exports.api_get_awk = function(req, res) {
