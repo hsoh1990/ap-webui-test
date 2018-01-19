@@ -7,13 +7,33 @@ module.exports = function(app, fs, url) {
   var router_dhcpserver = require('./dhcpserver.js');
   var router_auth = require('./auth.js');
   var router_system = require('./system.js');
-
+  var router_login = require('./login.js');
   app.get('/', function(req, res) {
     res.render('index.html');
   });
   app.get('/index_login', function(req, res) {
     res.render('index_login.html');
   })
+
+  app.get('/login_check', function(req, res) {
+    router_login.userdata_check(req, res);
+    var sess;
+    sess = req.session;
+    var id = req.query.id;
+    var password = req.query.password;
+    fs.readFile(__dirname + "/../data/" + "userdata.json", 'utf8', function(err, data) {
+      var userdata = JSON.parse(data); //json text -> json object
+      var check = {};
+      if (id == userdata['admin']['username'] && password == userdata['admin']['password']) {
+        sess.logincheck = "1";
+      } else {
+        sess.logincheck = "0";
+      }
+      check['check'] = sess.logincheck;
+    })
+  })
+
+
   app.get('/dashboard', function(req, res) {
     res.render('dashboard.html');
   });
