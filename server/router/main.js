@@ -14,6 +14,7 @@ module.exports = function(app, fs, url) {
   app.get('/index_login', function(req, res) {
     var sess;
     sess = req.session;
+    console.log('session : ' + sess.logincheck);
     if (sess.logincheck == "0") {
       res.render('index.html');
     } else {
