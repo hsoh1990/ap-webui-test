@@ -9,7 +9,7 @@ exports.api_get = function(req, res) {
   const stdout2 = execSync('cat /etc/dnsmasq.conf', {
     encoding: 'utf8'
   });
-  var arr = stdout.split("\n");
+  var arr = stdout2.split("\n");
   var interface_type = arr[0].split("=");
   console.log(interface_type[1]);
   exports.savedata_serversetting(req, res);
