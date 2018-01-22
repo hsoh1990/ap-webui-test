@@ -169,7 +169,7 @@ exports.tmp_file_save = function() {
   basic_data = JSON.parse(basic_data);
   security_data = JSON.parse(security_data);
   console.log("베이직 : " + basic_data);
-  text_tmp += "interface=" + basic_data['type'] + "\n";
+  text_tmp += "interface=" + basic_data['interface'] + "\n";
   text_tmp += "driver=nl80211\n";
   text_tmp += "ssid=" + basic_data['ssid'] + "\n";
   text_tmp += "hw_mode=" + basic_data['wireless_mode'] + "\n";
