@@ -12,7 +12,7 @@ exports.consolelog_serverdata = function(req, res) {
       child = exec("ifconfig wlan0", function(error, stdout3, stderr) {
         var text = stdout1 + stdout2 + stdout3;
 
-        var interface_name = "wlan0";
+        var inte  rface_name = "wlan0";
         var ip = exports.serverdata_get_ip(text);
         var netmask = exports.serverdata_get_netmask(text);
         var mac = exports.serverdata_get_mac(text);
@@ -303,4 +303,10 @@ exports.serverdata_Link_Quality = function(text) {
     console.log(e);
     return "";
   }
+}
+
+exports.start_stopbutton = function(req, res) {
+  child = exec("ifconfig wlan0 | grep -i running | wc -l", function(error, stdout, stderr) {
+    res.send(stdout);
+  });
 }

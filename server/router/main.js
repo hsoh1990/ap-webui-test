@@ -53,7 +53,15 @@ module.exports = function(app, fs, url) {
     }
   });
   app.get('/api/dashboard', function(req, res) {
-    router_dashboard.api_get(req, res);
+    req.accepts('application/json');
+    // input message handling
+    var type = req.query.id;
+
+    if (type == "refresh") {
+      router_dashboard.api_get(req, res);
+    } else if (type == "wlan0stopstart") {
+      router_dashboard.start_stopbutton(req, res);
+    }
   });
 
 

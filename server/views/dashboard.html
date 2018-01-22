@@ -220,7 +220,7 @@
       xhr.onerror = function() {
         console.log("confirm");
       };
-      xhr.open("GET", "/api/dashboard");
+      xhr.open("GET", "/api/dashboard?id=refresh");
       xhr.responseType = 'json';
       xhr.send();
     }
@@ -242,6 +242,23 @@
       content += "<button type=button class=close data-dismiss=alert aria-hidden=true>x</button>";
       content += "</div>";
       return content;
+    }
+
+    function wlan0_stopstart_button() {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          alert(data);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/dashboard?id=wlan0stopstart");
+      xhr.responseType = 'json';
+      xhr.send();
     }
   </script>
 
