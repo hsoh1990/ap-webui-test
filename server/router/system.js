@@ -60,18 +60,18 @@ exports.api_get = function(req, res) {
   }
   console.log("revision = " + revision[1]);
   var str_revi = "";
-  fs.readFile(__dirname + "/../data/" + "rivisions.json", 'utf8', function(err, data) {
-    var revisionsdata = JSON.parse(data); //json text -> json object
-    var revision_key = Object.getOwnPropertyNames(revisionsdata);
-    for (var a = 0; a < Object.keys(revisionsdata).length; a++) {
-      //console.log("revision_key = " + revision_key[a]);
-      if (revision_key[a] == revision[1]) {
-        str_revi = revisionsdata[revision_key[a]];
-        console.log("cpuinfo = " + str_revi);
-        break;
-      }
+  var data = fs.readFilesync(__dirname + "/../data/" + "rivisions.json", 'utf8');
+  var revisionsdata = JSON.parse(data); //json text -> json object
+  var revision_key = Object.getOwnPropertyNames(revisionsdata);
+  for (var a = 0; a < Object.keys(revisionsdata).length; a++) {
+    //console.log("revision_key = " + revision_key[a]);
+    if (revision_key[a] == revision[1]) {
+      str_revi = revisionsdata[revision_key[a]];
+      console.log("cpuinfo = " + str_revi);
+      break;
     }
-  })
+  }
+
   var strawk3 = "'{ print $1 }'";
   const cpuload = execSync('awk ' + strawk3 + ' /proc/loadavg', {
     encoding: 'utf8'
