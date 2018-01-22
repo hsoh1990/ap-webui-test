@@ -23,13 +23,13 @@ exports.api_get = function(req, res) {
   minutes = Math.floor(minutes - (days * 24 * 60) - (hours * 60));
   var struptime = "";
   if (days != 0) {
-    struptime += days + " days";
+    struptime += days + " days ";
   }
   if (hours != 0) {
-    struptime += hours + " hours";
+    struptime += hours + " hours ";
   }
   if (minutes != 0) {
-    struptime += minutes + " minutes";
+    struptime += minutes + " minutes ";
   }
   console.log(struptime);
   var strawk1 = "'/Mem:/ { print $2 }'";
@@ -45,9 +45,10 @@ exports.api_get = function(req, res) {
   });
   var tmp1 = cpuinfo.split("\n");
   var qwe;
+  console.log(tmp1);
   for(var a = 0;a < tmp1.length;a++){
     if(tmp1[a].indexOf("Revision") >= 0){
-      qwe = tmp1[a].split(" : ");
+      qwe = tmp1[a].split(":");
       break;
     }
   }
