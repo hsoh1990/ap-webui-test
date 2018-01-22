@@ -60,7 +60,7 @@ exports.api_get = function(req, res) {
   }
   console.log("revision = " + revision[1]);
   var str_revi;
-  fs.readFile(__dirname + "/../data/" + "rivisions.json", 'utf8', function(err, data) {
+  fs.readFileSync(__dirname + "/../data/" + "rivisions.json", 'utf8', function(err, data) {
     var revisionsdata = JSON.parse(data); //json text -> json object
     var revision_key = Object.getOwnPropertyNames(revisionsdata);
     for (var a = 0; a < Object.keys(revisionsdata).length; a++) {
@@ -82,10 +82,10 @@ exports.api_get = function(req, res) {
   //file에 저장 하는 부분
   var data__ = {};
   var tmp = {};
-  tmp['Hostname'] = hostname[1];
+  tmp['Hostname'] = hostname[0];
   tmp['Pi Revision'] = str_revi;
   tmp['Uptime'] = struptime;
-  tmp['Memory Used'] = String(mem_usedper);
+  tmp['Memory Used'] = String(Math.floor(mem_usedper));
   tmp['CPU Load'] = String(cpuloadper);
   data__['system_Information'] = tmp;
   fs.writeFileSync(__dirname + "/../data/" + "systeminfordata.json",
