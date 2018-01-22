@@ -64,7 +64,7 @@ exports.api_get = function(req, res) {
     var revisionsdata = JSON.parse(data); //json text -> json object
     var revision_key = Object.getOwnPropertyNames(revisionsdata);
     for (var a = 0; a < Object.keys(revisionsdata).length; a++) {
-      console.log("revision_key = " + revision_key[a]);
+      //console.log("revision_key = " + revision_key[a]);
       if (revision_key[a] == revision[1]) {
         str_revi = revisionsdata[revision_key[a]];
         console.log("cpuinfo = " + str_revi);
