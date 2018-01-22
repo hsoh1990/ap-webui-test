@@ -4,11 +4,6 @@ var exec = require('child_process').exec,
 
 exports.api_get = function(req, res) {
   exports.consolelog_serverdata();
-  fs.readFile(__dirname + "/../data/" + "dashboarddata.json", 'utf8', function(err, data) {
-    var dashboarddata = JSON.parse(data); //json text -> json object
-    //console.log(dashboarddata);
-    res.send(dashboarddata);
-  })
 }
 
 exports.consolelog_serverdata = function() {
@@ -78,6 +73,11 @@ exports.consolelog_serverdata = function() {
               "success": 1
             };
           })
+        var data = fs.readFileSync(__dirname + "/../data/" + "dashboarddata.json", 'utf8');
+        var dashboarddata = JSON.parse(data); //json text -> json object
+        //console.log(dashboarddata);
+        res.send(dashboarddata);
+
 
 
       });
@@ -89,7 +89,7 @@ exports.serverdata_get_interfaceis = function(text) {
   if (updown[1] == "UP") {
     console.log('Interface is: UP');
     return true;
-  } else if (updown[1] == "DOWN"){
+  } else if (updown[1] == "DOWN") {
     console.log('Interface is: DOWN');
     return false;
   }
@@ -184,7 +184,7 @@ exports.serverdata_RX_bytes = function(text) {
 }
 exports.serverdata_TX_bytes = function(text) {
   var TX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/gi);
-//  console.log(TX_bytes);
+  //  console.log(TX_bytes);
   var split_TX_bytes = TX_bytes[1].split(" ");
   TX_bytes = split_TX_bytes[1] + " " + split_TX_bytes[2] + " " + split_TX_bytes[3];
   try {
