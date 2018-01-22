@@ -1,6 +1,9 @@
 var fs = require("fs");
 var exec = require('child_process').exec,
   child;
+  const {
+    execSync
+  } = require('child_process');
 
 exports.api_get = function(req, res) {
   exports.read_pidof_hostapd();
