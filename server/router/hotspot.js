@@ -191,7 +191,7 @@ exports.tmp_file_save = function() {
         "success": 1
       };
     })
-  /*const save = execSync('sudo cp ' + __dirname + '/../data/hotspot/tmp.txt /etc/hostapd/hostapd.conf', {
+  const save = execSync('sudo cp ' + __dirname + '/../data/hotspot/tmp.txt /etc/hostapd/hostapd.conf', {
     encoding: 'utf8'
-  });*/
+  });
 }
