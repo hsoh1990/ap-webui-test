@@ -157,7 +157,7 @@ exports.api_post_advanced = function(req, res) {
       res.json(result);
     })
 }
-
+router_hotspot.tmp_file_save();
 exports.tmp_file_save = function() {
   var text_tmp = "";
   var basic_data = fs.readFileSync(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8');
@@ -178,7 +178,7 @@ exports.tmp_file_save = function() {
   text_tmp += "rsn_pairwise=CCMP\n";
 
   fs.writeFileSync(__dirname + "/../data/hotspot/" + "tmp.txt",
-    data, "utf8",
+    text_tmp, "utf8",
     function(err, data) {
       result = {
         "success": 1
