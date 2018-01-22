@@ -626,10 +626,10 @@
         var content = "";
         if (data == 1) {
           content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=basic_data_store_button()>";
-          content += "<input type=button class='btn btn-warning' name=StopHotspot value='Stop hotspot' onclick=change_hotspot_stopstart_button()>";
+          content += "<input type=button class='btn btn-warning' name=StopHotspot value='Stop hotspot' onclick=change_hotspot_stopstart_button(0)>";
         } else if (data == 0) {
           content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=basic_data_store_button()>";
-          content += "<input type=button class='btn btn-success' name=StopHotspot value='Start hotspot' onclick=change_hotspot_stopstart_button()>";
+          content += "<input type=button class='btn btn-success' name=StopHotspot value='Start hotspot' onclick=change_hotspot_stopstart_button(1)>";
         }
         document.getElementById("basic_button").innerHTML = content;
       }
@@ -637,10 +637,10 @@
         var content = "";
         if (data == 1) {
           content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=security_data_store_button()>";
-          content += "<input type=button class='btn btn-warning' name=StopHotspot value='Stop hotspot' onclick=change_hotspot_stopstart_button()>";
+          content += "<input type=button class='btn btn-warning' name=StopHotspot value='Stop hotspot' onclick=change_hotspot_stopstart_button(0)>";
         } else if (data == 0) {
           content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=security_data_store_button()>";
-          content += "<input type=button class='btn btn-success' name=StopHotspot value='Start hotspot' onclick=change_hotspot_stopstart_button()>";
+          content += "<input type=button class='btn btn-success' name=StopHotspot value='Start hotspot' onclick=change_hotspot_stopstart_button(1)>";
         }
         document.getElementById("security_button").innerHTML = content;
       }
@@ -648,10 +648,10 @@
         var content = "";
         if (data == 1) {
           content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=advanced_data_store_button()>";
-          content += "<input type=button class='btn btn-warning' name=StopHotspot value='Stop hotspot' onclick=change_hotspot_stopstart_button()>";
+          content += "<input type=button class='btn btn-warning' name=StopHotspot value='Stop hotspot' onclick=change_hotspot_stopstart_button(0)>";
         } else if (data == 0) {
           content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=advanced_data_store_button()>";
-          content += "<input type=button class='btn btn-success' name=StopHotspot value='Start hotspot' onclick=change_hotspot_stopstart_button()>";
+          content += "<input type=button class='btn btn-success' name=StopHotspot value='Start hotspot' onclick=change_hotspot_stopstart_button(1)>";
         }
         document.getElementById("advanced_button").innerHTML = content;
       }
