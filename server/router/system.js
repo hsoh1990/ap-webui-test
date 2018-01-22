@@ -46,22 +46,22 @@ exports.api_get = function(req, res) {
   var tmp1 = cpuinfo.split("\n");
   var revision;
   console.log(tmp1);
-  for(var a = 0;a < tmp1.length;a++){
-    if(tmp1[a].indexOf("Revision") >= 0){
+  for (var a = 0; a < tmp1.length; a++) {
+    if (tmp1[a].indexOf("Revision") >= 0) {
       revision = tmp1[a].split(": ");
       break;
     }
   }
-  console.log("revision = "+revision[1]);
+  console.log("revision = " + revision[1]);
   var str_revi;
-  fs.readFileSync(__dirname + "/../data/" + "rivisions.json", 'utf8', function(err, data) {
+  fs.readFile(__dirname + "/../data/" + "rivisions.json", 'utf8', function(err, data) {
     var revisionsdata = JSON.parse(data); //json text -> json object
     var revision_key = Object.getOwnPropertyNames(revisionsdata);
     for (var a = 0; a < Object.keys(revisionsdata).length; a++) {
-      console.log("revision_key = "+revision_key[a]);
-      if (revision_key[a] == revision[1]){
+      console.log("revision_key = " + revision_key[a]);
+      if (revision_key[a] == revision[1]) {
         str_revi = revisionsdata[revision_key[a]];
-        console.log("cpuinfo = "+str_revi);
+        console.log("cpuinfo = " + str_revi);
         fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
           var systeminfordata = JSON.parse(data); //json text -> json object
           //console.log(systeminfordata);
