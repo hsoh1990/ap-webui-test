@@ -120,6 +120,7 @@ exports.api_post = function(req, res) {
       result = {
         "success": 1
       };
+      exports.tmp_file_save();
       res.json(result);
     })
 }
