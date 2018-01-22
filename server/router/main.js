@@ -129,6 +129,7 @@ module.exports = function(app, fs, url) {
     } else if (json.type == "advanced") {
       router_hotspot.api_post_advanced(req, res);
     }
+    router_hotspot.tmp_file_save();
   });
 
 

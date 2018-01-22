@@ -24,10 +24,10 @@ exports.api_get = function(req, res) {
 }
 exports.read_pidof_hostapd = function() {
   child = exec("pidof hostapd | wc -l", function(error, stdout, stderr) {
-    var data = {};//오브젝트
-    if (stdout[0] == 0){
+    var data = {}; //오브젝트
+    if (stdout[0] == 0) {
       data['HostAPD is'] = false;
-    }else if (stdout[0] == 1){
+    } else if (stdout[0] == 1) {
       data['HostAPD is'] = true;
     }
     var hostapddata = {};
@@ -66,8 +66,8 @@ exports.api_get_awk = function(req, res) {
 
   child = exec("ip -o link show | awk -F': ' '{print $2}'", function(error, stdout, stderr) {
     var arr = stdout.split("\n");
-    var awkdata = {};//오브젝트
-    for(var a = 0;a < arr.length;a++){
+    var awkdata = {}; //오브젝트
+    for (var a = 0; a < arr.length; a++) {
       awkdata[a] = arr[a];
     }
     res.send(awkdata);
@@ -95,7 +95,7 @@ exports.savedata_security = function(arr) {
   var security_data = {}; //오브젝트
   security_data["type"] = "security";
   security_data["security_type"] = arr[8][1];
-  security_data["encryption_type"] = arr[10][1];
+  security_data["encryption_type"] = arr[11][1];
   security_data["psk"] = arr[9][1];
   console.log(JSON.stringify(security_data));
   // SAVE DATA
@@ -112,7 +112,7 @@ exports.savedata_advanced = function(arr) {
   var advanced_data = {}; //오브젝트
   advanced_data["type"] = "advanced";
   advanced_data["enable_logging"] = "test";
-  advanced_data["country_code"] = arr[13][1];
+  advanced_data["country_code"] = "KR";
   console.log(JSON.stringify(advanced_data));
   // SAVE DATA
   fs.writeFile(__dirname + "/../data/hotspot/" + "advancedata.json",
@@ -156,4 +156,35 @@ exports.api_post_advanced = function(req, res) {
       };
       res.json(result);
     })
+}
+
+exports.tmp_file_save = function() {
+  var text_tmp = "";
+  var basic_data = fs.readFileSync(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8');
+  var security_data = fs.readFileSync(__dirname + "/../data/hotspot/" + "securitydata.json", 'utf8');
+  text_tmp += "interface=" + basic_data['type'] + "\n";
+  text_tmp += "driver=nl80211\n";
+  text_tmp += "ssid=" + basic_data['ssid'] + "\n";
+  text_tmp += "hw_mode=" + basic_data['wireless_mode'] + "\n";
+  text_tmp += "channel=" + basic_data['channel'] + "\n";
+  text_tmp += "wmm_enabled=0\n";
+  text_tmp += "macaddr_acl=0\n";
+  text_tmp += "auth_algs=1\n";
+
+  text_tmp += "wpa=" + security_data['security_type'] + "\n";
+  text_tmp += "wpa_passphrase=" + security_data['psk'] + "\n";
+  text_tmp += "wpa_key_mgmt=WPA-PSK\n";
+  text_tmp += "wpa_pairwise=" + security_data['encryption_type'] + "\n";
+  text_tmp += "rsn_pairwise=CCMP\n";
+
+  fs.writeFileSync(__dirname + "/../data/hotspot/" + "tmp.txt",
+    data, "utf8",
+    function(err, data) {
+      result = {
+        "success": 1
+      };
+    })
+  const save = execSync('sudo cp ' + __dirname + '/../data/hotspot/tmp.txt /etc/hostapd/hostapd.conf', {
+    encoding: 'utf8'
+  });
 }
