@@ -617,7 +617,7 @@
         xhr.onerror = function() {
           console.log("confirm");
         };
-        xhr.open("GET", "/api/dashboard?type=wlan0stopstart");
+        xhr.open("GET", "/api/hotspot?type=wlan0stopstart");
         xhr.responseType = 'json';
         xhr.send();
       }
@@ -670,7 +670,7 @@
         xhr.onerror = function() {
           console.log("confirm");
         };
-        xhr.open("GET", "/api/dashboard?type=wlan0stopstart&select=" + select);
+        xhr.open("GET", "/api/hotspot?type=wlan0stopstart&select=" + select);
         xhr.responseType = 'json';
         xhr.send();
       }
