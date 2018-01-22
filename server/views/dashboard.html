@@ -132,13 +132,11 @@
 
               <div class="col-lg-12">
                 <div class="row">
-                  <form action="?page=wlan0_info" method="POST">
-                    <div id="start_stop">
+                  <form action="?page=wlan0_info" method="POST" id="start_stop">
 
-                    </div>
                     <!--<input type="submit" class="btn btn-warning" value="Stop wlan0" name="ifdown_wlan0" />-->
 
-                    <input type="button" id="refreshbuttonid" class="btn btn-outline btn-primary" value="Refresh" onclick="refresh_button()" />
+
                   </form>
                 </div>
               </div>
@@ -265,8 +263,10 @@
       var content = "";
       if (data == 1) {
         content = "<input type=button class='btn btn-success' value='Start wlan0' name=ifup_wlan0 />";
+        content += "<input type=button id=refreshbuttonid class='btn btn-outline btn-primary' value=Refresh onclick=refresh_button() />";
       } else if (data == 0) {
         content = "<input type=button class='btn btn-success' value='Stop wlan0' name=ifup_wlan0 />";
+        content += "<input type=button id=refreshbuttonid class='btn btn-outline btn-primary' value=Refresh onclick=refresh_button() />";
       }
       document.getElementById("start_stop").innerHTML = content;
     }
