@@ -58,7 +58,7 @@ exports.api_get = function(req, res) {
     var revision_key = Object.getOwnPropertyNames(revisionsdata);
     for (var a = 0; a < Object.keys(revisionsdata).length; a++) {
       if (revision_key[a] == revision[1]){
-        str_revi = revision[revision_key[a]];
+        str_revi = revisionsdata[revision_key[a]];
         break;
       }
     }
