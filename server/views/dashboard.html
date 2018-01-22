@@ -133,9 +133,9 @@
               <div class="col-lg-12">
                 <div class="row">
                   <form action="?page=wlan0_info" method="POST">
+                    <div id="start_stop">
 
-                    <input type="submit" class="btn btn-success" value="Start wlan0" name="ifup_wlan0" />
-
+                    </div>
                     <!--<input type="submit" class="btn btn-warning" value="Stop wlan0" name="ifdown_wlan0" />-->
 
                     <input type="button" id="refreshbuttonid" class="btn btn-outline btn-primary" value="Refresh" onclick="refresh_button()" />
@@ -250,7 +250,7 @@
       xhr.onload = function() {
         if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
           var data = this.response;
-          alert(data);
+          button_input(data);
         }
       };
       xhr.onerror = function() {
@@ -259,6 +259,16 @@
       xhr.open("GET", "/api/dashboard?id=wlan0stopstart");
       xhr.responseType = 'json';
       xhr.send();
+    }
+
+    function button_input(data) {
+      var content = "";
+      if (data == 1) {
+        content = "<input type=button class=btn btn-success value="'Start wlan0'" name=ifup_wlan0 />";
+      } else if (data == 0) {
+        content = "<input type=button class=btn btn-success value="'Stop wlan0'" name=ifup_wlan0 />";
+      }
+      document.getElementById("start_stop").innerHTML = content;
     }
   </script>
 
