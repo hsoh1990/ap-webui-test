@@ -86,12 +86,10 @@ exports.consolelog_serverdata = function() {
 }
 exports.serverdata_get_interfaceis = function(text) {
   var updown = text.match(/state ([A-Z]+)/i);
-  console.log('check : ' + updown);
-  var numReturn = text.indexOf("UP");
-  if (numReturn != -1) {
+  if (updown[1] == "UP") {
     console.log('Interface is: UP');
     return true;
-  } else {
+  } else if (updown[1] == "DOWN"){
     console.log('Interface is: DOWN');
     return false;
   }
