@@ -87,6 +87,7 @@ exports.api_get = function(req, res) {
   tmp['Uptime'] = struptime;
   tmp['Memory Used'] = String(mem_usedper);
   tmp['CPU Load'] = String(cpuloadper);
+  data__['system_Information'] = tmp;
   fs.writeFileSync(__dirname + "/../data/" + "systeminfordata.json",
     JSON.stringify(data__, null, '\t'), "utf8",
     function(err, data) {
