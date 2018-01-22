@@ -11,6 +11,7 @@ exports.api_get = function(req, res) {
   var hostname = std_hostname.split("\n");
   console.log(hostname);
 
+
   const std_uptime = execSync('cat /proc/uptime', {
     encoding: 'utf8'
   });
@@ -32,6 +33,8 @@ exports.api_get = function(req, res) {
     struptime += minutes + " minutes ";
   }
   console.log(struptime);
+
+
   var strawk1 = "'/Mem:/ { print $2 }'";
   const totalmem = execSync('free -m | awk ' + strawk1, {
     encoding: 'utf8'
@@ -43,6 +46,9 @@ exports.api_get = function(req, res) {
   const cpuinfo = execSync('cat /proc/cpuinfo', {
     encoding: 'utf8'
   });
+  var mem_usedper = usedmem / totalmem * 100;
+
+
   var tmp1 = cpuinfo.split("\n");
   var revision;
   console.log(tmp1);
@@ -62,13 +68,36 @@ exports.api_get = function(req, res) {
       if (revision_key[a] == revision[1]) {
         str_revi = revisionsdata[revision_key[a]];
         console.log("cpuinfo = " + str_revi);
-        fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
-          var systeminfordata = JSON.parse(data); //json text -> json object
-          //console.log(systeminfordata);
-          res.send(systeminfordata);
-        })
         break;
       }
     }
+  })
+
+  var strawk3 = "'{ print $1 }'";
+  const cpuload = execSync('awk ' + strawk3 + ' /proc/loadavg', {
+    encoding: 'utf8'
+  });
+  var cpuloadper = cpuload * 100;
+
+  //file에 저장 하는 부분
+  var data__ = {};
+  var tmp = {};
+  tmp['Hostname'] = hostname[1];
+  tmp['Pi Revision'] = str_revi;
+  tmp['Uptime'] = struptime;
+  tmp['Memory Used'] = String(mem_usedper);
+  tmp['CPU Load'] = String(cpuloadper);
+  fs.writeFileSync(__dirname + "/../data/" + "systeminfordata.json",
+    JSON.stringify(data__, null, '\t'), "utf8",
+    function(err, data) {
+      result = {
+        "success": 1
+      };
+    })
+
+  fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
+    var systeminfordata = JSON.parse(data); //json text -> json object
+    //console.log(systeminfordata);
+    res.send(systeminfordata);
   })
 }
