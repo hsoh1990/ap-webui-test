@@ -61,14 +61,14 @@ exports.api_get = function(req, res) {
       console.log("revision_key = "+revision_key[a]);
       if (revision_key[a] == revision[1]){
         str_revi = revisionsdata[revision_key[a]];
+        console.log("cpuinfo = "+str_revi);
+        fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
+          var systeminfordata = JSON.parse(data); //json text -> json object
+          //console.log(systeminfordata);
+          res.send(systeminfordata);
+        })
         break;
       }
     }
-  })
-  console.log("cpuinfo = "+str_revi);
-  fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
-    var systeminfordata = JSON.parse(data); //json text -> json object
-    //console.log(systeminfordata);
-    res.send(systeminfordata);
   })
 }
