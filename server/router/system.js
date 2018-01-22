@@ -32,15 +32,26 @@ exports.api_get = function(req, res) {
     struptime += minutes + " minutes";
   }
   console.log(struptime);
-  var strawk = "'/Mem:/ { print $2 }'";
-  const std_mem = execSync('free -m | awk ' + strawk, {
+  var strawk1 = "'/Mem:/ { print $2 }'";
+  const totalmem = execSync('free -m | awk ' + strawk1, {
     encoding: 'utf8'
   });
-  console.log("std_mem = " + std_mem);
-  var rep_ = std_mem.replace(/\t/, ",");
-  console.log("replace = " + rep_);
-  var mem__ = rep_.split(",");
-  console.log("result = " + mem__);
+  var strawk2 = "'/Mem:/ { print $3 }'";
+  const usedmem = execSync('free -m | awk ' + strawk2, {
+    encoding: 'utf8'
+  });
+  const cpuinfo = execSync('cat /proc/cpuinfo', {
+    encoding: 'utf8'
+  });
+  var tmp1 = cpuinfo.split("\n");
+  var qwe;
+  for(var a = 0;a < tmp1.length;a++){
+    if(tmp1[a].test(/Revision/)){
+      qwe = tmp1[a].split(" : ");
+      break;
+    }
+  }
+  console.log("cpuinfo = "+qwe[1]);
   fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
     var systeminfordata = JSON.parse(data); //json text -> json object
     //console.log(systeminfordata);
