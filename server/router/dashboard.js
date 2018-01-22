@@ -168,7 +168,7 @@ exports.serverdata_TX_packets = function(text) {
   }
 }
 exports.serverdata_RX_bytes = function(text) {
-  var RX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [Ki|Mi|Gi]B\))/i);
+  var RX_bytes = text.match(/RX packets (\d+)  bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/i);
 
   try {
     if (RX_bytes != null) {
@@ -183,20 +183,12 @@ exports.serverdata_RX_bytes = function(text) {
   }
 }
 exports.serverdata_TX_bytes = function(text) {
-  var TX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [Ki|Mi|Gi]B\))/gi);
+  var TX_bytes = text.match(/TX packets (\d+)  bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/i);
   //  console.log(TX_bytes);
   try {
-    var split_TX_bytes = TX_bytes[1].split(" ");
-  } catch (e) {
-    console.log(e);
-    return "No Data";
-  }
-  var split_TX_bytes = TX_bytes[1].split(" ");
-  TX_bytes = split_TX_bytes[1] + " " + split_TX_bytes[2] + " " + split_TX_bytes[3];
-  try {
     if (TX_bytes != null) {
-      console.log('TX bytes: ' + TX_bytes);
-      return TX_bytes;
+      console.log('TX bytes: ' + TX_bytes[1]);
+      return TX_bytes[1];
     } else {
       throw "No Data";
     }
