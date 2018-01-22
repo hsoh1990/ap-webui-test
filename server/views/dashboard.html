@@ -262,11 +262,11 @@
     function button_input(data) {
       var content = "";
       if (data == 1) {
-        content = "<input type=button class='btn btn-warning' value='Stop wlan0' name=ifup_wlan0 />";
-        content += "<input type=button id=refreshbuttonid class='btn btn-outline btn-primary' value=Refresh onclick=change_wlan0_stopstart_button(0) />";
+        content = "<input type=button class='btn btn-warning' value='Stop wlan0' name=ifup_wlan0 onclick=change_wlan0_stopstart_button(0)/>";
+        content += "<input type=button id=refreshbuttonid class='btn btn-outline btn-primary' value=Refresh onclick=refresh_button() />";
       } else if (data == 0) {
-        content = "<input type=button class='btn btn-success' value='Start wlan0' name=ifup_wlan0 />";
-        content += "<input type=button id=refreshbuttonid class='btn btn-outline btn-primary' value=Refresh onclick=change_wlan0_stopstart_button(1) />";
+        content = "<input type=button class='btn btn-success' value='Start wlan0' name=ifup_wlan0 onclick=change_wlan0_stopstart_button(1)/>";
+        content += "<input type=button id=refreshbuttonid class='btn btn-outline btn-primary' value=Refresh onclick=refresh_button() />";
       }
       document.getElementById("start_stop").innerHTML = content;
     }
