@@ -33,9 +33,10 @@ exports.api_get = function(req, res) {
   }
   console.log(struptime);
 
-  const std_mem = execSync('free -m | awk '"(/Mem:/ { print $2 }"'' {
+  const std_mem = execSync("'free -m | awk '(/Mem:/ { print $2 }''" {
     encoding: 'utf8'
   });
+  console.log("std_mem = " + std_mem);
   var rep_ = std_mem.replace(/\t/, ",");
   console.log("replace = " + rep_);
   var mem__ = rep_.split(",");
