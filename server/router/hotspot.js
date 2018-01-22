@@ -165,6 +165,7 @@ exports.tmp_file_save = function() {
   var text_tmp = "";
   var basic_data = fs.readFileSync(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8');
   var security_data = fs.readFileSync(__dirname + "/../data/hotspot/" + "securitydata.json", 'utf8');
+console.log(basic_data);
   text_tmp += "interface=" + basic_data['type'] + "\n";
   text_tmp += "driver=nl80211\n";
   text_tmp += "ssid=" + basic_data['ssid'] + "\n";
@@ -187,7 +188,7 @@ exports.tmp_file_save = function() {
         "success": 1
       };
     })
-  const save = execSync('sudo cp ' + __dirname + '/../data/hotspot/tmp.txt /etc/hostapd/hostapd.conf', {
+  /*const save = execSync('sudo cp ' + __dirname + '/../data/hotspot/tmp.txt /etc/hostapd/hostapd.conf', {
     encoding: 'utf8'
-  });
+  });*/
 }
