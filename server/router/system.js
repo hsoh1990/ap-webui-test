@@ -45,9 +45,8 @@ exports.api_get = function(req, res) {
   });
   var tmp1 = cpuinfo.split("\n");
   var qwe;
-  var pattern = new RegExp("^Revision");
   for(var a = 0;a < tmp1.length;a++){
-    if(tmp1[a].test(pattern) == true){
+    if(tmp1[a].indexOf("Revision") >= 0){
       qwe = tmp1[a].split(" : ");
       break;
     }
