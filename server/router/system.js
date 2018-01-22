@@ -48,7 +48,7 @@ exports.api_get = function(req, res) {
   console.log(tmp1);
   for(var a = 0;a < tmp1.length;a++){
     if(tmp1[a].indexOf("Revision") >= 0){
-      qwe = tmp1[a].split(":");
+      qwe = tmp1[a].split(": ");
       break;
     }
   }
