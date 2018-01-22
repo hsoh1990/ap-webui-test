@@ -44,15 +44,26 @@ exports.api_get = function(req, res) {
     encoding: 'utf8'
   });
   var tmp1 = cpuinfo.split("\n");
-  var qwe;
+  var revision;
   console.log(tmp1);
   for(var a = 0;a < tmp1.length;a++){
     if(tmp1[a].indexOf("Revision") >= 0){
-      qwe = tmp1[a].split(": ");
+      revision = tmp1[a].split(": ");
       break;
     }
   }
-  console.log("cpuinfo = "+qwe[1]);
+  var str_revi;
+  fs.readFileSync(__dirname + "/../data/" + "rivisions.json", 'utf8', function(err, data) {
+    var revision = JSON.parse(data); //json text -> json object
+    var revision_key = Object.getOwnPropertyNames(revision);
+    for (var a = 0; a < Object.keys(revision).length; a++) {
+      if (revision_key[a] == revision[1]){
+        str_revi = revision[revision_key[a]];
+        break;
+      }
+    }
+  })
+  console.log("cpuinfo = "+str_revi);
   fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
     var systeminfordata = JSON.parse(data); //json text -> json object
     //console.log(systeminfordata);
