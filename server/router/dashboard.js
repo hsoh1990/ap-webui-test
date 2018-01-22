@@ -168,7 +168,7 @@ exports.serverdata_TX_packets = function(text) {
   }
 }
 exports.serverdata_RX_bytes = function(text) {
-  var RX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/i);
+  var RX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [Ki|Mi|Gi]B\))/i);
 
   try {
     if (RX_bytes != null) {
@@ -183,7 +183,7 @@ exports.serverdata_RX_bytes = function(text) {
   }
 }
 exports.serverdata_TX_bytes = function(text) {
-  var TX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/gi);
+  var TX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [Ki|Mi|Gi]B\))/gi);
   //  console.log(TX_bytes);
   try {
     var split_TX_bytes = TX_bytes[1].split(" ");
