@@ -313,13 +313,17 @@ exports.start_stopbutton = function(req, res) {
 
 exports.wlan0_stop = function(req, res) {
   child = exec("ip link set wlan0 down", function(error, stdout, stderr) {
-    console.log(stdout);
-    res.send(arr);
+    result = {
+      "success": 0
+    };
+    res.send(result);
   });
 }
 exports.wlan0_start = function(req, res) {
   child = exec("ip link set wlan0 up", function(error, stdout, stderr) {
-    console.log(stdout);
-    res.send(arr);
+    result = {
+      "success": 1
+    };
+    res.send(result);
   });
 }
