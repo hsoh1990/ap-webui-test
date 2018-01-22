@@ -59,8 +59,8 @@ exports.api_get = function(req, res) {
     }
   }
   console.log("revision = " + revision[1]);
-  var str_revi;
-  fs.readFileSync(__dirname + "/../data/" + "rivisions.json", 'utf8', function(err, data) {
+  var str_revi = "";
+  fs.readFile(__dirname + "/../data/" + "rivisions.json", 'utf8', function(err, data) {
     var revisionsdata = JSON.parse(data); //json text -> json object
     var revision_key = Object.getOwnPropertyNames(revisionsdata);
     for (var a = 0; a < Object.keys(revisionsdata).length; a++) {
@@ -72,7 +72,11 @@ exports.api_get = function(req, res) {
       }
     }
   })
-
+  while(true){
+    if (str_revi != ""){
+      break;
+    }
+  }
   var strawk3 = "'{ print $1 }'";
   const cpuload = execSync('awk ' + strawk3 + ' /proc/loadavg', {
     encoding: 'utf8'
