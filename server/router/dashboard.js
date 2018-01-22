@@ -124,7 +124,7 @@ exports.serverdata_get_netmask = function(text) {
 }
 exports.serverdata_get_mac = function(text) {
   var mac = text.match(/link\/ether ([0-9a-f:]+)/i);
-
+  console.log(mac);
   try {
     if (mac != null) {
       console.log('mac: ' + mac[1]);
