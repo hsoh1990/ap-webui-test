@@ -36,7 +36,7 @@ exports.api_get = function(req, res) {
   const std_mem = execSync('free -m | awk /Mem:/', {
     encoding: 'utf8'
   });
-  var rep_ = std_mem.replace(/\s/, ",");
+  var rep_ = std_mem.replace(/\t/, ",");
   console.log("replace = " + rep_);
   var mem__ = rep_.split(",");
   console.log("result = " + mem__);
