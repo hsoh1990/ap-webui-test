@@ -52,11 +52,13 @@ exports.api_get = function(req, res) {
       break;
     }
   }
+  console.log("revision = "+revision[1]);
   var str_revi;
   fs.readFileSync(__dirname + "/../data/" + "rivisions.json", 'utf8', function(err, data) {
     var revisionsdata = JSON.parse(data); //json text -> json object
     var revision_key = Object.getOwnPropertyNames(revisionsdata);
     for (var a = 0; a < Object.keys(revisionsdata).length; a++) {
+      console.log("revision_key = "+revision_key[a]);
       if (revision_key[a] == revision[1]){
         str_revi = revisionsdata[revision_key[a]];
         break;
