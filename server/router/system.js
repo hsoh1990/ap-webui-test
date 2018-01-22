@@ -72,11 +72,6 @@ exports.api_get = function(req, res) {
       }
     }
   })
-  while(true){
-    if (str_revi != ""){
-      break;
-    }
-  }
   var strawk3 = "'{ print $1 }'";
   const cpuload = execSync('awk ' + strawk3 + ' /proc/loadavg', {
     encoding: 'utf8'
