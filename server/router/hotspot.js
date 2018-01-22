@@ -157,7 +157,7 @@ exports.api_post_advanced = function(req, res) {
       res.json(result);
     })
 }
-router_hotspot.tmp_file_save();
+
 exports.tmp_file_save = function() {
   var text_tmp = "";
   var basic_data = fs.readFileSync(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8');
