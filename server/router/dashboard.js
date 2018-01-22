@@ -172,8 +172,8 @@ exports.serverdata_RX_bytes = function(text) {
 
   try {
     if (RX_bytes != null) {
-      console.log('RX bytes: ' + RX_bytes[1]);
-      return RX_bytes[1];
+      console.log('RX bytes: ' + RX_bytes[2]);
+      return RX_bytes[2];
     } else {
       throw "No Data";
     }
@@ -187,8 +187,8 @@ exports.serverdata_TX_bytes = function(text) {
   //  console.log(TX_bytes);
   try {
     if (TX_bytes != null) {
-      console.log('TX bytes: ' + TX_bytes[1]);
-      return TX_bytes[1];
+      console.log('TX bytes: ' + TX_bytes[2]);
+      return TX_bytes[2];
     } else {
       throw "No Data";
     }
