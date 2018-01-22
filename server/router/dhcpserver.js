@@ -123,3 +123,30 @@ exports.api_post = function(req, res) {
       res.json(result);
     })
 }
+
+exports.tmp_file_save = function() {
+  var text_tmp = "";
+  var serversetting_data = fs.readFileSync(__dirname + "/../data/dhcpserver/" + "serversetting.json", 'utf8');
+
+  serversetting_data = JSON.parse(serversetting_data);
+  console.log("serversetting : " + basic_data);
+  text_tmp += "interface=" + serversetting_data['interface'] + "\n";
+  text_tmp += "listen-address=192.168.0.1\n";
+  text_tmp += "bind-interfaces\n";
+  text_tmp += "server=8.8.8.8\n";
+  text_tmp += "domain-needed\n";
+  text_tmp += "bogus-priv\n";
+  text_tmp += "dhcp-range=" + serversetting_data['starting_IP_address'] + "," + serversetting_data['ending_IP_address'] + "," + serversetting_data['Lease_time'] + "" + serversetting_data['interval'];
+
+
+  fs.writeFileSync(__dirname + "/../data/dhcpserver/" + "tmp.txt",
+    text_tmp, "utf8",
+    function(err, data) {
+      result = {
+        "success": 1
+      };
+    })
+  const save = execSync('sudo cp ' + __dirname + '/../data/dhcpserver/tmp.txt /etc/dnsmasq.conf', {
+    encoding: 'utf8'
+  });
+}
