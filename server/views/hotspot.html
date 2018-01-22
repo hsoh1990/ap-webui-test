@@ -41,7 +41,7 @@
 
 </head>
 
-<body onload="data_server_get()">
+<body onload="data_server_get(),init_hotspot_stopstart_button()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -162,8 +162,10 @@
                         </select>
                         </div>
                       </div>
-                      <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="basic_data_store_button()">
-                      <input type="button" class="btn btn-warning" name="StopHotspot" value="Stop hotspot" onclick="data_server_get()">
+                      <div id="basic_button">
+                        <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="basic_data_store_button()">
+                        <input type="button" class="btn btn-warning" name="StopHotspot" value="Stop hotspot" onclick="data_server_get()">
+                      </div>
                     </form>
                   </div>
                   <div class="tab-pane fade" id="security">
@@ -598,6 +600,78 @@
           console.log("confirm");
         };
         xhr.send(json_data);
+      }
+
+      function init_hotspot_stopstart_button() {
+        const xhr = new XMLHttpRequest();
+        // by default async
+        xhr.onload = function() {
+          if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+            var data = this.response;
+            button_input_basic(data);
+            button_input_security(data);
+            button_input_advanced(data);
+          }
+        };
+        xhr.onerror = function() {
+          console.log("confirm");
+        };
+        xhr.open("GET", "/api/dashboard?type=wlan0stopstart");
+        xhr.responseType = 'json';
+        xhr.send();
+      }
+
+      function button_input_basic(data) {
+        var content = "";
+        if (data == 1) {
+          content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=basic_data_store_button()>";
+          content += "<input type=button class='btn btn-warning' name=StopHotspot value='Stop hotspot' onclick=change_hotspot_stopstart_button()>";
+        } else if (data == 0) {
+          content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=basic_data_store_button()>";
+          content += "<input type=button class='btn btn-success' name=StopHotspot value='Start hotspot' onclick=change_hotspot_stopstart_button()>";
+        }
+        document.getElementById("basic_button").innerHTML = content;
+      }
+      function button_input_security(data) {
+        var content = "";
+        if (data == 1) {
+          content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=security_data_store_button()>";
+          content += "<input type=button class='btn btn-warning' name=StopHotspot value='Stop hotspot' onclick=change_hotspot_stopstart_button()>";
+        } else if (data == 0) {
+          content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=security_data_store_button()>";
+          content += "<input type=button class='btn btn-success' name=StopHotspot value='Start hotspot' onclick=change_hotspot_stopstart_button()>";
+        }
+        document.getElementById("security_button").innerHTML = content;
+      }
+      function button_input_advanced(data) {
+        var content = "";
+        if (data == 1) {
+          content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=advanced_data_store_button()>";
+          content += "<input type=button class='btn btn-warning' name=StopHotspot value='Stop hotspot' onclick=change_hotspot_stopstart_button()>";
+        } else if (data == 0) {
+          content = "<input type=button class='btn btn-outline btn-primary' name=SaveHostAPDSettings value='Save settings' onclick=advanced_data_store_button()>";
+          content += "<input type=button class='btn btn-success' name=StopHotspot value='Start hotspot' onclick=change_hotspot_stopstart_button()>";
+        }
+        document.getElementById("advanced_button").innerHTML = content;
+      }
+
+      function change_hotspot_stopstart_button(select) {
+        const xhr = new XMLHttpRequest();
+        // by default async
+        xhr.onload = function() {
+          if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+            var data = this.response;
+            button_input_basic(data['success']);
+            button_input_security(data['success']);
+            button_input_advanced(data['success']);
+          }
+        };
+        xhr.onerror = function() {
+          console.log("confirm");
+        };
+        xhr.open("GET", "/api/dashboard?type=wlan0stopstart&select=" + select);
+        xhr.responseType = 'json';
+        xhr.send();
       }
     </script>
 

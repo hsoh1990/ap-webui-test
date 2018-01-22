@@ -195,3 +195,26 @@ exports.tmp_file_save = function() {
     encoding: 'utf8'
   });
 }
+
+exports.start_stopbutton = function(req, res) {
+  child = exec("pidof hostapd | wc -l", function(error, stdout, stderr) {
+    res.send(stdout);
+  });
+}
+
+exports.hotspot_stop = function(req, res) {
+  child = exec("sudo /etc/init.d/hostapd stop", function(error, stdout, stderr) {
+    result = {
+      "success": 0
+    };
+    res.send(result);
+  });
+}
+exports.hotspot_start = function(req, res) {
+  child = exec("sudo /etc/init.d/hostapd start", function(error, stdout, stderr) {
+    result = {
+      "success": 1
+    };
+    res.send(result);
+  });
+}
