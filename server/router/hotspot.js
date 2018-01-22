@@ -165,7 +165,7 @@ exports.tmp_file_save = function() {
   var text_tmp = "";
   var basic_data = fs.readFileSync(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8');
   var security_data = fs.readFileSync(__dirname + "/../data/hotspot/" + "securitydata.json", 'utf8');
-console.log("베이직 : " + basic_data);
+  console.log("베이직 : " + JSON.parse(basic_data));
   text_tmp += "interface=" + basic_data['type'] + "\n";
   text_tmp += "driver=nl80211\n";
   text_tmp += "ssid=" + basic_data['ssid'] + "\n";
