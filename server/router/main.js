@@ -56,11 +56,19 @@ module.exports = function(app, fs, url) {
     req.accepts('application/json');
     // input message handling
     var type = req.query.id;
+    var select = req.query.select;
 
     if (type == "refresh") {
       router_dashboard.api_get(req, res);
     } else if (type == "wlan0stopstart") {
-      router_dashboard.start_stopbutton(req, res);
+      if (select == 0) {//stop 시키는 부분
+
+      } else if (select == 1) {//start 시키는 부분
+
+      }
+      else {
+        router_dashboard.start_stopbutton(req, res);
+      }
     }
   });
 

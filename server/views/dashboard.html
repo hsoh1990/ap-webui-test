@@ -37,7 +37,7 @@
     <![endif]-->
 </head>
 
-<body onload="refresh_button(),wlan0_stopstart_button()">
+<body onload="refresh_button(),init_wlan0_stopstart_button()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -242,7 +242,7 @@
       return content;
     }
 
-    function wlan0_stopstart_button() {
+    function init_wlan0_stopstart_button() {
       const xhr = new XMLHttpRequest();
       // by default async
       xhr.onload = function() {
@@ -262,13 +262,29 @@
     function button_input(data) {
       var content = "";
       if (data == 1) {
-        content = "<input type=button class='btn btn-success' value='Start wlan0' name=ifup_wlan0 />";
-        content += "<input type=button id=refreshbuttonid class='btn btn-outline btn-primary' value=Refresh onclick=refresh_button() />";
-      } else if (data == 0) {
         content = "<input type=button class='btn btn-success' value='Stop wlan0' name=ifup_wlan0 />";
-        content += "<input type=button id=refreshbuttonid class='btn btn-outline btn-primary' value=Refresh onclick=refresh_button() />";
+        content += "<input type=button id=refreshbuttonid class='btn btn-outline btn-primary' value=Refresh onclick=change_wlan0_stopstart_button(0) />";
+      } else if (data == 0) {
+        content = "<input type=button class='btn btn-success' value='Start wlan0' name=ifup_wlan0 />";
+        content += "<input type=button id=refreshbuttonid class='btn btn-outline btn-primary' value=Refresh onclick=change_wlan0_stopstart_button(1) />";
       }
       document.getElementById("start_stop").innerHTML = content;
+    }
+    function change_wlan0_stopstart_button(select) {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          button_input(data);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/dashboard?id=wlan0stopstart&select=" + select);
+      xhr.responseType = 'json';
+      xhr.send();
     }
   </script>
 

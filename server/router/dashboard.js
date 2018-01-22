@@ -310,3 +310,14 @@ exports.start_stopbutton = function(req, res) {
     res.send(stdout);
   });
 }
+
+exports.wlan0_stop = function(req, res) {
+  child = exec("ip link set wlan0 down", function(error, stdout, stderr) {
+    res.send(0);
+  });
+}
+exports.wlan0_start = function(req, res) {
+  child = exec("ip link set wlan0 up", function(error, stdout, stderr) {
+    res.send(1);
+  });
+}
