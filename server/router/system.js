@@ -32,7 +32,7 @@ exports.api_get = function(req, res) {
     struptime += minutes + " minutes";
   }
   console.log(struptime);
-  var strawk = "'(/Mem:/ { print $2 }'";
+  var strawk = "'/Mem:/ { print $2 }'";
   const std_mem = execSync('free -m | awk ' + strawk, {
     encoding: 'utf8'
   });
