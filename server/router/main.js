@@ -120,15 +120,13 @@ module.exports = function(app, fs, url) {
     json = req.body;
 
     console.log('type : ' + json.type);
+
     if (json.type == "basic") {
       router_hotspot.api_post_basic(req, res);
     } else if (json.type == "security") {
       router_hotspot.api_post_security(req, res);
     } else if (json.type == "advanced") {
       router_hotspot.api_post_advanced(req, res);
-    }
-    if (req.query.type == "save") {
-      router_hotspot.tmp_file_save();
     }
   });
 
