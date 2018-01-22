@@ -185,6 +185,12 @@ exports.serverdata_RX_bytes = function(text) {
 exports.serverdata_TX_bytes = function(text) {
   var TX_bytes = text.match(/bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/gi);
   //  console.log(TX_bytes);
+  try {
+    var split_TX_bytes = TX_bytes[1].split(" ");
+  } catch (e) {
+    console.log(e);
+    return "No Data";
+  }
   var split_TX_bytes = TX_bytes[1].split(" ");
   TX_bytes = split_TX_bytes[1] + " " + split_TX_bytes[2] + " " + split_TX_bytes[3];
   try {
