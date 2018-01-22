@@ -61,12 +61,11 @@ module.exports = function(app, fs, url) {
     if (type == "refresh") {
       router_dashboard.api_get(req, res);
     } else if (type == "wlan0stopstart") {
-      if (select == 0) {//stop 시키는 부분
+      if (select == 0) { //stop 시키는 부분
         router_dashboard.wlan0_stop(req, res);
-      } else if (select == 1) {//start 시키는 부분
+      } else if (select == 1) { //start 시키는 부분
         router_dashboard.wlan0_start(req, res);
-      }
-      else {
+      } else {
         router_dashboard.start_stopbutton(req, res);
       }
     }
@@ -121,7 +120,6 @@ module.exports = function(app, fs, url) {
     json = req.body;
 
     console.log('type : ' + json.type);
-
     if (json.type == "basic") {
       router_hotspot.api_post_basic(req, res);
     } else if (json.type == "security") {
@@ -129,7 +127,9 @@ module.exports = function(app, fs, url) {
     } else if (json.type == "advanced") {
       router_hotspot.api_post_advanced(req, res);
     }
-    router_hotspot.tmp_file_save();
+    if (req.query.type == "save") {
+      router_hotspot.tmp_file_save();
+    }
   });
 
 

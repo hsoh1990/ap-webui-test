@@ -585,7 +585,7 @@
       function data_server_send(json_data) {
         const xhr = new XMLHttpRequest();
         // by default async
-        xhr.open("POST", "/api/hotspot", true);
+        xhr.open("POST", "/api/hotspot?type=save", true);
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.responseType = 'json';
 
