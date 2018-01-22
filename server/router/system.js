@@ -60,7 +60,7 @@ exports.api_get = function(req, res) {
   }
   console.log("revision = " + revision[1]);
   var str_revi = "";
-  var data = fs.readFilesync(__dirname + "/../data/" + "rivisions.json", 'utf8');
+  var data = fs.readFileSync(__dirname + "/../data/" + "rivisions.json", 'utf8');
   var revisionsdata = JSON.parse(data); //json text -> json object
   var revision_key = Object.getOwnPropertyNames(revisionsdata);
   for (var a = 0; a < Object.keys(revisionsdata).length; a++) {
