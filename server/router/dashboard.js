@@ -3,10 +3,10 @@ var exec = require('child_process').exec,
   child;
 
 exports.api_get = function(req, res) {
-  exports.consolelog_serverdata();
+  exports.consolelog_serverdata(req, res);
 }
 
-exports.consolelog_serverdata = function() {
+exports.consolelog_serverdata = function(req, res) {
   child = exec("ip a s wlan0", function(error, stdout1, stderr) {
     child = exec("iwconfig wlan0", function(error, stdout2, stderr) {
       child = exec("ifconfig wlan0", function(error, stdout3, stderr) {
