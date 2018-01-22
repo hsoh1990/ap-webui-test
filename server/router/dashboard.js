@@ -71,7 +71,7 @@ exports.consolelog_serverdata = function() {
         dashboard_json["alert_select"] = alert_select;
 
         // SAVE DATA
-        fs.writeFile(__dirname + "/../data/" + "dashboarddata.json",
+        fs.writeFileSync(__dirname + "/../data/" + "dashboarddata.json",
           JSON.stringify(dashboard_json, null, '\t'), "utf8",
           function(err, data) {
             result = {
