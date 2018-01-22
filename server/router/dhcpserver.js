@@ -130,7 +130,7 @@ exports.tmp_file_save = function() {
   var serversetting_data = fs.readFileSync(__dirname + "/../data/dhcpserver/" + "serversetting.json", 'utf8');
 
   serversetting_data = JSON.parse(serversetting_data);
-  console.log("serversetting : " + basic_data);
+  console.log("serversetting : " + serversetting_data);
   text_tmp += "interface=" + serversetting_data['interface'] + "\n";
   text_tmp += "listen-address=192.168.0.1\n";
   text_tmp += "bind-interfaces\n";
