@@ -151,3 +151,26 @@ exports.tmp_file_save = function() {
     encoding: 'utf8'
   });
 }
+
+exports.start_stopbutton = function(req, res) {
+  child = exec("pidof dnsmasq | wc -l", function(error, stdout, stderr) {
+    res.send(stdout);
+  });
+}
+
+exports.dnsmasq_stop = function(req, res) {
+  child = exec("sudo /etc/init.d/dnsmasq stop", function(error, stdout, stderr) {
+    result = {
+      "success": 0
+    };
+    res.send(result);
+  });
+}
+exports.dnsmasq_start = function(req, res) {
+  child = exec("sudo /etc/init.d/dnsmasq start", function(error, stdout, stderr) {
+    result = {
+      "success": 1
+    };
+    res.send(result);
+  });
+}

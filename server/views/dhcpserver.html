@@ -154,9 +154,9 @@
                         </select>
                       </div>
                     </div>
+                    <div id="startstop_button_id">
 
-                    <input type="button" class="btn btn-outline btn-primary" value="Save settings" name="savedhcpdsettings" onclick="savesetting_button()" />
-                    <input type="submit" class="btn btn-warning" value="Stop dnsmasq" name="stopdhcpd" />
+                  </div>
                   </form>
                 </div>
                 <!-- /.tab-pane -->
@@ -447,6 +447,52 @@
         }
         document.getElementById("interface_id").options.add(op);
       }
+    }
+    //stop, start dnsmasq 부분
+    function init_dnsmasq_stopstart_button() {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          button_input(data);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/dhcpserver?type=dnsstopstart");
+      xhr.responseType = 'json';
+      xhr.send();
+    }
+
+    function button_input(data) {
+      var content = "";
+      if (data == 1) {
+        content = "<input type=button class='btn btn-outline btn-primary' value='Save settings' name=savedhcpdsettings onclick=savesetting_button() />";
+        content += "<input type=button class='btn btn-warning' value='Stop dnsmasq' name='stopdhcpd' onclick=change_dnsmasq_stopstart_button(0) />";
+      } else if (data == 0) {
+        content = "<input type=button class='btn btn-outline btn-primary' value='Save settings' name=savedhcpdsettings onclick=savesetting_button() />";
+        content += "<input type=button class='btn btn-success' value='Start dnsmasq' name='stopdhcpd' onclick=change_dnsmasq_stopstart_button(1) />";
+      }
+      document.getElementById("startstop_button_id").innerHTML = content;
+    }
+
+    function change_dnsmasq_stopstart_button(select) {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          button_input(data['success']);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/dhcpserver?type=dnsstopstart&select=" + select);
+      xhr.responseType = 'json';
+      xhr.send();
     }
   </script>
 </body>
