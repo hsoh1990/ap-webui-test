@@ -523,7 +523,7 @@
           // by default async
           xhr.open("GET", "/api/hotspot?type=logging", true);
           xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-          xhr.responseType = 'json';
+          //xhr.responseType = 'json';
 
           xhr.onload = function() {
             if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
