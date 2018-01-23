@@ -532,7 +532,7 @@
               content += "Enable Logging";
               content += "<input id=logEnable name =logEnable_name type=checkbox class='form-check-input' value=1 checked=checked>";
               logcontent += "<br /><textarea class=logoutput>";
-              logcontent += this.response;
+              logcontent += this.responseText;
               logcontent += "</textarea>";
               document.getElementById("logEnable_class").innerHTML = content;
               document.getElementById("logfile_output").innerHTML = logcontent;
