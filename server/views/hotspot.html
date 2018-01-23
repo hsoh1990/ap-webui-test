@@ -210,9 +210,8 @@
                       <div class="row">
                         <div class="col-md-4">
                           <div class="form-check">
-                            <label class="form-check-label">
-                        Enable Logging
-                        <input id="logEnable" name ="logEnable_name" type="checkbox" class="form-check-input" value="1">
+                            <label class="form-check-label" id="logEnable_class">
+
                     </label>
                           </div>
                         </div>
@@ -516,6 +515,18 @@
         xhr.send();
       }
 
+      function logging_select(data) {
+        var content = "";
+        if (data['enable_logging'] == "1") {
+          content += "Enable Logging";
+          content += "<input id=logEnable name =logEnable_name type=checkbox class='form-check-input' value=1 checked=checked>";
+        } else if (data['enable_logging'] == "0") {
+          content += "Enable Logging";
+          content += "<input id=logEnable name =logEnable_name type=checkbox class='form-check-input' value=1>";
+        }
+        document.getElementById("logEnable_class").innerHTML = content;
+      }
+
       function country_select(data) {
         var country_data = countrydata;
         var cty_type_key = Object.getOwnPropertyNames(country_data);
@@ -571,7 +582,7 @@
         var tmp__ = document.getElementsByName("logEnable_name");
         if (tmp__[0].checked) {
           tmp_logEnable = "1";
-        }else {
+        } else {
           tmp_logEnable = "0";
         }
         tmp_countries = document.getElementById("countries").value;
@@ -638,6 +649,7 @@
         }
         document.getElementById("basic_button").innerHTML = content;
       }
+
       function button_input_security(data) {
         var content = "";
         if (data == 1) {
@@ -649,6 +661,7 @@
         }
         document.getElementById("security_button").innerHTML = content;
       }
+
       function button_input_advanced(data) {
         var content = "";
         if (data == 1) {
