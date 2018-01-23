@@ -151,8 +151,8 @@
                                 </div>
                               </div>
                               <form action="?page=system_info" method="POST">
-                                <input type="submit" class="btn btn-warning" name="system_reboot" value="Reboot" />
-                                <input type="submit" class="btn btn-warning" name="system_shutdown" value="Shutdown" />
+                                <input type="button" class="btn btn-warning" name="system_reboot" value="Reboot" onclick="Reboot_button()" />
+                                <input type="button" class="btn btn-warning" name="system_shutdown" value="Shutdown" onclick="shutdown_button()" />
                                 <input type="button" class="btn btn-outline btn-primary" value="Refresh" onclick="connect_data_get()" />
                               </form>
                             </div>
@@ -259,10 +259,57 @@
       xhr.onerror = function() {
         console.log("confirm");
       };
-      xhr.open("GET", "/api/system");
+      xhr.open("GET", "/api/system?type=refresh");
       xhr.responseType = 'json';
       xhr.send();
     }
+
+    function Reboot_button() {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          //button_input(data['success']);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/system?type=reboot");
+      xhr.responseType = 'json';
+      xhr.send();
+    }
+
+    function shutdown_button() {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          //button_input(data['success']);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/system?type=shutdown");
+      xhr.responseType = 'json';
+      xhr.send();
+    }
+
+    function button_input(data) {
+      var content = "";
+      if (data == 1) {
+        content = "<input type=button class='btn btn-outline btn-primary' value='Save settings' name=savedhcpdsettings onclick=savesetting_button() />";
+        content += "<input type=button class='btn btn-warning' value='Stop dnsmasq' name='stopdhcpd' onclick=change_dnsmasq_stopstart_button(0) />";
+      } else if (data == 2) {
+        content = "<input type=button class='btn btn-outline btn-primary' value='Save settings' name=savedhcpdsettings onclick=savesetting_button() />";
+        content += "<input type=button class='btn btn-success' value='Start dnsmasq' name='stopdhcpd' onclick=change_dnsmasq_stopstart_button(1) />";
+      }
+      document.getElementById("startstop_button_id").innerHTML = content;
+    }
+
   </script>
 
 </body>

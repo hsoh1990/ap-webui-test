@@ -247,6 +247,15 @@ module.exports = function(app, fs, url) {
     }
   });
   app.get('/api/system', function(req, res) {
-    router_system.api_get(req, res);
+    req.accepts('application/json');
+    // input message handling
+    var type = req.query.type;
+    if (type == "refresh") {
+      router_system.api_get(req, res);
+    } else if (type == "reboot") {
+      router_system.system_reboot(req, res);
+    } else if (type == "shutdown") {
+      router_system.system_shutdown(req, res);
+    }
   });
 }
