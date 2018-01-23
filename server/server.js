@@ -7,7 +7,7 @@ var http = require('http');
 var url = require('url');
 var querystring = require('querystring');
 var exec = require('child_process').exec,
-    child;
+  child;
 const MongoStore = require('connect-mongo')(session);
 
 app.set('views', __dirname + '/views');
@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(session({
-  store: new MongoStore(options),
+  store: new MongoStore(),
   secret: '@#@$MYSIGN#@$#$',
   saveUninitialized: true,
   resave: false
