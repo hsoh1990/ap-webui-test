@@ -1,26 +1,26 @@
 {
-  "Interface_Information": {
-    "Interface Name": "wlan0",
-    "IP Address": "192.168.0.1",
-    "Subnet Mask": "255.255.255.0",
-    "Mac Address": "b8.27.eb.c6.4f.e3"
-  },
-  "Interface_Statistics": {
-    "Received Packets": "No Data",
-    "Received Bytes": "No Data",
-    "Transferred Packets": "No Data",
-    "Transferred Bytes": "No Data"
-  },
-  "Wireless_Information": {
-    "Connected To": "Not connected",
-    "AP Mac Address": "",
-    "Bitrate": "",
-    "Signal Level": "",
-    "Transmit Power": "31 dBm",
-    "Frequency": "",
-    "Link Quality": "50"
-  },
-  "alert_select": {
-    "Interface is": true
-  }
+	"Interface_Information": {
+		"Interface Name": "wlan0",
+		"IP Address": "192.168.0.1",
+		"Subnet Mask": "255.255.255.0",
+		"Mac Address": "b8:27:eb:e7:07:74"
+	},
+	"Interface_Statistics": {
+		"Received Packets": "564",
+		"Received Bytes": "133720 (130.5 KiB)",
+		"Transferred Packets": "651",
+		"Transferred Bytes": "242726 (237.0 KiB)"
+	},
+	"Wireless_Information": {
+		"Connected To": "Not connected",
+		"AP Mac Address": "",
+		"Bitrate": "",
+		"Signal Level": "",
+		"Transmit Power": "31 dBm",
+		"Frequency": "",
+		"Link Quality": ""
+	},
+	"alert_select": {
+		"Interface is": true
+	}
 }

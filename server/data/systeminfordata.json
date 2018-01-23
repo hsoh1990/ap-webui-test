@@ -1,9 +1,9 @@
 {
-  "system_Information": {
-    "Hostname": "raspberry-pi3-ap",
-    "Pi Revision": "UnKnown Pi",
-    "Uptime": "12 days 20 hours 20 minutes",
-    "Memory Used": "10",
-    "CPU Load": "20"
-  }
+	"system_Information": {
+		"Hostname": "raspberrypi",
+		"Pi Revision": "Pi 3 Model B",
+		"Uptime": "33 minutes ",
+		"Memory Used": "14",
+		"CPU Load": "0"
+	}
 }

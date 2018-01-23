@@ -1,7 +1,7 @@
 {
 	"type": "basic",
 	"interface": "wlan0",
-	"ssid": "test",
+	"ssid": "RaspAP190",
 	"wireless_mode": "g",
-	"channel": "1"
+	"channel": "7"
 }
