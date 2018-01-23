@@ -25,9 +25,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(session({
+  store: new RedisStore(),
   secret: '@#@$MYSIGN#@$#$',
-  resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  resave: false
 }));
 
 var router = require('./router/main')(app, fs);
