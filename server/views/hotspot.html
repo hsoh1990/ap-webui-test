@@ -569,11 +569,11 @@
 
       function advanced_data_store_button() {
         var tmp__ = document.getElementsByName("logEnable_name");
-        alert(tmp__);
         if (tmp__[0].checked) {
-          alert(tmp__[0].value);
+          tmp_logEnable = "1";
+        }else {
+          tmp_logEnable = "0";
         }
-        tmp_logEnable = document.getElementById("logEnable").value;
         tmp_countries = document.getElementById("countries").value;
 
         var obj = new Object();
