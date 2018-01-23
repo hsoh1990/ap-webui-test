@@ -40,7 +40,7 @@
     <![endif]-->
 </head>
 
-<body onload="rescan_button(),dnsmasq_button(),serversetting_get()">
+<body onload="rescan_button(),dnsmasq_button(),serversetting_get(),init_dnsmasq_stopstart_button()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -303,12 +303,12 @@
 
     function dhcpserver_clientlist_data_fill(data) {
       var content = "";
-      var type = "example_";
+      var type = "";
 
       content += "<thead><tr><th>Expire time</th><th>MAC Address</th><th>IP Address</th><th>Host name</th><th>Client ID</th></tr></thead>";
       for (var i = 1; i < 5; i++) {
         var a = String(i);
-        type = "example_";
+        type = "client_list_";
         type += a;
         content += "<tbody><tr>";
         for (var name in data[type]) {
