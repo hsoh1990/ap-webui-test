@@ -22,7 +22,7 @@ app.use(express.static('public'));
 app.use(express.static('views'));
 app.use(bodyParser.urlencoded({
   extended: true
-}));t
+}));
 app.use(bodyParser.json());
 app.use(session({
   secret: '@#@$MYSIGN#@$#$',
