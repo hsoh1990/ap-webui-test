@@ -77,6 +77,15 @@ exports.api_get_awk = function(req, res) {
 
   });
 }
+
+exports.api_get_log = function(req, res) {
+
+  fs.readFile(__dirname + "/../data/" + "hostapd.log", 'utf8', function(err, data) {
+    console.log(data);
+    res.send(data);
+  })
+}
+
 exports.savedata_basic = function(arr) {
   var basic_data = {}; //오브젝트
   basic_data["type"] = "basic";

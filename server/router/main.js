@@ -112,7 +112,10 @@ module.exports = function(app, fs, url) {
       router_hotspot.api_get_awk(req, res);
     } else if (type == "get") {
       router_hotspot.api_get(req, res);
-    } else if (type == "wlan0stopstart") {
+    } else if (type == "logging") {
+      router_hotspot.api_get_log(req, res);
+    }
+    else if (type == "wlan0stopstart") {
       if (select == 0) { //stop 시키는 부분
         router_hotspot.hotspot_stop(req, res);
       } else if (select == 1) { //start 시키는 부분
