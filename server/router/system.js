@@ -45,6 +45,9 @@ exports.hostname_rec = function() {
 }
 
 exports.pirevision_rec = function() {
+  const cpuinfo = execSync('cat /proc/cpuinfo', {
+    encoding: 'utf8'
+  });
   var tmp1 = cpuinfo.split("\n");
   var revision;
   for (var a = 0; a < tmp1.length; a++) {
@@ -103,9 +106,6 @@ exports.mem_used_rec = function() {
   });
   var strawk2 = "'/Mem:/ { print $3 }'";
   const usedmem = execSync('free -m | awk ' + strawk2, {
-    encoding: 'utf8'
-  });
-  const cpuinfo = execSync('cat /proc/cpuinfo', {
     encoding: 'utf8'
   });
   var mem_usedper = usedmem / totalmem * 100;
