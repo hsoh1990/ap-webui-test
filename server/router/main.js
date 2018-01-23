@@ -170,7 +170,7 @@ module.exports = function(app, fs, url) {
     req.accepts('application/json');
     // input message handling
     var type = req.query.type;
-
+    var select = req.query.select;
     if (type == "clientlist") {
       router_dhcpserver.api_get_clientlist(req, res);
     } else if (type == "dnsmasq") {
