@@ -8,6 +8,7 @@ var url = require('url');
 var querystring = require('querystring');
 var exec = require('child_process').exec,
     child;
+const MongoStore = require('connect-mongo')(session);
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -25,7 +26,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(session({
-  store: new RedisStore(),
+  store: new MongoStore(options),
   secret: '@#@$MYSIGN#@$#$',
   saveUninitialized: true,
   resave: false
