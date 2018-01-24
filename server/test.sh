@@ -2,41 +2,41 @@ echo "ap 설치"
 
 echo "update 시작"
 
-sudo apt-get update
+apt-get update
 
 echo "upgrade 시작"
 
-sudo apt-get upgrade -y
+apt-get upgrade -y
 
 echo "AP서버 다운로드, 압축 해제"
 
 echo "hostapd 설치 시작"
 
-sudo apt-get install hostapd -y
+apt-get install hostapd -y
 
 echo "dnsmasq 설치 시작"
 
-sudo apt-get install dnsmasq -y
+apt-get install dnsmasq -y
 
 echo "hostapd disable 설정"
 
-sudo systemctl disable hostapd
+systemctl disable hostapd
 
 echo "dnsmasq disable 설정"
 
-sudo systemctl disable dnsmasq
+systemctl disable dnsmasq
 
 echo "static ip 설정"
 
-sudo perl -p -i -e '$.==1 and print "static routers=172.16.171.1\n"' /etc/dhcpcd.conf
+perl -p -i -e '$.==1 and print "static routers=172.16.171.1\n"' /etc/dhcpcd.conf
 
-sudo perl -p -i -e '$.==1 and print "static ip_address=172.16.171.182/24\n"' /etc/dhcpcd.conf
+perl -p -i -e '$.==1 and print "static ip_address=172.16.171.182/24\n"' /etc/dhcpcd.conf
 
-sudo perl -p -i -e '$.==1 and print "interface eth0\n"' /etc/dhcpcd.conf
+perl -p -i -e '$.==1 and print "interface eth0\n"' /etc/dhcpcd.conf
 
 echo "hostapd 설정"
 
-sudo touch /etc/hostapd/hostapd.conf
+touch /etc/hostapd/hostapd.conf
 
 echo "interface=wlan0" | sudo tee -a /etc/hostapd/hostapd.conf
 echo "driver=nl80211" | sudo tee -a /etc/hostapd/hostapd.conf
@@ -52,15 +52,15 @@ echo "wpa_key_mgmt=WPA-PSK" | sudo tee -a /etc/hostapd/hostapd.conf
 echo "wpa_pairwise=TKIP" | sudo tee -a /etc/hostapd/hostapd.conf
 echo "rsn_pairwise=CCMP" | sudo tee -a /etc/hostapd/hostapd.conf
 
-sudo mv /etc/default/hostapd /etc/default/hostapd.orig
+mv /etc/default/hostapd /etc/default/hostapd.orig
 
-sudo mv /home/pi/ap-webui-test-master/server/hostapd.orig /etc/default/hostapd
+mv ap-webui-test-master/server/hostapd.orig /etc/default/hostapd
 
 echo "dnsmasq 설정"
 
-sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
+mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
 
-sudo touch /etc/dnsmasq.conf
+touch /etc/dnsmasq.conf
 
 echo "interface=wlan0" | sudo tee -a /etc/dnsmasq.conf
 echo "listen-address=192.168.10.1" | sudo tee -a /etc/dnsmasq.conf
@@ -72,9 +72,10 @@ echo "dhcp-range=192.168.10.12,192.168.10.200,12h" | sudo tee -a /etc/dnsmasq.co
 
 echo "interfaces 설정"
 
-sudo mv /etc/network/interfaces /etc/network/interfaces.orig
+mv /etc/network/interfaces /etc/network/interfaces.orig
 
-sudo touch /etc/network/interfaces
+touch /etc/network/interfaces
+
 echo "source-directory /etc/network/interfaces.d" | sudo tee -a /etc/network/interfaces
 echo "" | sudo tee -a /etc/network/interfaces
 echo "allow-hotplug wlan0" | sudo tee -a /etc/network/interfaces
@@ -83,56 +84,56 @@ echo "#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf" | sudo tee -a /etc/netw
 
 echo "rc.local 설정"
 
-sudo mv /etc/rc.local /etc/rc.local.orig
+mv /etc/rc.local /etc/rc.local.orig
 
-sudo mv /home/pi/ap-webui-test-master/server/rc.local /etc/rc.local
+mv ap-webui-test-master/server/rc.local /etc/rc.local
 
-sudo chmod +x /etc/rc.local
+chmod +x /etc/rc.local
 
 echo "rc.local 설정 완료"
 
 echo "ipv4.ip_forward 설정"
 
-sudo mv /etc/sysctl.conf /etc/sysctl.conf.orig
+mv /etc/sysctl.conf /etc/sysctl.conf.orig
 
-sudo sed -i "28s/.*/net.ipv4.ip_forward=1/g" /etc/sysctl.conf.orig
+sed -i "28s/.*/net.ipv4.ip_forward=1/g" /etc/sysctl.conf.orig
 
-sudo mv /etc/sysctl.conf.orig /etc/sysctl.conf
+mv /etc/sysctl.conf.orig /etc/sysctl.conf
 
-sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
 
-sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
-sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 
-sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
+iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
 
-sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
 echo "hostapd, dnsmasq 서비스 시작"
 
 echo "2. nodejs 설치"
 
-sudo apt-get remove nodejs -y
+apt-get remove nodejs -y
 
-sudo apt-get autoremove -y
+apt-get autoremove -y
 
-sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
-sudo apt-get install nodejs -y
+apt-get install nodejs -y
 
-sudo npm install nodemon -g
+npm install nodemon -g
 
 cd ap-webui-test-master/server/
 
-sudo npm install
+npm install
 
 echo "4. service 등록"
 
-sudo mv /home/pi/ap-webui-test-master/server/nodeserver.service /etc/systemd/system/nodeserver.service
+mv ap-webui-test-master/server/nodeserver.service /etc/systemd/system/nodeserver.service
 
-sudo chmod +x /etc/systemd/system/nodeserver.service
+chmod +x /etc/systemd/system/nodeserver.service
 
-sudo systemctl enable nodeserver
+systemctl enable nodeserver
 
-sudo reboot
+reboot

@@ -4,7 +4,7 @@ Description=Node.js Server
 [Service]
 User=root
 Group=root
-ExecStart=/usr/bin/nodemon /root/home/pi/ap-webui-test-master/server/server.js
+ExecStart=/usr/bin/node /root/ap-webui-test-master/server/server.js
 Restart=always
 RestartSec=10
  # Restart service after 10 seconds if node service crashes
