@@ -80,6 +80,7 @@ sudo mv /etc/network/interfaces /etc/network/interfaces.orig
 
 sudo touch /etc/network/interfaces
 echo "source-directory /etc/network/interfaces.d" | sudo tee -a /etc/network/interfaces
+echo "" | sudo tee -a /etc/network/interfaces
 echo "allow-hotplug wlan0" | sudo tee -a /etc/network/interfaces
 echo "iface wlan0 inet manual" | sudo tee -a /etc/network/interfaces
 echo "#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf" | sudo tee -a /etc/network/interfaces
