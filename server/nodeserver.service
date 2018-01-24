@@ -1,0 +1,18 @@
+[Unit]
+Description=Node.js Server
+
+[Service]
+User=pi
+Group=root
+ExecStart=/usr/bin/nodemon ap-webui-test-master/server/server.js
+Restart=always
+RestartSec=10
+ # Restart service after 10 seconds if node service crashes
+# Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=nodejs-cryptpad
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

@@ -56,8 +56,6 @@ echo "rc.local 설정"
 
 wget https://github.com/zxcv1246789/ap-webui-test/archive/master.zip
 
-mkdir ap-webui-test
-
 unzip master.zip
 
 echo "/home/pi/ap-webui-test-master 폴더에 압축 풀기 성공"
@@ -100,19 +98,19 @@ sudo perl -p -i -e '$.==1 and print "static ip_address=172.16.171.182/24\n"' /et
 
 sudo perl -p -i -e '$.==1 and print "interface eth0\n"' /etc/dhcpcd.conf
 
-2. nodejs 설치
+echo "2. nodejs 설치"
 
-sudo apt-get remove nodejs -> y
+sudo apt-get remove nodejs -y
 
-sudo apt-get autoremove -> y
+sudo apt-get autoremove -y
 
-sudo curl -sL https://deb.nodesource.com/setup_8.x | bash -
+sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 
-sudo apt-get install nodejs
+sudo apt-get install nodejs -y
 
-npm install nodemon -g
+sudo npm install nodemon -g
 
-3. git 설치
+echo "3. git 설치"
 
 sudo apt-get install git-core
 
@@ -120,15 +118,9 @@ git clone https://github.com/zxcv1246789/ap-webui-test.git
 
 cd ap-webui-test/server
 
-npm install
-
 nodemon server.js
 
 
 ----------------------------------------------
-hotspot -> log 부분 null 문제 -> ajax 부분의
-
-xhr.responseType = 'json'; 줄 제거
-
 
 systemd로 시작 하면 404 에러 뜨는 이유 파악중
