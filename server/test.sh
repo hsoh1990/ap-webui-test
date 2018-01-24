@@ -130,6 +130,8 @@ npm install
 
 echo "4. service 등록"
 
+cd
+
 mv ap-webui-test-master/server/nodeserver.service /etc/systemd/system/nodeserver.service
 
 chmod +x /etc/systemd/system/nodeserver.service
