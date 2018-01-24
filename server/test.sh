@@ -1,9 +1,5 @@
 echo "ap 설치"
 
-echo "-> 1번째 사이트에서의 dnsmasq 설정은 2번째 사이트에서 함"
-
-echo "-> 1번째 사이트에서 dnsmasq 제외,완료 후, 2번째 사이트 dnsmasq부터 시작 (그대로)"
-
 echo "update 시작"
 
 sudo apt-get update
@@ -11,6 +7,12 @@ sudo apt-get update
 echo "upgrade 시작"
 
 sudo apt-get upgrade -y
+
+echo "AP서버 다운로드, 압축 해제"
+
+wget https://github.com/zxcv1246789/ap-webui-test/archive/master.zip
+
+unzip master.zip
 
 echo "hostapd 설치 시작"
 
@@ -28,6 +30,36 @@ echo "dnsmasq disable 설정"
 
 sudo systemctl disable dnsmasq
 
+echo "static ip 설정"
+
+sudo perl -p -i -e '$.==1 and print "static routers=172.16.171.1\n"' /etc/dhcpcd.conf
+
+sudo perl -p -i -e '$.==1 and print "static ip_address=172.16.171.182/24\n"' /etc/dhcpcd.conf
+
+sudo perl -p -i -e '$.==1 and print "interface eth0\n"' /etc/dhcpcd.conf
+
+echo "hostapd 설정"
+
+sudo touch /etc/hostapd/hostapd.conf
+
+echo "interface=wlan0" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "driver=nl80211" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "ssid=testAP182" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "hw_mode=g" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "channel=6" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "wmm_enabled=0" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "macaddr_acl=0" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "auth_algs=1" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "wpa=2" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "wpa_passphrase=0000000001" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "wpa_key_mgmt=WPA-PSK" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "wpa_pairwise=TKIP" | sudo tee -a /etc/hostapd/hostapd.conf
+echo "rsn_pairwise=CCMP" | sudo tee -a /etc/hostapd/hostapd.conf
+
+sudo mv /etc/default/hostapd /etc/default/hostapd.orig
+
+sudo mv /home/pi/ap-webui-test-master/server/hostapd.orig /etc/default/hostapd
+
 echo "dnsmasq 설정"
 
 sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
@@ -35,30 +67,24 @@ sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
 sudo touch /etc/dnsmasq.conf
 
 echo "interface=wlan0" | sudo tee -a /etc/dnsmasq.conf
-echo "listen-address=192.168.0.1" | sudo tee -a /etc/dnsmasq.conf
+echo "listen-address=192.168.10.1" | sudo tee -a /etc/dnsmasq.conf
 echo "bind-interfaces" | sudo tee -a /etc/dnsmasq.conf
 echo "server=8.8.8.8" | sudo tee -a /etc/dnsmasq.conf
 echo "domain-needed" | sudo tee -a /etc/dnsmasq.conf
 echo "bogus-priv" | sudo tee -a /etc/dnsmasq.conf
-echo "dhcp-range=192.168.0.12,192.168.0.200,12h" | sudo tee -a /etc/dnsmasq.conf
+echo "dhcp-range=192.168.10.12,192.168.10.200,12h" | sudo tee -a /etc/dnsmasq.conf
 
 echo "interfaces 설정"
 
 sudo mv /etc/network/interfaces /etc/network/interfaces.orig
 
 sudo touch /etc/network/interfaces
-
+echo "source-directory /etc/network/interfaces.d" | sudo tee -a /etc/network/interfaces
 echo "allow-hotplug wlan0" | sudo tee -a /etc/network/interfaces
 echo "iface wlan0 inet manual" | sudo tee -a /etc/network/interfaces
 echo "#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf" | sudo tee -a /etc/network/interfaces
 
 echo "rc.local 설정"
-
-wget https://github.com/zxcv1246789/ap-webui-test/archive/master.zip
-
-unzip master.zip
-
-echo "/home/pi/ap-webui-test-master 폴더에 압축 풀기 성공"
 
 sudo mv /etc/rc.local /etc/rc.local.orig
 
@@ -86,17 +112,7 @@ sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
 echo "hostapd, dnsmasq 서비스 시작"
 
-sudo service hostapd start
-
-sudo service dnsmasq start
-
-echo "static ip 설정"
-
-sudo perl -p -i -e '$.==1 and print "static routers=172.16.171.1\n"' /etc/dhcpcd.conf
-
-sudo perl -p -i -e '$.==1 and print "static ip_address=172.16.171.182/24\n"' /etc/dhcpcd.conf
-
-sudo perl -p -i -e '$.==1 and print "interface eth0\n"' /etc/dhcpcd.conf
+sudo reboot
 
 echo "2. nodejs 설치"
 
@@ -110,21 +126,14 @@ sudo apt-get install nodejs -y
 
 sudo npm install nodemon -g
 
+cd ap-webui-test-master/server/
+
+npm install
+
 echo "4. service 등록"
 
 sudo mv /home/pi/ap-webui-test-master/server/nodeserver.service /etc/systemd/system/nodeserver.service
 
-echo "3. git 설치"
+sudo systemctl enable nodeserver.Service
 
-sudo apt-get install git-core
-
-git clone https://github.com/zxcv1246789/ap-webui-test.git
-
-cd ap-webui-test/server
-
-nodemon server.js
-
-
-----------------------------------------------
-
-systemd로 시작 하면 404 에러 뜨는 이유 파악중
+sudo systemctl start nodeserver.Service
