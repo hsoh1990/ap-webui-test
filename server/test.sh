@@ -110,6 +110,10 @@ sudo apt-get install nodejs -y
 
 sudo npm install nodemon -g
 
+echo "4. service 등록"
+
+sudo mv /home/pi/ap-webui-test-master/server/nodeserver.service /etc/systemd/system/nodeserver.service
+
 echo "3. git 설치"
 
 sudo apt-get install git-core
