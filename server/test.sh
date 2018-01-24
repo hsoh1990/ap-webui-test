@@ -112,8 +112,6 @@ sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
 echo "hostapd, dnsmasq 서비스 시작"
 
-sudo reboot
-
 echo "2. nodejs 설치"
 
 sudo apt-get remove nodejs -y
@@ -136,4 +134,4 @@ sudo mv /home/pi/ap-webui-test-master/server/nodeserver.service /etc/systemd/sys
 
 sudo systemctl enable nodeserver.Service
 
-sudo systemctl start nodeserver.Service
+sudo reboot
