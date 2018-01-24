@@ -2,7 +2,7 @@
 Description=Node.js Server
 
 [Service]
-User=pi
+User=root
 Group=root
 ExecStart=/usr/bin/nodemon /root/home/pi/ap-webui-test-master/server/server.js
 Restart=always

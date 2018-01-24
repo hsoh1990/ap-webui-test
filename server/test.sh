@@ -10,10 +10,6 @@ sudo apt-get upgrade -y
 
 echo "AP서버 다운로드, 압축 해제"
 
-wget https://github.com/zxcv1246789/ap-webui-test/archive/master.zip
-
-unzip master.zip
-
 echo "hostapd 설치 시작"
 
 sudo apt-get install hostapd -y
@@ -129,12 +125,14 @@ sudo npm install nodemon -g
 
 cd ap-webui-test-master/server/
 
-npm install
+sudo npm install
 
 echo "4. service 등록"
 
 sudo mv /home/pi/ap-webui-test-master/server/nodeserver.service /etc/systemd/system/nodeserver.service
 
-sudo systemctl enable nodeserver.Service
+sudo chmod +x /etc/systemd/system/nodeserver.service
+
+sudo systemctl enable nodeserver
 
 sudo reboot
