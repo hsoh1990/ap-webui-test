@@ -91,6 +91,8 @@ sudo mv /etc/rc.local /etc/rc.local.orig
 
 sudo mv /home/pi/ap-webui-test-master/server/rc.local /etc/rc.local
 
+sudo chmod +x /etc/rc.local
+
 echo "rc.local 설정 완료"
 
 echo "ipv4.ip_forward 설정"
