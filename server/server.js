@@ -11,8 +11,7 @@ var exec = require('child_process').exec,
 var path = require('path');
 
 
-app.set('views', __dirname + '/index_login');
-app.set('views', __dirname + '/package/dashboard');
+app.set('views', [__dirname + '/index_login', __dirname + '/package/dashboard']);
 //app.set('dashboard', __dirname + '/package/dashboard');
 //app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
@@ -25,7 +24,6 @@ var server = app.listen(80, function() {
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'index')));
-app.use(express.static(path.join(__dirname, 'package' , 'dashboard')));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
