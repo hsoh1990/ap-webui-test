@@ -144,3 +144,18 @@ exports.system_shutdown = function(req, res) {
   child = exec("sudo /sbin/shutdown -h now", function(error, stdout, stderr) {
   });
 }
+
+exports.package_data_get = function(req, res) {
+  var files = fs.readdirSync(__dirname + '/../');
+  console.log(files.length);
+  var sidemenus = {};
+  for (var i = 0; i < files.length; i++) {
+    var dir_name = files[i];
+    var data = fs.readFileSync(__dirname + "/../" + dir_name + "/sidename.json", 'utf8');
+    var sidemenu = JSON.parse(data);
+    console.log(sidemenu['side_name']);
+    sidemenus[sidemenu['side_name']] = sidemenu;
+  }
+  console.log(sidemenus);
+  res.send(sidemenus);
+}

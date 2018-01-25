@@ -268,6 +268,8 @@ module.exports = function(app, fs, url) {
       router_system.system_reboot(req, res);
     } else if (type == "shutdown") {
       router_system.system_shutdown(req, res);
+    } else if (type == "package") {
+      router_system.package_data_get(req, res);
     }
   });
 }
