@@ -8,4 +8,15 @@ const {
 exports.sidemenu_get = function(req, res) {
   var files = fs.readdirSync(__dirname + '/../package');
   console.log(files.length);
+  var sidemenus = {};
+  for (var i = 0; i < files.length; i++) {
+    var dir_name = files[i];
+    var data = fs.readFileSync(__dirname + "/../package/" + dir_name + "/sidename.json", 'utf8');
+    var side_name = "side_name_" + String(i);
+    var sidemenu = JSON.parse(data);
+    var tmp = {};
+    tmp[side_name] = sidemenu['side_name'];
+    sidemenus += tmp;
+  }
+  res.send(sidemenus);
 }
