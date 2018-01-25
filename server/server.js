@@ -11,7 +11,7 @@ var exec = require('child_process').exec,
 var path = require('path');
 
 
-//app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/index_login');
 //app.set('dashboard', __dirname + '/package/dashboard');
 //app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
