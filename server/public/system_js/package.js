@@ -23,7 +23,7 @@ function package_output(package_data) {
   var content = "";
   for (var a = 0; a < Object.keys(package_data).length; a++) {
     content += "<tr>";
-    content += "<td>" + a+1 + "</td>";
+    content += "<td>" + (a+1) + "</td>";
     content += "<td>" + package_data_key[a] + "</td>";
     content += "<td>" + package_data[package_data_key[a]]['version'] + "</td>";
     content += "<td>100</td>";
