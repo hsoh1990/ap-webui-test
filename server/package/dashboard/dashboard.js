@@ -2,6 +2,17 @@ var fs = require("fs");
 var exec = require('child_process').exec,
   child;
 
+function dashboard_get (req, res) {
+  var sess;
+  sess = req.session;
+  console.log('session : ' + sess.logincheck);
+  if (sess.logincheck == "1") {
+    res.render('index_login.html');
+  } else {
+    res.render('index.html');
+  }
+}
+
 exports.api_get = function(req, res) {
   exports.consolelog_serverdata(req, res);
 }

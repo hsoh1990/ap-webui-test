@@ -21,7 +21,7 @@ module.exports = function(app, fs, url) {
     } else {
       res.render('index.html');
     }
-  })
+  });
   app.get('/api/index_login', function(req, res) {
     req.accepts('application/json');
     // input message handling
@@ -30,7 +30,7 @@ module.exports = function(app, fs, url) {
     if (type == "sidemenu") {
       router_index_login.sidemenu_get(req, res);
     }
-  })
+  });
 
   app.get('/login_check', function(req, res) {
     var sess;
@@ -49,19 +49,11 @@ module.exports = function(app, fs, url) {
       console.log('session : ' + sess.logincheck);
       res.send(check);
     })
-  })
-
-
-  app.get('/dashboard', function(req, res) {
-    var sess;
-    sess = req.session;
-    console.log('session : ' + sess.logincheck);
-    if (sess.logincheck == "1") {
-      res.render('dashboard.html');
-    } else {
-      res.render('index.html');
-    }
   });
+
+
+  app.get('/dashboard', dashboard_get(req, res));
+  
   app.get('/api/dashboard', function(req, res) {
     req.accepts('application/json');
     // input message handling
