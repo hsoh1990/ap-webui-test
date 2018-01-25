@@ -2,7 +2,7 @@ var fs = require("fs");
 var exec = require('child_process').exec,
   child;
 
-export.dashboard_get = function(req, res) {
+exports.dashboard_get = function(req, res) {
   var sess;
   sess = req.session;
   console.log('session : ' + sess.logincheck);
