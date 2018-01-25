@@ -8,7 +8,7 @@ function package_get() { //사이드 메뉴 데이터를 받아옵니다
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
-      sidemenu_output(this.response);
+      package_output(this.response);
     }
   };
   xhr.onerror = function() {
