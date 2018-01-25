@@ -9,9 +9,12 @@ var querystring = require('querystring');
 var exec = require('child_process').exec,
   child;
 
+
 app.set('views', __dirname + '/views');
+app.set('dashboard', __dirname + '/package/dashboard');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
+
 
 var server = app.listen(80, function() {
   console.log("Express server has started on port 80");
