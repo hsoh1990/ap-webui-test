@@ -1,13 +1,12 @@
 module.exports = function(app, fs, url) {
 
-  var router_dashboard = require('./dashboard.js');
+  var router_dashboard = require('.package/dashboard/dashboard.js');
   var router_wpaconfig = require('./wpaconfig.js');
   var router_hotspot = require('./hotspot.js');
   var router_networking = require('./networking.js');
   var router_dhcpserver = require('./dhcpserver.js');
   var router_auth = require('./auth.js');
   var router_system = require('./system.js');
-  var router_login = require('./login.js');
   app.get('/', function(req, res) {
     res.render('index.html');
   });

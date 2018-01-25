@@ -11,7 +11,7 @@ var exec = require('child_process').exec,
 var path = require('path');
 
 
-app.set('views', [__dirname + '/index_login', __dirname + '/package/dashboard']);
+app.set('views', [__dirname + '/index', __dirname + '/package/dashboard']);
 //app.set('dashboard', __dirname + '/package/dashboard');
 //app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
@@ -34,4 +34,4 @@ app.use(session({
   resave: false
 }));
 
-var router = require('./router/main')(app, fs);
+var router = require('./main')(app, fs);
