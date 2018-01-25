@@ -15,7 +15,7 @@ exports.sidemenu_get = function(req, res) {
     var side_name = "side_name_" + String(i);
     var sidemenu = JSON.parse(data);
     console.log(sidemenu['side_name']);
-    sidemenus[side_name] += sidemenu['side_name'];
+    sidemenus[side_name] = sidemenu['side_name'];
   }
   console.log(sidemenus);
   res.send(sidemenus);
