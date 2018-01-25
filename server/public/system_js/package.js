@@ -27,7 +27,7 @@ function package_output(package_data) {
     content += "<td>" + package_data_key[a] + "</td>";
     content += "<td>" + package_data[package_data_key[a]]['version'] + "</td>";
     content += "<td>100</td>";
-    content += "<td><button type=button class='btn btn-primary'>uninstall</button></td>";
+    content += "<td><button type=button class='btn btn-danger'>uninstall</button></td>";
     content += "</tr>";
   }
   document.getElementById("package_installed").innerHTML = content;
@@ -62,7 +62,7 @@ function install_output(install_data) {
     content += "<td>" + install_data_key[a] + "</td>";
     content += "<td>" + install_data[install_data_key[a]]['version'] + "</td>";
     content += "<td>100</td>";
-    content += "<td><button type=button class='btn btn-danger'>install</button></td>";
+    content += "<td><button type=button class='btn btn-primary'>install</button></td>";
     content += "</tr>";
   }
   document.getElementById("package_no_install").innerHTML = content;

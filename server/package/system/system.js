@@ -160,12 +160,12 @@ exports.package_data_get = function(req, res) {
 }
 
 exports.install_data_get = function(req, res) {
-  var files = fs.readdirSync(__dirname + '/../../package_tmp');
+  var files = fs.readdirSync(__dirname + '/../../package_tmp/');
   console.log(files.length);
   var sidemenus = {};
   for (var i = 0; i < files.length; i++) {
     var dir_name = files[i];
-    var data = fs.readFileSync(__dirname + "/../../package_tmp" + dir_name + "/sidename.json", 'utf8');
+    var data = fs.readFileSync(__dirname + "/../../package_tmp/" + dir_name + "/sidename.json", 'utf8');
     var sidemenu = JSON.parse(data);
     console.log(sidemenu['side_name']);
     sidemenus[sidemenu['side_name']] = sidemenu;
