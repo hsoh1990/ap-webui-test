@@ -2,12 +2,12 @@ module.exports = function(app, fs, url) {
 
   var router_dashboard = require('./package/dashboard/dashboard.js');
   var router_wpaconfig = require('./package/wpaconfig/wpaconfig.js');
-  var router_hotspot = require('./package/hotspot/hotspot.js');
-  var router_networking = require('./package/networking/networking.js');
-  var router_dhcpserver = require('./package/dhcpserver/dhcpserver.js');
-  var router_auth = require('./package/auth/auth.js');
+  //var router_hotspot = require('./package/hotspot/hotspot.js');
+  //var router_networking = require('./package/networking/networking.js');
+  //var router_dhcpserver = require('./package/dhcpserver/dhcpserver.js');
+  //var router_auth = require('./package/auth/auth.js');
   var router_system = require('./package/system/system.js');
-  var router_index_login = require('./index/index_login.js');
+  //var router_index_login = require('./index/index_login.js');
 
   app.get('/', function(req, res) {
     res.render('index.html');
