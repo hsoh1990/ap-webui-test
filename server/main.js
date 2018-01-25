@@ -26,7 +26,7 @@ module.exports = function(app, fs, url) {
     sess = req.session;
     var id = req.query.id;
     var password = req.query.password;
-    fs.readFile(__dirname + "/../data/" + "userdata.json", 'utf8', function(err, data) {
+    fs.readFile(__dirname + "/./data/" + "userdata.json", 'utf8', function(err, data) {
       var userdata = JSON.parse(data); //json text -> json object
       var check = {};
       if (id == userdata['admin']['username'] && password == userdata['admin']['password']) {
@@ -209,7 +209,7 @@ module.exports = function(app, fs, url) {
     sess = req.session;
     var id = req.query.id;
     var password = req.query.password;
-    fs.readFile(__dirname + "/../data/" + "userdata.json", 'utf8', function(err, data) {
+    fs.readFile(__dirname + "/./data/" + "userdata.json", 'utf8', function(err, data) {
       var userdata = JSON.parse(data); //json text -> json object
       var check = {};
       if (id == userdata['admin']['username'] && password == userdata['admin']['password']) {
