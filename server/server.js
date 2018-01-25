@@ -15,10 +15,6 @@ app.set('views', [
   __dirname + '/index',
   __dirname + '/package/dashboard',
   __dirname + '/package/wpaconfig',
-  __dirname + '/package/hotspot',
-  __dirname + '/package/networking',
-  __dirname + '/package/dhcpserver',
-  __dirname + '/package/auth',
   __dirname + '/package/system'
 ]);
 
@@ -45,7 +41,7 @@ require('./index/main.js')(app, fs, url);
 require('./package/dashboard/main.js')(app, fs, url);
 require('./package/system/main.js')(app, fs, url);
 require('./package/wpaconfig/main.js')(app, fs, url);
-require('./package/auth/main.js')(app, fs, url);
+//require('./package/auth/main.js')(app, fs, url);
 //require('./package/dhcpserver/main.js')(app, fs, url);
 //require('./package/hotspot/main.js')(app, fs, url);
 //require('./package/networking/main.js')(app, fs, url);
