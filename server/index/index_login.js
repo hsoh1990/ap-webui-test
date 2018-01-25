@@ -7,5 +7,5 @@ const {
 
 exports.sidemenu_get = function(req, res) {
   var files = fs.readdirSync(__dirname + '/../package');
-  console.log(files);
+  console.log(files.length);
 }
