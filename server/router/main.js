@@ -18,7 +18,7 @@ module.exports = function(app, fs, url) {
     if (sess.logincheck == "1") {
       res.render('index_login.html');
     } else {
-      res.render('/public/index.html');
+      res.render('public/index.html');
     }
   })
 
