@@ -41,10 +41,10 @@ app.use(session({
   resave: false
 }));
 
-//require('./index/main.js')(app, fs, url);
-//require('./package/dashboard/main.js')(app, fs, url);
-//require('./package/system/main.js')(app, fs, url);
-//require('./package/wpaconfig/main.js')(app, fs, url);
+require('./index/main.js')(app, fs, url);
+require('./package/dashboard/main.js')(app, fs, url);
+require('./package/system/main.js')(app, fs, url);
+require('./package/wpaconfig/main.js')(app, fs, url);
 //require('./package/auth/main.js')(app, fs, url);
 //require('./package/dhcpserver/main.js')(app, fs, url);
 //require('./package/hotspot/main.js')(app, fs, url);
