@@ -12,6 +12,7 @@ var path = require('path');
 
 
 app.set('views', __dirname + '/index_login');
+app.set('views', __dirname + '/package/dashboard');
 //app.set('dashboard', __dirname + '/package/dashboard');
 //app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
