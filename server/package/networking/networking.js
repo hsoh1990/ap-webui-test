@@ -8,7 +8,7 @@ const {
 exports.api_get = function(req, res) {
   var qwe = exports.savedata_1();
   exports.savedata_2(qwe);
-  fs.readFile(__dirname + "/../data/networking/" + "summary.json", 'utf8', function(err, data) {
+  fs.readFile(__dirname + "/data/" + "summary.json", 'utf8', function(err, data) {
     var wpaconfigdata = JSON.parse(data); //json text -> json object
     //console.log(wpaconfigdata);
     res.send(wpaconfigdata);
@@ -33,7 +33,7 @@ exports.savedata_2 = function(text) {
     var eng = "current_setting_" + text[a];
     result_data[eng] = eth;
     //console.log("eth : " + JSON.stringify(result_data));
-    fs.writeFileSync(__dirname + "/../data/networking/" + "summary.json",
+    fs.writeFileSync(__dirname + "/data/" + "summary.json",
       JSON.stringify(result_data, null, '\t'), "utf8",
       function(err, data) {
         result = {
@@ -52,13 +52,13 @@ exports.api_post = function(req, res) {
 }
 exports.api_post_datasave = function(req, res, adapt_name, result) {
   // output message
-  fs.readFile(__dirname + "/../data/networking/" + "connecting_lan_data.json", 'utf8', function(err, data) {
+  fs.readFile(__dirname + "/data/" + "connecting_lan_data.json", 'utf8', function(err, data) {
     var users = JSON.parse(data);
     // ADD TO DATA
     users[adapt_name] = req.body;
     exports.datasave_AP(users, adapt_name);
     // SAVE DATA
-    fs.writeFile(__dirname + "/../data/networking/" + "connecting_lan_data.json",
+    fs.writeFile(__dirname + "/data/" + "connecting_lan_data.json",
       JSON.stringify(users, null, '\t'), "utf8",
       function(err, data) {
         result = {

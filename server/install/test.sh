@@ -54,7 +54,7 @@ echo "rsn_pairwise=CCMP" | sudo tee -a /etc/hostapd/hostapd.conf
 
 mv /etc/default/hostapd /etc/default/hostapd.orig
 
-mv ap-webui-test-master/server/hostapd.orig /etc/default/hostapd
+mv ap-webui-test-master/server/install/hostapd.orig /etc/default/hostapd
 
 echo "dnsmasq 설정"
 
@@ -86,7 +86,7 @@ echo "rc.local 설정"
 
 mv /etc/rc.local /etc/rc.local.orig
 
-mv ap-webui-test-master/server/rc.local /etc/rc.local
+mv ap-webui-test-master/server/install/rc.local /etc/rc.local
 
 chmod +x /etc/rc.local
 
@@ -132,7 +132,7 @@ echo "4. service 등록"
 
 cd
 
-mv ap-webui-test-master/server/nodeserver.service /etc/systemd/system/nodeserver.service
+mv ap-webui-test-master/server/install/nodeserver.service /etc/systemd/system/nodeserver.service
 
 chmod +x /etc/systemd/system/nodeserver.service
 

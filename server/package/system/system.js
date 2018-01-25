@@ -21,7 +21,7 @@ exports.api_get = function(req, res) {
   tmp['Memory Used'] = mem_usedper;
   tmp['CPU Load'] = cpuloadper;
   data__['system_Information'] = tmp;
-  fs.writeFileSync(__dirname + "/../data/" + "systeminfordata.json",
+  fs.writeFileSync(__dirname + "/data/" + "systeminfordata.json",
     JSON.stringify(data__, null, '\t'), "utf8",
     function(err, data) {
       result = {
@@ -29,7 +29,7 @@ exports.api_get = function(req, res) {
       };
     })
 
-  fs.readFile(__dirname + "/../data/" + "systeminfordata.json", 'utf8', function(err, data) {
+  fs.readFile(__dirname + "/data/" + "systeminfordata.json", 'utf8', function(err, data) {
     var systeminfordata = JSON.parse(data); //json text -> json object
     //console.log(systeminfordata);
     res.send(systeminfordata);
@@ -60,7 +60,7 @@ exports.pirevision_rec = function() {
   }
   console.log("revision = " + revision[1]);
   var str_revi = "";
-  var data = fs.readFileSync(__dirname + "/../data/" + "rivisions.json", 'utf8');
+  var data = fs.readFileSync(__dirname + "/data/" + "rivisions.json", 'utf8');
   var revisionsdata = JSON.parse(data); //json text -> json object
   var revision_key = Object.getOwnPropertyNames(revisionsdata);
   for (var a = 0; a < Object.keys(revisionsdata).length; a++) {

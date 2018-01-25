@@ -7,7 +7,7 @@ var exec = require('child_process').exec,
 
 exports.api_get = function(req, res) {
   exports.read_pidof_hostapd();
-  fs.readFile(__dirname + "/../data/hotspot/" + "hotspotdata.json", 'utf8', function(err, data) {
+  fs.readFile(__dirname + "/data/" + "hotspotdata.json", 'utf8', function(err, data) {
     var hotspotdata = JSON.parse(data); //json text -> json object
     child = exec("cat /etc/hostapd/hostapd.conf", function(error, stdout, stderr) {
       console.log('hostapd: ' + stdout);
@@ -36,7 +36,7 @@ exports.read_pidof_hostapd = function() {
     var hostapddata = {};
     hostapddata['alert_select'] = data;
 
-    fs.writeFile(__dirname + "/../data/hotspot/" + "hotspotdata.json",
+    fs.writeFile(__dirname + "/data/" + "hotspotdata.json",
       JSON.stringify(hostapddata, null, '\t'), "utf8",
       function(err, data) {
         result = {
@@ -46,20 +46,20 @@ exports.read_pidof_hostapd = function() {
   });
 }
 exports.api_get_basic = function(req, res) {
-  fs.readFile(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8', function(err, data) {
+  fs.readFile(__dirname + "/data/" + "basicdata.json", 'utf8', function(err, data) {
     var basicdata = JSON.parse(data); //json text -> json object
     res.send(basicdata);
   })
 }
 exports.api_get_advanced = function(req, res) {
-  fs.readFile(__dirname + "/../data/hotspot/" + "advanceddata.json", 'utf8', function(err, data) {
+  fs.readFile(__dirname + "/data/" + "advanceddata.json", 'utf8', function(err, data) {
     var advanceddata = JSON.parse(data); //json text -> json object
 
     res.send(advanceddata);
   })
 }
 exports.api_get_security = function(req, res) {
-  fs.readFile(__dirname + "/../data/hotspot/" + "securitydata.json", 'utf8', function(err, data) {
+  fs.readFile(__dirname + "/data/" + "securitydata.json", 'utf8', function(err, data) {
     var securitydata = JSON.parse(data); //json text -> json object
 
     res.send(securitydata);
@@ -80,7 +80,7 @@ exports.api_get_awk = function(req, res) {
 
 exports.api_get_log = function(req, res) {
 
-  fs.readFile(__dirname + "/../data/" + "hostapd.log", 'utf8', function(err, data) {
+  fs.readFile(__dirname + "/data/" + "hostapd.log", 'utf8', function(err, data) {
     console.log(data);
     res.send(data);
   })
@@ -95,7 +95,7 @@ exports.savedata_basic = function(arr) {
   basic_data["channel"] = arr[4][1];
   console.log(JSON.stringify(basic_data));
   // SAVE DATA
-  fs.writeFile(__dirname + "/../data/hotspot/" + "basicdata.json",
+  fs.writeFile(__dirname + "/data/" + "basicdata.json",
     JSON.stringify(basic_data, null, '\t'), "utf8",
     function(err, data) {
       result = {
@@ -111,7 +111,7 @@ exports.savedata_security = function(arr) {
   security_data["psk"] = arr[9][1];
   console.log(JSON.stringify(security_data));
   // SAVE DATA
-  fs.writeFile(__dirname + "/../data/hotspot/" + "securitydata.json",
+  fs.writeFile(__dirname + "/data/" + "securitydata.json",
     JSON.stringify(security_data, null, '\t'), "utf8",
     function(err, data) {
       result = {
@@ -127,7 +127,7 @@ exports.savedata_advanced = function(arr) {
   advanced_data["country_code"] = "KR";
   console.log(JSON.stringify(advanced_data));
   // SAVE DATA
-  fs.writeFile(__dirname + "/../data/hotspot/" + "advancedata.json",
+  fs.writeFile(__dirname + "/data/" + "advancedata.json",
     JSON.stringify(advanced_data, null, '\t'), "utf8",
     function(err, data) {
       result = {
@@ -138,7 +138,7 @@ exports.savedata_advanced = function(arr) {
 
 
 exports.api_post_basic = function(req, res) {
-  fs.writeFile(__dirname + "/../data/hotspot/" + "basicdata.json",
+  fs.writeFile(__dirname + "/data/" + "basicdata.json",
     JSON.stringify(json, null, '\t'), "utf8",
     function(err, data) {
       result = {
@@ -150,7 +150,7 @@ exports.api_post_basic = function(req, res) {
 }
 
 exports.api_post_security = function(req, res) {
-  fs.writeFile(__dirname + "/../data/hotspot/" + "securitydata.json",
+  fs.writeFile(__dirname + "/data/" + "securitydata.json",
     JSON.stringify(json, null, '\t'), "utf8",
     function(err, data) {
       result = {
@@ -162,7 +162,7 @@ exports.api_post_security = function(req, res) {
 }
 
 exports.api_post_advanced = function(req, res) {
-  fs.writeFile(__dirname + "/../data/hotspot/" + "advanceddata.json",
+  fs.writeFile(__dirname + "/data/" + "advanceddata.json",
     JSON.stringify(json, null, '\t'), "utf8",
     function(err, data) {
       result = {
@@ -175,8 +175,8 @@ exports.api_post_advanced = function(req, res) {
 
 exports.tmp_file_save = function() {
   var text_tmp = "";
-  var basic_data = fs.readFileSync(__dirname + "/../data/hotspot/" + "basicdata.json", 'utf8');
-  var security_data = fs.readFileSync(__dirname + "/../data/hotspot/" + "securitydata.json", 'utf8');
+  var basic_data = fs.readFileSync(__dirname + "/data/" + "basicdata.json", 'utf8');
+  var security_data = fs.readFileSync(__dirname + "/data/" + "securitydata.json", 'utf8');
   basic_data = JSON.parse(basic_data);
   security_data = JSON.parse(security_data);
   console.log("베이직 : " + basic_data);
@@ -195,14 +195,14 @@ exports.tmp_file_save = function() {
   text_tmp += "wpa_pairwise=" + security_data['encryption_type'] + "\n";
   text_tmp += "rsn_pairwise=CCMP\n";
 
-  fs.writeFileSync(__dirname + "/../data/hotspot/" + "tmp.txt",
+  fs.writeFileSync(__dirname + "/data/" + "tmp.txt",
     text_tmp, "utf8",
     function(err, data) {
       result = {
         "success": 1
       };
     })
-  const save = execSync('sudo cp ' + __dirname + '/../data/hotspot/tmp.txt /etc/hostapd/hostapd.conf', {
+  const save = execSync('sudo cp ' + __dirname + '/data/tmp.txt /etc/hostapd/hostapd.conf', {
     encoding: 'utf8'
   });
 }

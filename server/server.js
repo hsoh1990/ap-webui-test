@@ -11,14 +11,23 @@ var exec = require('child_process').exec,
 var path = require('path');
 
 
-app.set('views', [__dirname + '/index', __dirname + '/package/dashboard']);
-//app.set('dashboard', __dirname + '/package/dashboard');
-//app.set('view engine', 'ejs');
+app.set('views', [
+  __dirname + '/index',
+  __dirname + '/package/dashboard',
+  __dirname + '/package/wpaconfig',
+  __dirname + '/package/hotspot',
+  __dirname + '/package/networking',
+  __dirname + '/package/dhcpserver',
+  __dirname + '/package/auth',
+  __dirname + '/package/system',
+  __dirname + '/package/theme'
+]);
+
 app.engine('html', require('ejs').renderFile);
 
 
 var server = app.listen(80, function() {
-  console.log("Express server has started on port 80");
+  console.log("RaspAP server has started on port 80");
 });
 
 app.use(express.json());

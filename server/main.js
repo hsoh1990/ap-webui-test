@@ -1,12 +1,14 @@
 module.exports = function(app, fs, url) {
 
   var router_dashboard = require('./package/dashboard/dashboard.js');
-  var router_wpaconfig = require('./router/wpaconfig.js');
-  var router_hotspot = require('./router/hotspot.js');
-  var router_networking = require('./router/networking.js');
-  var router_dhcpserver = require('./router/dhcpserver.js');
-  var router_auth = require('./router/auth.js');
-  var router_system = require('./router/system.js');
+  var router_wpaconfig = require('./package/wpaconfig/wpaconfig.js');
+  var router_hotspot = require('./package/hotspot/hotspot.js');
+  var router_networking = require('./package/networking/networking.js');
+  var router_dhcpserver = require('./package/dhcpserver/dhcpserver.js');
+  var router_auth = require('./package/auth/auth.js');
+  var router_system = require('./package/system/system.js');
+
+
   app.get('/', function(req, res) {
     res.render('index.html');
   });
@@ -26,7 +28,7 @@ module.exports = function(app, fs, url) {
     sess = req.session;
     var id = req.query.id;
     var password = req.query.password;
-    fs.readFile(__dirname + "/./data/" + "userdata.json", 'utf8', function(err, data) {
+    fs.readFile(__dirname + "/userdata/" + "userdata.json", 'utf8', function(err, data) {
       var userdata = JSON.parse(data); //json text -> json object
       var check = {};
       if (id == userdata['admin']['username'] && password == userdata['admin']['password']) {
@@ -209,7 +211,7 @@ module.exports = function(app, fs, url) {
     sess = req.session;
     var id = req.query.id;
     var password = req.query.password;
-    fs.readFile(__dirname + "/./data/" + "userdata.json", 'utf8', function(err, data) {
+    fs.readFile(__dirname + "/userdata/" + "userdata.json", 'utf8', function(err, data) {
       var userdata = JSON.parse(data); //json text -> json object
       var check = {};
       if (id == userdata['admin']['username'] && password == userdata['admin']['password']) {

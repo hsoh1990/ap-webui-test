@@ -38,7 +38,7 @@ exports.savedata_serversetting = function(req, res, interface_type, range, inter
   s_setting_data["Lease_time"] = interval;
   s_setting_data["interval"] = range[2][2];
   // SAVE DATA
-  fs.writeFile(__dirname + "/../data/dhcpserver/" + "serversetting.json",
+  fs.writeFile(__dirname + "/data/" + "serversetting.json",
     JSON.stringify(s_setting_data, null, '\t'), "utf8",
     function(err, data) {
       result = {
@@ -72,7 +72,7 @@ exports.write_clientlist = function(req, res) {
       console.log('arr ' + i + ' : ' + arr[i]);
       console.log('arr ' + i + '[] : ' + arr[i][0]);
     }
-    fs.writeFile(__dirname + "/../data/dhcpserver/" + "clientlist.json",
+    fs.writeFile(__dirname + "/data/" + "clientlist.json",
       JSON.stringify(data__, null, '\t'), "utf8",
       function(err, data) {
         result = {
@@ -97,7 +97,7 @@ exports.write_pidof_dnsmasq = function(req, res) {
     var dnsmasqdata = {};
     dnsmasqdata['alert_select'] = data;
 
-    fs.writeFile(__dirname + "/../data/dhcpserver/" + "dnsmasq_dec.json",
+    fs.writeFile(__dirname + "/data/" + "dnsmasq_dec.json",
       JSON.stringify(dnsmasqdata, null, '\t'), "utf8",
       function(err, data) {
         result = {
@@ -114,7 +114,7 @@ exports.api_post = function(req, res) {
   json = req.body;
 
   // output message
-  fs.writeFile(__dirname + "/../data/dhcpserver/" + "serversetting.json",
+  fs.writeFile(__dirname + "/data/" + "serversetting.json",
     JSON.stringify(json, null, '\t'), "utf8",
     function(err, data) {
       result = {
@@ -127,7 +127,7 @@ exports.api_post = function(req, res) {
 
 exports.tmp_file_save = function() {
   var text_tmp = "";
-  var serversetting_data = fs.readFileSync(__dirname + "/../data/dhcpserver/" + "serversetting.json", 'utf8');
+  var serversetting_data = fs.readFileSync(__dirname + "/data/" + "serversetting.json", 'utf8');
 
   serversetting_data = JSON.parse(serversetting_data);
   console.log("serversetting : " + serversetting_data);
@@ -140,14 +140,14 @@ exports.tmp_file_save = function() {
   text_tmp += "dhcp-range=" + serversetting_data['starting_IP_address'] + "," + serversetting_data['ending_IP_address'] + "," + serversetting_data['Lease_time'] + "" + serversetting_data['interval'];
 
 
-  fs.writeFileSync(__dirname + "/../data/dhcpserver/" + "tmp.txt",
+  fs.writeFileSync(__dirname + "/data/" + "tmp.txt",
     text_tmp, "utf8",
     function(err, data) {
       result = {
         "success": 1
       };
     })
-  const save = execSync('sudo cp ' + __dirname + '/../data/dhcpserver/tmp.txt /etc/dnsmasq.conf', {
+  const save = execSync('sudo cp ' + __dirname + '/data/tmp.txt /etc/dnsmasq.conf', {
     encoding: 'utf8'
   });
 }
