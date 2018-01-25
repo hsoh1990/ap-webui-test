@@ -11,7 +11,7 @@ $ wget https://github.com/zxcv1246789/ap-webui-test/archive/master.zip
 
 $ unzip master.zip
 
-$ chmod +x ap-webui-test-master/server/test.sh
+$ chmod +x ap-webui-test-master/server/install/test.sh
 
-$ sh ap-webui-test-master/server/test.sh
+$ sh ap-webui-test-master/server/install/test.sh
 -----------------------------------------------------------------------
