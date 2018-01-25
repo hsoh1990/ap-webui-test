@@ -10,7 +10,7 @@ var exec = require('child_process').exec,
   child;
 
 
-app.set('views', __dirname + '/views');
+//app.set('views', __dirname + '/views');
 app.set('dashboard', __dirname + '/package/dashboard');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
