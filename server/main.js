@@ -7,7 +7,7 @@ module.exports = function(app, fs, url) {
   var router_dhcpserver = require('./package/dhcpserver/dhcpserver.js');
   var router_auth = require('./package/auth/auth.js');
   var router_system = require('./package/system/system.js');
-
+  var router_index_login = require('./index/index_login.js');
 
   app.get('/', function(req, res) {
     res.render('index.html');
@@ -20,6 +20,15 @@ module.exports = function(app, fs, url) {
       res.render('index_login.html');
     } else {
       res.render('index.html');
+    }
+  })
+  app.get('api/index_login', function(req, res) {
+    req.accepts('application/json');
+    // input message handling
+    var type = req.query.type;
+
+    if (type == "sidemenu") {
+      router_index_login.sidemenu_get(req, res);
     }
   })
 
