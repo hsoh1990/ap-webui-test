@@ -41,7 +41,7 @@
 
 </head>
 
-<body onload="">
+<body onload="sidemenu_get()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -129,7 +129,7 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
-  function server_get_basic() { //사이드 메뉴 데이터를 받아옵니다
+  function sidemenu_get() { //사이드 메뉴 데이터를 받아옵니다
     const xhr = new XMLHttpRequest();
     // by default async
     xhr.open("GET", "/api/index_login?type=sidemenu", true);
@@ -148,7 +148,9 @@
     xhr.send();
   }
 
-  function sidemenu_output(jsondata);
+  function sidemenu_output(jsondata) {
+
+  }
   </script>
 </body>
 
