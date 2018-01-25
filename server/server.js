@@ -10,7 +10,7 @@ var exec = require('child_process').exec,
   child;
 
 
-//app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/views');
 app.set('dashboard', __dirname + '/package/dashboard');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
@@ -23,6 +23,7 @@ var server = app.listen(80, function() {
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/package/dashboard'));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
