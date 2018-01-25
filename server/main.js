@@ -7,7 +7,7 @@ module.exports = function(app, fs, url) {
   //var router_dhcpserver = require('./package/dhcpserver/dhcpserver.js');
   //var router_auth = require('./package/auth/auth.js');
   var router_system = require('./package/system/system.js');
-  //var router_index_login = require('./index/index_login.js');
+  var router_index_login = require('./index/index_login.js');
 
   app.get('/', function(req, res) {
     res.render('index.html');
