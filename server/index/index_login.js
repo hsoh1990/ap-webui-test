@@ -19,5 +19,6 @@ exports.sidemenu_get = function(req, res) {
     console.log(tmp);
     sidemenus += tmp;
   }
+  console.log(sidemenus);
   res.send(sidemenus);
 }
