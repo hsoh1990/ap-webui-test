@@ -6,7 +6,5 @@ const {
 } = require('child_process');
 
 exports.sidemenu_get = function(req, res) {
-  fs.readdir('../package/', (err, files) => {
-    console.log(files);
-  })
+  var files = fs.readdirSync('../package');
 }
