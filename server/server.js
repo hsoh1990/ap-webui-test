@@ -13,7 +13,7 @@ var exec = require('child_process').exec,
 //app.set('views', __dirname + '/views');
 //app.set('dashboard', __dirname + '/package/dashboard');
 //app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
+//app.engine('html', require('ejs').renderFile);
 
 
 var server = app.listen(80, function() {
