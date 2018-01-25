@@ -136,7 +136,35 @@
                           </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="package">
-
+                          <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td colspan="2">Larry the Bird</td>
+                                <td>@twitter</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="install">
 
@@ -200,7 +228,7 @@
 
       for (var name in data[type]) {
         index++;
-        if(index > 3){
+        if (index > 3) {
           break;
         }
         content += "<div class=info-item>" + name + "</div>" + data[type][name] + "</br>";
@@ -215,18 +243,20 @@
       var type = "system_Information";
       for (var name in data[type]) {
         index++;
-        if(index > 3){
+        if (index > 3) {
           content += "<div class=info-item>" + name + "</div><div class=progress>";
           content += "<div class='progress-bar progress-bar-info progress-bar-striped active' role=progressbar aria-valuenow aria-valuemin=0 aria-valuemax=100 style=width:" + data[type][name] + "%;></div></div>"
         }
       }
       return content;
     }
-    function refresh_button(data){
+
+    function refresh_button(data) {
       document.getElementById("system_infor_div_id").innerHTML = system_infor_box_fill(data);
       document.getElementById("system_infor_bar_div_id").innerHTML = system_infor_bar_box_fill(data);
     }
-    function connect_data_get(){
+
+    function connect_data_get() {
       const xhr = new XMLHttpRequest();
       // by default async
       xhr.onload = function() {
@@ -288,7 +318,6 @@
       }
       document.getElementById("startstop_button_id").innerHTML = content;
     }
-
   </script>
 
 </body>
