@@ -66,14 +66,14 @@ exports.consolelog_serverdata = function(req, res) {
         dashboard_json["alert_select"] = alert_select;
 
         // SAVE DATA
-        fs.writeFileSync(__dirname + "/../data/" + "dashboarddata.json",
+        fs.writeFileSync(__dirname + "/../../data/" + "dashboarddata.json",
           JSON.stringify(dashboard_json, null, '\t'), "utf8",
           function(err, data) {
             result = {
               "success": 1
             };
           })
-        var data = fs.readFileSync(__dirname + "/../data/" + "dashboarddata.json", 'utf8');
+        var data = fs.readFileSync(__dirname + "/../../data/" + "dashboarddata.json", 'utf8');
         var dashboarddata = JSON.parse(data); //json text -> json object
         //console.log(dashboarddata);
         res.send(dashboarddata);
