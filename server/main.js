@@ -22,7 +22,7 @@ module.exports = function(app, fs, url) {
       res.render('index.html');
     }
   })
-  app.get('api/index_login', function(req, res) {
+  app.get('/api/index_login', function(req, res) {
     req.accepts('application/json');
     // input message handling
     var type = req.query.type;
