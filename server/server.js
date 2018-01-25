@@ -19,8 +19,7 @@ app.set('views', [
   __dirname + '/package/networking',
   __dirname + '/package/dhcpserver',
   __dirname + '/package/auth',
-  __dirname + '/package/system',
-  __dirname + '/package/theme'
+  __dirname + '/package/system'
 ]);
 
 app.engine('html', require('ejs').renderFile);
