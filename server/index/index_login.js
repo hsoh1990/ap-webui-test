@@ -12,6 +12,7 @@ exports.sidemenu_get = function(req, res) {
   for (var i = 0; i < files.length; i++) {
     var dir_name = files[i];
     var data = fs.readFileSync(__dirname + "/../package/" + dir_name + "/sidename.json", 'utf8');
+    console.log(data);
     var side_name = "side_name_" + String(i);
     var sidemenu = JSON.parse(data);
     var tmp = {};
