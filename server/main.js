@@ -52,8 +52,8 @@ module.exports = function(app, fs, url) {
   });
 
 
-  app.get('/dashboard', dashboard_get(req, res));
-  
+  app.get('/dashboard', router_dashboard.dashboard_get(req, res));
+
   app.get('/api/dashboard', function(req, res) {
     req.accepts('application/json');
     // input message handling
