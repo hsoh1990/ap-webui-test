@@ -42,3 +42,4 @@ app.use(session({
 }));
 
 var router = require('./main')(app, fs);
+var dashboard = require('./package/dashboard/main.js')(app, fs, url);

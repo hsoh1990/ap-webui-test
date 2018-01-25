@@ -1,6 +1,5 @@
 module.exports = function(app, fs, url) {
 
-  var router_dashboard = require('./package/dashboard/dashboard.js');
   var router_wpaconfig = require('./package/wpaconfig/wpaconfig.js');
   //var router_hotspot = require('./package/hotspot/hotspot.js');
   //var router_networking = require('./package/networking/networking.js');
@@ -52,26 +51,7 @@ module.exports = function(app, fs, url) {
   });
 
 
-  app.get('/dashboard', router_dashboard.dashboard_get(req, res));
 
-  app.get('/api/dashboard', function(req, res) {
-    req.accepts('application/json');
-    // input message handling
-    var type = req.query.id;
-    var select = req.query.select;
-
-    if (type == "refresh") {
-      router_dashboard.api_get(req, res);
-    } else if (type == "wlan0stopstart") {
-      if (select == 0) { //stop 시키는 부분
-        router_dashboard.wlan0_stop(req, res);
-      } else if (select == 1) { //start 시키는 부분
-        router_dashboard.wlan0_start(req, res);
-      } else {
-        router_dashboard.start_stopbutton(req, res);
-      }
-    }
-  });
 
 
   app.get('/wpaconfig', function(req, res) {
