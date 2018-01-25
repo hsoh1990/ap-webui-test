@@ -5,13 +5,13 @@
 3. Copy and paste the command.
 
 -----------------------------------------------------------------------
-sudo su -
+$ sudo su -
 
-wget https://github.com/zxcv1246789/ap-webui-test/archive/master.zip
+$ wget https://github.com/zxcv1246789/ap-webui-test/archive/master.zip
 
-unzip master.zip
+$ unzip master.zip
 
-chmod +x ap-webui-test-master/server/test.sh
+$ chmod +x ap-webui-test-master/server/test.sh
 
-sh ap-webui-test-master/server/test.sh
+$ sh ap-webui-test-master/server/test.sh
 -----------------------------------------------------------------------
