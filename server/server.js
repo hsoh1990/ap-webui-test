@@ -22,7 +22,7 @@ var server = app.listen(80, function() {
 
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/views'));
+//app.use(express.static(__dirname + '/views'));
 app.use(express.static(__dirname + '/package/dashboard'));
 app.use(bodyParser.urlencoded({
   extended: true
