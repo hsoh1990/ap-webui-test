@@ -9,7 +9,7 @@ module.exports = function(app, fs, url) {
   var router_system = require('./system.js');
   var router_login = require('./login.js');
   app.get('/', function(req, res) {
-    res.render('/public/index.html');
+    res.render('index.html');
   });
   app.get('/index_login', function(req, res) {
     var sess;
