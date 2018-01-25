@@ -16,7 +16,7 @@ module.exports = function(app, fs, url) {
     sess = req.session;
     console.log('session : ' + sess.logincheck);
     if (sess.logincheck == "1") {
-      res.render('./index_login.html');
+      res.render('index_login.html');
     } else {
       res.render('index.html');
     }
