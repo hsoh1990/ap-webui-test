@@ -1,14 +1,12 @@
 var fs = require("fs");
 var exec = require('child_process').exec,
   child;
-  const {
-    execSync
-  } = require('child_process');
+const {
+  execSync
+} = require('child_process');
 
 exports.sidemenu_get = function(req, res) {
   fs.readdir('../package/', (err, files) => {
-  files.forEach(file => {
-    console.log(file);
-  });
-})
+    console.log(files);
+  })
 }
