@@ -202,8 +202,9 @@ exports.install_package = function(req, res, select) {
     'select': String(select)
   }
 
-  var files = fs.readdirSync(__dirname + '/../../package_tmp/');
-  for (var i = 0; i < files.length; i++) {
+  var install_files = fs.readdirSync(__dirname + '/../../package_tmp/');
+  var installed_files = fs.readdirSync(__dirname + '/../');
+  for (var i = 0; i < install_files.length; i++) {
     if (select == i){
       var package_name = files[i];
       /*execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + '.zip -d '+ __dirname +'/../' + package_name, {
@@ -212,7 +213,7 @@ exports.install_package = function(req, res, select) {
       const start_ = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
         encoding: 'utf8'
       });
-      var line_number = Number(start_) + files.length + 1;
+      var line_number = Number(start_) + installed_files.length + 2;
       console.log(line_number);
       /*execSync('sudo sed -i /' + package_name + '/d ' + __dirname + '/../../server.js', {
         encoding: 'utf8'
