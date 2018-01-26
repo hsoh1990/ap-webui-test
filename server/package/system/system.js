@@ -133,16 +133,14 @@ exports.system_reboot = function(req, res) {
     "success": 1
   };
   res.send(result);
-  child = exec("sudo /sbin/reboot", function(error, stdout, stderr) {
-  });
+  child = exec("sudo /sbin/reboot", function(error, stdout, stderr) {});
 }
 exports.system_shutdown = function(req, res) {
   result = {
     "success": 2
   };
   res.send(result);
-  child = exec("sudo /sbin/shutdown -h now", function(error, stdout, stderr) {
-  });
+  child = exec("sudo /sbin/shutdown -h now", function(error, stdout, stderr) {});
 }
 
 exports.package_data_get = function(req, res) {
@@ -166,13 +164,17 @@ exports.install_data_get = function(req, res) {
   for (var i = 0; i < files.length; i++) {
     var dir_name = files[i];
     var sidemenu = {};
-    var dd = "package _" + String(i+1);
+    var dd = "package _" + String(i + 1);
     sidemenu['pack_name'] = dir_name.replace('.zip', '');
     sidemenus[dd] = sidemenu;
   }
   res.send(sidemenus);
 }
 
-exports.uninstall_package = function (req, res, select) {
-
+exports.uninstall_package = function(req, res, select) {
+  console.log(select);
+  result = {
+    'select': String(select)
+  }
+  res.send(result);
 }
