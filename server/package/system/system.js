@@ -246,7 +246,7 @@ exports.install_package = function(req, res, select) {
             "success": 1
           };
         })
-      execSync('rm -r package_tmp/' + package_name, {
+      execSync('rm -r package_tmp/' + package_name + '.zip', {
         encoding: 'utf8'
       });
 
