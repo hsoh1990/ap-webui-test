@@ -176,12 +176,13 @@ exports.uninstall_package = function(req, res, select) {
   result = {
     'select': String(select)
   }
+  res.send(result);
 
   var files = fs.readdirSync(__dirname + '/../');
   for (var i = 0; i < files.length; i++) {
-    if (select == i){
+    if (select == i) {
       var package_name = files[i];
-      execSync('sudo zip -r ' + __dirname + '/../../package_tmp/' + package_name + '.zip '+ __dirname +'/../' + package_name + '/*', {
+      execSync('sudo cd ' + __dirname + '/../' + package_name + '&& sudo zip -r /../../package_tmp/' + package_name + '.zip ./*', {
         encoding: 'utf8'
       });
       execSync('sudo rm -r ' + __dirname + '/../' + package_name, {
@@ -193,7 +194,6 @@ exports.uninstall_package = function(req, res, select) {
       break;
     }
   }
-  res.send(result);
 }
 
 exports.install_package = function(req, res, select) {
@@ -201,46 +201,46 @@ exports.install_package = function(req, res, select) {
   result = {
     'select': String(select)
   }
+  res.send(result);
 
   var install_files = fs.readdirSync(__dirname + '/../../package_tmp/');
   var installed_files = fs.readdirSync(__dirname + '/../');
   for (var i = 0; i < install_files.length; i++) {
-    if (select == i){
+    if (select == i) {
       var package_name = install_files[i];
-      execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + ' -d ./'), {
+      execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + ' -d ./', {
         encoding: 'utf8'
       });
-      const start_ = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
-        encoding: 'utf8'
-      });
-      var line_number = Number(start_) + 2;
-      console.log(line_number);
-      execSync('sudo cp ' + __dirname + '/install.sh ' + __dirname + '/install.sh.orig', {
-        encoding: 'utf8'
-      });
-      execSync('sed -i "1s/default/' + package_name.replace('.zip', '') + '/" ' + __dirname + '/install.sh', {
-        encoding: 'utf8'
-      });
-      execSync('sed -i "1s%defaultdir%' + __dirname + '%" ' + __dirname + '/install.sh', {
-        encoding: 'utf8'
-      });
-      execSync('sed -i "3s/default/' + package_name.replace('.zip', '') + '/" ' + __dirname + '/install.sh', {
-        encoding: 'utf8'
-      });
-      execSync('sed -i "3s%defaultdir%' + __dirname + '%" ' + __dirname + '/install.sh', {
-        encoding: 'utf8'
-      });
-      execSync('sudo sh ' + __dirname + '/install.sh', {
-        encoding: 'utf8'
-      });
-      execSync('sudo cp ' + __dirname + '/install.sh.orig ' + __dirname + '/install.sh', {
-        encoding: 'utf8'
-      });
-      execSync('sudo rm ' + __dirname + '/install.sh.orig', {
-        encoding: 'utf8'
-      });
-      res.send(result);
-      break;
-    }
+    const start_ = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
+      encoding: 'utf8'
+    });
+    var line_number = Number(start_) + 2;
+    console.log(line_number);
+    execSync('sudo cp ' + __dirname + '/install.sh ' + __dirname + '/install.sh.orig', {
+      encoding: 'utf8'
+    });
+    execSync('sudo sed -i "1s/default/' + package_name.replace('.zip', '') + '/" ' + __dirname + '/install.sh', {
+      encoding: 'utf8'
+    });
+    execSync('sudo sed -i "1s%defaultdir%' + __dirname + '%" ' + __dirname + '/install.sh', {
+      encoding: 'utf8'
+    });
+    execSync('sudo sed -i "3s/default/' + package_name.replace('.zip', '') + '/" ' + __dirname + '/install.sh', {
+      encoding: 'utf8'
+    });
+    execSync('sudo sed -i "3s%defaultdir%' + __dirname + '%" ' + __dirname + '/install.sh', {
+      encoding: 'utf8'
+    });
+    execSync('sudo sh ' + __dirname + '/install.sh', {
+      encoding: 'utf8'
+    });
+    execSync('sudo cp ' + __dirname + '/install.sh.orig ' + __dirname + '/install.sh', {
+      encoding: 'utf8'
+    });
+    execSync('sudo rm ' + __dirname + '/install.sh.orig', {
+      encoding: 'utf8'
+    });
+    break;
   }
+}
 }
