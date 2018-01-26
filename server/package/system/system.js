@@ -207,7 +207,7 @@ exports.install_package = function(req, res, select) {
   var installed_files = fs.readdirSync(__dirname + '/../');
   for (var i = 0; i < install_files.length; i++) {
     if (select == i) {
-      var package_name = install_files[i];
+      var package_name = install_files[i].replace('.zip', '');
       /*execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + ' -d ' + __dirname + '/../' + package_name.replace('.zip', ''), {
         encoding: 'utf8'
       });*/
@@ -218,12 +218,12 @@ exports.install_package = function(req, res, select) {
         encoding: 'utf8'
       });
       var line_number1 = Number(start_1) + 1;
-      var line_number2 = Number(start_2);
+      var line_number2 = Number(start_2) + 1;
       var serverjs_data = fs.readFileSync(__dirname + "/../../" + "server.js", 'utf8');
       console.log("serverjs_data : \n" + serverjs_data);
       var data_split = serverjs_data.split("\n");
-      var insert_data1 = "  __dirname + \'/package/default\',";
-      var insert_data2 = "require(\'./package/default/main.js\')(app, fs, url);";
+      var insert_data1 = "  __dirname + \'/package/" + package_name + "\',";
+      var insert_data2 = "require(\'./package/" + package_name + "/main.js\')(app, fs, url);";
       data_split.splice(line_number1,0,insert_data1);
       data_split.splice(line_number2,0,insert_data2);
       for(var q = 0;q < data_split.length;q++){
