@@ -219,7 +219,7 @@ exports.install_package = function(req, res, select) {
       var serverjs_data = fs.readFileSync(__dirname + "/../../" + "server.js", 'utf8');
       console.log("serverjs_data : \n" + serverjs_data);
       var data_split = serverjs_data.split("\n");
-      console.log("data_split : \n" + data_split);
+      console.log("data_split : \n" + data_split[0]);
 
 
 
