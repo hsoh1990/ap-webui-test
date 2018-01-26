@@ -215,12 +215,9 @@ exports.install_package = function(req, res, select) {
       });
       var line_number = Number(start_) + 2;
       console.log(line_number);
-      console.log(ser);
-      var qwe = "'$.==16 and print " + "__dirname" + '"'"'/package/test'"'"'",\n";
-      console.log(qwe);
-      /*execSync('sudo sh ' + __dirname + '/install.sh', {
+      execSync('sudo sh ' + __dirname + '/install.sh', {
         encoding: 'utf8'
-      });*/
+      });
       /*execSync('sudo sed -i /' + package_name + '/d ' + __dirname + '/../../server.js', {
         encoding: 'utf8'
       });*/
