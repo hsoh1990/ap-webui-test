@@ -202,7 +202,7 @@ exports.install_package = function(req, res, select) {
     'select': String(select)
   }
 
-  var files = fs.readdirSync(__dirname + '/../');
+  var files = fs.readdirSync(__dirname + '/../../package_tmp/');
   for (var i = 0; i < files.length; i++) {
     if (select == i){
       var package_name = files[i];
