@@ -15,6 +15,8 @@ module.exports = function(app, fs, url){
     req.accepts('application/json');
     // input message handling
     var type = req.query.type;
+		var select = req.query.select;
+
     if (type == "refresh") {
       router_system.api_get(req, res);
     } else if (type == "reboot") {
@@ -25,6 +27,8 @@ module.exports = function(app, fs, url){
       router_system.package_data_get(req, res);
     } else if (type == "install") {
       router_system.install_data_get(req, res);
+    } else if (type == "uninstallbutton") {
+      router_system.uninstall_package(req, res, select);
     }
   });
 };

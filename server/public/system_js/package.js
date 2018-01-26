@@ -30,11 +30,29 @@ function package_output(package_data) {
     if (package_data_key[a] == "System" || package_data_key[a] == "Dashboard") {
 
     } else {
-      content += "<td><button type=button class='btn btn-danger' id=" + package_data_key[a] + ">uninstall</button></td>";
+      content += "<td><button type=button class='btn btn-danger' onclick=uninstall_button(" + package_data_key[a] + ")>uninstall</button></td>";
     }
     content += "</tr>";
   }
   document.getElementById("package_installed").innerHTML = content;
+}
+function uninstall_button(select) {
+  const xhr = new XMLHttpRequest();
+  // by default async
+  xhr.open("GET", "/api/system?type=uninstallbutton&select=" + select, true);
+  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  xhr.responseType = 'json';
+
+  xhr.onload = function() {
+    if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+      //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+      install_output(this.response);
+    }
+  };
+  xhr.onerror = function() {
+    console.log("confirm");
+  };
+  xhr.send();
 }
 
 function install_get() { //install 데이터를 받아옵니다

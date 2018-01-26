@@ -172,3 +172,7 @@ exports.install_data_get = function(req, res) {
   }
   res.send(sidemenus);
 }
+
+exports.uninstall_package = function (req, res, select) {
+
+}
