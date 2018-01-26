@@ -30,7 +30,7 @@ function package_output(package_data) {
     if (package_data_key[a] == "System" || package_data_key[a] == "Dashboard") {
 
     } else {
-      content += "<td><button type=button class='btn btn-danger' onclick='uninstall_button('" + package_data_key[a] + "')'>uninstall</button></td>";
+      content += "<td><button type=button class='btn btn-danger' onclick='uninstall_button(''" + package_data_key[a] + "'')'>uninstall</button></td>";
     }
     content += "</tr>";
   }
