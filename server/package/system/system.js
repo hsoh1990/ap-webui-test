@@ -182,7 +182,7 @@ exports.uninstall_package = function(req, res, select) {
   for (var i = 0; i < files.length; i++) {
     if (select == i) {
       var package_name = files[i];
-      execSync('sudo cp -r ' + __dirname + '/../' + package_name + ' /root/home/pi/', {
+      execSync('sudo cp -r ' + __dirname + '/../' + package_name + ' /root/home/pi', {
         encoding: 'utf8'
       });
       /*
