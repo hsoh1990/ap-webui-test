@@ -215,9 +215,18 @@ exports.install_package = function(req, res, select) {
       });
       var line_number = Number(start_) + 2;
       console.log(line_number);
-      execSync('sudo sh ' + __dirname + '/install.sh', {
+      execSync('sudo cp ' + __dirname + '/install.sh ' + __dirname + '/install.sh.orig', {
         encoding: 'utf8'
       });
+      execSync('sed -i "1s/default/' + package_name + '/" ' + __dirname + '/install.sh', {
+        encoding: 'utf8'
+      });
+      execSync('sed -i "1s/defaultdir/' + __dirname + '/" ' + __dirname + '/install.sh', {
+        encoding: 'utf8'
+      });
+      /*execSync('sudo sh ' + __dirname + '/install.sh', {
+        encoding: 'utf8'
+      });*/
       /*execSync('sudo sed -i /' + package_name + '/d ' + __dirname + '/../../server.js', {
         encoding: 'utf8'
       });*/
