@@ -215,8 +215,8 @@ exports.install_package = function(req, res, select) {
       });
       var line_number = Number(start_) + 2;
       console.log(line_number);
-      var qwe = "  __dirname + '/package/" + package_name.replace('.zip', '') + "',\n'";
-      var ser = "$.==" + line_number + " and print " + qwe + "";
+      var qwe = "  __dirname + '/package/" + package_name.replace('.zip', '') + "',";
+      var ser = "$.==" + line_number + " and print " + qwe + "\n'";
       console.log(ser);
       execSync('perl -p -i -e  ' + ser + '' + __dirname + '/../../server.js', {
         encoding: 'utf8'
