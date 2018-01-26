@@ -218,8 +218,7 @@ exports.install_package = function(req, res, select) {
         encoding: 'utf8'
       });
       var line_number1 = Number(start_1) + 1;
-      var line_number2 = Number(start_1);
-      console.log(line_number1);
+      var line_number2 = Number(start_2);
       var serverjs_data = fs.readFileSync(__dirname + "/../../" + "server.js", 'utf8');
       console.log("serverjs_data : \n" + serverjs_data);
       var data_split = serverjs_data.split("\n");
