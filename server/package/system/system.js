@@ -223,7 +223,7 @@ exports.install_package = function(req, res, select) {
       var insert_data = "  __dirname + \'/package/default\',";
       data_split.splice(15,0,insert_data);
       for(var q = 0;q < data_split.length;q++){
-        console.log(data_split[0] + "\n");
+        console.log(data_split[q] + "\n");
       }
 
 
