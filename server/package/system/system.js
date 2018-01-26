@@ -181,7 +181,7 @@ exports.uninstall_package = function(req, res, select) {
   for (var i = 0; i < files.length; i++) {
     if (select == i){
       var package_name = files[i];
-      execSync('sudo zip ' + __dirname + '/../../package_tmp/' + package_name + '.zip '+ __dirname +'/../' + package_name + '/*', {
+      execSync('sudo zip -r ' + __dirname + '/../../package_tmp/' + package_name + '.zip '+ __dirname +'/../' + package_name + '/*', {
         encoding: 'utf8'
       });
       execSync('sudo rm -r ' + __dirname + '/../' + package_name, {
@@ -207,7 +207,7 @@ exports.install_package = function(req, res, select) {
   for (var i = 0; i < install_files.length; i++) {
     if (select == i){
       var package_name = install_files[i];
-      execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + ' -d '+ __dirname +'/../' + package_name.replace('.zip', ''), {
+      execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + ' -d ./'), {
         encoding: 'utf8'
       });
       const start_ = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
@@ -239,8 +239,8 @@ exports.install_package = function(req, res, select) {
       execSync('sudo rm ' + __dirname + '/install.sh.orig', {
         encoding: 'utf8'
       });
+      res.send(result);
       break;
     }
   }
-  res.send(result);
 }
