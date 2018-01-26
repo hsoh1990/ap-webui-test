@@ -239,7 +239,7 @@ exports.install_package = function(req, res, select) {
       console.log("result : \n" + result);
 
       fs.writeFileSync(__dirname + "/../../" + "server.js",
-        JSON.stringify(result, null, '\t'), "utf8",
+        result, "utf8",
         function(err, data) {
           result = {
             "success": 1
