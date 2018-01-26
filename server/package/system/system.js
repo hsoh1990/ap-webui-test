@@ -176,5 +176,20 @@ exports.uninstall_package = function(req, res, select) {
   result = {
     'select': String(select)
   }
+
+  var files = fs.readdirSync(__dirname + '/../');
+  for (var i = 0; i < files.length; i++) {
+    if (select == i){
+      var package_name = files[i];
+      execSync('sudo zip ' + __dirname + '/../../package_tmp/' + package_name + '.zip ../' + package_name + '/*', {
+        encoding: 'utf8'
+      });
+      fs.rmdirSync(__dirname + '/../' + package_name)
+      execSync('sudo sed -i /' + package_name + '/d ' + __dirname + '/../../server.js', {
+        encoding: 'utf8'
+      });
+      break;
+    }
+  }
   res.send(result);
 }
