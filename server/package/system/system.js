@@ -184,7 +184,9 @@ exports.uninstall_package = function(req, res, select) {
       execSync('sudo zip ' + __dirname + '/../../package_tmp/' + package_name + '.zip '+ __dirname +'/../' + package_name + '/*', {
         encoding: 'utf8'
       });
-      fs.rmdirSync(__dirname + '/../' + package_name)
+      execSync('sudo rm -r ' + __dirname + '/../' + package_name, {
+        encoding: 'utf8'
+      });
       execSync('sudo sed -i /' + package_name + '/d ' + __dirname + '/../../server.js', {
         encoding: 'utf8'
       });
