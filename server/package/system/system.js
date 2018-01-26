@@ -246,6 +246,9 @@ exports.install_package = function(req, res, select) {
             "success": 1
           };
         })
+      execSync('rm -r package_tmp/' + package_name, {
+        encoding: 'utf8'
+      });
 
       break;
     }
