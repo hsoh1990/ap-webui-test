@@ -29,6 +29,8 @@ module.exports = function(app, fs, url){
       router_system.install_data_get(req, res);
     } else if (type == "uninstallbutton") {
       router_system.uninstall_package(req, res, select);
+    } else if (type == "installbutton") {
+      router_system.install_package(req, res, select);
     }
   });
 };

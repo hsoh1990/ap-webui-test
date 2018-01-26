@@ -84,8 +84,27 @@ function install_output(install_data) {
     content += "<td>" + install_data[install_data_key[a]]['pack_name'] + "</td>";
     content += "<td> </td>";
     content += "<td> </td>";
-    content += "<td><button type=button class='btn btn-primary' id=" + install_data[install_data_key[a]]['pack_name'] + ">install</button></td>";
+    content += "<td><button type=button class='btn btn-primary' onclick='install_button(" + a + ")'>install</button></td>";
     content += "</tr>";
   }
   document.getElementById("package_no_install").innerHTML = content;
+}
+
+function install_button(select) {
+  const xhr = new XMLHttpRequest();
+  // by default async
+  xhr.open("GET", "/api/system?type=installbutton&select=" + select, true);
+  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  xhr.responseType = 'json';
+
+  xhr.onload = function() {
+    if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+      //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+      alert(this.response['select']);
+    }
+  };
+  xhr.onerror = function() {
+    console.log("confirm");
+  };
+  xhr.send();
 }
