@@ -206,7 +206,7 @@ exports.install_package = function(req, res, select) {
   var installed_files = fs.readdirSync(__dirname + '/../');
   for (var i = 0; i < install_files.length; i++) {
     if (select == i){
-      var package_name = files[i];
+      var package_name = install_files[i];
       /*execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + '.zip -d '+ __dirname +'/../' + package_name, {
         encoding: 'utf8'
       });*/
