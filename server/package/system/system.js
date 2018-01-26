@@ -213,8 +213,11 @@ exports.install_package = function(req, res, select) {
       const start_ = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
         encoding: 'utf8'
       });
-      var line_number = Number(start_) + installed_files.length + 2;
+      var line_number = Number(start_) + 2;
       console.log(line_number);
+      execSync('perl -p -i -e $.==' + line_number + ' and print "  __dirname + /package/dashboard,\n" ' + __dirname + '/../../server.js', {
+        encoding: 'utf8'
+      });
       /*execSync('sudo sed -i /' + package_name + '/d ' + __dirname + '/../../server.js', {
         encoding: 'utf8'
       });*/
