@@ -212,7 +212,7 @@ exports.install_package = function(req, res, select) {
       const start_ = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
         encoding: 'utf8'
       });
-      var line_number = start_ + files.length + 1;
+      var line_number = Number(start_) + files.length + 1;
       console.log(line_number);
       /*execSync('sudo sed -i /' + package_name + '/d ' + __dirname + '/../../server.js', {
         encoding: 'utf8'
