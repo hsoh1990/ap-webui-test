@@ -185,13 +185,13 @@ exports.uninstall_package = function(req, res, select) {
 
       execSync('cd package/' + package_name + ' && sudo zip -r ../../package_tmp/' + package_name + '.zip ./*', {
         encoding: 'utf8'
-      });/*
-      execSync('sudo rm -r ' + __dirname + '/../' + package_name, {
+      });
+      execSync('rm -r package/' + package_name, {
         encoding: 'utf8'
       });
-      execSync('sudo sed -i /' + package_name + '/d ' + __dirname + '/../../server.js', {
+      execSync('sed -i /' + package_name + '/d ./server.js', {
         encoding: 'utf8'
-      });*/
+      });
       break;
     }
   }
