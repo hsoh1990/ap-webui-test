@@ -27,7 +27,7 @@ function package_output(package_data) {
     content += "<td>" + package_data_key[a] + "</td>";
     content += "<td>" + package_data[package_data_key[a]]['version'] + "</td>";
     content += "<td>100</td>";
-    if (package_data_key[a] == "System" || package_data_key[a] || "Dashboard") {
+    if (package_data_key[a] == "System" || package_data_key[a] == "Dashboard") {
 
     } else {
       content += "<td><button type=button class='btn btn-danger'>uninstall</button></td>";
