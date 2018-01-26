@@ -207,6 +207,9 @@ exports.install_package = function(req, res, select) {
   for (var i = 0; i < install_files.length; i++) {
     if (select == i){
       var package_name = install_files[i];
+      execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + '.zip -d '+ __dirname +'/../' + package_name, {
+        encoding: 'utf8'
+      });
       const start_ = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
         encoding: 'utf8'
       });
