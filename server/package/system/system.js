@@ -221,7 +221,7 @@ exports.install_package = function(req, res, select) {
       execSync('sed -i "1s/default/' + package_name.replace('.zip', '') + '/" ' + __dirname + '/install.sh', {
         encoding: 'utf8'
       });
-      execSync('sed -i "1s/defaultdir/"' + __dirname + '"/" ' + __dirname + '/install.sh', {
+      execSync('sed -i "1s%defaultdir%' + __dirname + '%" ' + __dirname + '/install.sh', {
         encoding: 'utf8'
       });
       /*execSync('sudo sh ' + __dirname + '/install.sh', {
