@@ -211,18 +211,22 @@ exports.install_package = function(req, res, select) {
       /*execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + ' -d ' + __dirname + '/../' + package_name.replace('.zip', ''), {
         encoding: 'utf8'
       });*/
-      const start_ = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
+      const start_1 = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
         encoding: 'utf8'
       });
-      var line_number = Number(start_) + 2;
-      console.log(line_number);
+      const start_2 = execSync('grep -n index/main server.js | cut -d: -f1 | head -1', {
+        encoding: 'utf8'
+      });
+      var line_number1 = Number(start_1) + 1;
+      var line_number2 = Number(start_1);
+      console.log(line_number1);
       var serverjs_data = fs.readFileSync(__dirname + "/../../" + "server.js", 'utf8');
       console.log("serverjs_data : \n" + serverjs_data);
       var data_split = serverjs_data.split("\n");
       var insert_data1 = "  __dirname + \'/package/default\',";
       var insert_data2 = "require(\'./package/default/main.js\')(app, fs, url);";
-      data_split.splice(15,0,insert_data1);
-      data_split.splice(40,0,insert_data2);
+      data_split.splice(line_number1,0,insert_data1);
+      data_split.splice(line_number2,0,insert_data2);
       for(var q = 0;q < data_split.length;q++){
         console.log(data_split[q] + "\n");
       }
