@@ -219,13 +219,21 @@ exports.install_package = function(req, res, select) {
       var serverjs_data = fs.readFileSync(__dirname + "/../../" + "server.js", 'utf8');
       console.log("serverjs_data : \n" + serverjs_data);
       var data_split = serverjs_data.split("\n");
-      console.log("data_split : \n" + data_split[0]);
-      var insert_data = "  __dirname + \'/package/default\',";
-      data_split.splice(15,0,insert_data);
+      var insert_data1 = "  __dirname + \'/package/default\',";
+      var insert_data2 = "require(\'./package/default/main.js\')(app, fs, url);";
+      data_split.splice(15,0,insert_data1);
+      data_split.splice(40,0,insert_data2);
       for(var q = 0;q < data_split.length;q++){
         console.log(data_split[q] + "\n");
       }
-
+      for(var q = 0;q < data_split.length;q++){
+        data_split[q] += "\n";
+      }
+      var result = "";
+      for(var q = 0;q < data_split.length;q++){
+        result += data_split[q];
+      }
+      console.log("result : \n" + result);
 
 
       //server.js 에 저장하는 부분
