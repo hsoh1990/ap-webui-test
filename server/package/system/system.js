@@ -215,7 +215,7 @@ exports.install_package = function(req, res, select) {
       });
       var line_number = Number(start_) + 2;
       console.log(line_number);
-      execSync('perl -p -i -e $.==' + line_number + ' and print "  __dirname + /package/dashboard,\n" ' + __dirname + '/../../server.js', {
+      execSync('perl -p -i -e "$.==' + line_number + ' and print "  __dirname + /package/' + package_name + ',\n" ' + __dirname + '/../../server.js', {
         encoding: 'utf8'
       });
       /*execSync('sudo sed -i /' + package_name + '/d ' + __dirname + '/../../server.js', {
