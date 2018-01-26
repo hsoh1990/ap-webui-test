@@ -63,9 +63,9 @@ function install_output(install_data) {
   for (var a = 0; a < Object.keys(install_data).length; a++) {
     content += "<tr>";
     content += "<td>" + (a + 1) + "</td>";
-    content += "<td>" + install_data_key[a] + "</td>";
-    content += "<td>" + install_data[install_data_key[a]]['version'] + "</td>";
-    content += "<td>100</td>";
+    content += "<td>" + install_data[install_data_key[a]]['pack_name'] + "</td>";
+    content += "<td> </td>";
+    content += "<td> </td>";
     content += "<td><button type=button class='btn btn-primary'>install</button></td>";
     content += "</tr>";
   }

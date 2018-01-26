@@ -165,10 +165,10 @@ exports.install_data_get = function(req, res) {
   var sidemenus = {};
   for (var i = 0; i < files.length; i++) {
     var dir_name = files[i];
-    var data = fs.readFileSync(__dirname + "/../../package_tmp/" + dir_name + "/sidename.json", 'utf8');
-    var sidemenu = JSON.parse(data);
-    console.log(sidemenu['side_name']);
-    sidemenus[sidemenu['side_name']] = sidemenu;
+    var sidemenu = {};
+    var dd = "package _" + String(i+1);
+    sidemenu['pack_name'] = dir_name.replace('.zip', '');
+    sidemenus[dd] = sidemenu;
   }
   res.send(sidemenus);
 }
