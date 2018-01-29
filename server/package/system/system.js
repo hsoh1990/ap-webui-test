@@ -178,7 +178,7 @@ exports.install_data_get = function(req, res) {
   for (var i = 0; i < files.length; i++) {
     for (var j = 0;j < Object.keys(data).length; j++) {
       console.log(files[i] + ', ' + tmp_arr[j]);
-      if (files[i] == data[install_data_key[j]]['pack_name']) {
+      if (files[i] == tmp_arr[j]) {
         delete data[install_data_key[j]];
       }
     }
