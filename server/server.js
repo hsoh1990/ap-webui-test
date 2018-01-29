@@ -14,7 +14,8 @@ var path = require('path');
 app.set('views', [
   __dirname + '/index',
   __dirname + '/package/dashboard',
-  __dirname + '/package/system'
+  __dirname + '/package/system',
+  __dirname + '/package/wpaconfig'
 ]);
 
 app.engine('html', require('ejs').renderFile);
@@ -39,6 +40,7 @@ app.use(session({
 require('./index/main.js')(app, fs, url);
 require('./package/dashboard/main.js')(app, fs, url);
 require('./package/system/main.js')(app, fs, url);
+require('./package/wpaconfig/main.js')(app, fs, url);
 //require('./package/auth/main.js')(app, fs, url);
 //require('./package/dhcpserver/main.js')(app, fs, url);
 //require('./package/hotspot/main.js')(app, fs, url);
