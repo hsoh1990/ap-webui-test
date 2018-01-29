@@ -1,6 +1,6 @@
 module.exports = function(app, fs, url){
 	var router_system = require('./system.js');
-
+	var qwe = 0;
 	app.get('/system', function(req, res) {
     var sess;
     sess = req.session;
