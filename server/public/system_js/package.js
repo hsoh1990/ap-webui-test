@@ -46,7 +46,6 @@ function uninstall_button(select) {
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
-      alert(this.response['select']);
     }
   };
   xhr.onerror = function() {
@@ -101,7 +100,6 @@ function install_button(select) {
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
-      alert(this.response['select']);
     }
   };
   xhr.onerror = function() {
