@@ -251,7 +251,7 @@ exports.install_package = function(req, res, select) {
     }
   }
 
-
+  data = JSON.stringify(data);
   install_data_key = Object.getOwnPropertyNames(data);
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
