@@ -205,12 +205,18 @@ exports.install_package = function(req, res, select) {
   }
   res.send(result);
 
+  var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
+  var install_data_key = Object.getOwnPropertyNames(data);
+
   var install_files = fs.readdirSync(__dirname + '/../../package_tmp/');
   var installed_files = fs.readdirSync(__dirname + '/../');
-  for (var i = 0; i < install_files.length; i++) {
+  for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
-      var package_name = install_files[i].replace('.zip', '');
-      execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + ' -d ' + __dirname + '/../' + package_name.replace('.zip', ''), {
+      var package_name = data[install_data_key[a]]['pack_name'].replace('.zip', '');
+      const download_package = execSync('cd package_tmp/ && wget http://39.119.118.152/download?name=' + package_name, {
+        encoding: 'utf8'
+      });
+      execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + '.zip -d ' + __dirname + '/../' + package_name, {
         encoding: 'utf8'
       });
       const start_1 = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
