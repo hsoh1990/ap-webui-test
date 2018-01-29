@@ -225,7 +225,7 @@ exports.install_package = function(req, res, select) {
       const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.152/download?name=' + package_name, {
         encoding: 'utf8'
       });
-      execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + ' -d ' + __dirname + '/../' + package_name + '.zip', {
+      execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + '.zip -d ' + __dirname + '/../' + package_name, {
         encoding: 'utf8'
       });
       const start_1 = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
