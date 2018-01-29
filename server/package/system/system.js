@@ -225,6 +225,8 @@ exports.install_package = function(req, res, select) {
     encoding: 'utf8'
   });
   var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
+  var installed_files = fs.readdirSync(__dirname + '/../');
+
   data = JSON.parse(data);
   var install_data_key = Object.getOwnPropertyNames(data);
 
@@ -248,8 +250,6 @@ exports.install_package = function(req, res, select) {
       }
     }
   }
-
-  var installed_files = fs.readdirSync(__dirname + '/../');
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
       var package_name = data[install_data_key[i]]['pack_name'];
