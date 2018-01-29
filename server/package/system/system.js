@@ -170,7 +170,7 @@ exports.install_data_get = function(req, res) {
   data = JSON.parse(data);
   var install_data_key = Object.getOwnPropertyNames(data);
   for (var i = 0; i < files.length; i++) {
-    for (var j = 0;j < Object.keys(data).length; j++) {
+    for (var j = 0;j < Object.keys(data).length - 1; j++) {
       console.log(files[i] + ', ' + data[install_data_key[j]]['pack_name']);
       if (files[i] == data[install_data_key[j]]['pack_name']) {
         delete data[install_data_key[j]];
