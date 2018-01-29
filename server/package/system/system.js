@@ -233,6 +233,22 @@ exports.install_package = function(req, res, select) {
     console.log('successfully deleted package');
   });
 
+  // 같은것은 삭제하는 부분
+  var tmp_arr = [];
+
+  for (var j = 0;j < Object.keys(data).length; j++) {
+    tmp_arr[j] = data[install_data_key[j]]['pack_name'];
+  }
+
+  for (var i = 0; i < files.length; i++) {
+    for (var j = 0;j < Object.keys(data).length; j++) {
+      console.log(files[i] + ', ' + tmp_arr[j]);
+      if (files[i] == tmp_arr[j]) {
+        delete data[install_data_key[j]];
+      }
+    }
+  }
+
   var installed_files = fs.readdirSync(__dirname + '/../');
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
