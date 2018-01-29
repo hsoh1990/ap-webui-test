@@ -169,15 +169,12 @@ exports.install_data_get = function(req, res) {
   var files = fs.readdirSync(__dirname + '/../');
   data = JSON.parse(data);
   var install_data_key = Object.getOwnPropertyNames(data);
-  var tmp_arr = [];
-  for (var j = 0;j < Object.keys(data).length; j++) {
-    tmp_arr[j] = data[install_data_key[j]]['pack_name'];
-  }
+
 
   for (var i = 0; i < files.length; i++) {
     for (var j = 0;j < Object.keys(data).length; j++) {
-      console.log(files[i] + ', ' + tmp_arr[j]);
-      if (files[i] == tmp_arr[j]) {
+      console.log(files[i] + ', ' + data[install_data_key[j]]['pack_name']);
+      if (files[i] == data[install_data_key[j]]['pack_name']) {
         delete data[install_data_key[j]];
       }
     }
