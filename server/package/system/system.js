@@ -167,7 +167,7 @@ exports.install_data_get = function(req, res) {
   var install_data_key = Object.getOwnPropertyNames(data);
   for (var i = 0; i < files.length; i++) {
     for (var j = 0;j < Object.keys(data).length; j++) {
-      if (files[i] == data[install_data_key[j]]['pack_name']) {
+      if (files[i].toLowerCase() == data[install_data_key[j]]['pack_name'].toLowerCase()) {
         delete data[install_data_key[j]];
       }
     }
