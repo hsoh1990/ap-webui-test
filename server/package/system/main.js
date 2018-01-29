@@ -35,6 +35,7 @@ module.exports = function(app, fs, url){
 			var sess;
 	    sess = req.session;
 			sess.logincheck = "1";
+			console.log("test 12345");
     }
   });
 };
