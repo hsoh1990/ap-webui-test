@@ -219,7 +219,7 @@ exports.install_package = function(req, res, select) {
   var installed_files = fs.readdirSync(__dirname + '/../');
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
-      var package_name = data[install_data_key[a]]['pack_name'].replace('.zip', '');
+      var package_name = data[install_data_key[i]]['pack_name'].replace('.zip', '');
       const download_package = execSync('cd package_tmp/ && wget http://39.119.118.152/download?name=' + package_name, {
         encoding: 'utf8'
       });
