@@ -162,9 +162,17 @@ exports.install_data_get = function(req, res) {
     encoding: 'utf8'
   });
   var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
-
+  var files = fs.readdirSync(__dirname + '/../');
+  data = JSON.parse(data);
+  var install_data_key = Object.getOwnPropertyNames(data);
+  for (var i = 0; i < files.length; i++) {
+    for (var j = 0;j < Object.keys(data).length; j++) {
+      if (files[i] == data[install_data_key[j]]['pack_name']) {
+        delete data[install_data_key[j]];
+      }
+    }
+  }
   res.send(data);
-
   fs.unlink(__dirname + "/../../hub_package_data/package", function(err) {
     if (err) throw err;
     console.log('successfully deleted package');
