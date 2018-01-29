@@ -111,7 +111,7 @@ function install_button(select) {
 function session_mt() {
   const xhr = new XMLHttpRequest();
   // by default async
-  xhr.open("GET", "/api/system?type=session_maintain" + select, true);
+  xhr.open("GET", "/api/system?type=session_maintain", true);
   xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
   xhr.responseType = 'json';
 
