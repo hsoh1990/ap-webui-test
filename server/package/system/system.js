@@ -158,7 +158,7 @@ exports.package_data_get = function(req, res) {
 }
 
 exports.install_data_get = function(req, res) {
-  const cpuload = execSync('cd hub_package_data && wget http://39.119.118.152/package', {
+  execSync('cd hub_package_data && wget http://39.119.118.152/package', {
     encoding: 'utf8'
   });
   var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
@@ -205,10 +205,17 @@ exports.install_package = function(req, res, select) {
   }
   res.send(result);
 
+  execSync('cd hub_package_data && wget http://39.119.118.152/package', {
+    encoding: 'utf8'
+  });
   var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
   var install_data_key = Object.getOwnPropertyNames(data);
 
-  var install_files = fs.readdirSync(__dirname + '/../../package_tmp/');
+  fs.unlink(__dirname + "/../../hub_package_data/package", function(err) {
+    if (err) throw err;
+    console.log('successfully deleted package');
+  });
+
   var installed_files = fs.readdirSync(__dirname + '/../');
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
