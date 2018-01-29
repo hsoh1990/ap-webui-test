@@ -242,10 +242,9 @@ exports.install_package = function(req, res, select) {
     tmp_arr[j] = data[install_data_key[j]]['pack_name'];
   }
 
-  for (var i = 0; i < files.length; i++) {
+  for (var i = 0; i < installed_files.length; i++) {
     for (var j = 0;j < Object.keys(data).length; j++) {
-      console.log(files[i] + ', ' + tmp_arr[j]);
-      if (files[i] == tmp_arr[j]) {
+      if (installed_files[i] == tmp_arr[j]) {
         delete data[install_data_key[j]];
       }
     }
