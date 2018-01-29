@@ -46,13 +46,13 @@ function uninstall_button(select) {
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+      setTimeout(test(), 3000);
     }
   };
   xhr.onerror = function() {
     console.log("confirm");
   };
   xhr.send();
-  window.location.reload()
 }
 
 function install_get() { //install 데이터를 받아옵니다
@@ -106,5 +106,23 @@ function install_button(select) {
     console.log("confirm");
   };
   xhr.send();
-  window.location.reload()
+}
+
+function test() {
+  const xhr = new XMLHttpRequest();
+  // by default async
+  xhr.open("GET", "/api/system?type=session_maintain" + select, true);
+  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  xhr.responseType = 'json';
+
+  xhr.onload = function() {
+    if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+      //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+      window.location.reload()
+    }
+  };
+  xhr.onerror = function() {
+    console.log("confirm");
+  };
+  xhr.send();
 }

@@ -174,7 +174,7 @@ exports.install_data_get = function(req, res) {
 exports.uninstall_package = function(req, res, select) {
   console.log(select);
   result = {
-    'select': String(select)
+    'success': 1
   }
   res.send(result);
 
@@ -200,7 +200,7 @@ exports.uninstall_package = function(req, res, select) {
 exports.install_package = function(req, res, select) {
   console.log(select);
   result = {
-    'select': String(select)
+    'success': 1
   }
   res.send(result);
 
