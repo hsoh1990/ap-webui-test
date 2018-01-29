@@ -53,6 +53,7 @@ function uninstall_button(select) {
     console.log("confirm");
   };
   xhr.send();
+  window.location.reload()
 }
 
 function install_get() { //install 데이터를 받아옵니다
@@ -107,4 +108,5 @@ function install_button(select) {
     console.log("confirm");
   };
   xhr.send();
+  window.location.reload()
 }
