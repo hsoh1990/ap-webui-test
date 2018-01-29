@@ -158,10 +158,17 @@ exports.package_data_get = function(req, res) {
 }
 
 exports.install_data_get = function(req, res) {
-  const cpuload = execSync('wget http://39.119.118.152/package', {
+  const cpuload = execSync('cd hub_package_data && wget http://39.119.118.152/package', {
     encoding: 'utf8'
   });
-  res.send(tes = {'q' : '1'});
+  var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
+
+  res.send(data);
+
+  fs.unlink(__dirname + "/../../hub_package_data/package", function(err) {
+    if (err) throw err;
+    console.log('successfully deleted package');
+  });
   //res.send(sidemenus);
 }
 
