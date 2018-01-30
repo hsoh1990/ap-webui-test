@@ -4,6 +4,7 @@ var exec = require('child_process').exec,
 const {
   execSync
 } = require('child_process');
+const md5File = require('md5-file');
 
 exports.api_get = function(req, res) {
 
@@ -267,6 +268,15 @@ exports.install_package = function(req, res, select) {
       const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.152/download?name=' + package_name, {
         encoding: 'utf8'
       });
+      const download_hash = execSync('cd package_tmp/ && wget -O ' + package_name + '.md5 http://39.119.118.152/hash?name=' + package_name, {
+        encoding: 'utf8'
+      });
+
+      const hash_make = md5File.sync( __dirname + '/../../package_tmp/' + package_name + '.zip');
+      var hash_installed = fs.readFileSync(__dirname + "/../../package_tmp" + package_name + '.md5', 'utf8');
+      console.log("installed md5 hash : " + hash_installed)
+      console.log("download zip hash : " + hash_make)
+
       execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + '.zip -d ' + __dirname + '/../' + package_name, {
         encoding: 'utf8'
       });
