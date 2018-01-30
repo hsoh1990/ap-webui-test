@@ -5,7 +5,7 @@ module.exports = function(app, fs, url){
     var sess;
     sess = req.session;
     console.log('session : ' + sess.logincheck);
-
+		console.log('cookie.name : ' + req.cookies.name);
 		if(req.cookies.name) {
 			sess.logincheck = "1";
 			res.render('system.html');
