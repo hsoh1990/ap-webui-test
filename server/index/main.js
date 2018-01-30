@@ -36,7 +36,7 @@ module.exports = function(app, fs, url) {
         sess.logincheck = "1";
         res.cookie('string', 'cookie');
         res.cookie('json', {
-          name : 'cookie',
+          name : 'check',
           property : 'delicious'
         });
       } else {
