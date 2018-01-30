@@ -17,30 +17,7 @@ app.set('views', [
   __dirname + '/package/system',
 ]);
 
-app.engine('html', require('ejs').renderFile);
-
-
-var server = app.listen(80, function() {
-  console.log("RaspAP server has started on port 80");
-});
-
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
-app.use(session({
-  secret: '@#@$MYSIGN#@$#$',
-  saveUninitialized: true,
-  resave: false
-}));
 
 require('./index/main.js')(app, fs, url);
 require('./package/dashboard/main.js')(app, fs, url);
 require('./package/system/main.js')(app, fs, url);
-//require('./package/auth/main.js')(app, fs, url);
-//require('./package/dhcpserver/main.js')(app, fs, url);
-//require('./package/hotspot/main.js')(app, fs, url);
-//require('./package/networking/main.js')(app, fs, url);
-//require('./package/theme/main.js')(app, fs, url);
