@@ -1,4 +1,4 @@
-/package_tmp/*
-/hub_package_data/*
-/package/*/data/*
-/package/*/*
+./package/*/data/*
+./package_tmp/*
+./hub_package_data/*
+./package/*/*
