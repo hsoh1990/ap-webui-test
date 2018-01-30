@@ -177,19 +177,16 @@ exports.install_data_get = function(req, res) {
 
   for (var i = 0; i < files.length; i++) {
     for (var j = 0;j < Object.keys(data).length; j++) {
-      console.log(files[i] + ', ' + tmp_arr[j]);
       if (files[i] == tmp_arr[j]) {
         delete data[install_data_key[j]];
       }
     }
   }
-  console.log(data);
   res.send(data);
   //res.send(sidemenus);
 }
 
 exports.uninstall_package = function(req, res, select) {
-  console.log(select);
   result = {
     'success': 1
   }
@@ -212,7 +209,6 @@ exports.uninstall_package = function(req, res, select) {
 }
 
 exports.install_package = function(req, res, select) {
-  console.log(select);
   result = {
     'success': 1
   }
@@ -252,7 +248,7 @@ exports.install_package = function(req, res, select) {
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
       var package_name = data[install_data_key[i]]['pack_name'];
-      console.log("qwe : " + package_name);
+
       const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.152/download?name=' + package_name, {
         encoding: 'utf8'
       });
@@ -268,15 +264,12 @@ exports.install_package = function(req, res, select) {
       var line_number1 = Number(start_1) + 1;
       var line_number2 = Number(start_2) + 1;
       var serverjs_data = fs.readFileSync(__dirname + "/../../" + "server.js", 'utf8');
-      console.log("serverjs_data : \n" + serverjs_data);
+
       var data_split = serverjs_data.split("\n");
       var insert_data1 = "  __dirname + \'/package/" + package_name + "\',";
       var insert_data2 = "require(\'./package/" + package_name + "/main.js\')(app, fs, url);";
       data_split.splice(line_number1, 0, insert_data1);
       data_split.splice(line_number2, 0, insert_data2);
-      for (var q = 0; q < data_split.length; q++) {
-        console.log(data_split[q] + "\n");
-      }
       for (var q = 0; q < data_split.length; q++) {
         data_split[q] += "\n";
       }
@@ -284,7 +277,6 @@ exports.install_package = function(req, res, select) {
       for (var q = 0; q < data_split.length; q++) {
         result += data_split[q];
       }
-      console.log("result : \n" + result);
 
       fs.writeFileSync(__dirname + "/../../" + "server.js",
         result, "utf8",
