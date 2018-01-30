@@ -12,6 +12,7 @@ var path = require('path');
 
 require('./server.js')(app, fs, url);
 
+app.engine('html', require('ejs').renderFile);
 
 var server = app.listen(80, function() {
   console.log("RaspAP server has started on port 80");
