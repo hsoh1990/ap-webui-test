@@ -8,7 +8,7 @@ module.exports = function(app, fs, url) {
     var sess;
     sess = req.session;
     console.log('session : ' + sess.logincheck);
-    console.log('cookie : ' + req.cookies['name']);
+    console.log('cookie : ' + JSON.stringify(req.cookies));
     if (sess.logincheck == "1") {
       res.render('index_login.html');
     } else {
@@ -37,8 +37,8 @@ module.exports = function(app, fs, url) {
         sess.logincheck = "1";
         res.cookie('string', 'cookie');
         res.cookie('json', {
-          'name' : 'check',
-          'property' : 'delicious'
+          name : 'check',
+          property : 'delicious'
         });
       } else {
         sess.logincheck = "0";
