@@ -171,12 +171,12 @@ exports.install_data_get = function(req, res) {
   var install_data_key = Object.getOwnPropertyNames(data);
   var tmp_arr = [];
 
-  for (var j = 0;j < Object.keys(data).length; j++) {
+  for (var j = 0; j < Object.keys(data).length; j++) {
     tmp_arr[j] = data[install_data_key[j]]['pack_name'];
   }
 
   for (var i = 0; i < files.length; i++) {
-    for (var j = 0;j < Object.keys(data).length; j++) {
+    for (var j = 0; j < Object.keys(data).length; j++) {
       if (files[i] == tmp_arr[j]) {
         delete data[install_data_key[j]];
       }
@@ -201,6 +201,9 @@ exports.uninstall_package = function(req, res, select) {
         encoding: 'utf8'
       });
       execSync('sed -i /' + package_name + '/d ./server.js', {
+        encoding: 'utf8'
+      });
+      execSync('sed -i /' + package_name + '/d ./package_set.js', {
         encoding: 'utf8'
       });
       break;
@@ -232,12 +235,12 @@ exports.install_package = function(req, res, select) {
   // 같은것은 삭제하는 부분
   var tmp_arr = [];
 
-  for (var j = 0;j < Object.keys(data).length; j++) {
+  for (var j = 0; j < Object.keys(data).length; j++) {
     tmp_arr[j] = data[install_data_key[j]]['pack_name'];
   }
 
   for (var i = 0; i < installed_files.length; i++) {
-    for (var j = 0;j < Object.keys(data).length; j++) {
+    for (var j = 0; j < Object.keys(data).length; j++) {
       if (installed_files[i] == tmp_arr[j]) {
         delete data[install_data_key[j]];
       }
@@ -258,28 +261,46 @@ exports.install_package = function(req, res, select) {
       const start_1 = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
         encoding: 'utf8'
       });
-      const start_2 = execSync('grep -n index/main server.js | cut -d: -f1 | head -1', {
+      const start_2 = execSync('grep -n index/main package_set.js | cut -d: -f1 | head -1', {
         encoding: 'utf8'
       });
       var line_number1 = Number(start_1) + 1;
       var line_number2 = Number(start_2) + 1;
       var serverjs_data = fs.readFileSync(__dirname + "/../../" + "server.js", 'utf8');
+      var packagesetjs_data = fs.readFileSync(__dirname + "/../../" + "package_set.js", 'utf8');
 
-      var data_split = serverjs_data.split("\n");
+      var data_split1 = serverjs_data.split("\n");
+      var data_split2 = packagesetjs_data.split("\n");
       var insert_data1 = "  __dirname + \'/package/" + package_name + "\',";
       var insert_data2 = "require(\'./package/" + package_name + "/main.js\')(app, fs, url);";
-      data_split.splice(line_number1, 0, insert_data1);
-      data_split.splice(line_number2, 0, insert_data2);
+      data_split1.splice(line_number1, 0, insert_data1);
+      data_split2.splice(line_number2, 0, insert_data2);
+
       for (var q = 0; q < data_split.length; q++) {
-        data_split[q] += "\n";
+        data_split1[q] += "\n";
       }
-      var result = "";
+      var result1 = "";
       for (var q = 0; q < data_split.length; q++) {
-        result += data_split[q];
+        result1 += data_split1[q];
+      }
+
+      for (var q = 0; q < data_split.length; q++) {
+        data_split2[q] += "\n";
+      }
+      var result2 = "";
+      for (var q = 0; q < data_split.length; q++) {
+        result2 += data_split2[q];
       }
 
       fs.writeFileSync(__dirname + "/../../" + "server.js",
-        result, "utf8",
+        result1, "utf8",
+        function(err, data) {
+          result = {
+            "success": 1
+          };
+        })
+      fs.writeFileSync(__dirname + "/../../" + "package_set.js",
+        result2, "utf8",
         function(err, data) {
           result = {
             "success": 1
