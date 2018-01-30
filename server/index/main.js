@@ -29,21 +29,23 @@ module.exports = function(app, fs, url) {
     sess = req.session;
     var id = req.query.id;
     var password = req.query.password;
-    var cookie_count = parseInt(req.signedCookies.count);
-
     fs.readFile(__dirname + "/../userdata/" + "userdata.json", 'utf8', function(err, data) {
       var userdata = JSON.parse(data); //json text -> json object
       var check = {};
       if (id == userdata['admin']['username'] && password == userdata['admin']['password']) {
         sess.logincheck = "1";
-        cookie_count = 1;
+        res.cookie('string', 'cookie');
+        res.cookie('json', {
+          name : 'cookie',
+          property : 'delicious'
+        });
       } else {
         sess.logincheck = "0";
-        cookie_count = 0;
+
       }
       check['check'] = sess.logincheck;
       console.log('session : ' + sess.logincheck);
-      res.cookie('cookie', cookie_count, {signed:true});
+
       res.send(check);
     })
   });

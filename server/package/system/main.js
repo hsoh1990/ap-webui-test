@@ -5,14 +5,12 @@ module.exports = function(app, fs, url){
     var sess;
     sess = req.session;
     console.log('session : ' + sess.logincheck);
-		var cookie_count = parseInt(req.signedCookies.count);
 
-
-		if(cookie_count == 1) {
+		if(req.cookies.name) {
 			sess.logincheck = "1";
 			res.render('system.html');
 		}
-		else if (cookie_count == 0) {
+		else {
 			sess.logincheck = "0";
 			res.render('index.html');
 		}

@@ -20,7 +20,7 @@ var server = app.listen(80, function() {
   console.log("RaspAP server has started on port 80");
 });
 
-app.use(cookie('!@#%%@#@'));
+app.use(cookie());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({
