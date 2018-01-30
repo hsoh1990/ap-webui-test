@@ -176,7 +176,7 @@ exports.install_data_get = function(req, res) {
   }
 
   for (var i = 0; i < files.length; i++) {
-    for (var j = 0; j < Object.keys(data).length; j++) {
+    for (var j = 0; j < tmp_arr.length; j++) {
       console.log('-------wer-------------');
       console.log(files[i] + ', ' + tmp_arr[j]);
       console.log('-------wer-------------');
@@ -184,7 +184,7 @@ exports.install_data_get = function(req, res) {
         console.log('-----------------------');
         console.log(data);
         console.log('-----------------------');
-        delete data[install_data_key[j]];
+        delete data[tmp_arr[j]];
       }
     }
   }
@@ -246,9 +246,9 @@ exports.install_package = function(req, res, select) {
   }
 
   for (var i = 0; i < installed_files.length; i++) {
-    for (var j = 0; j < Object.keys(data).length; j++) {
+    for (var j = 0; j < tmp_arr.length; j++) {
       if (installed_files[i] == tmp_arr[j]) {
-        delete data[install_data_key[j]];
+        delete data[tmp_arr[j]];
       }
     }
   }
