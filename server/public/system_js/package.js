@@ -100,6 +100,12 @@ function install_button(select) {
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+      if (this.response['success'] == 1) {
+        alert("해시값이 같습니다.");
+      }
+      else if (this.response['success'] == 0) {
+        alert("해시값이 다릅니다.");
+      }
       window.location.reload()
     }
   };

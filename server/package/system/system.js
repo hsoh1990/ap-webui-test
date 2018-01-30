@@ -219,10 +219,6 @@ exports.uninstall_package = function(req, res, select) {
 }
 
 exports.install_package = function(req, res, select) {
-  result = {
-    'success': 3
-  }
-  res.send(result);
 
   execSync('cd hub_package_data && wget http://39.119.118.152/package', {
     encoding: 'utf8'
@@ -274,8 +270,30 @@ exports.install_package = function(req, res, select) {
 
       const hash_make = md5File.sync( __dirname + '/../../package_tmp/' + package_name + '.zip');
       var hash_installed = fs.readFileSync(__dirname + "/../../package_tmp/" + package_name + '.md5', 'utf8');
-      console.log("installed md5 hash : " + hash_installed)
-      console.log("download zip hash : " + hash_make)
+      console.log("installed md5 hash : " + hash_installed);
+      console.log("download zip hash : " + hash_make);
+
+      if (hash_make == hash_installed) {
+        console.log("해시값이 같습니다.");
+        result = {
+          'success': 1
+        }
+        res.send(result);
+      }
+      else if (hash_make != hash_installed) {
+        console.log("해시값이 다릅니다.");
+        result = {
+          'success': 0
+        }
+        execSync('rm -r package_tmp/' + package_name + '.zip', {
+          encoding: 'utf8'
+        });
+        execSync('rm -r package_tmp/' + package_name + '.md5', {
+          encoding: 'utf8'
+        });
+        res.send(result);
+        break;
+      }
 
       execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + '.zip -d ' + __dirname + '/../' + package_name, {
         encoding: 'utf8'
@@ -331,7 +349,9 @@ exports.install_package = function(req, res, select) {
       execSync('rm -r package_tmp/' + package_name + '.zip', {
         encoding: 'utf8'
       });
-
+      execSync('rm -r package_tmp/' + package_name + '.md5', {
+        encoding: 'utf8'
+      });
       break;
     }
   }
