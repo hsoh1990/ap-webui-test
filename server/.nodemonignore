@@ -1,2 +1,3 @@
 /package_tmp/*
 /hub_package_data/*
+/package/*/data/*
