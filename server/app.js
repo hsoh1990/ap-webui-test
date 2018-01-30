@@ -9,6 +9,8 @@ var querystring = require('querystring');
 var exec = require('child_process').exec,
   child;
 var path = require('path');
+var cookie = require('cookie-parser');
+
 
 require('./server.js')(app, fs, url);
 
@@ -18,7 +20,7 @@ var server = app.listen(80, function() {
   console.log("RaspAP server has started on port 80");
 });
 
-app.use(cookieParser());
+app.use(cookie('!@#%%@#@'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({
