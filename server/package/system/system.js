@@ -177,6 +177,9 @@ exports.install_data_get = function(req, res) {
 
   for (var i = 0; i < files.length; i++) {
     for (var j = 0; j < Object.keys(data).length; j++) {
+      console.log('-------wer-------------');
+      console.log(files[i] + ', ' + tmp_arr[j]);
+      console.log('-------wer-------------');
       if (files[i] == tmp_arr[j]) {
         console.log('-----------------------');
         console.log(data);
