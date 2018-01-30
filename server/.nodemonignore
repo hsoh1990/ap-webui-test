@@ -2,3 +2,4 @@
 ./package_tmp/*
 ./hub_package_data/*
 ./package/*/*
+./server.js
