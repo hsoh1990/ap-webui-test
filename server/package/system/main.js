@@ -31,11 +31,6 @@ module.exports = function(app, fs, url){
       router_system.uninstall_package(req, res, select);
     } else if (type == "installbutton") {
       router_system.install_package(req, res, select);
-    } else if (type == "session_maintain") {
-			var sess;
-	    sess = req.session;
-			sess.logincheck = "1";
-			console.log("test 12345");
     }
   });
 };
