@@ -5,12 +5,23 @@ module.exports = function(app, fs, url){
     var sess;
     sess = req.session;
     console.log('session : ' + sess.logincheck);
+		var cookie_count = parseInt(req.signedCookies.count);
+		if(cookie_count == 1) {
+			sess.logincheck = "1";
+			res.render('system.html');
+		}
+		else if (cookie_count == 0) {
+			sess.logincheck = "0";
+			res.render('index.html');
+		}
+
     if (sess.logincheck == "1") {
       res.render('system.html');
     } else {
       res.render('index.html');
     }
   });
+
   app.get('/api/system', function(req, res) {
     req.accepts('application/json');
     // input message handling
