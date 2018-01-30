@@ -16,7 +16,6 @@ module.exports = function(app, fs, url){
 			sess.logincheck = "0";
 			res.render('index.html');
 		}
-		res.cookie('cookie', cookie_count, {signed:true});
   });
 
   app.get('/api/system', function(req, res) {
