@@ -16,12 +16,6 @@ module.exports = function(app, fs, url){
 			sess.logincheck = "0";
 			res.render('index.html');
 		}
-
-    if (sess.logincheck == "1") {
-      res.render('system.html');
-    } else {
-      res.render('index.html');
-    }
   });
 
   app.get('/api/system', function(req, res) {
