@@ -213,7 +213,7 @@ exports.uninstall_package = function(req, res, select) {
 
 exports.install_package = function(req, res, select) {
   result = {
-    'success': 1
+    'success': 3
   }
   res.send(result);
 
