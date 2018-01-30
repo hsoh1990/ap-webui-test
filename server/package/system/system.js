@@ -271,24 +271,24 @@ exports.install_package = function(req, res, select) {
 
       var data_split1 = serverjs_data.split("\n");
       var data_split2 = packagesetjs_data.split("\n");
-      var insert_data1 = "  __dirname + \'/package/" + package_name + "\',";
-      var insert_data2 = "require(\'./package/" + package_name + "/main.js\')(app, fs, url);";
+      var insert_data1 = "    __dirname + \'/package/" + package_name + "\',";
+      var insert_data2 = "  require(\'./package/" + package_name + "/main.js\')(app, fs, url);";
       data_split1.splice(line_number1, 0, insert_data1);
       data_split2.splice(line_number2, 0, insert_data2);
 
-      for (var q = 0; q < data_split.length; q++) {
+      for (var q = 0; q < data_split1.length; q++) {
         data_split1[q] += "\n";
       }
       var result1 = "";
-      for (var q = 0; q < data_split.length; q++) {
+      for (var q = 0; q < data_split1.length; q++) {
         result1 += data_split1[q];
       }
 
-      for (var q = 0; q < data_split.length; q++) {
+      for (var q = 0; q < data_split2.length; q++) {
         data_split2[q] += "\n";
       }
       var result2 = "";
-      for (var q = 0; q < data_split.length; q++) {
+      for (var q = 0; q < data_split2.length; q++) {
         result2 += data_split2[q];
       }
 
