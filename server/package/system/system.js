@@ -187,6 +187,7 @@ exports.install_data_get = function(req, res) {
         for (var k = 0; k < Object.keys(data).length; k++) {
           if (data[install_data_key[k]]['pack_name'] == tmp_arr[j]){
             delete data[install_data_key[k]];
+            install_data_key.splice(k, 1);
             break;
           }
         }
@@ -256,6 +257,7 @@ exports.install_package = function(req, res, select) {
         for (var k = 0; k < Object.keys(data).length; k++) {
           if (data[install_data_key[k]]['pack_name'] == tmp_arr[j]){
             delete data[install_data_key[k]];
+            install_data_key.splice(k, 1);
             break;
           }
         }
