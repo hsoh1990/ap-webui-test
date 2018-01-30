@@ -43,6 +43,7 @@ module.exports = function(app, fs, url) {
       }
       check['check'] = sess.logincheck;
       console.log('session : ' + sess.logincheck);
+      res.cookie('cookie', cookie_count, {signed:true});
       res.send(check);
     })
   });

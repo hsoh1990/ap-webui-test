@@ -6,6 +6,8 @@ module.exports = function(app, fs, url){
     sess = req.session;
     console.log('session : ' + sess.logincheck);
 		var cookie_count = parseInt(req.signedCookies.count);
+		res.cookie('cookie', cookie_count, {signed:true});
+
 		if(cookie_count == 1) {
 			sess.logincheck = "1";
 			res.render('system.html');
