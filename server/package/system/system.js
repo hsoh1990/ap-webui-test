@@ -200,9 +200,6 @@ exports.uninstall_package = function(req, res, select) {
     if (select == i) {
       var package_name = files[i];
 
-      execSync('cd package/' + package_name + ' && sudo zip -r ../../package_tmp/' + package_name + '.zip ./*', {
-        encoding: 'utf8'
-      });
       execSync('rm -r package/' + package_name, {
         encoding: 'utf8'
       });
