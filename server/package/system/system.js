@@ -264,7 +264,7 @@ exports.install_package = function(req, res, select) {
     if (select == i) {
       var package_name = data[install_data_key[i]]['pack_name'];
 
-
+      console.log(package_name);
       execSync('cd hub_package_data && wget -O ' + package_name + '.txt http://39.119.118.152/savelog?username=admin&type=1&packagename=' + package_name, {
         encoding: 'utf8'
       });
