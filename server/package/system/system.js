@@ -265,7 +265,7 @@ exports.install_package = function(req, res, select) {
       var package_name = data[install_data_key[i]]['pack_name'];
 
       console.log(package_name);
-      execSync('cd hub_package_data && curl http://39.119.118.152/savelog?username=admin&packagename=' + package_name, {
+      execSync('cd hub_package_data && curl http://39.119.118.152/savelog?username=admin\&type=1\&packagename=' + package_name, {
         encoding: 'utf8'
       });
       var data = fs.readFileSync(__dirname + "/../../hub_package_data/" + package_name + ".txt", 'utf8');
