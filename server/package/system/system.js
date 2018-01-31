@@ -220,6 +220,9 @@ exports.uninstall_package = function(req, res, select) {
 
 exports.install_package = function(req, res, select) {
 
+
+
+
   execSync('cd hub_package_data && wget http://39.119.118.152/package', {
     encoding: 'utf8'
   });
@@ -260,6 +263,16 @@ exports.install_package = function(req, res, select) {
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
       var package_name = data[install_data_key[i]]['pack_name'];
+
+
+      execSync('cd hub_package_data && wget -O ' + package_name + '.txt http://39.119.118.152/savelog?username=admin&type=1&packagename=' + package_name, {
+        encoding: 'utf8'
+      });
+      var data = fs.readFileSync(__dirname + "/../../hub_package_data/" + package_name + ".txt", 'utf8');
+      data = JSON.parse(data);
+      console.log(data);
+
+      break;
 
       const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.152/download?name=' + package_name, {
         encoding: 'utf8'
