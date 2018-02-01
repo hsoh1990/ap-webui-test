@@ -21,7 +21,7 @@ var Rect = new Konva.Rect({
 var Line_Rect_position_x = stage.getWidth() / 2;
 var Line_Rect_position_y = stage.getHeight() / 2;
 var Line = new Konva.Line({
-  points: [Line_Rect_position_x - 40, Line_Rect_position_y - 5, Line_Rect_position_x - 40, Line_Rect_position_y - 40, Line_Rect_position_x - 5, Line_Rect_position_y - 40],
+  points: [Line_Rect_position_x - 30, Line_Rect_position_y - 5, Line_Rect_position_x - 30, Line_Rect_position_y - 30, Line_Rect_position_x - 5, Line_Rect_position_y - 30],
   stroke: 'black',
   strokeWidth: 3,
   lineCap: 'round',
