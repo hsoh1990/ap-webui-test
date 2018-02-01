@@ -18,6 +18,7 @@ var Rect = new Konva.Rect({
   draggable: true
 });
 
+/*
 Rect.on('mouseenter', function() {
   stage.container().style.cursor = 'pointer';
 });
@@ -25,7 +26,7 @@ Rect.on('mouseenter', function() {
 Rect.on('mouseleave', function() {
   stage.container().style.cursor = 'default';
 });
-
+*/
 layer.add(Rect);
 
 layer.draw();
