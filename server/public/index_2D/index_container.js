@@ -37,7 +37,7 @@ var Line2 = new Konva.Line({
   tension: 1
 });
 var Line3 = new Konva.Line({
-  points: [Line_Rect_position_x + 20, Line_Rect_position_y + 5, Line_Rect_position_x + 20, Line_Rect_position_y + 20, Line_Rect_position_x + 5, Line_Rect_position_y + 20],
+  points: [Line_Rect_position_x + 20, Line_Rect_position_y - 5, Line_Rect_position_x + 20, Line_Rect_position_y - 20, Line_Rect_position_x + 5, Line_Rect_position_y - 20],
   stroke: 'red',
   strokeWidth: 3,
   lineCap: 'round',
