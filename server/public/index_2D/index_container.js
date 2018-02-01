@@ -21,14 +21,30 @@ var Rect = new Konva.Rect({
 var Line_Rect_position_x = stage.getWidth() / 2;
 var Line_Rect_position_y = stage.getHeight() / 2;
 var Line1 = new Konva.Line({
-  points: [Line_Rect_position_x - 30, Line_Rect_position_y - 5, Line_Rect_position_x - 30, Line_Rect_position_y - 30, Line_Rect_position_x - 5, Line_Rect_position_y - 30],
-  stroke: 'black',
+  points: [Line_Rect_position_x - 20, Line_Rect_position_y - 5, Line_Rect_position_x - 20, Line_Rect_position_y - 20, Line_Rect_position_x - 5, Line_Rect_position_y - 20],
+  stroke: 'red',
   strokeWidth: 3,
   lineCap: 'round',
   lineJoin: 'round',
   tension: 1
 });
 var Line2 = new Konva.Line({
+  points: [Line_Rect_position_x - 30, Line_Rect_position_y , Line_Rect_position_x - 30, Line_Rect_position_y - 30, Line_Rect_position_x , Line_Rect_position_y - 30],
+  stroke: 'blue',
+  strokeWidth: 3,
+  lineCap: 'round',
+  lineJoin: 'round',
+  tension: 1
+});
+var Line3 = new Konva.Line({
+  points: [Line_Rect_position_x - 30, Line_Rect_position_y - 5, Line_Rect_position_x - 30, Line_Rect_position_y - 30, Line_Rect_position_x - 5, Line_Rect_position_y - 30],
+  stroke: 'blue',
+  strokeWidth: 3,
+  lineCap: 'round',
+  lineJoin: 'round',
+  tension: 1
+});
+var Line4 = new Konva.Line({
   points: [Line_Rect_position_x - 20, Line_Rect_position_y - 5, Line_Rect_position_x - 20, Line_Rect_position_y - 20, Line_Rect_position_x - 5, Line_Rect_position_y - 20],
   stroke: 'red',
   strokeWidth: 3,
