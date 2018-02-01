@@ -9,17 +9,17 @@ var layer = new Konva.Layer();
 stage.add(layer);
 
 var Rect = new Konva.Rect({
-  x: stage.getWidth() / 2 - 50,
-  y: stage.getHeight() / 2 - 40,
-  width: 100,
-  height: 80,
+  x: stage.getWidth() / 2 - 40,
+  y: stage.getHeight() / 2 - 30,
+  width: 80,
+  height: 60,
   fill: 'yellow',
   stroke: 'black',
   strokeWidth: 3
 });
 
-var Line_Rect_position_x = stage.getWidth() / 2 - 50;
-var Line_Rect_position_y = stage.getHeight() / 2 - 40;
+var Line_Rect_position_x = stage.getWidth() / 2 - 40;
+var Line_Rect_position_y = stage.getHeight() / 2 - 30;
 var Line1 = new Konva.Line({//좌측 위 작은선
   points: [Line_Rect_position_x - 20, Line_Rect_position_y - 5, Line_Rect_position_x - 20, Line_Rect_position_y - 20, Line_Rect_position_x - 5, Line_Rect_position_y - 20],
   stroke: 'blue',
