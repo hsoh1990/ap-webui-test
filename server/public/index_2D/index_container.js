@@ -22,7 +22,7 @@ var Line_Rect_position_x = stage.getWidth() / 2;
 var Line_Rect_position_y = stage.getHeight() / 2;
 var Line1 = new Konva.Line({//좌측 위 작은선
   points: [Line_Rect_position_x - 20, Line_Rect_position_y - 5, Line_Rect_position_x - 20, Line_Rect_position_y - 20, Line_Rect_position_x - 5, Line_Rect_position_y - 20],
-  stroke: 'red',
+  stroke: 'blue',
   strokeWidth: 3,
   lineCap: 'round',
   lineJoin: 'round',
@@ -38,7 +38,7 @@ var Line2 = new Konva.Line({//좌측 위 큰선
 });
 var Line3 = new Konva.Line({//우측 위 작은선
   points: [Line_Rect_position_x + 20 + Rect.getWidth(), Line_Rect_position_y - 5, Line_Rect_position_x + 20  + Rect.getWidth(), Line_Rect_position_y - 20, Line_Rect_position_x + 5  + Rect.getWidth(), Line_Rect_position_y - 20],
-  stroke: 'red',
+  stroke: 'blue',
   strokeWidth: 3,
   lineCap: 'round',
   lineJoin: 'round',
