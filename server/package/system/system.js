@@ -268,9 +268,9 @@ exports.install_package = function(req, res, select) {
       execSync('curl \"http://39.119.118.152/savelog?username=admin\&type=1\&packagename=' + package_name + "\"", {
         encoding: 'utf8'
       });
-      var data = fs.readFileSync(__dirname + "/../../hub_package_data/" + package_name + ".txt", 'utf8');
+      /*var data = fs.readFileSync(__dirname + "/../../hub_package_data/" + package_name + ".txt", 'utf8');
       data = JSON.parse(data);
-      console.log(data);
+      console.log(data);*/
 
       //install 부분
       const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.152/download?name=' + package_name, {
