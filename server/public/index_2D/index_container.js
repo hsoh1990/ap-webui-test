@@ -1,10 +1,8 @@
-var width = 750;
-var height = 500;
 
 var stage = new Konva.Stage({
   container: 'container', // id of container <div>
-  width: width,
-  height: height
+  width: 750,
+  height: 500
 });
 
 var layer = new Konva.Layer();
@@ -21,7 +19,7 @@ var Rect = new Konva.Rect({
 });
 
 var Line = new Konva.Line({
-  points: [width - 30, height - 10, width - 30, height - 30, width - 10, height - 30],
+  points: [(stage.getWidth() / 2) - 70, (stage.getHeight() / 2) - 30, (stage.getWidth() / 2) - 70, (stage.getHeight() / 2) - 70, (stage.getWidth() / 2) - 30, (stage.getHeight() / 2) - 70],
   stroke: 'black',
   strokeWidth: 3,
   lineCap: 'round',
