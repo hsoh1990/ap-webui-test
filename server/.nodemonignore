@@ -3,3 +3,4 @@
 ./hub_package_data/*
 ./package/*/*
 ./server.js
+./public/*
