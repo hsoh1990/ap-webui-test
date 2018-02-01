@@ -53,6 +53,16 @@ var Line4 = new Konva.Line({//우측위 큰선
   tension: 1
 });
 
+var sin__ = Math.sin(30);
+var simpleText = new Konva.Text({
+      x: stage.getWidth() / 2,
+      y: 15,
+      text: String(sin__),
+      fontSize: 30,
+      fontFamily: 'Calibri',
+      fill: 'green'
+    });
+
 Rect.on('mouseenter', function() {
   stage.container().style.cursor = 'pointer';
 });
@@ -66,6 +76,7 @@ layer.add(Line1);
 layer.add(Line2);
 layer.add(Line3);
 layer.add(Line4);
+layer.add(simpleText);
 
 layer.draw();
 
