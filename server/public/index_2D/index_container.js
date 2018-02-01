@@ -22,7 +22,7 @@ layer.add(Rect);
 
 layer.draw();
 
-var scaleBy = 1.2;
+var scaleBy = 1.15;
 window.addEventListener('wheel', (e) => {
   e.preventDefault();
   var oldScale = stage.scaleX();
