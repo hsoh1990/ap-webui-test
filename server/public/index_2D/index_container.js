@@ -1,18 +1,20 @@
 var stage = new Konva.Stage({
   container: 'container',   // id of container <div>
-  width: 700,
+  width: 800,
   height: 500
 });
 
 var layer = new Konva.Layer();
 
-var circle = new Konva.Circle({
+var circle = new Konva.Rect({
   x: stage.getWidth() / 2,
   y: stage.getHeight() / 2,
-  radius: 70,
-  fill: 'red',
+  width: 100,
+  height: 50,
+  fill: 'yellow',
   stroke: 'black',
-  strokeWidth: 4
+  strokeWidth: 3,
+
 });
 
 layer.add(circle);
