@@ -45,7 +45,7 @@ var Line3 = new Konva.Line({//우측 위 작은선
   tension: 1
 });
 var Line4 = new Konva.Line({//우측위 큰선
-  points: [Line_Rect_position_x + 30 + Rect.getHeight(), Line_Rect_position_y, Line_Rect_position_x + 30 + Rect.getHeight(), Line_Rect_position_y - 30 , Line_Rect_position_x + Rect.getHeight(), Line_Rect_position_y - 30],
+  points: [Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y, Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y - 30 , Line_Rect_position_x + Rect.getWidth(), Line_Rect_position_y - 30],
   stroke: 'blue',
   strokeWidth: 3,
   lineCap: 'round',
