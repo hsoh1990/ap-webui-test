@@ -1,17 +1,20 @@
+var width = window.innerWidth;
+var height = window.innerHeight;
+
 var stage = new Konva.Stage({
   container: 'container', // id of container <div>
-  width: 750,
-  height: 500
+  width: width,
+  height: height
 });
 
 var layer = new Konva.Layer();
 stage.add(layer);
 
 var Rect = new Konva.Rect({
-  x: stage.getWidth() / 2,
-  y: stage.getHeight() / 2,
+  x: stage.Width() / 2,
+  y: stage.Height() / 2,
   width: 100,
-  height: 50,
+  height: 80,
   fill: 'yellow',
   stroke: 'black',
   strokeWidth: 3,
