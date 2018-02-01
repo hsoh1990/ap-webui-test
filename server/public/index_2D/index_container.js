@@ -15,7 +15,7 @@ var Rect = new Konva.Rect({
   fill: 'yellow',
   stroke: 'black',
   strokeWidth: 3,
-
+  draggable: true
 });
 
 Rect.on('mouseenter', function() {
