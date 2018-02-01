@@ -1,7 +1,10 @@
+var width = 750;
+var height = 500;
+
 var stage = new Konva.Stage({
   container: 'container', // id of container <div>
-  width: 750,
-  height: 500
+  width: width,
+  height: height
 });
 
 var layer = new Konva.Layer();
@@ -17,6 +20,14 @@ var Rect = new Konva.Rect({
   strokeWidth: 3
 });
 
+var Line = new Konva.Line({
+  points: [width - 30, height - 10, width - 30, height - 30, width - 10, height - 30],
+  stroke: 'black',
+  strokeWidth: 3,
+  lineCap: 'round',
+  lineJoin: 'round',
+  tension: 1
+});
 
 Rect.on('mouseenter', function() {
   stage.container().style.cursor = 'pointer';
@@ -27,6 +38,7 @@ Rect.on('mouseleave', function() {
 });
 
 layer.add(Rect);
+layer.add(Line);
 
 layer.draw();
 
