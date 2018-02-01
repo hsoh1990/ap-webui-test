@@ -20,9 +20,17 @@ var Rect = new Konva.Rect({
 
 var Line_Rect_position_x = stage.getWidth() / 2;
 var Line_Rect_position_y = stage.getHeight() / 2;
-var Line = new Konva.Line({
+var Line1 = new Konva.Line({
   points: [Line_Rect_position_x - 30, Line_Rect_position_y - 5, Line_Rect_position_x - 30, Line_Rect_position_y - 30, Line_Rect_position_x - 5, Line_Rect_position_y - 30],
   stroke: 'black',
+  strokeWidth: 3,
+  lineCap: 'round',
+  lineJoin: 'round',
+  tension: 1
+});
+var Line2 = new Konva.Line({
+  points: [Line_Rect_position_x - 20, Line_Rect_position_y - 5, Line_Rect_position_x - 20, Line_Rect_position_y - 20, Line_Rect_position_x - 5, Line_Rect_position_y - 20],
+  stroke: 'red',
   strokeWidth: 3,
   lineCap: 'round',
   lineJoin: 'round',
@@ -38,7 +46,8 @@ Rect.on('mouseleave', function() {
 });
 
 layer.add(Rect);
-layer.add(Line);
+layer.add(Line1);
+layer.add(Line2);
 
 layer.draw();
 
