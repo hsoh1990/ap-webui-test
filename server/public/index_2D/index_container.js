@@ -56,7 +56,7 @@ var Line4 = new Konva.Line({//우측위 큰선
 var sin_y = 200 * Math.sin(30 * Math.PI/180);
 
 var simpleText = new Konva.Text({
-      x: stage.getWidth() / 2,
+      x: 15,
       y: 15,
       text: String(sin_y),
       fontSize: 30,
