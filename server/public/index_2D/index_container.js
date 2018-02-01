@@ -9,8 +9,8 @@ var layer = new Konva.Layer();
 stage.add(layer);
 
 var Rect = new Konva.Rect({
-  x: stage.getWidth() / 2,
-  y: stage.getHeight() / 2,
+  x: stage.getWidth() / 2 - 50,
+  y: stage.getHeight() / 2 - 40,
   width: 100,
   height: 80,
   fill: 'yellow',
