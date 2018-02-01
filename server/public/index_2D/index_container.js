@@ -1,10 +1,8 @@
-var width = window.innerWidth;
-var height = window.innerHeight;
 
 var stage = new Konva.Stage({
   container: 'container', // id of container <div>
-  width: width,
-  height: height
+  width: 750,
+  height: 500
 });
 
 var layer = new Konva.Layer();
