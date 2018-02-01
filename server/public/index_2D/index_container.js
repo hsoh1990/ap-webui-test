@@ -53,11 +53,12 @@ var Line4 = new Konva.Line({//우측위 큰선
   tension: 1
 });
 
-var sin__ = Math.sin(30);
+var sin_y = 2 * Math.sin(30 * Math.PI/180));
+
 var simpleText = new Konva.Text({
       x: stage.getWidth() / 2,
       y: 15,
-      text: String(sin__),
+      text: String(sin_y),
       fontSize: 30,
       fontFamily: 'Calibri',
       fill: 'green'
