@@ -1,4 +1,3 @@
-
 var stage = new Konva.Stage({
   container: 'container', // id of container <div>
   width: 750,
@@ -17,6 +16,14 @@ var Rect = new Konva.Rect({
   stroke: 'black',
   strokeWidth: 3,
 
+});
+
+Rect.on('mouseenter', function() {
+  stage.container().style.cursor = 'pointer';
+});
+
+Rect.on('mouseleave', function() {
+  stage.container().style.cursor = 'default';
 });
 
 layer.add(Rect);
