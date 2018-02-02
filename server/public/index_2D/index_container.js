@@ -68,35 +68,20 @@ layer.add(Rect);
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 function arp_() {
-  const xhr = new XMLHttpRequest();
-  // by default async
-  xhr.onload = function() {
-    if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-      var data = this.response;
-      var socket =
-        io.connect('http://localhost:8080');
+  io.connect('http://localhost:8080');
 
-      // 서버에서 news 이벤트가 일어날 때 데이터를 받는다.
-      socket.on('arp',
-        function(data) {
-          console.log(data);
-          alert(data['arp']);
+// 서버에서 news 이벤트가 일어날 때 데이터를 받는다.
+socket.on('arp',
+  function(data) {
+    console.log(data);
+    alert(data['arp']);
 
-          //서버에 my other event 이벤트를 보낸다.
-          /*
-          socket.emit('my other event', {
-            my: 'data'
-          });*/
-        });
-
-    }
-  };
-  xhr.onerror = function() {
-    alert("confirm");
-  };
-  xhr.open("GET", "/api/index_login?type=arp");
-  xhr.responseType = 'json';
-  xhr.send();
+    //서버에 my other event 이벤트를 보낸다.
+    /*
+    socket.emit('my other event', {
+      my: 'data'
+    });*/
+  });
 }
 arp_();
 
