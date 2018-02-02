@@ -105,17 +105,18 @@ else if (device_count > 1 && device_count % 2 == 1) {//홀수일 경우
 }
 
 for (var a = 0;a < device_count; a++) {
-
+  var test = new Konva.Rect({
+    x: stage.getWidth() / 2 - 40 + resultxy[a][0],
+    y: stage.getHeight() / 2 - 30 + resultxy[a][1],
+    width: 80,
+    height: 60,
+    fill: 'yellow',
+    stroke: 'black',
+    strokeWidth: 3
+  });
+  layer.add(test);
 }
-var Rect = new Konva.Rect({
-  x: stage.getWidth() / 2 - 40,
-  y: stage.getHeight() / 2 - 30,
-  width: 80,
-  height: 60,
-  fill: 'yellow',
-  stroke: 'black',
-  strokeWidth: 3
-});
+
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 var simpleText = new Konva.Text({
       x: 15,
