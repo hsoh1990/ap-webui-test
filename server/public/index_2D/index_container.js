@@ -1,4 +1,3 @@
-
 var stage = new Konva.Stage({
   container: 'container', // id of container <div>
   width: 900,
@@ -20,7 +19,7 @@ var Rect = new Konva.Rect({
 
 var Line_Rect_position_x = stage.getWidth() / 2 - 40;
 var Line_Rect_position_y = stage.getHeight() / 2 - 30;
-var Line1 = new Konva.Line({//좌측 위 작은선
+var Line1 = new Konva.Line({ //좌측 위 작은선
   points: [Line_Rect_position_x - 20, Line_Rect_position_y - 5, Line_Rect_position_x - 20, Line_Rect_position_y - 20, Line_Rect_position_x - 5, Line_Rect_position_y - 20],
   stroke: 'blue',
   strokeWidth: 3,
@@ -28,24 +27,24 @@ var Line1 = new Konva.Line({//좌측 위 작은선
   lineJoin: 'round',
   tension: 1
 });
-var Line2 = new Konva.Line({//좌측 위 큰선
-  points: [Line_Rect_position_x - 30, Line_Rect_position_y , Line_Rect_position_x - 30, Line_Rect_position_y - 30, Line_Rect_position_x , Line_Rect_position_y - 30],
+var Line2 = new Konva.Line({ //좌측 위 큰선
+  points: [Line_Rect_position_x - 30, Line_Rect_position_y, Line_Rect_position_x - 30, Line_Rect_position_y - 30, Line_Rect_position_x, Line_Rect_position_y - 30],
   stroke: 'blue',
   strokeWidth: 3,
   lineCap: 'round',
   lineJoin: 'round',
   tension: 1
 });
-var Line3 = new Konva.Line({//우측 위 작은선
-  points: [Line_Rect_position_x + 20 + Rect.getWidth(), Line_Rect_position_y - 5, Line_Rect_position_x + 20  + Rect.getWidth(), Line_Rect_position_y - 20, Line_Rect_position_x + 5  + Rect.getWidth(), Line_Rect_position_y - 20],
+var Line3 = new Konva.Line({ //우측 위 작은선
+  points: [Line_Rect_position_x + 20 + Rect.getWidth(), Line_Rect_position_y - 5, Line_Rect_position_x + 20 + Rect.getWidth(), Line_Rect_position_y - 20, Line_Rect_position_x + 5 + Rect.getWidth(), Line_Rect_position_y - 20],
   stroke: 'blue',
   strokeWidth: 3,
   lineCap: 'round',
   lineJoin: 'round',
   tension: 1
 });
-var Line4 = new Konva.Line({//우측위 큰선
-  points: [Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y, Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y - 30 , Line_Rect_position_x + Rect.getWidth(), Line_Rect_position_y - 30],
+var Line4 = new Konva.Line({ //우측위 큰선
+  points: [Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y, Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y - 30, Line_Rect_position_x + Rect.getWidth(), Line_Rect_position_y - 30],
   stroke: 'blue',
   strokeWidth: 3,
   lineCap: 'round',
@@ -58,19 +57,18 @@ var Line4 = new Konva.Line({//우측위 큰선
 var device_count = 3;
 var radius = 350;
 var resultxy = [];
-if (device_count == 1) {//디바이스가 1개일 경우
+if (device_count == 1) { //디바이스가 1개일 경우
   var xy = [];
   xy.push(radius);
   xy.push(0);
   resultxy.push(xy);
-}
-else if (device_count > 1 && device_count % 2 == 0) {//짝수일 경우
+} else if (device_count > 1 && device_count % 2 == 0) { //짝수일 경우
   var angle = 180 / (device_count + 1);
   var half_angle = angle / 2;
-  for (var a = 0;a < device_count / 2; a++){
+  for (var a = 0; a < device_count / 2; a++) {
     var xy = [];
-    var x = radius * Math.cos(half_angle * Math.PI/180);
-    var y = radius * Math.sin(half_angle * Math.PI/180);
+    var x = radius * Math.cos(half_angle * Math.PI / 180);
+    var y = radius * Math.sin(half_angle * Math.PI / 180);
     xy.push(x);
     xy.push(y);
     resultxy.push(xy);
@@ -80,8 +78,7 @@ else if (device_count > 1 && device_count % 2 == 0) {//짝수일 경우
     resultxy.push(x_y);
     half_angle += angle;
   }
-}
-else if (device_count > 1 && device_count % 2 == 1) {//홀수일 경우
+} else if (device_count > 1 && device_count % 2 == 1) { //홀수일 경우
   var xy = [];
   xy.push(radius);
   xy.push(0);
@@ -89,10 +86,10 @@ else if (device_count > 1 && device_count % 2 == 1) {//홀수일 경우
 
   var angle = 180 / (device_count + 1);
   var angle__ = angle;
-  for (var a = 0;a < Math.floor(device_count / 2); a++){
+  for (var a = 0; a < Math.floor(device_count / 2); a++) {
     var xy = [];
-    var x = radius * Math.cos(angle__ * Math.PI/180);
-    var y = radius * Math.sin(angle__ * Math.PI/180);
+    var x = radius * Math.cos(angle__ * Math.PI / 180);
+    var y = radius * Math.sin(angle__ * Math.PI / 180);
     xy.push(x);
     xy.push(y);
     resultxy.push(xy);
@@ -103,29 +100,86 @@ else if (device_count > 1 && device_count % 2 == 1) {//홀수일 경우
     angle__ += angle;
   }
 }
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+var curveLayer, anchorLayer, quad;
 
-for (var a = 0;a < device_count; a++) {
-  var test = new Konva.Rect({
-    x: stage.getWidth() / 2 - 40 + resultxy[a][0],
-    y: stage.getHeight() / 2 - 30 + resultxy[a][1],
-    width: 40,
-    height: 30,
-    fill: 'yellow',
-    stroke: 'black',
-    strokeWidth: 3
-  });
-  layer.add(test);
+anchorLayer = new Konva.Layer();
+curveLayer = new Konva.Layer();
+
+function drawCurves() {
+  var context = curveLayer.getContext();
+
+  context.clear();
+
+  // draw quad
+  context.beginPath();
+  context.moveTo(quad.start.attrs.x, quad.start.attrs.y);
+  context.setAttr('strokeStyle', 'red');
+  context.setAttr('lineWidth', 4);
+  context.stroke();
 }
+
+
+for (var a = 0; a < device_count; a++) {
+  function buildAnchor(x, y, a) {
+    var test = new Konva.Rect({
+      x: x,
+      y: y,
+      width: 40,
+      height: 30,
+      fill: 'yellow',
+      stroke: 'black',
+      strokeWidth: 3,
+      draggable: true
+    });
+    // add hover styling
+    anchor.on('mouseover', function() {
+      document.body.style.cursor = 'pointer';
+      this.setStrokeWidth(4);
+      anchorLayer.draw();
+    });
+    anchor.on('mouseout', function() {
+      document.body.style.cursor = 'default';
+      this.setStrokeWidth(2);
+      anchorLayer.draw();
+
+    });
+    anchor.on('dragend', function() {
+      drawCurves();
+    });
+
+    anchorLayer.add(anchor);
+    return anchor;
+    layer.add(test);
+  }
+
+
+  var xx = stage.getWidth() / 2 - 40 + resultxy[a][0];
+  var yy = stage.getHeight() / 2 - 30 + resultxy[a][1];
+  quad = {
+    start: Rect,
+    end: buildAnchor(xx, yy)
+  };
+  anchorLayer.on('beforeDraw', function() {
+    drawCurves();
+  });
+  stage.add(curveLayer);
+  stage.add(anchorLayer);
+
+  drawCurves();
+}
+
+
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 var simpleText = new Konva.Text({
-      x: 15,
-      y: 15,
-      text: resultxy,
-      fontSize: 30,
-      fontFamily: 'Calibri',
-      fill: 'green'
-    });
+  x: 15,
+  y: 15,
+  text: resultxy,
+  fontSize: 30,
+  fontFamily: 'Calibri',
+  fill: 'green'
+});
 
 Rect.on('mouseenter', function() {
   stage.container().style.cursor = 'pointer';
