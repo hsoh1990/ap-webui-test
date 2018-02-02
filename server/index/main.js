@@ -1,6 +1,10 @@
 module.exports = function(app, fs, url) {
   var router_index_login = require('./index_login.js');
-  var io = require('socket.io').listen(8080);
+  var httpServer = http.createServer(app).listen(8080, function(req, res) {
+
+    console.log('Socket IO server has been started');
+
+  });
 
   app.get('/', function(req, res) {
     res.render('index.html');
@@ -37,8 +41,8 @@ module.exports = function(app, fs, url) {
         sess.logincheck = "1";
         res.cookie('string', 'cookie');
         res.cookie('json', {
-          name : 'check',
-          property : 'delicious'
+          name: 'check',
+          property: 'delicious'
         });
       } else {
         sess.logincheck = "0";
@@ -73,7 +77,7 @@ module.exports = function(app, fs, url) {
     }
     var data_key = Object.getOwnPropertyNames(data__);
     result = {
-      'success' : 1
+      'success': 1
     }
 
     // 클라이언트로 news 이벤트를 보낸다.
