@@ -163,7 +163,7 @@ for (var a = 0; a < device_count; a++) {
 
   function buildline(x, y) {
     var Line = new Konva.Line({
-      points: [stage.getWidth() / 2, stage.getHeight() / 2, x, y],
+      points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
       stroke: 'black',
       strokeWidth: 3,
       lineCap: 'round',
