@@ -178,7 +178,7 @@ for (var a = 0; a < device_count; a++) {
 
     stage.add(curveLayer);
   }
-
+  buildline(x, y);
   stage.add(anchorLayer);
 
 }
