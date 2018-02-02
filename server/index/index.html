@@ -196,10 +196,10 @@
       <i class="icon-user icon-large"></i>
     </p>
     <p class="field">
-      <input type="password" name="password" id="pwd" placeholder="Password">
+      <input type="password" name="password" id="pwd" placeholder="Password" onKeyPress="if (event.keyCode==13){ session_check() }">
       <i class="icon-lock icon-large"></i>
     </p>
-      <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Save settings" onclick="session_check()">
+      <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Login" onclick="session_check()">
   </form>
 
   <script>
