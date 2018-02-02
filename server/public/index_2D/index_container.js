@@ -74,7 +74,7 @@ function arp_() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       var data = this.response;
       var socket =
-        io.connect('http://172.16.171.181');
+        io.connect('http://172.16.171.181:80');
 
       // 서버에서 news 이벤트가 일어날 때 데이터를 받는다.
       socket.on('arp',
