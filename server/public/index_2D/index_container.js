@@ -114,6 +114,7 @@ function drawCurves() {
   // draw quad
   context.beginPath();
   context.moveTo(quad.start.attrs.x, quad.start.attrs.y);
+  context.quadraticCurveTo(quad.end.attrs.x, quad.end.attrs.y);
   context.setAttr('strokeStyle', 'red');
   context.setAttr('lineWidth', 4);
   context.stroke();
