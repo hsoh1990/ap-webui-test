@@ -100,6 +100,7 @@ module.exports = function(app, fs, url) {
             'Host name': data__[data_key[qwe]]['Host name'],
             'arp': 1
           }
+          console.log("IP Address : " + data__[data_key[qwe]]['IP Address']);
           socket.emit('arp', result);
 
         } else {
