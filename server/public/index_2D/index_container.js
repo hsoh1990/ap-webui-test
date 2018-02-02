@@ -76,7 +76,7 @@ function arp_() {
     }
   };
   xhr.onerror = function() {
-    console.log("confirm");
+    alert("confirm");
   };
   xhr.open("GET", "/api/index_login?type=arp");
   xhr.responseType = 'json';
@@ -135,21 +135,6 @@ var curveLayer, anchorLayer, quad;
 
 anchorLayer = new Konva.Layer();
 curveLayer = new Konva.Layer();
-
-function drawCurves() {
-  var context = curveLayer.getContext();
-
-  context.clear();
-
-  // draw quad
-  context.beginPath();
-  context.moveTo(quad.start.attrs.x, quad.start.attrs.y);
-  context.quadraticCurveTo(quad.end.attrs.x, quad.end.attrs.y);
-  context.setAttr('strokeStyle', 'black');
-  context.setAttr('lineWidth', 3);
-  context.stroke();
-}
-
 
 for (var a = 0; a < device_count; a++) {
   var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
