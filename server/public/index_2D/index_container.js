@@ -55,7 +55,7 @@ var Line4 = new Konva.Line({//우측위 큰선
 
 //반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-var device_count = 2;
+var device_count = 10;
 var radius = 250;
 var resultxy = [];
 if (device_count == 1) {//디바이스가 1개일 경우
@@ -108,8 +108,8 @@ for (var a = 0;a < device_count; a++) {
   var test = new Konva.Rect({
     x: stage.getWidth() / 2 - 40 + resultxy[a][0],
     y: stage.getHeight() / 2 - 30 + resultxy[a][1],
-    width: 80,
-    height: 60,
+    width: 40,
+    height: 30,
     fill: 'yellow',
     stroke: 'black',
     strokeWidth: 3
