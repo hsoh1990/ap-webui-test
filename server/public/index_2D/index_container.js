@@ -122,7 +122,7 @@ function drawCurves() {
 
 for (var a = 0; a < device_count; a++) {
   function buildAnchor(x, y, a) {
-    var test = new Konva.Rect({
+    var anchor = new Konva.Rect({
       x: x,
       y: y,
       width: 40,
@@ -150,7 +150,6 @@ for (var a = 0; a < device_count; a++) {
 
     anchorLayer.add(anchor);
     return anchor;
-    layer.add(test);
   }
 
 
