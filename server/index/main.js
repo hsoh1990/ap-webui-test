@@ -6,6 +6,7 @@ module.exports = function(app, fs, url) {
     console.log('Socket IO server has been started');
 
   });
+  var io = require('socket.io').listen(httpServer);
 
   app.get('/', function(req, res) {
     res.render('index.html');
