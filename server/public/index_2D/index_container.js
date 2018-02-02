@@ -54,7 +54,7 @@ var Line4 = new Konva.Line({//우측위 큰선
 });
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-var device_count = 1;
+var device_count = 2;
 var radius = 250;
 var resultxy = [];
 if (device_count == 1) {//디바이스가 1개일 경우
