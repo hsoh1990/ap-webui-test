@@ -58,24 +58,28 @@ module.exports = function(app, fs, url) {
   });
 
   io.sockets.on('connection', function(socket) {
-    const stdout = execSync('cat /var/lib/misc/dnsmasq.leases', {
-      encoding: 'utf8'
-    });
+    function data_get () {
+      const stdout = execSync('cat /var/lib/misc/dnsmasq.leases', {
+        encoding: 'utf8'
+      });
 
-    var arr = []; //줄 단위로 배열 저장(마지막은 빈배열이 들어감.)
-    arr = stdout.split("\n");
-    var data__ = {};
-    for (var i = 0; i < arr.length - 1; i++) { //2차원 배열에 data 저장
-      arr[i] = arr[i].split(" ");
-      var tmp = {};
-      var string_num = "client_list_";
-      string_num += String(i + 1);
-      tmp['Expire time'] = arr[i][0];
-      tmp['MAC Address'] = arr[i][1];
-      tmp['IP Address'] = arr[i][2];
-      tmp['Host name'] = arr[i][3];
-      tmp['Client ID'] = arr[i][4];
-      data__[string_num] = tmp;
+      var arr = []; //줄 단위로 배열 저장(마지막은 빈배열이 들어감.)
+      arr = stdout.split("\n");
+      var data__ = {};
+      for (var i = 0; i < arr.length - 1; i++) { //2차원 배열에 data 저장
+        arr[i] = arr[i].split(" ");
+        var tmp = {};
+        var string_num = "client_list_";
+        string_num += String(i + 1);
+        tmp['Expire time'] = arr[i][0];
+        tmp['MAC Address'] = arr[i][1];
+        tmp['IP Address'] = arr[i][2];
+        tmp['Host name'] = arr[i][3];
+        tmp['Client ID'] = arr[i][4];
+        data__[string_num] = tmp;
+      }
+
+      return data__;
     }
     var data_key = Object.getOwnPropertyNames(data__);
     result = {
@@ -84,27 +88,27 @@ module.exports = function(app, fs, url) {
     console.log(data_key);
     // 클라이언트로 news 이벤트를 보낸다.
     for (var a = 0; a < Object.keys(data__).length; a++) {
-      arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac, data__, data_key) {
+      arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
+        const data__ = data_get();
+        var data_key = Object.getOwnPropertyNames(data__);
         if (!err) {
           console.log("mac : " + mac);
-          /*
           result = {
             'MAC Address': data__[data_key[a]]['MAC Address'],
             'IP Address': data__[data_key[a]]['IP Address'],
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 1
-          }*/
-          socket.emit('arp', data__);
+          }
+          socket.emit('arp', result);
         } else {
           console.log("error : " + err);
-          /*
           result = {
             'MAC Address': data__[data_key[a]]['MAC Address'],
             'IP Address': data__[data_key[a]]['IP Address'],
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 0
-          }*/
-          socket.emit('arp', data__);
+          }
+          socket.emit('arp', result);
         }
       });
     }
