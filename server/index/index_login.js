@@ -49,7 +49,6 @@ exports.arp_receive = function(req, res) {
     'success' : 1
   }
   res.send(result);
-  console.log("mac : " + mac);
   io.sockets.on('connection', function(socket) {
     // 클라이언트로 news 이벤트를 보낸다.
     for (var a = 0; a < Object.keys(data__).length; a++) {
