@@ -320,7 +320,7 @@
         content += "<tbody><tr>";
         for (var name in data[type]) {
           if (name == "Expire time") {
-            content += "<td>" + getTimeStamp(data[type][name] * 1000) + "</td>";
+            content += "<td>" + getTimeStamp(Number(data[type][name]) * 1000) + "</td>";
           } else {
             content += "<td>" + data[type][name] + "</td>";
           }
