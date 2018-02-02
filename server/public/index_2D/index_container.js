@@ -52,6 +52,17 @@ var Line4 = new Konva.Line({ //우측위 큰선
   tension: 1
 });
 
+
+Rect.on('mouseenter', function() {
+  stage.container().style.cursor = 'pointer';
+});
+
+Rect.on('mouseleave', function() {
+  stage.container().style.cursor = 'default';
+});
+
+layer.add(Rect);
+
 //반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 var device_count = 3;
@@ -115,7 +126,7 @@ function drawCurves() {
   context.beginPath();
   context.moveTo(quad.start.attrs.x, quad.start.attrs.y);
   context.quadraticCurveTo(quad.end.attrs.x, quad.end.attrs.y);
-  context.setAttr('strokeStyle', 'red');
+  context.setAttr('strokeStyle', 'black');
   context.setAttr('lineWidth', 4);
   context.stroke();
 }
@@ -180,16 +191,6 @@ var simpleText = new Konva.Text({
   fontFamily: 'Calibri',
   fill: 'green'
 });
-
-Rect.on('mouseenter', function() {
-  stage.container().style.cursor = 'pointer';
-});
-
-Rect.on('mouseleave', function() {
-  stage.container().style.cursor = 'default';
-});
-
-layer.add(Rect);
 
 stage.add(layer);
 
