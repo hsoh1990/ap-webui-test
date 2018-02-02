@@ -91,6 +91,7 @@ module.exports = function(app, fs, url) {
         var data_key = Object.getOwnPropertyNames(data__);
         if (!err) {
           console.log("mac : " + mac);
+          console.log("data__ : " + data__);
           result = {
             'MAC Address': data__[data_key[a]]['MAC Address'],
             'IP Address': data__[data_key[a]]['IP Address'],
