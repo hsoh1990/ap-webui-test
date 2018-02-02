@@ -1,3 +1,5 @@
+<script src="/socket.io/socket.io.js"></script>
+
 var stage = new Konva.Stage({
   container: 'container', // id of container <div>
   width: 900,
