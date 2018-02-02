@@ -87,22 +87,24 @@ module.exports = function(app, fs, url) {
       arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac, data__, data_key) {
         if (!err) {
           console.log("mac : " + mac);
+          /*
           result = {
             'MAC Address': data__[data_key[a]]['MAC Address'],
             'IP Address': data__[data_key[a]]['IP Address'],
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 1
-          }
-          socket.emit('arp', result);
+          }*/
+          socket.emit('arp', data__);
         } else {
           console.log("error : " + err);
+          /*
           result = {
             'MAC Address': data__[data_key[a]]['MAC Address'],
             'IP Address': data__[data_key[a]]['IP Address'],
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 0
-          }
-          socket.emit('arp', result);
+          }*/
+          socket.emit('arp', data__);
         }
       });
     }
