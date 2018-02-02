@@ -65,6 +65,25 @@ layer.add(Rect);
 
 //반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+function arp_() {
+  const xhr = new XMLHttpRequest();
+  // by default async
+  xhr.onload = function() {
+    if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+      var data = this.response;
+      console.log(data['success']);
+    }
+  };
+  xhr.onerror = function() {
+    console.log("confirm");
+  };
+  xhr.open("GET", "/api/index_login?type=arp");
+  xhr.responseType = 'json';
+  xhr.send();
+}
+arp_();
+
 var device_count = 3;
 var radius = 350;
 var resultxy = [];

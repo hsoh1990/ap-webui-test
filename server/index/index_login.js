@@ -4,6 +4,8 @@ var exec = require('child_process').exec,
 const {
   execSync
 } = require('child_process');
+var arp = require('node-arp');
+
 
 exports.sidemenu_get = function(req, res) {
   var files = fs.readdirSync(__dirname + '/../package');
@@ -18,4 +20,22 @@ exports.sidemenu_get = function(req, res) {
   }
   console.log(sidemenus);
   res.send(sidemenus);
+}
+
+exports.arp_receive = function(req, res) {
+  arp.getMAC('192.168.0.158', function(err, mac) {
+    if (!err) {
+      console.log(mac);
+      result = {
+        'success' : 1
+      }
+      res.send(result);
+    } else {
+      console.log("error : " + err);
+      result = {
+        'success' : 0
+      }
+      res.send(result);
+    }
+  });
 }

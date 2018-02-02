@@ -21,6 +21,8 @@ module.exports = function(app, fs, url) {
 
     if (type == "sidemenu") {
       router_index_login.sidemenu_get(req, res);
+    } else if (type == "arp") {
+      router_index_login.arp_receive(req, res);
     }
   });
 
