@@ -89,7 +89,7 @@ module.exports = function(app, fs, url) {
     // 클라이언트로 news 이벤트를 보낸다.
     for (var a = 0; a < Object.keys(data__).length; a++) {
       arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
-        const data__ = data_get();
+        var data__ = data_get();
         var data_key = Object.getOwnPropertyNames(data__);
         if (!err) {
           console.log("mac : " + mac);
