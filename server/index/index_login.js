@@ -5,9 +5,7 @@ const {
   execSync
 } = require('child_process');
 var arp = require('node-arp');
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var io = require('socket.io').listen(80);
 
 
 exports.sidemenu_get = function(req, res) {
@@ -51,6 +49,7 @@ exports.arp_receive = function(req, res) {
     'success' : 1
   }
   res.send(result);
+  console.log("mac : " + mac);
   io.sockets.on('connection', function(socket) {
     // 클라이언트로 news 이벤트를 보낸다.
     for (var a = 0; a < Object.keys(data__).length; a++) {
