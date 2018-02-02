@@ -1,12 +1,8 @@
 module.exports = function(app, fs, url) {
   var router_index_login = require('./index_login.js');
-  var http = require('http');
-  var httpServer = http.createServer(app).listen(8080, function(req, res) {
 
-    console.log('Socket IO server has been started');
 
-  });
-  var io = require('socket.io').listen(httpServer);
+  var io = require('socket.io').listen(8080);
 
   app.get('/', function(req, res) {
     res.render('index.html');
