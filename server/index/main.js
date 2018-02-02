@@ -83,10 +83,10 @@ module.exports = function(app, fs, url) {
     }
     var data__ = data_get();
     var data_key = Object.getOwnPropertyNames(data__);
-    console.log(data_key);
+    console.log(data__);
     // 클라이언트로 news 이벤트를 보낸다.
+    var qwe = 0;
     for (var a = 0; a < Object.keys(data__).length; a++) {
-      var qwe = 0;
       console.log("ipip : " + data__[data_key[a]]['IP Address']);
       arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
         var data__ = data_get();
