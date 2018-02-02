@@ -81,10 +81,8 @@ module.exports = function(app, fs, url) {
 
       return data__;
     }
+    var data__ = data_get();
     var data_key = Object.getOwnPropertyNames(data__);
-    result = {
-      'success': 1
-    }
     console.log(data_key);
     // 클라이언트로 news 이벤트를 보낸다.
     for (var a = 0; a < Object.keys(data__).length; a++) {
