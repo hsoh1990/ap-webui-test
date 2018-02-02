@@ -143,24 +143,20 @@ for (var a = 0; a < device_count; a++) {
     height: 30,
     fill: 'yellow',
     stroke: 'black',
-    strokeWidth: 3,
-    draggable: true
+    strokeWidth: 3
   });
   // add hover styling
   anchor.on('mouseover', function() {
     document.body.style.cursor = 'pointer';
     this.setStrokeWidth(4);
     anchorLayer.draw();
-    buildline(x, y);
   });
   anchor.on('mouseout', function() {
     document.body.style.cursor = 'default';
     this.setStrokeWidth(2);
     anchorLayer.draw();
-    buildline(x, y);
   });
   anchor.on('dragend', function() {
-    buildline(x, y);
   });
 
   anchorLayer.add(anchor);
