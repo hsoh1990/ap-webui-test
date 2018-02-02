@@ -143,7 +143,7 @@ layer.add(Line1);
 layer.add(Line2);
 layer.add(Line3);
 layer.add(Line4);
-layer.add(simpleText);
+//layer.add(simpleText);
 
 layer.draw();
 
