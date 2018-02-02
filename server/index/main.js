@@ -90,29 +90,28 @@ module.exports = function(app, fs, url) {
       arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
         var data__ = data_get();
         var data_key = Object.getOwnPropertyNames(data__);
-        for (var a = 0; a < Object.keys(data__).length; a++) {
-          if (!err) {
-            console.log("mac : " + mac);
-            console.log("a : " + a);
-            result = {
-              'MAC Address': data__[data_key[qwe]]['MAC Address'],
-              'IP Address': data__[data_key[qwe]]['IP Address'],
-              'Host name': data__[data_key[qwe]]['Host name'],
-              'arp': 1
-            }
-            socket.emit('arp', result);
-
-          } else {
-            console.log("error : " + err);
-            result = {
-              'MAC Address': data__[data_key[qwe]]['MAC Address'],
-              'IP Address': data__[data_key[qwe]]['IP Address'],
-              'Host name': data__[data_key[qwe]]['Host name'],
-              'arp': 0
-            }
-            socket.emit('arp', result);
+        if (!err) {
+          console.log("mac : " + mac);
+          console.log("a : " + a);
+          result = {
+            'MAC Address': data__[data_key[qwe]]['MAC Address'],
+            'IP Address': data__[data_key[qwe]]['IP Address'],
+            'Host name': data__[data_key[qwe]]['Host name'],
+            'arp': 1
           }
+          socket.emit('arp', result);
+
+        } else {
+          console.log("error : " + err);
+          result = {
+            'MAC Address': data__[data_key[qwe]]['MAC Address'],
+            'IP Address': data__[data_key[qwe]]['IP Address'],
+            'Host name': data__[data_key[qwe]]['Host name'],
+            'arp': 0
+          }
+          socket.emit('arp', result);
         }
+
       });
       qwe++;
     }
