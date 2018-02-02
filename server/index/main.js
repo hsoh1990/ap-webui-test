@@ -58,7 +58,7 @@ module.exports = function(app, fs, url) {
   });
 
   io.sockets.on('connection', function(socket) {
-    function data_get () {
+    function data_get() {
       const stdout = execSync('cat /var/lib/misc/dnsmasq.leases', {
         encoding: 'utf8'
       });
@@ -86,28 +86,31 @@ module.exports = function(app, fs, url) {
     console.log(data_key);
     // 클라이언트로 news 이벤트를 보낸다.
     for (var a = 0; a < Object.keys(data__).length; a++) {
-      arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac, a) {
+      a.arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
         var data__ = data_get();
         var data_key = Object.getOwnPropertyNames(data__);
-        if (!err) {
-          console.log("mac : " + mac);
-          console.log("a : " + a);
-          result = {
-            'MAC Address': data__[data_key[a]]['MAC Address'],
-            'IP Address': data__[data_key[a]]['IP Address'],
-            'Host name': data__[data_key[a]]['Host name'],
-            'arp': 1
+        for (var a = 0; a < Object.keys(data__).length; a++) {
+          if (!err) {
+            console.log("mac : " + mac);
+            console.log("a : " + a);
+            result = {
+              'MAC Address': data__[data_key[a]]['MAC Address'],
+              'IP Address': data__[data_key[a]]['IP Address'],
+              'Host name': data__[data_key[a]]['Host name'],
+              'arp': 1
+            }
+            socket.emit('arp', result);
+
+          } else {
+            console.log("error : " + err);
+            result = {
+              'MAC Address': data__[data_key[a]]['MAC Address'],
+              'IP Address': data__[data_key[a]]['IP Address'],
+              'Host name': data__[data_key[a]]['Host name'],
+              'arp': 0
+            }
+            socket.emit('arp', result);
           }
-          socket.emit('arp', result);
-        } else {
-          console.log("error : " + err);
-          result = {
-            'MAC Address': data__[data_key[a]]['MAC Address'],
-            'IP Address': data__[data_key[a]]['IP Address'],
-            'Host name': data__[data_key[a]]['Host name'],
-            'arp': 0
-          }
-          socket.emit('arp', result);
         }
       });
     }
