@@ -6,7 +6,7 @@ var stage = new Konva.Stage({
 });
 
 var layer = new Konva.Layer();
-stage.add(layer);
+
 
 var Rect = new Konva.Rect({
   x: stage.getWidth() / 2 - 40,
@@ -53,6 +53,7 @@ var Line4 = new Konva.Line({//우측위 큰선
   tension: 1
 });
 
+//반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 var device_count = 2;
 var radius = 250;
@@ -102,6 +103,19 @@ else if (device_count > 1 && device_count % 2 == 1) {//홀수일 경우
     angle__ += angle;
   }
 }
+
+for (var a = 0;a < device_count; a++) {
+
+}
+var Rect = new Konva.Rect({
+  x: stage.getWidth() / 2 - 40,
+  y: stage.getHeight() / 2 - 30,
+  width: 80,
+  height: 60,
+  fill: 'yellow',
+  stroke: 'black',
+  strokeWidth: 3
+});
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 var simpleText = new Konva.Text({
       x: 15,
@@ -121,6 +135,9 @@ Rect.on('mouseleave', function() {
 });
 
 layer.add(Rect);
+
+stage.add(layer);
+
 layer.add(Line1);
 layer.add(Line2);
 layer.add(Line3);
