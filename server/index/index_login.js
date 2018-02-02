@@ -5,6 +5,9 @@ const {
   execSync
 } = require('child_process');
 var arp = require('node-arp');
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 
 exports.sidemenu_get = function(req, res) {
@@ -44,19 +47,40 @@ exports.arp_receive = function(req, res) {
     data__[string_num] = tmp;
   }
   var data_key = Object.getOwnPropertyNames(data__);
-  for (var a = 0;a < Object.keys(data__).length; a++) {
-    arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
-      if (!err) {
-        console.log("mac : " + mac);
-        result = {
-          'success': 1
-        }
-      } else {
-        console.log("error : " + err);
-        result = {
-          'success': 0
-        }
-      }
-    });
+  result = {
+    'success' : 1
   }
+  res.send(result);
+  io.sockets.on('connection', function(socket) {
+    // 클라이언트로 news 이벤트를 보낸다.
+    for (var a = 0; a < Object.keys(data__).length; a++) {
+      arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
+        if (!err) {
+          console.log("mac : " + mac);
+          result = {
+            'MAC Address': data__[data_key[a]]['MAC Address'],
+            'IP Address': data__[data_key[a]]['IP Address'],
+            'Host name': data__[data_key[a]]['Host name'],
+            'arp': 1
+          }
+          socket.emit('arp', result);
+        } else {
+          console.log("error : " + err);
+          result = {
+            'MAC Address': data__[data_key[a]]['MAC Address'],
+            'IP Address': data__[data_key[a]]['IP Address'],
+            'Host name': data__[data_key[a]]['Host name'],
+            'arp': 0
+          }
+          socket.emit('arp', result);
+        }
+      });
+    }
+
+
+    // 클라이언트에서 my other event가 발생하면 데이터를 받는다.
+    socket.on('my other event', function(data) {
+      console.log(data);
+    });
+  });
 }
