@@ -127,13 +127,13 @@ function drawCurves() {
   context.moveTo(quad.start.attrs.x, quad.start.attrs.y);
   context.quadraticCurveTo(quad.end.attrs.x, quad.end.attrs.y);
   context.setAttr('strokeStyle', 'black');
-  context.setAttr('lineWidth', 4);
+  context.setAttr('lineWidth', 3);
   context.stroke();
 }
 
 
 for (var a = 0; a < device_count; a++) {
-  function buildAnchor(x, y, a) {
+  function buildAnchor(x, y) {
     var anchor = new Konva.Rect({
       x: x,
       y: y,
