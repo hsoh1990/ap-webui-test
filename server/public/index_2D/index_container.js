@@ -68,20 +68,7 @@ layer.add(Rect);
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 function arp_() {
-  io.connect('http://172.16.171.181:8080');
-
-// 서버에서 news 이벤트가 일어날 때 데이터를 받는다.
-socket.on('arp',
-  function(data) {
-    console.log(data);
-    alert(data['arp']);
-
-    //서버에 my other event 이벤트를 보낸다.
-    /*
-    socket.emit('my other event', {
-      my: 'data'
-    });*/
-  });
+  
 }
 arp_();
 
