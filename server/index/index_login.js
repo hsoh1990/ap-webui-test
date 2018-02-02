@@ -47,7 +47,7 @@ exports.arp_receive = function(req, res) {
   for (var a = 0;a < Object.keys(data__).length; a++) {
     arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
       if (!err) {
-        console.log(data__[data_key[a]]['IP Address'] + " : " + mac);
+        console.log("mac : " + mac);
         result = {
           'success': 1
         }
