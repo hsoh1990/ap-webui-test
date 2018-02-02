@@ -1,7 +1,11 @@
 module.exports = function(app, fs, url) {
   var router_index_login = require('./index_login.js');
-
-
+  var exec = require('child_process').exec,
+    child;
+  const {
+    execSync
+  } = require('child_process');
+  var arp = require('node-arp');
   var io = require('socket.io').listen(8080);
 
   app.get('/', function(req, res) {
