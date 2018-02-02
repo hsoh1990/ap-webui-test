@@ -53,12 +53,60 @@ var Line4 = new Konva.Line({//우측위 큰선
   tension: 1
 });
 
-var sin_y = 200 * Math.sin(30 * Math.PI/180);
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+var device_count = 1;
+var radius = 250;
+var resultxy = [];
+if (device_count == 1) {//디바이스가 1개일 경우
+  var xy = [];
+  xy.push(radius);
+  xy.push(0);
+  resultxy.push(xy);
+}
+else if (device_count > 1 && device_count % 2 == 0) {//짝수일 경우
+  var angle = 180 / (device_count + 1);
+  var half_angle = angle / 2;
+  for (var a = 0;a < device_count / 2; a++){
+    var xy = [];
+    var x = radius * Math.cos(half_angle * Math.PI/180);
+    var y = radius * Math.sin(half_angle * Math.PI/180);
+    xy.push(x);
+    xy.push(y);
+    resultxy.push(xy);
+    var x_y = [];
+    x_y.push(x);
+    x_y.push(y * -1);
+    resultxy.push(x_y);
+    half_angle += angle;
+  }
+}
+else if (device_count > 1 && device_count % 2 == 1) {//홀수일 경우
+  var xy = [];
+  xy.push(radius);
+  xy.push(0);
+  resultxy.push(xy);
 
+  var angle = 180 / (device_count + 1);
+  var angle__ = angle;
+  for (var a = 0;a < Math.floor(device_count / 2); a++){
+    var xy = [];
+    var x = radius * Math.cos(angle__ * Math.PI/180);
+    var y = radius * Math.sin(angle__ * Math.PI/180);
+    xy.push(x);
+    xy.push(y);
+    resultxy.push(xy);
+    var x_y = [];
+    x_y.push(x);
+    x_y.push(y * -1);
+    resultxy.push(x_y);
+    angle__ += angle;
+  }
+}
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 var simpleText = new Konva.Text({
       x: 15,
       y: 15,
-      text: String(sin_y),
+      text: resultxy,
       fontSize: 30,
       fontFamily: 'Calibri',
       fill: 'green'
