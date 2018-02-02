@@ -5,7 +5,7 @@ const {
   execSync
 } = require('child_process');
 var arp = require('node-arp');
-var io = require('socket.io').listen(80);
+var io = require('socket.io').listen(8080);
 
 
 exports.sidemenu_get = function(req, res) {
