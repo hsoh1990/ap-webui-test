@@ -135,7 +135,7 @@ function test___() {
 
 
     aplayer.add(device);
-    stage.add(layer);
+    stage.add(aplayer);
   }
   var sources = {
       device: '/svg/button-green_benji_park_01.svg',
