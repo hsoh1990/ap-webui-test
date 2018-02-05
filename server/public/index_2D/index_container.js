@@ -115,6 +115,8 @@ function disconnect_draw(res_count, conn_count) {
   stage.clear();
   stage.removeChildren();
 
+  wlan_draw();
+
   var device_count = conn_count;
   var radius = disconnect_radius;
   var resultxy = [];
