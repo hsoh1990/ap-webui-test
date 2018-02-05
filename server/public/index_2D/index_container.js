@@ -9,11 +9,7 @@ var layer = new Konva.Layer();
 
 //반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
-function connect_draw(count) {
-
-  stage.clear();
-
+function connect_AP() {
   var Rect = new Konva.Rect({
     x: stage.getWidth() / 2 - 40,
     y: stage.getHeight() / 2 - 30,
@@ -67,6 +63,19 @@ function connect_draw(count) {
   Rect.on('mouseleave', function() {
     stage.container().style.cursor = 'default';
   });
+
+  layer.add(Rect);
+
+  layer.add(Line1);
+  layer.add(Line2);
+  layer.add(Line3);
+  layer.add(Line4);
+
+  stage.add(layer);
+}
+function connect_draw(count) {
+
+  stage.destroy();
 
   var device_count = count;
   var radius = 350;
@@ -167,19 +176,28 @@ function connect_draw(count) {
 
   }
 
-  layer.add(Rect);
-
-  layer.add(Line1);
-  layer.add(Line2);
-  layer.add(Line3);
-  layer.add(Line4);
-
-  stage.add(layer);
-
 
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+function connection_text(res_count, conn_count) {
+  var text = new Konva.Text({
+      x: stage.getWidth() / 2,
+      y: 15,
+      text: 'Simple Text',
+      fontSize: 30,
+      fontFamily: 'Calibri',
+      fill: 'green'
+    });
 
+  if (res_count > conn_count) {
+    text.text("연결을 확인하는 중입니다...");
+
+  } else if (res_count <= conn_count) {
+    text.text("연결 확인이 완료되었습니다.");
+  }
+  layer.add(text);
+  layer.draw();
+}
 
 
 

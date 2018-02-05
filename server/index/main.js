@@ -101,7 +101,8 @@ module.exports = function(app, fs, url) {
                   'MAC Address': data__[data_key[a]]['MAC Address'],
                   'IP Address': data__[data_key[a]]['IP Address'],
                   'Host name': data__[data_key[a]]['Host name'],
-                  'arp': 0
+                  'arp': 0,
+                  'length': Object.keys(data__).length
                 }
                 resolve(result);
               } else {
@@ -109,7 +110,8 @@ module.exports = function(app, fs, url) {
                   'MAC Address': data__[data_key[a]]['MAC Address'],
                   'IP Address': data__[data_key[a]]['IP Address'],
                   'Host name': data__[data_key[a]]['Host name'],
-                  'arp': 1
+                  'arp': 1,
+                  'length': Object.keys(data__).length
                 }
                 reject(result);
               }

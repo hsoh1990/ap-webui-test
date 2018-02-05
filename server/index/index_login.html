@@ -117,6 +117,8 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
+    connect_AP();
+    connection_text(1000, 0);
     var socket = io.connect('http://172.16.171.181:8080');
     var connect_count = 0;
     var connect_data = {};
@@ -128,6 +130,8 @@
         connect_data += data;
 
         connect_draw(connect_count);
+        connect_AP();
+        connection_text(data[length], connect_count);
         //서버에 my other event 이벤트를 보낸다.
         /*
         socket.emit('my other event', {
