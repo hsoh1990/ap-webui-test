@@ -90,14 +90,14 @@ function wlan_draw() {
     y: wlan_y,
     width: 40,
     height: 30,
-    fill: 'gray',
+    fill: 'blue',
     stroke: 'black',
     strokeWidth: 3
   });
 
   var wlan_line = new Konva.Line({
     points: [stage.getWidth() / 2, stage.getHeight() / 2, wlan_x + 20, wlan_y + 15],
-    stroke: 'black',
+    stroke: 'blue',
     strokeWidth: 3,
     lineCap: 'round',
     lineJoin: 'round'
@@ -310,7 +310,7 @@ function connect_draw(res_count, conn_count) {
     function buildline(x, y) {
       var Line = new Konva.Line({
         points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
-        stroke: 'black',
+        stroke: 'blue',
         strokeWidth: 3,
         lineCap: 'round',
         lineJoin: 'round'
