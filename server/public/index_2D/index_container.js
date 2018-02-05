@@ -177,19 +177,24 @@ function disconnect_draw(res_count, conn_count) {
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
 
-    var sources = {
-      device: '/svg/button-red_benji_park_01.svg'
+    var imageObj = new Image();
+    imageObj.onload = function() {
+
+      var device = new Konva.Image({
+        x: x,
+        y: y,
+        image: imageObj,
+        width: 55,
+        height: 55
+      });
+
+      // add the shape to the layer
+      anchorLayer.add(device);
+
+      // add the layer to the stage
+      stage.add(anchorLayer);
     };
-
-    var device = new Konva.Image({
-      image: sources.device,
-      x: x,
-      y: y - 10,
-      width: 55,
-      height: 55
-    });
-
-    anchorLayer.add(device);
+    imageObj.src = '/svg/button-red_benji_park_01.svg';
 
 
     function buildline(x, y) {
