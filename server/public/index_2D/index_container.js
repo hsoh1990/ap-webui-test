@@ -312,12 +312,41 @@ function connection_text(res_count, conn_count) {
 }
 
 
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+function drag_event() {
+  stage.getContent().addEventListener('touchmove', function(evt) {
+        var touch1 = evt.touches[0];
+        var touch2 = evt.touches[1];
 
+        if(touch1 && touch2) {
+            var dist = getDistance({
+                x: touch1.clientX,
+                y: touch1.clientY
+            }, {
+                x: touch2.clientX,
+                y: touch2.clientY
+            });
+
+            if(!lastDist) {
+                lastDist = dist;
+            }
+
+            var scale = stage.getScaleX() * dist / lastDist;
+
+            stage.scaleX(scale);
+            stage.scaleY(scale);
+            stage.draw();
+            lastDist = dist;
+        }
+    }, false);
+
+    stage.getContent().addEventListener('touchend', function() {
+        lastDist = 0;
+    }, false);
+}
+drag_event();
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
-//layer.add(simpleText);
-
-//layer.draw();
 
 var scaleBy = 1.15;
 window.addEventListener('wheel', (e) => {
