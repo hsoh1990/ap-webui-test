@@ -85,71 +85,72 @@ module.exports = function(app, fs, url) {
   io.sockets.on('connection', function(socket) {
 
 
-    var data__ = data_get();
-    var data_key = Object.getOwnPropertyNames(data__);
-    console.log(data__);
-    // 클라이언트로 news 이벤트를 보낸다.
-    for (var a = 0; a < Object.keys(data__).length; a++) {
+    ! function arp_repeat() {
+      //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+      //반복하는 부분
+      var data__ = data_get();
+      var data_key = Object.getOwnPropertyNames(data__);
+      console.log(data__);
+      // 클라이언트로 news 이벤트를 보낸다.
+      for (var a = 0; a < Object.keys(data__).length; a++) {
 
-      var _promise = function(a, data__, data_key) {
-        return new Promise(function(resolve, reject) {
-          arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
-            if (!err) {
-              console.log("mac : " + mac);
-              if (mac == "(incomplete)") {
-                result = {
-                  'MAC Address': data__[data_key[a]]['MAC Address'],
-                  'IP Address': data__[data_key[a]]['IP Address'],
-                  'Host name': data__[data_key[a]]['Host name'],
-                  'arp': 0,
-                  'length': Object.keys(data__).length
+        var _promise = function(a, data__, data_key) {
+          return new Promise(function(resolve, reject) {
+            arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
+              if (!err) {
+                console.log("mac : " + mac);
+                if (mac == "(incomplete)") {
+                  result = {
+                    'MAC Address': data__[data_key[a]]['MAC Address'],
+                    'IP Address': data__[data_key[a]]['IP Address'],
+                    'Host name': data__[data_key[a]]['Host name'],
+                    'arp': 0,
+                    'length': Object.keys(data__).length
+                  }
+                  resolve(result);
+                } else {
+                  result = {
+                    'MAC Address': data__[data_key[a]]['MAC Address'],
+                    'IP Address': data__[data_key[a]]['IP Address'],
+                    'Host name': data__[data_key[a]]['Host name'],
+                    'arp': 1,
+                    'length': Object.keys(data__).length
+                  }
+                  reject(result);
                 }
-                resolve(result);
+
               } else {
+                /*
+                console.log("error : " + err);
                 result = {
                   'MAC Address': data__[data_key[a]]['MAC Address'],
                   'IP Address': data__[data_key[a]]['IP Address'],
                   'Host name': data__[data_key[a]]['Host name'],
-                  'arp': 1,
-                  'length': Object.keys(data__).length
+                  'arp': 0
                 }
-                reject(result);
+                reject(result);*/
               }
-
-            } else {
-              /*
-              console.log("error : " + err);
-              result = {
-                'MAC Address': data__[data_key[a]]['MAC Address'],
-                'IP Address': data__[data_key[a]]['IP Address'],
-                'Host name': data__[data_key[a]]['Host name'],
-                'arp': 0
-              }
-              reject(result);*/
-            }
+            });
           });
-        });
-      };
-      _promise(a, data__, data_key)
-        .then(function(result) {
-          // 성공시/*
+        };
+        _promise(a, data__, data_key)
+          .then(function(result) {
+            // 성공시/*
 
-          console.log(result['MAC Address'] + ',, ' + result['arp']);
-          socket.emit('arp', result);
-        }, function(result) {
-          // 실패시
+            console.log(result['MAC Address'] + ',, ' + result['arp']);
+            socket.emit('arp', result);
+          }, function(result) {
+            // 실패시
 
-          console.log(result['MAC Address'] + ',, ' + result['arp']);
-          socket.emit('arp', result);
-        });
+            console.log(result['MAC Address'] + ',, ' + result['arp']);
+            socket.emit('arp', result);
+          });
 
-    }
-
-    ! function test() {
-      console.log("반복 합니다");
+      }
+      //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
       setTimeout(function() {
         test();
-      }, 5000);
+      }, 10000);
     }()
 
     // 클라이언트에서 my other event가 발생하면 데이터를 받는다.
