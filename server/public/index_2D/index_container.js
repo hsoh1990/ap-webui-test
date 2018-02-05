@@ -109,7 +109,7 @@ function wlan_draw() {
 }
 
 
-function loadImages(sources, x, y, anchorLayer) {
+function loadImages(sources) {
   var images = {};
   var loadedImages = 0;
   var numImages = 0;
@@ -126,11 +126,6 @@ function loadImages(sources, x, y, anchorLayer) {
     images[src].src = sources[src];
   }
 }
-
-function buildStage(images, x, y) {
-
-}
-
 function disconnect_draw(res_count, conn_count) {
 
 
@@ -204,7 +199,7 @@ function disconnect_draw(res_count, conn_count) {
     };
 
 
-    const images = loadImages(sources, x, y, anchorLayer);
+    const images = loadImages(sources);
 
     var device = new Konva.Image({
       image: images.device,
