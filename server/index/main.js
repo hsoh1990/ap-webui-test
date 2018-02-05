@@ -115,6 +115,7 @@ module.exports = function(app, fs, url) {
               }
 
             } else {
+              /*
               console.log("error : " + err);
               result = {
                 'MAC Address': data__[data_key[a]]['MAC Address'],
@@ -122,7 +123,7 @@ module.exports = function(app, fs, url) {
                 'Host name': data__[data_key[a]]['Host name'],
                 'arp': 0
               }
-              reject(result);
+              reject(result);*/
             }
           });
         });
