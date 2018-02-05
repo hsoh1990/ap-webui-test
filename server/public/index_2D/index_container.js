@@ -76,6 +76,7 @@ function connect_AP() {
 
   stage.add(aplayer);
 }
+
 function connect_draw(res_count, conn_count) {
 
 
@@ -189,24 +190,24 @@ function connect_draw(res_count, conn_count) {
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 function connection_text(res_count, conn_count) {
   var text = new Konva.Text({
-      x: stage.getWidth() / 2,
-      y: 15,
-      text: 'Simple Text',
-      fontSize: 30,
-      fontFamily: 'Calibri',
-      fill: 'green'
-    });
-
+    x: stage.getWidth() / 2,
+    y: 15,
+    text: 'Simple Text',
+    fontSize: 30,
+    fontFamily: 'Calibri',
+    fill: 'green'
+  });
+  textlayer.remove();
+  textlayer.add(text);
+  stage.add(textlayer);
   if (res_count > conn_count) {
     text.text("연결을 확인하는 중입니다...");
 
   } else if (res_count <= conn_count) {
     text.text("연결 확인이 완료되었습니다.");
   }
-  textlayer.remove();
-  textlayer.clearCache();
-  textlayer.add(text);
-  stage.add(textlayer);
+  textlayer.batchDraw();
+
 }
 
 
