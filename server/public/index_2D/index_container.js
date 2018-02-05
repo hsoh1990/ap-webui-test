@@ -120,16 +120,7 @@ function loadImages(sources, x, y, anchorLayer) {
     images[src] = new Image();
     images[src].onload = function() {
       if (++loadedImages >= numImages) {
-        var device = new Konva.Image({
-          image: images.device,
-          x: x,
-          y: y,
-          width: 55,
-          height: 55
-        });
-
-
-        anchorLayer.add(device);
+        return images;
       }
     };
     images[src].src = sources[src];
@@ -213,8 +204,18 @@ function disconnect_draw(res_count, conn_count) {
     };
 
 
-    loadImages(sources, x, y, anchorLayer);
+    const images = loadImages(sources, x, y, anchorLayer);
 
+    var device = new Konva.Image({
+      image: images.device,
+      x: x,
+      y: y,
+      width: 55,
+      height: 55
+    });
+
+
+    anchorLayer.add(device);
 
     function buildline(x, y) {
       var Line = new Konva.Line({
