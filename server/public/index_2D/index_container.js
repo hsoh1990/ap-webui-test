@@ -82,6 +82,8 @@ function connect_draw(res_count, conn_count) {
 
   stage.remove();
   stage.clear();
+  stage.removeChildren();
+
   connection_text(res_count, conn_count);
   var device_count = conn_count;
   var radius = 350;
