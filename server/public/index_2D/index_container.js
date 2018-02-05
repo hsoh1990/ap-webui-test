@@ -212,7 +212,6 @@ function disconnect_draw(res_count, conn_count) {
     }
 
     buildline(x, y);
-    stage.add(anchorLayer);
 
   }
 
