@@ -84,59 +84,54 @@ module.exports = function(app, fs, url) {
 
   io.sockets.on('connection', function(socket) {
 
-    while (true) {
-      setTimeout(function() {
 
-        var data__ = data_get();
-        var data_key = Object.getOwnPropertyNames(data__);
-        console.log(data__);
-        // 클라이언트로 news 이벤트를 보낸다.
-        for (var a = 0; a < Object.keys(data__).length; a++) {
+    var data__ = data_get();
+    var data_key = Object.getOwnPropertyNames(data__);
+    console.log(data__);
+    // 클라이언트로 news 이벤트를 보낸다.
+    for (var a = 0; a < Object.keys(data__).length; a++) {
 
-          var _promise = function(a, data__, data_key) {
-            return new Promise(function(resolve, reject) {
-              arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
-                if (!err) {
-                  console.log("mac : " + mac);
-                  result = {
-                    'MAC Address': data__[data_key[a]]['MAC Address'],
-                    'IP Address': data__[data_key[a]]['IP Address'],
-                    'Host name': data__[data_key[a]]['Host name'],
-                    'arp': 1
-                  }
-                  resolve(result);
+      var _promise = function(a, data__, data_key) {
+        return new Promise(function(resolve, reject) {
+          arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
+            if (!err) {
+              console.log("mac : " + mac);
+              result = {
+                'MAC Address': data__[data_key[a]]['MAC Address'],
+                'IP Address': data__[data_key[a]]['IP Address'],
+                'Host name': data__[data_key[a]]['Host name'],
+                'arp': 1
+              }
+              resolve(result);
 
-                } else {
-                  console.log("error : " + err);
-                  result = {
-                    'MAC Address': data__[data_key[a]]['MAC Address'],
-                    'IP Address': data__[data_key[a]]['IP Address'],
-                    'Host name': data__[data_key[a]]['Host name'],
-                    'arp': 0
-                  }
-                  reject(result);
-                }
-              });
-            });
-          };
-          _promise(a, data__, data_key)
-            .then(function(result) {
-              // 성공시/*
+            } else {
+              console.log("error : " + err);
+              result = {
+                'MAC Address': data__[data_key[a]]['MAC Address'],
+                'IP Address': data__[data_key[a]]['IP Address'],
+                'Host name': data__[data_key[a]]['Host name'],
+                'arp': 0
+              }
+              reject(result);
+            }
+          });
+        });
+      };
+      _promise(a, data__, data_key)
+        .then(function(result) {
+          // 성공시/*
 
-              console.log(result['MAC Address'] + ',, ' + result['arp']);
-              socket.emit('arp', result);
-            }, function(result) {
-              // 실패시
+          console.log(result['MAC Address'] + ',, ' + result['arp']);
+          socket.emit('arp', result);
+        }, function(result) {
+          // 실패시
 
-              console.log(result['MAC Address'] + ',, ' + result['arp']);
-              socket.emit('arp', result);
-            });
+          console.log(result['MAC Address'] + ',, ' + result['arp']);
+          socket.emit('arp', result);
+        });
 
-        }
-
-
-      }, 5000);
     }
+
 
     // 클라이언트에서 my other event가 발생하면 데이터를 받는다.
     socket.on('my other event', function(data) {
