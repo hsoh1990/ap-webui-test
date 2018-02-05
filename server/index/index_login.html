@@ -119,19 +119,24 @@
   <script>
     var socket = io.connect('http://172.16.171.181:8080');
     var connect_count = 0;
-
+    var connect_data = {};
 
     // 서버에서 news 이벤트가 일어날 때 데이터를 받는다.
     socket.on('arp',
       function(data) {
         connect_count += 1;
-        alert(connect_count);
+        connect_data += data;
+
+        connect_draw(connect_count);
         //서버에 my other event 이벤트를 보낸다.
         /*
         socket.emit('my other event', {
           my: 'data'
         });*/
       });
+
+
+
   </script>
 </body>
 
