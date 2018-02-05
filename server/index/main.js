@@ -88,8 +88,8 @@ module.exports = function(app, fs, url) {
     console.log(data__);
     // 클라이언트로 news 이벤트를 보낸다.
     for (var a = 0; a < Object.keys(data__).length; a++) {
-      console.log("ipip : " + data__[data_key[a]]['IP Address']);
-      var _promise = function() {
+
+      var _promise = function(a, data__, data_key) {
         return new Promise(function(resolve, reject) {
           arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
             if (!err) {
@@ -103,27 +103,25 @@ module.exports = function(app, fs, url) {
           });
         });
       };
-      _promise()
+      _promise(a, data__, data_key)
         .then(function(mac) {
           // 성공시
-          /*
           result = {
             'MAC Address': data__[data_key[a]]['MAC Address'],
             'IP Address': data__[data_key[a]]['IP Address'],
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 1
-          }*/
+          }
           console.log(mac + ',, ' + a);
           //socket.emit('arp', result);
         }, function(error) {
           // 실패시
-          /*
           result = {
             'MAC Address': data__[data_key[a]]['MAC Address'],
             'IP Address': data__[data_key[a]]['IP Address'],
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 0
-          }*/
+          }
           console.error(error + ',, ' + a);
           //socket.emit('arp', result);
         });
