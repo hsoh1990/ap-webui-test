@@ -8,7 +8,7 @@ var aplayer = new Konva.Layer();
 var textlayer = new Konva.Layer();
 
 var connect_radius = 350;
-var disconnect_radius = 450;
+var disconnect_radius = 550;
 //반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 function connect_AP() {
@@ -150,7 +150,7 @@ function disconnect_draw(res_count, conn_count) {
       y: y,
       width: 40,
       height: 30,
-      fill: 'yellow',
+      fill: 'gray',
       stroke: 'black',
       strokeWidth: 3
     });
