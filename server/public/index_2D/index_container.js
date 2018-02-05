@@ -197,7 +197,7 @@ function disconnect_draw(res_count, conn_count) {
 
       var device = new Konva.Image({
         x: x,
-        y: y,
+        y: y - 10,
         image: imageObj,
         width: 55,
         height: 55
