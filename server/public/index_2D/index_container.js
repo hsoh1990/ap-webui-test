@@ -174,7 +174,7 @@ function disconnect_draw(res_count, conn_count) {
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
-    var y = stage.getHeight() / 2 - 30 + resultxy[a][1];
+    var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
     function loadImages(sources, x, y) {
       var images = {};
@@ -190,9 +190,11 @@ function disconnect_draw(res_count, conn_count) {
             var device = new Konva.Image({
               image: images.device,
               x: x,
-              y: y,
+              y: y - 10,
               width: 55,
-              height: 55
+              height: 55,
+              stroke: 'black',
+              strokeWidth: 3
             });
 
             device.on('mouseover', function() {
