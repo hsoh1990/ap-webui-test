@@ -4,8 +4,8 @@ var stage = new Konva.Stage({
   height: 600
 });
 
-var layer = new Konva.Layer();
-
+var aplayer = new Konva.Layer();
+var textlayer = new Konva.Layer();
 
 //반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -18,6 +18,7 @@ function connect_AP() {
     fill: 'yellow',
     stroke: 'black',
     strokeWidth: 3
+
   });
 
   var Line_Rect_position_x = stage.getWidth() / 2 - 40;
@@ -64,22 +65,22 @@ function connect_AP() {
     stage.container().style.cursor = 'default';
   });
 
-  layer.add(Rect);
+  aplayer.add(Rect);
 
-  layer.add(Line1);
-  layer.add(Line2);
-  layer.add(Line3);
-  layer.add(Line4);
+  aplayer.add(Line1);
+  aplayer.add(Line2);
+  aplayer.add(Line3);
+  aplayer.add(Line4);
 
   stage.add(layer);
 }
-function connect_draw(count) {
+function connect_draw(res_count, conn_count) {
 
 
   stage.remove();
   stage.clear();
-
-  var device_count = count;
+  connection_text(res_count, conn_count);
+  var device_count = conn_count;
   var radius = 350;
   var resultxy = [];
   if (device_count == 1) { //디바이스가 1개일 경우
@@ -175,6 +176,8 @@ function connect_draw(count) {
 
     buildline(x, y);
     stage.add(anchorLayer);
+    curveLayer.remove();
+    anchorLayer.remove();
 
   }
 
@@ -197,10 +200,9 @@ function connection_text(res_count, conn_count) {
   } else if (res_count <= conn_count) {
     text.text("연결 확인이 완료되었습니다.");
   }
-  layer.remove();
-  layer.clear;
-  layer.add(text);
-  layer.draw();
+  textlayer.add(text);
+  textlayer.draw();
+  textlayer.remove();
 }
 
 
