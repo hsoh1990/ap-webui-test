@@ -278,30 +278,6 @@ function connect_draw(res_count, conn_count) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
-    var anchor = new Konva.Rect({
-      x: x,
-      y: y,
-      width: 40,
-      height: 30,
-      fill: 'yellow',
-      stroke: 'black',
-      strokeWidth: 3
-    });
-    // add hover styling
-    anchor.on('mouseover', function() {
-      document.body.style.cursor = 'pointer';
-      this.setStrokeWidth(4);
-      anchorLayer.draw();
-    });
-    anchor.on('mouseout', function() {
-      document.body.style.cursor = 'default';
-      this.setStrokeWidth(2);
-      anchorLayer.draw();
-    });
-    anchor.on('dragend', function() {});
-
-    anchorLayer.add(anchor);
-
     function buildline(x, y) {
       var Line = new Konva.Line({
         points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
@@ -317,8 +293,27 @@ function connect_draw(res_count, conn_count) {
     }
 
     buildline(x, y);
-    stage.add(anchorLayer);
 
+    var imageObj = new Image();
+    function draw_image(imageObj) {
+
+      var device = new Konva.Image({
+        x: x,
+        y: y - 11,
+        image: imageObj,
+        width: 55,
+        height: 55
+      });
+
+      // add the shape to the layer
+      anchorLayer.add(device);
+
+      // add the layer to the stage
+      stage.add(anchorLayer);
+    };
+    imageObj.src = '/svg/button-green_benji_park_01.svg';
+
+    draw_image(imageObj);
   }
 
 
