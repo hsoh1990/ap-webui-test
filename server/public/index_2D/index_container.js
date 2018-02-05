@@ -109,7 +109,7 @@ function wlan_draw() {
 }
 
 
-function loadImages(sources) {
+function loadImages(sources, x, y) {
   var images = {};
   var loadedImages = 0;
   var numImages = 0;
@@ -206,7 +206,7 @@ function disconnect_draw(res_count, conn_count) {
         device: '/svg/button-red_benji_park_01.svg'
     };
 
-    var device = loadImages(sources);
+    var device = loadImages(sources, x, y);
 
     anchorLayer.add(device);
 
