@@ -193,7 +193,7 @@ function disconnect_draw(res_count, conn_count) {
     buildline(x, y);
 
     var imageObj = new Image();
-    imageObj.onload = function() {
+    function draw_image(imageObj) {
 
       var device = new Konva.Image({
         x: x,
@@ -211,6 +211,7 @@ function disconnect_draw(res_count, conn_count) {
     };
     imageObj.src = '/svg/button-red_benji_park_01.svg';
 
+    draw_image(imageObj);
   }
 
 
