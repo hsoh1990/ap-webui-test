@@ -150,7 +150,7 @@ module.exports = function(app, fs, url) {
       }
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
       setTimeout(function() {
-        test();
+        arp_repeat();
       }, 10000);
     }()
 
