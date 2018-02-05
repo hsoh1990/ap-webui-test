@@ -198,8 +198,7 @@ function disconnect_draw(res_count, conn_count) {
         device: '/svg/button-red_benji_park_01.svg'
     };
 
-
-    const images = loadImages(sources);
+    var images = loadImages(sources);
 
     var device = new Konva.Image({
       image: images.device,
@@ -208,7 +207,6 @@ function disconnect_draw(res_count, conn_count) {
       width: 55,
       height: 55
     });
-
 
     anchorLayer.add(device);
 
