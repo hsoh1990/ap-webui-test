@@ -205,7 +205,6 @@ function connection_text(res_count, conn_count) {
   }
   textlayer.remove();
   textlayer.add(text);
-  textlayer.draw();
   stage.add(textlayer);
 }
 
