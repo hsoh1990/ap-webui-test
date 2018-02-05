@@ -92,39 +92,38 @@ module.exports = function(app, fs, url) {
       var _promise = function(a, data__, data_key) {
         return new Promise(function(resolve, reject) {
           arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
-            console.log("a : " + a);
             if (!err) {
               console.log("mac : " + mac);
-              resolve(mac);
+              resolve(mac, data__, data_key, a);
 
             } else {
               console.log("error : " + err);
-              reject(err);
+              reject(err, data__, data_key, a);
             }
           });
         });
       };
       _promise(a, data__, data_key)
-        .then(function(mac) {
+        .then(function(mac, data__, data_key, a)) {
           // 성공시/*
-          /*
+
           result = {
             'MAC Address': data__[data_key[a]]['MAC Address'],
             'IP Address': data__[data_key[a]]['IP Address'],
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 1
-          }*/
+          }
           console.log(mac + ',, ' + a);
           //socket.emit('arp', result);
-        }, function(error) {
+        }, function(err, data__, data_key, a) {
           // 실패시
-          /*
+
           result = {
             'MAC Address': data__[data_key[a]]['MAC Address'],
             'IP Address': data__[data_key[a]]['IP Address'],
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 0
-          }*/
+          }
           console.error(error + ',, ' + a);
           //socket.emit('arp', result);
         });
