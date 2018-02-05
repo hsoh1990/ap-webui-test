@@ -199,6 +199,7 @@ function connection_text(res_count, conn_count) {
   });
   textlayer.remove();
   textlayer.add(text);
+  stage.add(textlayer);
   if (res_count > conn_count) {
     text.text("연결을 확인하는 중입니다...");
 
