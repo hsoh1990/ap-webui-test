@@ -109,7 +109,7 @@ function wlan_draw() {
 }
 
 
-function loadImages(sources, x, y) {
+function loadImages(sources, x, y, anchorLayer) {
   var images = {};
   var loadedImages = 0;
   var numImages = 0;
@@ -213,7 +213,7 @@ function disconnect_draw(res_count, conn_count) {
     };
 
 
-    loadImages(sources, x, y);
+    loadImages(sources, x, y, anchorLayer);
 
 
     function buildline(x, y) {
