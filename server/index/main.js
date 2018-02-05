@@ -114,7 +114,7 @@ module.exports = function(app, fs, url) {
             'arp': 1
           }*/
           console.log(mac + ',, ' + a);
-          console.log(data__ + ',, ' + data__);
+          console.log(data__ + ',, ' + JSON.stringify(data__));
           //socket.emit('arp', result);
         }, function(err, data__, data_key, a) {
           // 실패시
