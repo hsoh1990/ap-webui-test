@@ -174,7 +174,7 @@ function disconnect_draw(res_count, conn_count) {
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
-    var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
+    var y = stage.getHeight() / 2 - 30 + resultxy[a][1];
 
     function loadImages(sources, x, y) {
       var images = {};
@@ -194,6 +194,18 @@ function disconnect_draw(res_count, conn_count) {
               width: 55,
               height: 55
             });
+
+            device.on('mouseover', function() {
+              document.body.style.cursor = 'pointer';
+              this.setStrokeWidth(4);
+              anchorLayer.draw();
+            });
+            device.on('mouseout', function() {
+              document.body.style.cursor = 'default';
+              this.setStrokeWidth(2);
+              anchorLayer.draw();
+            });
+            anchor.on('dragend', function() {});
 
             anchorLayer.add(device);
           }
