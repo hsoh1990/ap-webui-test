@@ -94,38 +94,37 @@ module.exports = function(app, fs, url) {
           arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
             if (!err) {
               console.log("mac : " + mac);
-              resolve(mac, data__, data_key, a);
+              result = {
+                'MAC Address': data__[data_key[a]]['MAC Address'],
+                'IP Address': data__[data_key[a]]['IP Address'],
+                'Host name': data__[data_key[a]]['Host name'],
+                'arp': 0
+              }
+              resolve(result);
 
             } else {
               console.log("error : " + err);
-              reject(err, data__, data_key, a);
+              result = {
+                'MAC Address': data__[data_key[a]]['MAC Address'],
+                'IP Address': data__[data_key[a]]['IP Address'],
+                'Host name': data__[data_key[a]]['Host name'],
+                'arp': 0
+              }
+              reject(result);
             }
           });
         });
       };
       _promise(a, data__, data_key)
-        .then(function(mac, data__, data_key, a) {
+        .then(function(result) {
           // 성공시/*
-          /*
-          result = {
-            'MAC Address': data__[data_key[a]]['MAC Address'],
-            'IP Address': data__[data_key[a]]['IP Address'],
-            'Host name': data__[data_key[a]]['Host name'],
-            'arp': 1
-          }*/
-          console.log(mac + ',, ' + a);
-          console.log(data__ + ',, ' + JSON.stringify(data__));
+
+          console.log(result['MAC Address'] + ',, ' + result['arp']);
           //socket.emit('arp', result);
-        }, function(err, data__, data_key, a) {
+        }, function(result) {
           // 실패시
-          /*
-          result = {
-            'MAC Address': data__[data_key[a]]['MAC Address'],
-            'IP Address': data__[data_key[a]]['IP Address'],
-            'Host name': data__[data_key[a]]['Host name'],
-            'arp': 0
-          }*/
-          console.log(error + ',, ' + a);
+
+          console.log(result['MAC Address'] + ',, ' + result['arp']);
           //socket.emit('arp', result);
         });
 
