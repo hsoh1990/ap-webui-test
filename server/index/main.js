@@ -92,6 +92,7 @@ module.exports = function(app, fs, url) {
       var _promise = function(a, data__, data_key) {
         return new Promise(function(resolve, reject) {
           arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
+            console.log("a : " + a);
             if (!err) {
               console.log("mac : " + mac);
               resolve(mac);
