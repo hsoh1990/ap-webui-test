@@ -108,32 +108,6 @@ function wlan_draw() {
   stage.add(wlanlayer);
 }
 
-
-function loadImages(sources, x, y) {
-  var images = {};
-  var loadedImages = 0;
-  var numImages = 0;
-  for (var src in sources) {
-    numImages++;
-  }
-  for (var src in sources) {
-    images[src] = new Image();
-    images[src].onload = function() {
-      if (++loadedImages >= numImages) {
-        var device = new Konva.Image({
-          image: images.device,
-          x: x,
-          y: y,
-          width: 55,
-          height: 55
-        });
-
-        anchorLayer.add(device);
-      }
-    };
-    images[src].src = sources[src];
-  }
-}
 function disconnect_draw(res_count, conn_count) {
 
 
@@ -202,12 +176,36 @@ function disconnect_draw(res_count, conn_count) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
+    function loadImages(sources, x, y) {
+      var images = {};
+      var loadedImages = 0;
+      var numImages = 0;
+      for (var src in sources) {
+        numImages++;
+      }
+      for (var src in sources) {
+        images[src] = new Image();
+        images[src].onload = function() {
+          if (++loadedImages >= numImages) {
+            var device = new Konva.Image({
+              image: images.device,
+              x: x,
+              y: y,
+              width: 55,
+              height: 55
+            });
+
+            anchorLayer.add(device);
+          }
+        };
+        images[src].src = sources[src];
+      }
+    }
+
     var sources = {
         device: '/svg/button-red_benji_park_01.svg'
     };
-
-    var device = loadImages(sources, x, y);
-
+    loadImages(sources, x, y);
     function buildline(x, y) {
       var Line = new Konva.Line({
         points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
