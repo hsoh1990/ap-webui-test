@@ -168,7 +168,7 @@ function disconnect_draw(res_count, conn_count) {
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
-    var y = stage.getHeight() / 2 - 25 + resultxy[a][1];
+    var y = stage.getHeight() / 2 - 20 + resultxy[a][1];
 
     var anchor = new Konva.Rect({
       x: x,
@@ -275,7 +275,7 @@ function connect_draw(res_count, conn_count) {
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
-    var y = stage.getHeight() / 2 - 25 + resultxy[a][1];
+    var y = stage.getHeight() / 2 - 20 + resultxy[a][1];
 
     var anchor = new Konva.Rect({
       x: x,
