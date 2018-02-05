@@ -109,7 +109,7 @@ function wlan_draw() {
 }
 
 
-function loadImages(sources, callback, x, y) {
+function loadImages(sources, x, y) {
   var images = {};
   var loadedImages = 0;
   var numImages = 0;
@@ -120,7 +120,16 @@ function loadImages(sources, callback, x, y) {
     images[src] = new Image();
     images[src].onload = function() {
       if (++loadedImages >= numImages) {
-        callback(images, x, y);
+        var device = new Konva.Image({
+          image: images.device,
+          x: x,
+          y: y,
+          width: 55,
+          height: 55
+        });
+
+
+        anchorLayer.add(device);
       }
     };
     images[src].src = sources[src];
@@ -128,16 +137,7 @@ function loadImages(sources, callback, x, y) {
 }
 
 function buildStage(images, x, y) {
-  var device = new Konva.Image({
-    image: images.device,
-    x: x,
-    y: y,
-    width: 55,
-    height: 55
-  });
 
-
-  anchorLayer.add(device);
 }
 
 function disconnect_draw(res_count, conn_count) {
@@ -213,7 +213,7 @@ function disconnect_draw(res_count, conn_count) {
     };
 
 
-    loadImages(sources, buildStage, x, y);
+    loadImages(sources, x, y);
 
 
     function buildline(x, y) {
