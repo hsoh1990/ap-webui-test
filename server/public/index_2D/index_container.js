@@ -107,44 +107,39 @@ function wlan_draw() {
   wlanlayer.add(wlan_box);
   stage.add(wlanlayer);
 }
-function test___() {
-  function loadImages(sources, callback) {
-    var images = {};
-    var loadedImages = 0;
-    var numImages = 0;
-    for (var src in sources) {
-      numImages++;
-    }
-    for (var src in sources) {
-      images[src] = new Image();
-      images[src].onload = function() {
-        if (++loadedImages >= numImages) {
-          callback(images);
-        }
-      };
-      images[src].src = sources[src];
-    }
+
+
+function loadImages(sources, callback, x, y) {
+  var images = {};
+  var loadedImages = 0;
+  var numImages = 0;
+  for (var src in sources) {
+    numImages++;
   }
-
-  function buildStage(images) {
-    var device = new Konva.Image({
-      image: images.device,
-      x: 120,
-      y: 50,
-      width: 55,
-      height: 55
-    });
-
-
-    aplayer.add(device);
-    stage.add(aplayer);
+  for (var src in sources) {
+    images[src] = new Image();
+    images[src].onload = function() {
+      if (++loadedImages >= numImages) {
+        callback(images, x, y);
+      }
+    };
+    images[src].src = sources[src];
   }
-  var sources = {
-      device: '/svg/button-green_benji_park_01.svg',
-  };
-
-  loadImages(sources, buildStage);
 }
+
+function buildStage(images, x, y) {
+  var device = new Konva.Image({
+    image: images.device,
+    x: x,
+    y: y,
+    width: 55,
+    height: 55
+  });
+
+
+  anchorLayer.add(device);
+}
+
 function disconnect_draw(res_count, conn_count) {
 
 
@@ -213,29 +208,13 @@ function disconnect_draw(res_count, conn_count) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
-    var anchor = new Konva.Rect({
-      x: x,
-      y: y,
-      width: 40,
-      height: 30,
-      fill: 'gray',
-      stroke: 'black',
-      strokeWidth: 3
-    });
-    // add hover styling
-    anchor.on('mouseover', function() {
-      document.body.style.cursor = 'pointer';
-      this.setStrokeWidth(4);
-      anchorLayer.draw();
-    });
-    anchor.on('mouseout', function() {
-      document.body.style.cursor = 'default';
-      this.setStrokeWidth(2);
-      anchorLayer.draw();
-    });
-    anchor.on('dragend', function() {});
+    var sources = {
+        device: '/svg/button-red_benji_park_01.svg'
+    };
 
-    anchorLayer.add(anchor);
+
+    loadImages(sources, buildStage, x, y);
+
 
     function buildline(x, y) {
       var Line = new Konva.Line({
