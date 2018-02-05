@@ -313,36 +313,43 @@ function connection_text(res_count, conn_count) {
 
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+var lastDist = 0;
+var startScale = 1;
+
+function getDistance(p1, p2) {
+  return Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y), 2));
+}
+
 function drag_event() {
   stage.getContent().addEventListener('touchmove', function(evt) {
-        var touch1 = evt.touches[0];
-        var touch2 = evt.touches[1];
+    var touch1 = evt.touches[0];
+    var touch2 = evt.touches[1];
 
-        if(touch1 && touch2) {
-            var dist = getDistance({
-                x: touch1.clientX,
-                y: touch1.clientY
-            }, {
-                x: touch2.clientX,
-                y: touch2.clientY
-            });
+    if (touch1 && touch2) {
+      var dist = getDistance({
+        x: touch1.clientX,
+        y: touch1.clientY
+      }, {
+        x: touch2.clientX,
+        y: touch2.clientY
+      });
 
-            if(!lastDist) {
-                lastDist = dist;
-            }
+      if (!lastDist) {
+        lastDist = dist;
+      }
 
-            var scale = stage.getScaleX() * dist / lastDist;
+      var scale = stage.getScaleX() * dist / lastDist;
 
-            stage.scaleX(scale);
-            stage.scaleY(scale);
-            stage.draw();
-            lastDist = dist;
-        }
-    }, false);
+      stage.scaleX(scale);
+      stage.scaleY(scale);
+      stage.draw();
+      lastDist = dist;
+    }
+  }, false);
 
-    stage.getContent().addEventListener('touchend', function() {
-        lastDist = 0;
-    }, false);
+  stage.getContent().addEventListener('touchend', function() {
+    lastDist = 0;
+  }, false);
 }
 drag_event();
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
