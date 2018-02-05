@@ -206,8 +206,7 @@ function connection_text(res_count, conn_count) {
   } else if (res_count <= conn_count) {
     text.text("연결 확인이 완료되었습니다.");
   }
-  textlayer.draw();
-
+  stage.clear();
 }
 
 
