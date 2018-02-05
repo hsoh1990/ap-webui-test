@@ -130,7 +130,7 @@ function test___() {
     var device = new Konva.Image({
       image: images.device,
       x: 120,
-      y: 50
+      y: 50,
       width: 40,
       height: 30
     });
