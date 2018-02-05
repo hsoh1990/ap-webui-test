@@ -106,24 +106,26 @@ module.exports = function(app, fs, url) {
       _promise()
         .then(function(mac) {
           // 성공시
+          /*
           result = {
             'MAC Address': data__[data_key[a]]['MAC Address'],
             'IP Address': data__[data_key[a]]['IP Address'],
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 1
-          }
+          }*/
           console.log(mac + ',, ' + a);
-          socket.emit('arp', result);
+          //socket.emit('arp', result);
         }, function(error) {
           // 실패시
+          /*
           result = {
             'MAC Address': data__[data_key[a]]['MAC Address'],
             'IP Address': data__[data_key[a]]['IP Address'],
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 0
-          }
+          }*/
           console.error(error + ',, ' + a);
-          socket.emit('arp', result);
+          //socket.emit('arp', result);
         });
 
     }
