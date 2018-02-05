@@ -190,7 +190,7 @@ function connect_draw(res_count, conn_count) {
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 function connection_text(res_count, conn_count) {
   var text = new Konva.Text({
-    x: stage.getWidth() / 2,
+    x: 10,
     y: 15,
     text: 'Simple Text',
     fontSize: 30,
