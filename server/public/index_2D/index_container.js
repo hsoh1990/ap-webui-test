@@ -68,15 +68,6 @@ function connect_draw(count) {
     stage.container().style.cursor = 'default';
   });
 
-  layer.add(Rect);
-
-  layer.add(Line1);
-  layer.add(Line2);
-  layer.add(Line3);
-  layer.add(Line4);
-
-  stage.add(layer);
-
   var device_count = count;
   var radius = 350;
   var resultxy = [];
@@ -170,10 +161,22 @@ function connect_draw(count) {
 
       stage.add(curveLayer);
     }
+
     buildline(x, y);
     stage.add(anchorLayer);
 
   }
+
+  layer.add(Rect);
+
+  layer.add(Line1);
+  layer.add(Line2);
+  layer.add(Line3);
+  layer.add(Line4);
+
+  stage.add(layer);
+
+
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
