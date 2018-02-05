@@ -176,6 +176,11 @@ function disconnect_draw(res_count, conn_count) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
+
+    var sources = {
+      device: '/svg/button-red_benji_park_01.svg'
+    };
+
     var images = {};
     var loadedImages = 0;
     var numImages = 0;
@@ -200,10 +205,6 @@ function disconnect_draw(res_count, conn_count) {
       images[src].src = sources[src];
     }
 
-    var sources = {
-      device: '/svg/button-red_benji_park_01.svg'
-    };
-    loadImages(sources, x, y);
 
     function buildline(x, y) {
       var Line = new Konva.Line({
