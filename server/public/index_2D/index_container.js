@@ -137,8 +137,8 @@ function connect_draw(res_count, conn_count) {
   anchorLayer = new Konva.Layer();
   curveLayer = new Konva.Layer();
 
-  curveLayer.remove();
-  anchorLayer.remove();
+  curveLayer.removeChildren();
+  anchorLayer.removeChildren();
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
