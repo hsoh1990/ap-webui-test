@@ -205,7 +205,7 @@ function disconnect_draw(res_count, conn_count) {
               this.setStrokeWidth(2);
               anchorLayer.draw();
             });
-            anchor.on('dragend', function() {});
+            device.on('dragend', function() {});
 
             anchorLayer.add(device);
           }
