@@ -65,7 +65,7 @@ function connect_AP() {
     stage.container().style.cursor = 'default';
   });
 
-  aplayer.remove();
+  aplayer.removeChildren();
 
   aplayer.add(Rect);
 
@@ -199,15 +199,15 @@ function connection_text(res_count, conn_count) {
     fontFamily: 'Calibri',
     fill: 'green'
   });
-  textlayer.remove();
-  textlayer.add(text);
-  stage.add(textlayer);
   if (res_count > conn_count) {
     text.text("연결을 확인하는 중입니다...");
 
   } else if (res_count <= conn_count) {
     text.text("연결 확인이 완료되었습니다.");
   }
+  textlayer.removeChildren();
+  textlayer.add(text);
+  stage.add(textlayer);
 }
 
 
