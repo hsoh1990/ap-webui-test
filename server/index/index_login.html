@@ -125,17 +125,19 @@
     var connect_count = 0;
     var disconnect_count = 0;
     var connect_data = {};
+    var disconnect_data = {};
 
     // 서버에서 news 이벤트가 일어날 때 데이터를 받는다.
     socket.on('arp',
       function(data) {
-        connect_data += data;
         if (data['arp'] == 1) {
           connect_count += 1;
+          connect_data += data;
           disconnect_draw(data['length'], disconnect_count);
           connect_draw(data['length'], connect_count);
         } else if (data['arp'] == 0) {
           disconnect_count += 1;
+          disconnect_data += data;
           disconnect_draw(data['length'], disconnect_count);
           connect_draw(data['length'], connect_count);
         }

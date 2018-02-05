@@ -13,7 +13,7 @@ var disconnect_radius = 550;
 //반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 function connect_AP() {
-  var Rect = new Konva.Rect({
+  var AP_Rect = new Konva.Rect({
     x: stage.getWidth() / 2 - 40,
     y: stage.getHeight() / 2 - 30,
     width: 80,
@@ -43,7 +43,7 @@ function connect_AP() {
     tension: 1
   });
   var Line3 = new Konva.Line({ //우측 위 작은선
-    points: [Line_Rect_position_x + 20 + Rect.getWidth(), Line_Rect_position_y - 5, Line_Rect_position_x + 20 + Rect.getWidth(), Line_Rect_position_y - 20, Line_Rect_position_x + 5 + Rect.getWidth(), Line_Rect_position_y - 20],
+    points: [Line_Rect_position_x + 20 + AP_Rect.getWidth(), Line_Rect_position_y - 5, Line_Rect_position_x + 20 + AP_Rect.getWidth(), Line_Rect_position_y - 20, Line_Rect_position_x + 5 + AP_Rect.getWidth(), Line_Rect_position_y - 20],
     stroke: 'blue',
     strokeWidth: 3,
     lineCap: 'round',
@@ -51,7 +51,7 @@ function connect_AP() {
     tension: 1
   });
   var Line4 = new Konva.Line({ //우측위 큰선
-    points: [Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y, Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y - 30, Line_Rect_position_x + Rect.getWidth(), Line_Rect_position_y - 30],
+    points: [Line_Rect_position_x + 30 + AP_Rect.getWidth(), Line_Rect_position_y, Line_Rect_position_x + 30 + AP_Rect.getWidth(), Line_Rect_position_y - 30, Line_Rect_position_x + AP_Rect.getWidth(), Line_Rect_position_y - 30],
     stroke: 'blue',
     strokeWidth: 3,
     lineCap: 'round',
@@ -60,17 +60,17 @@ function connect_AP() {
   });
 
 
-  Rect.on('mouseenter', function() {
+  AP_Rect.on('mouseenter', function() {
     stage.container().style.cursor = 'pointer';
   });
 
-  Rect.on('mouseleave', function() {
+  AP_Rect.on('mouseleave', function() {
     stage.container().style.cursor = 'default';
   });
 
   aplayer.removeChildren();
 
-  aplayer.add(Rect);
+  aplayer.add(AP_Rect);
 
   aplayer.add(Line1);
   aplayer.add(Line2);
@@ -79,7 +79,31 @@ function connect_AP() {
 
   stage.add(aplayer);
 }
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+function wlan_draw() {
+  var wlan_x = stage.getWidth() / 2
+  var wlan_box = new Konva.Rect({
+    x: x,
+    y: y,
+    width: 40,
+    height: 30,
+    fill: 'gray',
+    stroke: 'black',
+    strokeWidth: 3
+  });
 
+  var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
+  var y = stage.getHeight() / 2 - 30 + resultxy[a][1];
+
+  var wlan_line = new Konva.Line({
+    points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
+    stroke: 'black',
+    strokeWidth: 3,
+    lineCap: 'round',
+    lineJoin: 'round'
+  });
+
+}
 function disconnect_draw(res_count, conn_count) {
 
 
@@ -144,7 +168,7 @@ function disconnect_draw(res_count, conn_count) {
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
-    var y = stage.getHeight() / 2 - 30 + resultxy[a][1];
+    var y = stage.getHeight() / 2 - 25 + resultxy[a][1];
 
     var anchor = new Konva.Rect({
       x: x,
@@ -251,7 +275,7 @@ function connect_draw(res_count, conn_count) {
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
-    var y = stage.getHeight() / 2 - 30 + resultxy[a][1];
+    var y = stage.getHeight() / 2 - 25 + resultxy[a][1];
 
     var anchor = new Konva.Rect({
       x: x,
