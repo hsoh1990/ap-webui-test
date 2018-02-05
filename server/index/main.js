@@ -145,6 +145,12 @@ module.exports = function(app, fs, url) {
 
     }
 
+    ! function test() {
+      console.log("반복 합니다");
+      setTimeout(function() {
+        test();
+      }, 5000);
+    }()
 
     // 클라이언트에서 my other event가 발생하면 데이터를 받는다.
     socket.on('my other event', function(data) {
