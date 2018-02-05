@@ -104,7 +104,7 @@ module.exports = function(app, fs, url) {
         });
       };
       _promise(a, data__, data_key)
-        .then(function(mac, data__, data_key, a)) {
+        .then(function(mac, data__, data_key, a) {
           // 성공시/*
 
           result = {
