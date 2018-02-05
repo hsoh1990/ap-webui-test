@@ -103,8 +103,8 @@ function wlan_draw() {
     lineJoin: 'round'
   });
 
-  wlanlayer.add(wlan_box);
   wlanlayer.add(wlan_line);
+  wlanlayer.add(wlan_box);
   stage.add(wlanlayer);
 }
 
