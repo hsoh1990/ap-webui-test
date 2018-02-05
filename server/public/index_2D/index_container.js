@@ -75,7 +75,9 @@ function connect_AP() {
 }
 function connect_draw(count) {
 
+
   stage.remove();
+  stage.clear();
 
   var device_count = count;
   var radius = 350;
