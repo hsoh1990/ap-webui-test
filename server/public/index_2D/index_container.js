@@ -176,6 +176,21 @@ function disconnect_draw(res_count, conn_count) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
+    function buildline(x, y) {
+      var Line = new Konva.Line({
+        points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
+        stroke: 'black',
+        strokeWidth: 3,
+        lineCap: 'round',
+        lineJoin: 'round'
+      });
+
+      curveLayer.add(Line);
+
+      stage.add(curveLayer);
+    }
+
+    buildline(x, y);
 
     var imageObj = new Image();
     imageObj.onload = function() {
@@ -195,23 +210,6 @@ function disconnect_draw(res_count, conn_count) {
       stage.add(anchorLayer);
     };
     imageObj.src = '/svg/button-red_benji_park_01.svg';
-
-
-    function buildline(x, y) {
-      var Line = new Konva.Line({
-        points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
-        stroke: 'black',
-        strokeWidth: 3,
-        lineCap: 'round',
-        lineJoin: 'round'
-      });
-
-      curveLayer.add(Line);
-
-      stage.add(curveLayer);
-    }
-
-    buildline(x, y);
 
   }
 
