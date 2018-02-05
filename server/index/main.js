@@ -102,7 +102,7 @@ module.exports = function(app, fs, url) {
                     'MAC Address': data__[data_key[a]]['MAC Address'],
                     'IP Address': data__[data_key[a]]['IP Address'],
                     'Host name': data__[data_key[a]]['Host name'],
-                    'arp': 0
+                    'arp': 1
                   }
                   resolve(result);
 
