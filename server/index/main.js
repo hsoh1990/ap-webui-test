@@ -112,8 +112,8 @@ module.exports = function(app, fs, url) {
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 1
           }
-          socket.emit('arp', result);
           console.log(mac + ',, ' + a);
+          socket.emit('arp', result);
         }, function(error) {
           // 실패시
           result = {
@@ -122,8 +122,8 @@ module.exports = function(app, fs, url) {
             'Host name': data__[data_key[a]]['Host name'],
             'arp': 0
           }
-          socket.emit('arp', result);
           console.error(error + ',, ' + a);
+          socket.emit('arp', result);
         });
 
     }
