@@ -176,50 +176,35 @@ function disconnect_draw(res_count, conn_count) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
-    function loadImages(sources, x, y) {
-      var images = {};
-      var loadedImages = 0;
-      var numImages = 0;
-      for (var src in sources) {
-        numImages++;
-      }
-      for (var src in sources) {
-        images[src] = new Image();
-        images[src].onload = function() {
-          if (++loadedImages >= numImages) {
-            var device = new Konva.Image({
-              image: images.device,
-              x: x,
-              y: y - 10,
-              width: 55,
-              height: 55,
-              stroke: 'black',
-              strokeWidth: 3
-            });
+    var images = {};
+    var loadedImages = 0;
+    var numImages = 0;
+    for (var src in sources) {
+      numImages++;
+    }
+    for (var src in sources) {
+      images[src] = new Image();
+      images[src].onload = function() {
+        if (++loadedImages >= numImages) {
+          var device = new Konva.Image({
+            image: images.device,
+            x: x,
+            y: y - 10,
+            width: 55,
+            height: 55
+          });
 
-            device.on('mouseover', function() {
-              document.body.style.cursor = 'pointer';
-              this.setStrokeWidth(4);
-              anchorLayer.draw();
-            });
-            device.on('mouseout', function() {
-              document.body.style.cursor = 'default';
-              this.setStrokeWidth(2);
-              anchorLayer.draw();
-            });
-            device.on('dragend', function() {});
-
-            anchorLayer.add(device);
-          }
-        };
-        images[src].src = sources[src];
-      }
+          anchorLayer.add(device);
+        }
+      };
+      images[src].src = sources[src];
     }
 
     var sources = {
-        device: '/svg/button-red_benji_park_01.svg'
+      device: '/svg/button-red_benji_park_01.svg'
     };
     loadImages(sources, x, y);
+
     function buildline(x, y) {
       var Line = new Konva.Line({
         points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
