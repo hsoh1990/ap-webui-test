@@ -72,7 +72,9 @@ function connect_AP() {
   aplayer.add(Line3);
   aplayer.add(Line4);
 
-  stage.add(layer);
+  stage.add(aplayer);
+
+  aplayer.remove();
 }
 function connect_draw(res_count, conn_count) {
 
