@@ -134,7 +134,7 @@ function test___() {
     });
 
 
-    layer.add(device);
+    aplayer.add(device);
     stage.add(layer);
   }
   var sources = {
