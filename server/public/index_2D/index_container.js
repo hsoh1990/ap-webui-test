@@ -330,6 +330,7 @@ function connection_text(res_count, conn_count) {
     document.getElementById("connent_text").innerHTML = content;
 
   }
+  stage.draw();
 }
 
 
