@@ -120,7 +120,15 @@ function loadImages(sources) {
     images[src] = new Image();
     images[src].onload = function() {
       if (++loadedImages >= numImages) {
-        return images;
+        var device = new Konva.Image({
+          image: images.device,
+          x: x,
+          y: y,
+          width: 55,
+          height: 55
+        });
+
+        return device;
       }
     };
     images[src].src = sources[src];
@@ -198,15 +206,7 @@ function disconnect_draw(res_count, conn_count) {
         device: '/svg/button-red_benji_park_01.svg'
     };
 
-    var images = loadImages(sources);
-
-    var device = new Konva.Image({
-      image: images.device,
-      x: x,
-      y: y,
-      width: 55,
-      height: 55
-    });
+    var device = loadImages(sources);
 
     anchorLayer.add(device);
 
