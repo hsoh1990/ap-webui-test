@@ -128,7 +128,7 @@ function loadImages(sources, x, y) {
           height: 55
         });
 
-        return device;
+        anchorLayer.add(device);
       }
     };
     images[src].src = sources[src];
@@ -207,8 +207,6 @@ function disconnect_draw(res_count, conn_count) {
     };
 
     var device = loadImages(sources, x, y);
-
-    anchorLayer.add(device);
 
     function buildline(x, y) {
       var Line = new Konva.Line({
