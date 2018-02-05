@@ -171,14 +171,7 @@ function connect_draw(count) {
 
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-var simpleText = new Konva.Text({
-  x: 15,
-  y: 15,
-  text: resultxy,
-  fontSize: 30,
-  fontFamily: 'Calibri',
-  fill: 'green'
-});
+
 
 stage.add(layer);
 
