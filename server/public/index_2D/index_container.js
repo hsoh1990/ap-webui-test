@@ -131,8 +131,8 @@ function test___() {
       image: images.device,
       x: 120,
       y: 50,
-      width: 40,
-      height: 30
+      width: 60,
+      height: 50
     });
 
 
