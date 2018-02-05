@@ -88,6 +88,7 @@ module.exports = function(app, fs, url) {
     ! function arp_repeat() {
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
       //반복하는 부분
+      console.log("반복 시작");
       var data__ = data_get();
       var data_key = Object.getOwnPropertyNames(data__);
       console.log(data__);
