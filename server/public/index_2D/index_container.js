@@ -65,6 +65,8 @@ function connect_AP() {
     stage.container().style.cursor = 'default';
   });
 
+  aplayer.remove();
+
   aplayer.add(Rect);
 
   aplayer.add(Line1);
@@ -73,8 +75,6 @@ function connect_AP() {
   aplayer.add(Line4);
 
   stage.add(aplayer);
-
-  //aplayer.remove();
 }
 function connect_draw(res_count, conn_count) {
 
@@ -134,6 +134,9 @@ function connect_draw(res_count, conn_count) {
   anchorLayer = new Konva.Layer();
   curveLayer = new Konva.Layer();
 
+  curveLayer.remove();
+  anchorLayer.remove();
+
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 30 + resultxy[a][1];
@@ -178,8 +181,6 @@ function connect_draw(res_count, conn_count) {
 
     buildline(x, y);
     stage.add(anchorLayer);
-    //curveLayer.remove();
-    //anchorLayer.remove();
 
   }
 
@@ -202,9 +203,10 @@ function connection_text(res_count, conn_count) {
   } else if (res_count <= conn_count) {
     text.text("연결 확인이 완료되었습니다.");
   }
+  textlayer.remove();
   textlayer.add(text);
   textlayer.draw();
-  //textlayer.remove();
+  stage.add(textlayer);
 }
 
 
