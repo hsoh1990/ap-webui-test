@@ -113,7 +113,7 @@ module.exports = function(app, fs, url) {
             'arp': 1
           }
           socket.emit('arp', result);
-          console.log(mac);
+          console.log(mac + ',, ' + a);
         }, function(error) {
           // 실패시
           result = {
@@ -123,7 +123,7 @@ module.exports = function(app, fs, url) {
             'arp': 0
           }
           socket.emit('arp', result);
-          console.error(error);
+          console.error(error + ',, ' + a);
         });
 
     }
