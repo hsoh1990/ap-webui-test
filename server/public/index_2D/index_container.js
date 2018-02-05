@@ -7,66 +7,76 @@ var stage = new Konva.Stage({
 var layer = new Konva.Layer();
 
 
-var Rect = new Konva.Rect({
-  x: stage.getWidth() / 2 - 40,
-  y: stage.getHeight() / 2 - 30,
-  width: 80,
-  height: 60,
-  fill: 'yellow',
-  stroke: 'black',
-  strokeWidth: 3
-});
-
-var Line_Rect_position_x = stage.getWidth() / 2 - 40;
-var Line_Rect_position_y = stage.getHeight() / 2 - 30;
-var Line1 = new Konva.Line({ //좌측 위 작은선
-  points: [Line_Rect_position_x - 20, Line_Rect_position_y - 5, Line_Rect_position_x - 20, Line_Rect_position_y - 20, Line_Rect_position_x - 5, Line_Rect_position_y - 20],
-  stroke: 'blue',
-  strokeWidth: 3,
-  lineCap: 'round',
-  lineJoin: 'round',
-  tension: 1
-});
-var Line2 = new Konva.Line({ //좌측 위 큰선
-  points: [Line_Rect_position_x - 30, Line_Rect_position_y, Line_Rect_position_x - 30, Line_Rect_position_y - 30, Line_Rect_position_x, Line_Rect_position_y - 30],
-  stroke: 'blue',
-  strokeWidth: 3,
-  lineCap: 'round',
-  lineJoin: 'round',
-  tension: 1
-});
-var Line3 = new Konva.Line({ //우측 위 작은선
-  points: [Line_Rect_position_x + 20 + Rect.getWidth(), Line_Rect_position_y - 5, Line_Rect_position_x + 20 + Rect.getWidth(), Line_Rect_position_y - 20, Line_Rect_position_x + 5 + Rect.getWidth(), Line_Rect_position_y - 20],
-  stroke: 'blue',
-  strokeWidth: 3,
-  lineCap: 'round',
-  lineJoin: 'round',
-  tension: 1
-});
-var Line4 = new Konva.Line({ //우측위 큰선
-  points: [Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y, Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y - 30, Line_Rect_position_x + Rect.getWidth(), Line_Rect_position_y - 30],
-  stroke: 'blue',
-  strokeWidth: 3,
-  lineCap: 'round',
-  lineJoin: 'round',
-  tension: 1
-});
-
-
-Rect.on('mouseenter', function() {
-  stage.container().style.cursor = 'pointer';
-});
-
-Rect.on('mouseleave', function() {
-  stage.container().style.cursor = 'default';
-});
-
-layer.add(Rect);
-
 //반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 function connect_draw(count) {
+
+  stage.clear();
+
+  var Rect = new Konva.Rect({
+    x: stage.getWidth() / 2 - 40,
+    y: stage.getHeight() / 2 - 30,
+    width: 80,
+    height: 60,
+    fill: 'yellow',
+    stroke: 'black',
+    strokeWidth: 3
+  });
+
+  var Line_Rect_position_x = stage.getWidth() / 2 - 40;
+  var Line_Rect_position_y = stage.getHeight() / 2 - 30;
+  var Line1 = new Konva.Line({ //좌측 위 작은선
+    points: [Line_Rect_position_x - 20, Line_Rect_position_y - 5, Line_Rect_position_x - 20, Line_Rect_position_y - 20, Line_Rect_position_x - 5, Line_Rect_position_y - 20],
+    stroke: 'blue',
+    strokeWidth: 3,
+    lineCap: 'round',
+    lineJoin: 'round',
+    tension: 1
+  });
+  var Line2 = new Konva.Line({ //좌측 위 큰선
+    points: [Line_Rect_position_x - 30, Line_Rect_position_y, Line_Rect_position_x - 30, Line_Rect_position_y - 30, Line_Rect_position_x, Line_Rect_position_y - 30],
+    stroke: 'blue',
+    strokeWidth: 3,
+    lineCap: 'round',
+    lineJoin: 'round',
+    tension: 1
+  });
+  var Line3 = new Konva.Line({ //우측 위 작은선
+    points: [Line_Rect_position_x + 20 + Rect.getWidth(), Line_Rect_position_y - 5, Line_Rect_position_x + 20 + Rect.getWidth(), Line_Rect_position_y - 20, Line_Rect_position_x + 5 + Rect.getWidth(), Line_Rect_position_y - 20],
+    stroke: 'blue',
+    strokeWidth: 3,
+    lineCap: 'round',
+    lineJoin: 'round',
+    tension: 1
+  });
+  var Line4 = new Konva.Line({ //우측위 큰선
+    points: [Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y, Line_Rect_position_x + 30 + Rect.getWidth(), Line_Rect_position_y - 30, Line_Rect_position_x + Rect.getWidth(), Line_Rect_position_y - 30],
+    stroke: 'blue',
+    strokeWidth: 3,
+    lineCap: 'round',
+    lineJoin: 'round',
+    tension: 1
+  });
+
+
+  Rect.on('mouseenter', function() {
+    stage.container().style.cursor = 'pointer';
+  });
+
+  Rect.on('mouseleave', function() {
+    stage.container().style.cursor = 'default';
+  });
+
+  layer.add(Rect);
+
+  layer.add(Line1);
+  layer.add(Line2);
+  layer.add(Line3);
+  layer.add(Line4);
+
+  stage.add(layer);
+
   var device_count = count;
   var radius = 350;
   var resultxy = [];
@@ -172,16 +182,9 @@ function connect_draw(count) {
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
-
-stage.add(layer);
-
-layer.add(Line1);
-layer.add(Line2);
-layer.add(Line3);
-layer.add(Line4);
 //layer.add(simpleText);
 
-layer.draw();
+//layer.draw();
 
 var scaleBy = 1.15;
 window.addEventListener('wheel', (e) => {
