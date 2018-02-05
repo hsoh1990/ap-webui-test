@@ -137,22 +137,23 @@
       socket.on('arp',
         function(data) {
           if (data['length'] == (connect_count + disconnect_count)) {
-            break;
-          }
 
-          if (data['arp'] == 1) {
-            connect_count += 1;
-            connect_data += data;
-            disconnect_draw(data['length'], disconnect_count);
-            connect_draw(data['length'], connect_count);
-          } else if (data['arp'] == 0) {
-            disconnect_count += 1;
-            disconnect_data += data;
-            disconnect_draw(data['length'], disconnect_count);
-            connect_draw(data['length'], connect_count);
           }
-          connect_AP();
-          connection_text(data['length'], (connect_count + disconnect_count));
+          else {
+            if (data['arp'] == 1) {
+              connect_count += 1;
+              connect_data += data;
+              disconnect_draw(data['length'], disconnect_count);
+              connect_draw(data['length'], connect_count);
+            } else if (data['arp'] == 0) {
+              disconnect_count += 1;
+              disconnect_data += data;
+              disconnect_draw(data['length'], disconnect_count);
+              connect_draw(data['length'], connect_count);
+            }
+            connect_AP();
+            connection_text(data['length'], (connect_count + disconnect_count));
+          }
 
           //서버에 my other event 이벤트를 보낸다.
           /*
