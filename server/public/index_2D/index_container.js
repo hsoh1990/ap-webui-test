@@ -7,7 +7,7 @@ var stage = new Konva.Stage({
 var aplayer = new Konva.Layer();
 var textlayer = new Konva.Layer();
 
-var connect_radius = 350;
+var connect_radius = 380;
 var disconnect_radius = 550;
 //반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -299,23 +299,16 @@ function connect_draw(res_count, conn_count) {
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 function connection_text(res_count, conn_count) {
-  var text = new Konva.Text({
-    x: 10,
-    y: 15,
-    text: 'Simple Text',
-    fontSize: 30,
-    fontFamily: 'Calibri',
-    fill: 'green'
-  });
+  var content = "";
   if (res_count > conn_count) {
-    text.text("연결을 확인하는 중입니다...");
+    content += "연결을 확인하는 중입니다...";
+    document.getElementById("connent_text").innerHTML = content;
 
   } else if (res_count <= conn_count) {
-    text.text("연결 확인이 완료되었습니다.");
+    content += "연결 확인이 완료되었습니다.";
+    document.getElementById("connent_text").innerHTML = content;
+
   }
-  textlayer.removeChildren();
-  textlayer.add(text);
-  stage.add(textlayer);
 }
 
 
