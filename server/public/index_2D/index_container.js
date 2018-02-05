@@ -181,29 +181,15 @@ function disconnect_draw(res_count, conn_count) {
       device: '/svg/button-red_benji_park_01.svg'
     };
 
-    var images = {};
-    var loadedImages = 0;
-    var numImages = 0;
-    for (var src in sources) {
-      numImages++;
-    }
-    for (var src in sources) {
-      images[src] = new Image();
-      images[src].onload = function() {
-        if (++loadedImages >= numImages) {
-          var device = new Konva.Image({
-            image: images.device,
-            x: x,
-            y: y - 10,
-            width: 55,
-            height: 55
-          });
+    var device = new Konva.Image({
+      image: sources.device,
+      x: x,
+      y: y - 10,
+      width: 55,
+      height: 55
+    });
 
-          anchorLayer.add(device);
-        }
-      };
-      images[src].src = sources[src];
-    }
+    anchorLayer.add(device);
 
 
     function buildline(x, y) {
