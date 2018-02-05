@@ -107,7 +107,42 @@ function wlan_draw() {
   wlanlayer.add(wlan_box);
   stage.add(wlanlayer);
 }
+function test___() {
+  function loadImages(sources, callback) {
+    var images = {};
+    var loadedImages = 0;
+    var numImages = 0;
+    for (var src in sources) {
+      numImages++;
+    }
+    for (var src in sources) {
+      images[src] = new Image();
+      images[src].onload = function() {
+        if (++loadedImages >= numImages) {
+          callback(images);
+        }
+      };
+      images[src].src = sources[src];
+    }
+  }
 
+  function buildStage(images) {
+    var device = new Konva.Image({
+      image: images.device,
+      x: 120,
+      y: 50
+    });
+
+
+    layer.add(device);
+    stage.add(layer);
+  }
+  var sources = {
+      device: '/svg/button-green_benji_park_01.svg',
+  };
+
+  loadImages(sources, buildStage);
+}
 function disconnect_draw(res_count, conn_count) {
 
 
