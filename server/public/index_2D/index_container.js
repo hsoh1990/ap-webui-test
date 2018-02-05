@@ -74,7 +74,7 @@ function connect_AP() {
 
   stage.add(aplayer);
 
-  aplayer.remove();
+  //aplayer.remove();
 }
 function connect_draw(res_count, conn_count) {
 
@@ -178,8 +178,8 @@ function connect_draw(res_count, conn_count) {
 
     buildline(x, y);
     stage.add(anchorLayer);
-    curveLayer.remove();
-    anchorLayer.remove();
+    //curveLayer.remove();
+    //anchorLayer.remove();
 
   }
 
@@ -204,7 +204,7 @@ function connection_text(res_count, conn_count) {
   }
   textlayer.add(text);
   textlayer.draw();
-  textlayer.remove();
+  //textlayer.remove();
 }
 
 
