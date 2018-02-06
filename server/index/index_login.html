@@ -155,13 +155,13 @@
           } else {
             if (data['arp'] == 1) {
               connect_count += 1;
-              connect_data.push(data);
+              connect_data.push(JSON.stringify(data));
               disconnect_draw(data['length'], disconnect_count);
               connect_draw(data['length'], connect_count);
-              alert(JSON.stringify(data));
+
             } else if (data['arp'] == 0) {
               disconnect_count += 1;
-              disconnect_data.push(data);
+              disconnect_data.push(JSON.stringify(data));
               disconnect_draw(data['length'], disconnect_count);
               connect_draw(data['length'], connect_count);
             }
