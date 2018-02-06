@@ -58,7 +58,7 @@ function connect_AP(ap_data) {
   });
   var aptextbox = new Konva.Rect({
     x: stage.getWidth() / 2 - 65,
-    y: stage.getHeight() / 2 + 55,
+    y: stage.getHeight() / 2 + 40,
     stroke: '#555',
     strokeWidth: 5,
     fill: '#ddd',
