@@ -192,7 +192,6 @@ function disconnect_draw(res_count, conn_count) {
       height: 55
     });
     disconnect_device_Layer.add(device);
-    stage.add(disconnect_device_Layer);
     // add the layer to the stage
     var imageObj = new Image();
     imageObj.onload = function() {
@@ -201,6 +200,7 @@ function disconnect_draw(res_count, conn_count) {
     };
     imageObj.src = '/svg/button-red_benji_park_01.svg';
   }
+  //stage.add(disconnect_device_Layer);
 }
 
 function connect_draw(res_count, conn_count) {
