@@ -316,6 +316,7 @@ function connection_text(length, conn_count) {
     document.getElementById("connent_text").innerHTML = content;
 
   }
+  stage.batchDraw();
 }
 
 
