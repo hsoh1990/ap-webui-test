@@ -82,7 +82,7 @@ module.exports = function(app, fs, url) {
     return data__;
   }
 
-  io.sockets.on('connection', function(socket) {
+  io.sockets.on('connect', function(socket) {
 
 
     ! function arp_repeat() {
