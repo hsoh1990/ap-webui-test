@@ -175,47 +175,34 @@ function disconnect_draw(res_count, conn_count) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
-    function buildline(x, y) {
-      var Line = new Konva.Line({
-        points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
-        stroke: 'black',
-        strokeWidth: 3,
-        lineCap: 'round',
-        lineJoin: 'round'
-      });
+    var Line = new Konva.Line({
+      points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
+      stroke: 'black',
+      strokeWidth: 3,
+      lineCap: 'round',
+      lineJoin: 'round'
+    });
+    disconnect_line_Layer.add(Line);
+    stage.add(disconnect_line_Layer);
 
-      disconnect_line_Layer.add(Line);
 
-      stage.add(disconnect_line_Layer);
-    }
+    stage.add(disconnect_device_Layer);
+    var device = new Konva.Image({
+      x: x,
+      y: y - 11,
+      width: 55,
+      height: 55
+    });
+    disconnect_device_Layer.add(device);
 
-    buildline(x, y);
-
+    // add the layer to the stage
     var imageObj = new Image();
-
-    function draw_image(imageObj) {
-
-      var device = new Konva.Image({
-        x: x,
-        y: y - 11,
-        image: imageObj,
-        width: 55,
-        height: 55
-      });
-
-      // add the shape to the layer
-      disconnect_device_Layer.add(device);
-
-      // add the layer to the stage
-      stage.add(disconnect_device_Layer);
+    imageObj.onload = function() {
+      device.image(imageObj);
+      disconnect_device_Layer.draw();
     };
     imageObj.src = '/svg/button-red_benji_park_01.svg';
-
-    draw_image(imageObj);
-
   }
-
-
 }
 
 function connect_draw(res_count, conn_count) {
@@ -267,7 +254,6 @@ function connect_draw(res_count, conn_count) {
     }
   }
 
-
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
@@ -279,9 +265,7 @@ function connect_draw(res_count, conn_count) {
       lineCap: 'round',
       lineJoin: 'round'
     });
-
     connect_line_Layer.add(Line);
-
     stage.add(connect_line_Layer);
 
     stage.add(connect_device_Layer);
@@ -292,22 +276,14 @@ function connect_draw(res_count, conn_count) {
       height: 55
     });
     connect_device_Layer.add(device);
-    /*
-    device.on('dragstart', function() {
-      Line.points([stage.getWidth() / 2, stage.getHeight() / 2, device.x, device.y]);
 
-    });
-    */
     var imageObj = new Image();
     imageObj.onload = function() {
-        device.image(imageObj);
-        connect_device_Layer.draw();
+      device.image(imageObj);
+      connect_device_Layer.draw();
     };
     imageObj.src = '/svg/button-green_benji_park_01.svg';
-
   }
-
-
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 function connection_text(length, conn_count) {
