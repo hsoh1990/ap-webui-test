@@ -119,6 +119,7 @@
   <!-- Custom Theme JavaScript -->
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
+    console.log("conn | disconn");
     function start_draw() {
       wlan_draw();
       connect_AP();
@@ -189,6 +190,7 @@
             }
             conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
           }
+
           console.log(connect_count + " , " + disconnect_count);
           //서버에 my other event 이벤트를 보낸다.
           /*
