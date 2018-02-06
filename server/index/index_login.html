@@ -126,34 +126,31 @@
       socket_connect_draw();
     }
 
-    function conn_disconn_draw (data, connect_data, disconnect_data, connect_count, disconnect_count) {
+    function conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count) {
       disconnect_draw(disconnect_data, disconnect_count);
       connect_draw(connect_data, connect_count);
       connect_AP();
       connection_text(data['length'], (connect_count + disconnect_count));
     }
+
     function arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count) {
       if (data['MAC Address'] == connect_data[a]['MAC Address']) {
         if (data['arp'] != connect_data[a]['arp']) {
-          connect_count -= 1;
-          disconnect_count += 1;
-          connect_data.splice(a, 1);
-          disconnect_data.push(data);
           conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
+          return true;
         }
       }
     }
+
     function arp_eval_false(data, connect_data, disconnect_data, a, connect_count, disconnect_count) {
       if (data['MAC Address'] == disconnect_data[a]['MAC Address']) {
         if (data['arp'] != disconnect_data[a]['arp']) {
-          connect_count += 1;
-          disconnect_count -= 1;
-          disconnect_data.splice(a, 1);
-          connect_data.push(data);
           conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
+          return true;
         }
       }
     }
+
     function socket_connect_draw() {
       var socket = io.connect('http://172.16.171.181:8080');
       var connect_count = 0;
@@ -167,10 +164,22 @@
           console.log(connect_count + " , " + disconnect_count);
           if (data['length'] == (connect_count + disconnect_count)) {
             for (var a = 0; a < connect_count; a++) {
-              arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
+              var i = arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
+              if (i == true) {
+                connect_count -= 1;
+                disconnect_count += 1;
+                connect_data.splice(a, 1);
+                disconnect_data.push(data);
+              }
             }
             for (var a = 0; a < disconnect_count; a++) {
-              arp_eval_false(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
+              var i = arp_eval_false(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
+              if (i == true) {
+                connect_count -= 1;
+                disconnect_count += 1;
+                connect_data.splice(a, 1);
+                disconnect_data.push(data);
+              }
             }
 
           } else {
