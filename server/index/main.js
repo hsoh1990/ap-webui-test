@@ -90,6 +90,10 @@ module.exports = function(app, fs, url) {
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
       //반복하는 부분
       console.log("반복 시작");
+      if (connect_bool == false) {
+        return;
+      }
+
       var data__ = data_get();
       var data_key = Object.getOwnPropertyNames(data__);
       console.log(data__);
