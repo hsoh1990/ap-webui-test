@@ -284,34 +284,26 @@ function connect_draw(res_count, conn_count) {
 
     stage.add(connect_line_Layer);
 
+    var device = new Konva.Image({
+      x: x,
+      y: y - 11,
+      width: 55,
+      height: 55
+    });
+    connect_device_Layer.add(device);
+    /*
+    device.on('dragstart', function() {
+      Line.points([stage.getWidth() / 2, stage.getHeight() / 2, device.x, device.y]);
+
+    });
+    */
     var imageObj = new Image();
-
-    function draw_image(imageObj) {
-
-      var device = new Konva.Image({
-        x: x,
-        y: y - 11,
-        image: imageObj,
-        width: 55,
-        height: 55
-      });
-
-      /*
-      device.on('dragstart', function() {
-        Line.points([stage.getWidth() / 2, stage.getHeight() / 2, device.x, device.y]);
-
-      });
-      */
-      // add the shape to the layer
-      connect_device_Layer.add(device);
-
-      // add the layer to the stage
-      stage.add(connect_device_Layer);
-
+    imageObj.onload = function() {
+        device.image(imageObj);
+        connect_device_Layer.draw();
     };
     imageObj.src = '/svg/button-green_benji_park_01.svg';
 
-    draw_image(imageObj);
   }
 
 
