@@ -211,6 +211,8 @@ function disconnect_draw(res_count, conn_count) {
     imageObj.src = '/svg/button-red_benji_park_01.svg';
 
     draw_image(imageObj);
+
+    stage.draw();
   }
 
 
@@ -302,10 +304,12 @@ function connect_draw(res_count, conn_count) {
 
       // add the layer to the stage
       stage.add(connect_device_Layer);
+
     };
     imageObj.src = '/svg/button-green_benji_park_01.svg';
 
     draw_image(imageObj);
+    stage.draw();
   }
 
 
