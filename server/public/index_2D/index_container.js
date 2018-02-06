@@ -284,6 +284,7 @@ function connect_draw(res_count, conn_count) {
 
     stage.add(connect_line_Layer);
 
+    stage.add(connect_device_Layer);
     var device = new Konva.Image({
       x: x,
       y: y - 11,
