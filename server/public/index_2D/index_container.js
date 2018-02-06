@@ -252,8 +252,8 @@ function disconnect_draw(res_count, conn_count) {
       align: 'center'
     });
     var devicetextbox = new Konva.Rect({
-      x: x - 40,
-      y: y + 50,
+      x: x - 45,
+      y: y + 45,
       stroke: '#555',
       strokeWidth: 5,
       fill: '#ddd',
