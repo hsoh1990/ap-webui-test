@@ -149,7 +149,7 @@
               connect_data[str] += data;
               disconnect_draw(data['length'], disconnect_count);
               connect_draw(data['length'], connect_count);
-              alert(JSON.stringify(connect_data));
+              alert(JSON.stringify(data));
             } else if (data['arp'] == 0) {
               disconnect_count += 1;
               var str = "disconnect_";
