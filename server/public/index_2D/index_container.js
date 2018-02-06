@@ -277,7 +277,8 @@ function connect_draw(res_count, conn_count) {
       stroke: 'blue',
       strokeWidth: 3,
       lineCap: 'round',
-      lineJoin: 'round'
+      lineJoin: 'round',
+      draggable: true
     });
 
     connect_line_Layer.add(Line);
