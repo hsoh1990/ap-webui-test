@@ -247,13 +247,13 @@ function disconnect_draw(res_count, conn_count) {
       fontSize: 18,
       fontFamily: 'Calibri',
       fill: '#555',
-      width: 300,
+      width: 150,
       padding: 20,
       align: 'center'
     });
     var devicetextbox = new Konva.Rect({
-      x: x,
-      y: y,
+      x: x - 30,
+      y: y + 50,
       stroke: '#555',
       strokeWidth: 5,
       fill: '#ddd',
