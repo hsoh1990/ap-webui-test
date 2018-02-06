@@ -116,8 +116,8 @@ function connect_AP(ap_data) {
   });
 
   aplayer.add(AP_Rect);
-  aplayer.add(aptext);
   aplayer.add(aptextbox);
+  aplayer.add(aptext);
   aplayer.add(Line1);
   aplayer.add(Line2);
   aplayer.add(Line3);
