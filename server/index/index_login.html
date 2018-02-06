@@ -158,7 +158,7 @@
               connect_data.push(data);
               disconnect_draw(data['length'], disconnect_count);
               connect_draw(data['length'], connect_count);
-              alert(connect_data);
+              alert(JSON.stringify(connect_data));
             } else if (data['arp'] == 0) {
               disconnect_count += 1;
               disconnect_data.push(data);
