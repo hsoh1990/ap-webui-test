@@ -212,7 +212,6 @@ function disconnect_draw(res_count, conn_count) {
 
     draw_image(imageObj);
 
-    stage.draw();
   }
 
 
@@ -296,7 +295,8 @@ function connect_draw(res_count, conn_count) {
         y: y - 11,
         image: imageObj,
         width: 55,
-        height: 55
+        height: 55,
+        draggable: true
       });
 
       // add the shape to the layer
@@ -309,7 +309,6 @@ function connect_draw(res_count, conn_count) {
     imageObj.src = '/svg/button-green_benji_park_01.svg';
 
     draw_image(imageObj);
-    stage.draw();
   }
 
 
