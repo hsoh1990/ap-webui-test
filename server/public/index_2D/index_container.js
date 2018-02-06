@@ -200,7 +200,7 @@ function disconnect_draw(res_count, conn_count) {
     };
     imageObj.src = '/svg/button-red_benji_park_01.svg';
   }
-  //stage.add(disconnect_device_Layer);
+  stage.add(disconnect_device_Layer);
 }
 
 function connect_draw(res_count, conn_count) {
