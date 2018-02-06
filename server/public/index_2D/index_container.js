@@ -10,8 +10,10 @@ var textlayer = new Konva.Layer();
 var wlanlayer = new Konva.Layer();
 var disconnect_device_Layer = new Konva.Layer();
 var disconnect_line_Layer = new Konva.Layer();
+var disconnect_text_Layer = new Konva.Layer();
 var connect_device_Layer = new Konva.Layer();
 var connect_line_Layer = new Konva.Layer();
+var connect_text_Layer = new Konva.Layer();
 
 var connect_radius = 380;
 var disconnect_radius = 550;
@@ -28,8 +30,10 @@ function layer_removechildren() {
   wlanlayer.removeChildren();
   connect_line_Layer.removeChildren();
   connect_device_Layer.removeChildren();
+  connect_text_Layer.removeChildren();
   disconnect_line_Layer.removeChildren();
   disconnect_device_Layer.removeChildren();
+  disconnect_text_Layer.removeChildren();
 }
 
 function connect_AP(ap_data) {
@@ -233,9 +237,39 @@ function disconnect_draw(res_count, conn_count) {
     // add the shape to the layer
     disconnect_device_Layer.add(device);
 
+    stage.add(disconnect_device_Layer);
     // add the layer to the stage
+    var device_text = res_count[a]['IP Address'] + "\n" + res_count[a]['Host name'];
+    var devicetext = new Konva.Text({
+      x: x,
+      y: y,
+      text: device_text,
+      fontSize: 18,
+      fontFamily: 'Calibri',
+      fill: '#555',
+      width: 300,
+      padding: 20,
+      align: 'center'
+    });
+    var devicetextbox = new Konva.Rect({
+      x: x,
+      y: y,
+      stroke: '#555',
+      strokeWidth: 5,
+      fill: '#ddd',
+      width: 130,
+      height: devicetext.getHeight() - 20,
+      shadowColor: 'black',
+      shadowBlur: 10,
+      shadowOffset: [10, 10],
+      shadowOpacity: 0.2,
+      cornerRadius: 10
+    });
+
+    disconnect_text_Layer.add(devicetext);
+    disconnect_text_Layer.add(devicetextbox);
+    stage.add(disconnect_text_Layer);
   }
-  stage.add(disconnect_device_Layer);
 }
 
 function connect_draw(res_count, conn_count) {
@@ -331,6 +365,8 @@ function connect_draw(res_count, conn_count) {
     imageObj.src = green_svgpath;
 
     draw_image(imageObj);
+
+
   }
 
 
