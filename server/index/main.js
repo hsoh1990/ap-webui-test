@@ -147,7 +147,7 @@ module.exports = function(app, fs, url) {
 
     ap_infor = {
       'IP Address': ap_ip,
-      'Host name': data__[data_key[a]]['Host name']
+      'Host name': ap_hostname
     }
     socket.emit('apinfor', ap_infor);
     ! function arp_repeat() {
