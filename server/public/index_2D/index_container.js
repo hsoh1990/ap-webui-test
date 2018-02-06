@@ -293,14 +293,15 @@ function connect_draw(res_count, conn_count) {
         y: y - 11,
         image: imageObj,
         width: 55,
-        height: 55,
-        draggable: true
+        height: 55
       });
 
+      /*
       device.on('dragstart', function() {
         Line.points([stage.getWidth() / 2, stage.getHeight() / 2, device.x, device.y]);
-        Line.drawHitFromCache();
+
       });
+      */
       // add the shape to the layer
       connect_device_Layer.add(device);
 
