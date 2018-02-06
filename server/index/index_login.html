@@ -140,7 +140,6 @@
             for (var a = 0; a < connect_count; a++) {
               if (data['MAC Address'] == connect_data[a]['MAC Address']) {
                 if (data['arp'] != connect_data[a]['arp']) {
-                  alert("확인conn");
                   connect_count -= 1;
                   disconnect_count += 1;
                   connect_data.splice(a, 1);
@@ -151,7 +150,6 @@
             for (var a = 0; a < disconnect_count; a++) {
               if (data['MAC Address'] == disconnect_data[a]['MAC Address']) {
                 if (data['arp'] != disconnect_data[a]['arp']) {
-                  alert("확인disconn");
                   connect_count += 1;
                   disconnect_count -= 1;
                   disconnect_data.splice(a, 1);
@@ -159,19 +157,20 @@
                 }
               }
             }
+            disconnect_draw(disconnect_data, disconnect_count);
+            connect_draw(connect_data, connect_count);
+            connect_AP();
+            connection_text(data['length'], (connect_count + disconnect_count));
           } else {
             if (data['arp'] == 1) {
               connect_count += 1;
               connect_data.push(data);
-              disconnect_draw(disconnect_data, disconnect_count);
-              connect_draw(connect_data, connect_count);
-              alert(JSON.stringify(connect_data));
             } else if (data['arp'] == 0) {
               disconnect_count += 1;
               disconnect_data.push(data);
-              disconnect_draw(disconnect_data, disconnect_count);
-              connect_draw(connect_data, connect_count);
             }
+            disconnect_draw(disconnect_data, disconnect_count);
+            connect_draw(connect_data, connect_count);
             connect_AP();
             connection_text(data['length'], (connect_count + disconnect_count));
           }
