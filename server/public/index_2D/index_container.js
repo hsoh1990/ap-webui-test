@@ -15,6 +15,9 @@ var connect_line_Layer = new Konva.Layer();
 
 var connect_radius = 380;
 var disconnect_radius = 550;
+const red_svgpath = '/svg/button-red_benji_park_01.svg';
+const green_svgpath = '/svg/button-green_benji_park_01.svg';
+
 //반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -189,7 +192,7 @@ function disconnect_draw(res_count, conn_count) {
 
 
     var imageObj = new Image();
-    imageObj.src = '/svg/button-red_benji_park_01.svg';
+    imageObj.src = red_svgpath;
 
     var device = new Konva.Image({
       x: x,
@@ -297,7 +300,7 @@ function connect_draw(res_count, conn_count) {
       stage.add(connect_device_Layer);
 
     };
-    imageObj.src = '/svg/button-green_benji_park_01.svg';
+    imageObj.src = green_svgpath;
 
     draw_image(imageObj);
   }
