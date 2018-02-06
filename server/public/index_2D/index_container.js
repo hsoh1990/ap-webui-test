@@ -299,7 +299,8 @@ function connect_draw(res_count, conn_count) {
 
       device.on('dragstart', function() {
         Line.points([stage.getWidth() / 2, stage.getHeight() / 2, device.x, device.y]);
-        Line.draw();
+        connect_line_Layer.add(Line);
+        stage.add(connect_line_Layer);
       });
       // add the shape to the layer
       connect_device_Layer.add(device);
