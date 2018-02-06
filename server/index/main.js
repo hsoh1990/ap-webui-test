@@ -84,6 +84,7 @@ module.exports = function(app, fs, url) {
 
   io.sockets.on('connect', function(socket) {
 
+    var connect_bool = true;
 
     ! function arp_repeat() {
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -148,6 +149,10 @@ module.exports = function(app, fs, url) {
           });
 
       }
+
+      if (connect_bool == false) {
+        return 0;
+      }
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
       setTimeout(function() {
         arp_repeat();
@@ -156,7 +161,7 @@ module.exports = function(app, fs, url) {
 
 
     socket.on('disconnect', function() {
-      console.log('클라이언트 접속 종료');
+      connect_bool = false;
    });
 
     // 클라이언트에서 my other event가 발생하면 데이터를 받는다.
