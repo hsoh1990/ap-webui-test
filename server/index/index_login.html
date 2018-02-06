@@ -128,12 +128,12 @@
       connection_text(1000, 0);
     }
 
-    function conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count) {
+    function conn_disconn_draw(ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count) {
       layer_removechildren();
       disconnect_draw(disconnect_data, disconnect_count);
       connect_draw(connect_data, connect_count);
       wlan_draw();
-      connect_AP();
+      connect_AP(ap_data);
       connection_text(data['length'], (connect_count + disconnect_count));
     }
 
@@ -182,7 +182,7 @@
                 connect_data.push(data);
               }
             }
-            conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
+            conn_disconn_draw(ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           } else {
             if (data['arp'] == 1) {
               connect_count += 1;
@@ -191,7 +191,7 @@
               disconnect_count += 1;
               disconnect_data.push(data);
             }
-            conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
+            conn_disconn_draw(ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           }
 
           console.log(connect_count + "    ,    " + disconnect_count);
