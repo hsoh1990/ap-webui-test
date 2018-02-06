@@ -241,8 +241,8 @@ function disconnect_draw(res_count, conn_count) {
     // add the layer to the stage
     var device_text = res_count[a]['IP Address'] + "\n" + res_count[a]['Host name'];
     var devicetext = new Konva.Text({
-      x: x - 50,
-      y: y + 50,
+      x: x - 60,
+      y: y + 35,
       text: device_text,
       fontSize: 18,
       fontFamily: 'Calibri',
@@ -252,7 +252,7 @@ function disconnect_draw(res_count, conn_count) {
       align: 'center'
     });
     var devicetextbox = new Konva.Rect({
-      x: x - 45,
+      x: x - 40,
       y: y + 45,
       stroke: '#555',
       strokeWidth: 5,
