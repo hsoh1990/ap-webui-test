@@ -182,24 +182,32 @@ function disconnect_draw(res_count, conn_count) {
       lineCap: 'round',
       lineJoin: 'round'
     });
+
     disconnect_line_Layer.add(Line);
+
     stage.add(disconnect_line_Layer);
+
+
+    var imageObj = new Image();
+    imageObj.src = '/svg/button-red_benji_park_01.svg';
 
     var device = new Konva.Image({
       x: x,
       y: y - 11,
+      image: imageObj,
       width: 55,
       height: 55
     });
+
+    // add the shape to the layer
     disconnect_device_Layer.add(device);
+
     // add the layer to the stage
-    var imageObj = new Image();
-    imageObj.onload = function() {
-      device.image(imageObj);
-    };
-    imageObj.src = '/svg/button-red_benji_park_01.svg';
+    stage.add(disconnect_device_Layer);
+
   }
-  stage.add(disconnect_device_Layer);
+
+
 }
 
 function connect_draw(res_count, conn_count) {
@@ -251,6 +259,7 @@ function connect_draw(res_count, conn_count) {
     }
   }
 
+
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
@@ -262,25 +271,41 @@ function connect_draw(res_count, conn_count) {
       lineCap: 'round',
       lineJoin: 'round'
     });
+
     connect_line_Layer.add(Line);
+
     stage.add(connect_line_Layer);
 
-    stage.add(connect_device_Layer);
-    var device = new Konva.Image({
-      x: x,
-      y: y - 11,
-      width: 55,
-      height: 55
-    });
-    connect_device_Layer.add(device);
-
     var imageObj = new Image();
-    imageObj.onload = function() {
-      device.image(imageObj);
-      connect_device_Layer.draw();
+
+    function draw_image(imageObj) {
+
+      var device = new Konva.Image({
+        x: x,
+        y: y - 11,
+        image: imageObj,
+        width: 55,
+        height: 55
+      });
+
+      /*
+      device.on('dragstart', function() {
+        Line.points([stage.getWidth() / 2, stage.getHeight() / 2, device.x, device.y]);
+
+      });*/
+      // add the shape to the layer
+      connect_device_Layer.add(device);
+
+      // add the layer to the stage
+      stage.add(connect_device_Layer);
+
     };
     imageObj.src = '/svg/button-green_benji_park_01.svg';
+
+    draw_image(imageObj);
   }
+
+
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 function connection_text(length, conn_count) {
