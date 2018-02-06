@@ -366,7 +366,36 @@ function connect_draw(res_count, conn_count) {
 
     draw_image(imageObj);
 
+    var device_text = res_count[a]['IP Address'] + "\n" + res_count[a]['Host name'];
+    var devicetext = new Konva.Text({
+      x: x - 60,
+      y: y + 35,
+      text: device_text,
+      fontSize: 18,
+      fontFamily: 'Calibri',
+      fill: '#555',
+      width: 170,
+      padding: 20,
+      align: 'center'
+    });
+    var devicetextbox = new Konva.Rect({
+      x: x - 40,
+      y: y + 45,
+      stroke: '#555',
+      strokeWidth: 5,
+      fill: '#ddd',
+      width: 130,
+      height: devicetext.getHeight() - 20,
+      shadowColor: 'black',
+      shadowBlur: 10,
+      shadowOffset: [10, 10],
+      shadowOpacity: 0.2,
+      cornerRadius: 10
+    });
 
+    connect_text_Layer.add(devicetextbox);
+    connect_text_Layer.add(devicetext);
+    stage.add(connect_text_Layer);
   }
 
 
