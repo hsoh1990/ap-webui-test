@@ -8,11 +8,27 @@ var stage = new Konva.Stage({
 var aplayer = new Konva.Layer();
 var textlayer = new Konva.Layer();
 var wlanlayer = new Konva.Layer();
+var disconnect_device_Layer = new Konva.Layer();
+var disconnect_line_Layer = new Konva.Layer();
+var connect_device_Layer = new Konva.Layer();
+var connect_line_Layer = new Konva.Layer();
 
 var connect_radius = 380;
 var disconnect_radius = 550;
 //반원 처리 부분
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+function layer_removechildren() {
+  stage.clear();
+  stage.removeChildren();
+  aplayer.removeChildren();
+  wlanlayer.removeChildren();
+  connect_line_Layer.removeChildren();
+  connect_device_Layer.removeChildren();
+  disconnect_line_Layer.removeChildren();
+  disconnect_device_Layer.removeChildren();
+}
+
 function connect_AP() {
   var AP_Rect = new Konva.Rect({
     x: stage.getWidth() / 2 - 40,
@@ -69,8 +85,6 @@ function connect_AP() {
     stage.container().style.cursor = 'default';
   });
 
-  aplayer.removeChildren();
-
   aplayer.add(AP_Rect);
 
   aplayer.add(Line1);
@@ -109,13 +123,6 @@ function wlan_draw() {
 }
 
 function disconnect_draw(res_count, conn_count) {
-
-
-  stage.remove();
-  stage.clear();
-  stage.removeChildren();
-
-  wlan_draw();
 
   var device_count = conn_count;
   var radius = disconnect_radius;
@@ -164,14 +171,6 @@ function disconnect_draw(res_count, conn_count) {
     }
   }
 
-  var curveLayer, anchorLayer, quad;
-
-  anchorLayer = new Konva.Layer();
-  curveLayer = new Konva.Layer();
-
-  curveLayer.removeChildren();
-  anchorLayer.removeChildren();
-
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
@@ -185,9 +184,9 @@ function disconnect_draw(res_count, conn_count) {
         lineJoin: 'round'
       });
 
-      curveLayer.add(Line);
+      disconnect_line_Layer.add(Line);
 
-      stage.add(curveLayer);
+      stage.add(disconnect_line_Layer);
     }
 
     buildline(x, y);
@@ -204,10 +203,10 @@ function disconnect_draw(res_count, conn_count) {
       });
 
       // add the shape to the layer
-      anchorLayer.add(device);
+      disconnect_device_Layer.add(device);
 
       // add the layer to the stage
-      stage.add(anchorLayer);
+      stage.add(disconnect_device_Layer);
     };
     imageObj.src = '/svg/button-red_benji_park_01.svg';
 
@@ -266,13 +265,6 @@ function connect_draw(res_count, conn_count) {
     }
   }
 
-  var curveLayer, anchorLayer, quad;
-
-  anchorLayer = new Konva.Layer();
-  curveLayer = new Konva.Layer();
-
-  curveLayer.removeChildren();
-  anchorLayer.removeChildren();
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
@@ -287,9 +279,9 @@ function connect_draw(res_count, conn_count) {
         lineJoin: 'round'
       });
 
-      curveLayer.add(Line);
+      connect_line_Layer.add(Line);
 
-      stage.add(curveLayer);
+      stage.add(connect_line_Layer);
     }
 
     buildline(x, y);
@@ -306,10 +298,10 @@ function connect_draw(res_count, conn_count) {
       });
 
       // add the shape to the layer
-      anchorLayer.add(device);
+      connect_device_Layer.add(device);
 
       // add the layer to the stage
-      stage.add(anchorLayer);
+      stage.add(connect_device_Layer);
     };
     imageObj.src = '/svg/button-green_benji_park_01.svg';
 
