@@ -151,7 +151,7 @@ module.exports = function(app, fs, url) {
       }
 
       if (connect_bool == false) {
-        return 0;
+        return;
       }
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
       setTimeout(function() {
