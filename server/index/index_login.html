@@ -137,7 +137,7 @@
       socket.on('arp',
         function(data) {
           if (data['length'] == (connect_count + disconnect_count)) {
-            alert(JSON.stringify(connect_data));
+            alert(connect_data);
             /*for (var a = 0;a < data.length; a++) {
 
             }*/
