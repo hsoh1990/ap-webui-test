@@ -203,11 +203,8 @@ function disconnect_draw(res_count, conn_count) {
     disconnect_device_Layer.add(device);
 
     // add the layer to the stage
-    stage.add(disconnect_device_Layer);
-
   }
-
-
+  stage.add(disconnect_device_Layer);
 }
 
 function connect_draw(res_count, conn_count) {
@@ -319,7 +316,6 @@ function connection_text(length, conn_count) {
     document.getElementById("connent_text").innerHTML = content;
 
   }
-  stage.draw();
 }
 
 
