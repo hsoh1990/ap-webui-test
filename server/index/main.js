@@ -140,7 +140,15 @@ module.exports = function(app, fs, url) {
       return "No IP Address Found";
     }
   }
+
+  function wlan_whois() {
+    const text = execSync('curl \"http://whois.kisa.or.kr/openapi/whois.jsp?query=39.119.118.152\&key=2018020617475141381350\&answer=json\"', {
+      encoding: 'utf8'
+    });
+    console.log(text);
+  }
   io.sockets.on('connect', function(socket) {
+    wlan_whois();
     var connect_bool = true;
     var ap_ip = eth0_ip_rec();
     var ap_hostname = hostname_rec();
