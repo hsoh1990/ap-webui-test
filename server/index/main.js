@@ -82,6 +82,36 @@ module.exports = function(app, fs, url) {
     return data__;
   }
 
+  function arp_promise(a, data__, data_key) {
+    return new Promise(function(resolve, reject) {
+      arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
+        if (!err) {
+          console.log("mac : " + mac);
+          if (mac == "(incomplete)") {
+            result = {
+              'MAC Address': data__[data_key[a]]['MAC Address'],
+              'IP Address': data__[data_key[a]]['IP Address'],
+              'Host name': data__[data_key[a]]['Host name'],
+              'arp': 0,
+              'length': Object.keys(data__).length
+            }
+            resolve(result);
+          } else {
+            result = {
+              'MAC Address': data__[data_key[a]]['MAC Address'],
+              'IP Address': data__[data_key[a]]['IP Address'],
+              'Host name': data__[data_key[a]]['Host name'],
+              'arp': 1,
+              'length': Object.keys(data__).length
+            }
+            reject(result);
+          }
+
+        } else {}
+      });
+    });
+  }
+
   io.sockets.on('connect', function(socket) {
     var connect_bool = true;
     ! function arp_repeat() {
@@ -115,36 +145,6 @@ module.exports = function(app, fs, url) {
         arp_repeat();
       }, 10000);
     }()
-
-    function arp_promise(a, data__, data_key) {
-      return new Promise(function(resolve, reject) {
-        arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
-          if (!err) {
-            console.log("mac : " + mac);
-            if (mac == "(incomplete)") {
-              result = {
-                'MAC Address': data__[data_key[a]]['MAC Address'],
-                'IP Address': data__[data_key[a]]['IP Address'],
-                'Host name': data__[data_key[a]]['Host name'],
-                'arp': 0,
-                'length': Object.keys(data__).length
-              }
-              resolve(result);
-            } else {
-              result = {
-                'MAC Address': data__[data_key[a]]['MAC Address'],
-                'IP Address': data__[data_key[a]]['IP Address'],
-                'Host name': data__[data_key[a]]['Host name'],
-                'arp': 1,
-                'length': Object.keys(data__).length
-              }
-              reject(result);
-            }
-
-          } else {}
-        });
-      });
-    }
 
     socket.on('disconnect', function() {
       connect_bool = false;
