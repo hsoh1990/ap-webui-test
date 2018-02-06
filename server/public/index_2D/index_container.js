@@ -32,7 +32,7 @@ function layer_removechildren() {
   disconnect_device_Layer.removeChildren();
 }
 
-function connect_AP() {
+function connect_AP(ap_data) {
   var AP_Rect = new Konva.Rect({
     x: stage.getWidth() / 2 - 40,
     y: stage.getHeight() / 2 - 30,
@@ -43,6 +43,19 @@ function connect_AP() {
     strokeWidth: 3
 
   });
+
+  var ap_text = ap_data[0]['IP Address'] + "\n" + ap_text = ap_data[0]['Host name'];
+  var complexText = new Konva.Text({
+      x: stage.getWidth() / 2 - 40,
+      y: stage.getWidth() / 2 - 30 + 60,
+      text: ap_text,
+      fontSize: 18,
+      fontFamily: 'Calibri',
+      fill: '#555',
+      width: 300,
+      padding: 20,
+      align: 'center'
+    });
 
   var Line_Rect_position_x = stage.getWidth() / 2 - 40;
   var Line_Rect_position_y = stage.getHeight() / 2 - 30;
@@ -89,7 +102,7 @@ function connect_AP() {
   });
 
   aplayer.add(AP_Rect);
-
+  aplayer.add(complexText);
   aplayer.add(Line1);
   aplayer.add(Line2);
   aplayer.add(Line3);

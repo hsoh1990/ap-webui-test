@@ -117,9 +117,39 @@ module.exports = function(app, fs, url) {
       cur = new Date().getTime();
     }
   }
+  function hostname_rec() {
+    const std_hostname = execSync('hostname -f', {
+      encoding: 'utf8'
+    });
+    var hostname = std_hostname.split("\n");
 
+    return hostname[0];
+  }
+  function eth0_ip_rec() {
+    const text = execSync('ip a s eth0', {
+      encoding: 'utf8'
+    });
+    var ip = text.match(/inet ([0-9.]+)/i);
+    try {
+      if (ip != null) {
+        return ip[1];
+      } else {
+        throw "No IP Address Found";
+      }
+    } catch (e) {
+      return "No IP Address Found";
+    }
+  }
   io.sockets.on('connect', function(socket) {
     var connect_bool = true;
+    var ap_ip = eth0_ip_rec();
+    var ap_hostname = hostname_rec();
+
+    ap_infor = {
+      'IP Address': ap_ip,
+      'Host name': data__[data_key[a]]['Host name']
+    }
+    socket.emit('apinfor', ap_infor);
     ! function arp_repeat() {
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
       //반복하는 부분
