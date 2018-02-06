@@ -137,7 +137,6 @@
       socket.on('arp',
         function(data) {
           if (data['length'] == (connect_count + disconnect_count)) {
-            alert(connect_data);
             /*for (var a = 0;a < data.length; a++) {
 
             }*/
@@ -148,6 +147,7 @@
               connect_data += data;
               disconnect_draw(data['length'], disconnect_count);
               connect_draw(data['length'], connect_count);
+              alert(JSON.stringify(connect_data));
             } else if (data['arp'] == 0) {
               disconnect_count += 1;
               disconnect_data += data;
