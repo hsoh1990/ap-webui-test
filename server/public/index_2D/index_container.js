@@ -192,6 +192,7 @@ function disconnect_draw(res_count, conn_count) {
     buildline(x, y);
 
     var imageObj = new Image();
+
     function draw_image(imageObj) {
 
       var device = new Konva.Image({
@@ -271,23 +272,20 @@ function connect_draw(res_count, conn_count) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
-    function buildline(x, y) {
-      var Line = new Konva.Line({
-        points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
-        stroke: 'blue',
-        strokeWidth: 3,
-        lineCap: 'round',
-        lineJoin: 'round'
-      });
+    var Line = new Konva.Line({
+      points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
+      stroke: 'blue',
+      strokeWidth: 3,
+      lineCap: 'round',
+      lineJoin: 'round'
+    });
 
-      connect_line_Layer.add(Line);
+    connect_line_Layer.add(Line);
 
-      stage.add(connect_line_Layer);
-    }
-
-    buildline(x, y);
+    stage.add(connect_line_Layer);
 
     var imageObj = new Image();
+
     function draw_image(imageObj) {
 
       var device = new Konva.Image({
@@ -299,6 +297,10 @@ function connect_draw(res_count, conn_count) {
         draggable: true
       });
 
+      device.on('dragstart', function() {
+        Line.points([stage.getWidth() / 2, stage.getHeight() / 2, mousePointTo.x, mousePointTo.y]);
+        Line.draw();
+      });
       // add the shape to the layer
       connect_device_Layer.add(device);
 
