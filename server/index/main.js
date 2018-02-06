@@ -109,11 +109,21 @@ module.exports = function(app, fs, url) {
       } else {}
     });
   }
+
+  function wait(msecs) {
+    var start = new Date().getTime();
+    var cur = start;
+    while (cur - start < msecs) {
+      cur = new Date().getTime();
+    }
+  }
+
   io.sockets.on('connect', function(socket) {
     var connect_bool = true;
     ! function arp_repeat() {
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
       //반복하는 부분
+      wait(1000);
       console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
       console.log("반복 시작");
       console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");

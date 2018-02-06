@@ -319,13 +319,13 @@ function connect_draw(res_count, conn_count) {
 
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-function connection_text(res_count, conn_count) {
+function connection_text(length, conn_count) {
   var content = "";
-  if (res_count > conn_count) {
+  if (length > conn_count) {
     content += "연결을 확인하는 중입니다...";
     document.getElementById("connent_text").innerHTML = content;
 
-  } else if (res_count <= conn_count) {
+  } else if (length <= conn_count) {
     content += "연결 확인이 완료되었습니다.";
     document.getElementById("connent_text").innerHTML = content;
 
