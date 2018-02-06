@@ -247,7 +247,7 @@ function disconnect_draw(res_count, conn_count) {
       fontSize: 18,
       fontFamily: 'Calibri',
       fill: '#555',
-      width: 150,
+      width: 170,
       padding: 20,
       align: 'center'
     });
