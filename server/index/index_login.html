@@ -172,10 +172,10 @@
             for (var a = 0; a < disconnect_count; a++) {
               var i = arp_eval_false(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
               if (i == true) {
-                connect_count -= 1;
-                disconnect_count += 1;
-                connect_data.splice(a, 1);
-                disconnect_data.push(data);
+                connect_count += 1;
+                disconnect_count -= 1;
+                disconnect_data.splice(a, 1);
+                connect_data.push(data);
               }
             }
             conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
