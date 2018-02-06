@@ -44,7 +44,7 @@ function connect_AP(ap_data) {
 
   });
 
-  var ap_text = ap_data[0]['IP Address'] + "\n" + ap_text = ap_data[0]['Host name'];
+  var ap_text = ap_data[0]['IP Address'] + "\n" + ap_data[0]['Host name'];
   var complexText = new Konva.Text({
       x: stage.getWidth() / 2 - 40,
       y: stage.getWidth() / 2 - 30 + 60,
