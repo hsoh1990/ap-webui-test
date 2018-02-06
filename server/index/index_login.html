@@ -126,6 +126,12 @@
       socket_connect_draw();
     }
 
+    function conn_disconn_draw (data, connect_data, disconnect_data, connect_count, disconnect_count) {
+      disconnect_draw(disconnect_data, disconnect_count);
+      connect_draw(connect_data, connect_count);
+      connect_AP();
+      connection_text(data['length'], (connect_count + disconnect_count));
+    }
     function arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count) {
       if (data['MAC Address'] == connect_data[a]['MAC Address']) {
         if (data['arp'] != connect_data[a]['arp']) {
@@ -133,10 +139,7 @@
           disconnect_count += 1;
           connect_data.splice(a, 1);
           disconnect_data.push(data);
-          disconnect_draw(disconnect_data, disconnect_count);
-          connect_draw(connect_data, connect_count);
-          connect_AP();
-          connection_text(data['length'], (connect_count + disconnect_count));
+          conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
         }
       }
     }
@@ -147,10 +150,7 @@
           disconnect_count -= 1;
           disconnect_data.splice(a, 1);
           connect_data.push(data);
-          disconnect_draw(disconnect_data, disconnect_count);
-          connect_draw(connect_data, connect_count);
-          connect_AP();
-          connection_text(data['length'], (connect_count + disconnect_count));
+          conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
         }
       }
     }
@@ -180,10 +180,7 @@
               disconnect_count += 1;
               disconnect_data.push(data);
             }
-            disconnect_draw(disconnect_data, disconnect_count);
-            connect_draw(connect_data, connect_count);
-            connect_AP();
-            connection_text(data['length'], (connect_count + disconnect_count));
+            conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
           }
 
           //서버에 my other event 이벤트를 보낸다.
