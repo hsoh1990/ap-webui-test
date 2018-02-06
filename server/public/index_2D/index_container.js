@@ -185,8 +185,6 @@ function disconnect_draw(res_count, conn_count) {
     disconnect_line_Layer.add(Line);
     stage.add(disconnect_line_Layer);
 
-
-    stage.add(disconnect_device_Layer);
     var device = new Konva.Image({
       x: x,
       y: y - 11,
@@ -194,7 +192,7 @@ function disconnect_draw(res_count, conn_count) {
       height: 55
     });
     disconnect_device_Layer.add(device);
-
+    stage.add(disconnect_device_Layer);
     // add the layer to the stage
     var imageObj = new Image();
     imageObj.onload = function() {
