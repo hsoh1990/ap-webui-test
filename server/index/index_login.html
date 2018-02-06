@@ -136,7 +136,6 @@
     function arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count) {
       if (data['MAC Address'] == connect_data[a]['MAC Address']) {
         if (data['arp'] != connect_data[a]['arp']) {
-          conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
           return true;
         }
       }
@@ -145,7 +144,6 @@
     function arp_eval_false(data, connect_data, disconnect_data, a, connect_count, disconnect_count) {
       if (data['MAC Address'] == disconnect_data[a]['MAC Address']) {
         if (data['arp'] != disconnect_data[a]['arp']) {
-          conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
           return true;
         }
       }
@@ -161,7 +159,6 @@
       // 서버에서 news 이벤트가 일어날 때 데이터를 받는다.
       socket.on('arp',
         function(data) {
-          console.log(connect_count + " , " + disconnect_count);
           if (data['length'] == (connect_count + disconnect_count)) {
             for (var a = 0; a < connect_count; a++) {
               var i = arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
@@ -181,7 +178,7 @@
                 disconnect_data.push(data);
               }
             }
-
+            conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
           } else {
             if (data['arp'] == 1) {
               connect_count += 1;
@@ -192,7 +189,7 @@
             }
             conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count);
           }
-
+          console.log(connect_count + " , " + disconnect_count);
           //서버에 my other event 이벤트를 보낸다.
           /*
           socket.emit('my other event', {
