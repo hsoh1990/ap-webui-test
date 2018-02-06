@@ -82,36 +82,33 @@ module.exports = function(app, fs, url) {
     return data__;
   }
 
-  function arp_promise(a, data__, data_key) {
-    return new Promise(function(resolve, reject) {
-      arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
-        if (!err) {
-          console.log("mac : " + mac);
-          if (mac == "(incomplete)") {
-            result = {
-              'MAC Address': data__[data_key[a]]['MAC Address'],
-              'IP Address': data__[data_key[a]]['IP Address'],
-              'Host name': data__[data_key[a]]['Host name'],
-              'arp': 0,
-              'length': Object.keys(data__).length
-            }
-            resolve(result);
-          } else {
-            result = {
-              'MAC Address': data__[data_key[a]]['MAC Address'],
-              'IP Address': data__[data_key[a]]['IP Address'],
-              'Host name': data__[data_key[a]]['Host name'],
-              'arp': 1,
-              'length': Object.keys(data__).length
-            }
-            reject(result);
+  function arp_req(a, data__, data_key, resolve, reject) {
+    arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
+      if (!err) {
+        console.log("mac : " + mac);
+        if (mac == "(incomplete)") {
+          result = {
+            'MAC Address': data__[data_key[a]]['MAC Address'],
+            'IP Address': data__[data_key[a]]['IP Address'],
+            'Host name': data__[data_key[a]]['Host name'],
+            'arp': 0,
+            'length': Object.keys(data__).length
           }
+          resolve(result);
+        } else {
+          result = {
+            'MAC Address': data__[data_key[a]]['MAC Address'],
+            'IP Address': data__[data_key[a]]['IP Address'],
+            'Host name': data__[data_key[a]]['Host name'],
+            'arp': 1,
+            'length': Object.keys(data__).length
+          }
+          reject(result);
+        }
 
-        } else {}
-      });
+      } else {}
     });
   }
-
   io.sockets.on('connect', function(socket) {
     var connect_bool = true;
     ! function arp_repeat() {
@@ -124,7 +121,11 @@ module.exports = function(app, fs, url) {
       var data__ = data_get();
       var data_key = Object.getOwnPropertyNames(data__);
       for (var a = 0; a < Object.keys(data__).length; a++) {
-        var _promise = arp_promise(a, data__, data_key);
+        var _promise = function(a, data__, data_key) {
+          return new Promise(function(resolve, reject) {
+            arp_req(a, data__, data_key, resolve, reject);
+          });
+        };
         _promise(a, data__, data_key)
           .then(function(result) {
             // 성공시/*
@@ -135,6 +136,7 @@ module.exports = function(app, fs, url) {
             console.log(result['MAC Address'] + ',, ' + result['arp']);
             socket.emit('arp', result);
           });
+
       }
 
       if (connect_bool == false) {
