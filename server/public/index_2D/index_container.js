@@ -196,7 +196,6 @@ function disconnect_draw(res_count, conn_count) {
     var imageObj = new Image();
     imageObj.onload = function() {
       device.image(imageObj);
-      disconnect_device_Layer.draw();
     };
     imageObj.src = '/svg/button-red_benji_park_01.svg';
   }
