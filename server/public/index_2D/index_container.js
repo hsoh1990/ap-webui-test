@@ -45,17 +45,31 @@ function connect_AP(ap_data) {
   });
 
   var ap_text = ap_data[0]['IP Address'] + "\n" + ap_data[0]['Host name'];
-  var complexText = new Konva.Text({
-      x: stage.getWidth() / 2 - 70 - AP_Rect.getWidth(),
-      y: stage.getHeight() / 2 - 30 + 55,
-      text: ap_text,
-      fontSize: 18,
-      fontFamily: 'Calibri',
-      fill: '#555',
-      width: 300,
-      padding: 20,
-      align: 'center'
-    });
+  var aptext = new Konva.Text({
+    x: stage.getWidth() / 2 - 70 - AP_Rect.getWidth(),
+    y: stage.getHeight() / 2 - 30 + 55,
+    text: ap_text,
+    fontSize: 18,
+    fontFamily: 'Calibri',
+    fill: '#555',
+    width: 300,
+    padding: 20,
+    align: 'center'
+  });
+  var aptextbox = new Konva.Rect({
+    x: stage.getWidth() / 2 - 70 - AP_Rect.getWidth(),
+    y: stage.getHeight() / 2 - 30 + 55,
+    stroke: '#555',
+    strokeWidth: 5,
+    fill: '#ddd',
+    width: 300,
+    height: aptext.getHeight(),
+    shadowColor: 'black',
+    shadowBlur: 10,
+    shadowOffset: [10, 10],
+    shadowOpacity: 0.2,
+    cornerRadius: 10
+  });
 
   var Line_Rect_position_x = stage.getWidth() / 2 - 40;
   var Line_Rect_position_y = stage.getHeight() / 2 - 30;
@@ -102,7 +116,8 @@ function connect_AP(ap_data) {
   });
 
   aplayer.add(AP_Rect);
-  aplayer.add(complexText);
+  aplayer.add(aptext);
+  aplayer.add(aptextbox);
   aplayer.add(Line1);
   aplayer.add(Line2);
   aplayer.add(Line3);
