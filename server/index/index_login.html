@@ -44,7 +44,7 @@
 
 </head>
 
-<body onload="sidemenu_get()">
+<body onload="sidemenu_get(), socket_connect_draw()">
 
   <div id="wrapper">
     <!-- Navigation -->
@@ -126,7 +126,6 @@
       wlan_draw();
       connect_AP(ap_data);
       connection_text(1000, 0);
-      socket_connect_draw();
     }
 
     function conn_disconn_draw(data, connect_data, disconnect_data, connect_count, disconnect_count) {
