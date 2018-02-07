@@ -190,6 +190,7 @@ function ap_draw(enable__, ap_data) {
   aplayer.add(ap);
   aplayer.add(aptextbox);
   aplayer.add(aptext);
+  ap_owner_layer.add(owner_text);
   /*
   aplayer.add(Line1);
   aplayer.add(Line2);
@@ -197,10 +198,8 @@ function ap_draw(enable__, ap_data) {
   aplayer.add(Line4);
 */
   stage.add(aplayer);
+  stage.add(ap_owner_layer);
   stage.batchDraw();
-
-  ap_owner_layer.add(owner_text);
-  ap_owner_layer.draw();
 
   owner_text.on('dblclick', () => {
     // create textarea over canvas with absolute position
@@ -232,7 +231,7 @@ function ap_draw(enable__, ap_data) {
       // hide on enter
       if (e.keyCode === 13) {
         owner_text.text(textarea.value);
-        ap_owner_layer.draw();
+        stage.batchDraw();
         document.body.removeChild(textarea);
       }
     });
