@@ -284,12 +284,11 @@ function semicircle_calcul(resultxy, device_count, radius) {
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //disconnect 기기들 draw부분
-function disconnect_draw(enable__, res_count, conn_count) {
+function disconnect_draw(enable, res_count, conn_count) {
 
   var device_count = conn_count;
   var radius = disconnect_radius;
   var resultxy = [];
-  var enable__ = enable__;
 
   semicircle_calcul(resultxy, device_count, radius);
 
@@ -326,15 +325,15 @@ function disconnect_draw(enable__, res_count, conn_count) {
 
     stage.add(disconnect_device_Layer);
     // add the layer to the stage
-    alert(JSON.stringify(enable__));
+    alert(JSON.stringify(enable));
     var device_text = "";
-    if (enable__['ip'] == 1) {
+    if (enable['ip'] == 1) {
       device_text += res_count[a]['IP Address'] + "\n";
     }
-    if (enable__['mac'] == 1) {
+    if (enable['mac'] == 1) {
       device_text += res_count[a]['MAC Address'] + "\n";
     }
-    if (enable__['hostname'] == 1) {
+    if (enable['hostname'] == 1) {
       device_text += res_count[a]['Host name'];
     }
     var devicetext = new Konva.Text({
@@ -370,7 +369,7 @@ function disconnect_draw(enable__, res_count, conn_count) {
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //connect한 기기들 draw 부분
-function connect_draw(enable__, res_count, conn_count) {
+function connect_draw(enable, res_count, conn_count) {
 
   var device_count = conn_count;
   var radius = connect_radius;
@@ -411,13 +410,13 @@ function connect_draw(enable__, res_count, conn_count) {
     stage.add(connect_device_Layer);
 
     var device_text = "";
-    if (enable__['ip'] == 1) {
+    if (enable['ip'] == 1) {
       device_text += res_count[a]['IP Address'] + "\n";
     }
-    if (enable__['mac'] == 1) {
+    if (enable['mac'] == 1) {
       device_text += res_count[a]['MAC Address'] + "\n";
     }
-    if (enable__['hostname'] == 1) {
+    if (enable['hostname'] == 1) {
       device_text += res_count[a]['Host name'];
     }
     var devicetext = new Konva.Text({
