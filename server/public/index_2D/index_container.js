@@ -176,7 +176,7 @@ function ap_draw(enable__, ap_data) {
 
   var owner_text = new Konva.Text({
     x: stage.getWidth() / 2 - 80 - ap.getWidth(),
-    y: stage.getHeight() / 2 - 20,
+    y: stage.getHeight() / 2 - 70,
     text: "test",
     fontSize: 18,
     fontFamily: 'Calibri',
