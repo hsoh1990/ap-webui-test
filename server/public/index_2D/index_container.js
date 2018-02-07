@@ -63,6 +63,7 @@ window.addEventListener('resize', fitStageIntoParentContainer);
 function layer_removechildren() {
   stage.clear();
   aplayer.removeChildren();
+  ap_owner_layer.removeChildren();
   wlanlayer.removeChildren();
   connect_line_Layer.removeChildren();
   connect_device_Layer.removeChildren();
@@ -540,6 +541,7 @@ function connection_text(length, conn_count) {
     document.getElementById("connent_text").innerHTML = content;
 
   }
+  stage.batchDraw();
 }
 
 
