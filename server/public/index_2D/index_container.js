@@ -289,6 +289,7 @@ function disconnect_draw(enable__, res_count, conn_count) {
   var device_count = conn_count;
   var radius = disconnect_radius;
   var resultxy = [];
+  var enable__ = enable__;
 
   semicircle_calcul(resultxy, device_count, radius);
 
