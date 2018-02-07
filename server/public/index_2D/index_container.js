@@ -176,7 +176,7 @@ function ap_draw(enable__, ap_data) {
 
   var owner_text = new Konva.Text({
     x: stage.getWidth() / 2 - 80 - ap.getWidth(),
-    y: stage.getHeight() / 2 - 70,
+    y: stage.getHeight() / 2 - 100,
     text: "test",
     fontSize: 18,
     fontFamily: 'Calibri',
@@ -231,6 +231,7 @@ function ap_draw(enable__, ap_data) {
       // hide on enter
       if (e.keyCode === 13) {
         owner_text.text(textarea.value);
+        stage.clear();
         stage.batchDraw();
         document.body.removeChild(textarea);
       }
