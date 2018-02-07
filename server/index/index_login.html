@@ -145,6 +145,7 @@
     function ip_onoff() {
       var ip_select = document.getElementById("ipenable").value;
       alert(ip_select);
+      document.getElementById("ipenable").value = 0;
     }
     function conn_disconn_draw(wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count) {
       layer_removechildren();
