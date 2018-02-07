@@ -173,19 +173,6 @@ function ap_draw(enable__, ap_data) {
     stage.container().style.cursor = 'default';
   });
 
-  //aplayer.add(AP_Rect);
-  aplayer.add(ap);
-  aplayer.add(aptextbox);
-  aplayer.add(aptext);
-  /*
-  aplayer.add(Line1);
-  aplayer.add(Line2);
-  aplayer.add(Line3);
-  aplayer.add(Line4);
-*/
-  stage.add(aplayer);
-  stage.batchDraw();
-
   var owner_text = new Konva.Text({
     x: stage.getWidth() / 2 - 80 - ap.getWidth(),
     y: stage.getHeight() / 2 - 20,
@@ -197,6 +184,20 @@ function ap_draw(enable__, ap_data) {
     padding: 20,
     align: 'center'
   });
+
+  //aplayer.add(AP_Rect);
+  aplayer.add(ap);
+  aplayer.add(aptextbox);
+  aplayer.add(aptext);
+  aplayer.add(owner_text);
+  /*
+  aplayer.add(Line1);
+  aplayer.add(Line2);
+  aplayer.add(Line3);
+  aplayer.add(Line4);
+*/
+  stage.add(aplayer);
+  stage.batchDraw();
 
   owner_text.on('dblclick', () => {
     // create textarea over canvas with absolute position
