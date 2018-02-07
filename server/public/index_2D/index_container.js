@@ -23,7 +23,8 @@ var disconnect_radius = 550;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
 const green_svgpath = '/svg/button-green_benji_park_01.svg';
 
-
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+//stage의 wudth 크기 브라우저크기에 따라 자동 설정
 function fitStageIntoParentContainer() {
   var container = document.querySelector('#stage-parent');
 
