@@ -78,11 +78,11 @@ function ap_draw(enable__, ap_data) {
   var imageObj = new Image();
   imageObj.src = ap_svgpath;
   var ap = new Konva.Image({
-    x: stage.getWidth() / 2 - 40,
-    y: stage.getHeight() / 2 - 30,
+    x: stage.getWidth() / 2 - 60,
+    y: stage.getHeight() / 2 - 45,
     image: imageObj,
-    width: 55,
-    height: 65
+    width: 70,
+    height: 85
   });
 
   var ap_text = "";
@@ -184,6 +184,7 @@ function ap_draw(enable__, ap_data) {
   aplayer.add(Line4);
 */
   stage.add(aplayer);
+  stage.batchDraw();
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //wlan draw 부분
