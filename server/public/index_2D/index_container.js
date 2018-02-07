@@ -157,7 +157,7 @@ function connect_AP(ap_data) {
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //wlan draw 부분
-function wlan_draw() {
+function wlan_draw(wlan_data) {
   var wlan_x = stage.getWidth() / 2 - 40 - 300;
   var wlan_y = stage.getHeight() / 2 - 15;
 
@@ -179,8 +179,37 @@ function wlan_draw() {
     lineJoin: 'round'
   });
 
+  var wlan_text = wlan_data[0]['IP Address'] + "\n" + wlan_data[0]['orgName'];
+  var wlantext = new Konva.Text({
+    x: stage.getWidth() / 2 - 70 - wlan_box.getWidth(),
+    y: stage.getHeight() / 2 - 30 + 55,
+    text: ap_text,
+    fontSize: 18,
+    fontFamily: 'Calibri',
+    fill: '#555',
+    width: 300,
+    padding: 20,
+    align: 'center'
+  });
+  var wlantextbox = new Konva.Rect({
+    x: stage.getWidth() / 2 - 65,
+    y: stage.getHeight() / 2 + 35,
+    stroke: '#555',
+    strokeWidth: 5,
+    fill: '#ddd',
+    width: 130,
+    height: wlantext.getHeight() - 20,
+    shadowColor: 'black',
+    shadowBlur: 10,
+    shadowOffset: [10, 10],
+    shadowOpacity: 0.2,
+    cornerRadius: 10
+  });
+
   wlanlayer.add(wlan_line);
   wlanlayer.add(wlan_box);
+  wlanlayer.add(wlantextbox);
+  wlanlayer.add(wlantext);
   stage.add(wlanlayer);
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ

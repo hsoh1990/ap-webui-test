@@ -146,19 +146,22 @@ module.exports = function(app, fs, url) {
       encoding: 'utf8'
     });
     text = JSON.parse(text);
-    return text['whois']['english']['ISP']['netinfo']['orgName'];
+    wlan_infor = {
+      'IP Address': '39.119.118.152',
+      'orgName': text['whois']['english']['ISP']['netinfo']['orgName']
+    }
+    return wlan_infor;
   }
   io.sockets.on('connect', function(socket) {
-    console.log(socket);
-    wlan_whois();
     var connect_bool = true;
     var ap_ip = eth0_ip_rec();
     var ap_hostname = hostname_rec();
-
+    var wlan_infor = wlan_whois();
     ap_infor = {
       'IP Address': ap_ip,
       'Host name': ap_hostname
     }
+    socket.emit('wlaninfor', wlan_infor);
     socket.emit('apinfor', ap_infor);
     ! function arp_repeat() {
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
