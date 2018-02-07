@@ -444,6 +444,7 @@ function connect_draw(enable, res_count, conn_count) {
     connect_text_Layer.add(devicetextbox);
     connect_text_Layer.add(devicetext);
     stage.add(connect_text_Layer);
+    connect_device_Layer.batchDraw();
   }
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -459,8 +460,8 @@ function connection_text(length, conn_count) {
     document.getElementById("connent_text").innerHTML = content;
 
   }
-  //stage.batchDraw();
-  stage.draw();
+  stage.batchDraw();
+  //stage.draw();
 }
 
 
