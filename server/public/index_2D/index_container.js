@@ -9,6 +9,7 @@ var stage = new Konva.Stage({
 });
 
 var aplayer = new Konva.Layer();
+var ap_owner_layer = new Konva.Layer();
 var wlanlayer = new Konva.Layer();
 var disconnect_device_Layer = new Konva.Layer();
 var disconnect_line_Layer = new Konva.Layer();
@@ -189,7 +190,6 @@ function ap_draw(enable__, ap_data) {
   aplayer.add(ap);
   aplayer.add(aptextbox);
   aplayer.add(aptext);
-  aplayer.add(owner_text);
   /*
   aplayer.add(Line1);
   aplayer.add(Line2);
@@ -198,6 +198,9 @@ function ap_draw(enable__, ap_data) {
 */
   stage.add(aplayer);
   stage.batchDraw();
+
+  ap_owner_layer.add(owner_text);
+  ap_owner_layer.draw();
 
   owner_text.on('dblclick', () => {
     // create textarea over canvas with absolute position
@@ -216,11 +219,11 @@ function ap_draw(enable__, ap_data) {
     var textarea = document.createElement('textarea');
     document.body.appendChild(textarea);
 
-    textarea.value = textNode.text();
+    textarea.value = owner_text.text();
     textarea.style.position = 'absolute';
     textarea.style.top = areaPosition.y + 'px';
     textarea.style.left = areaPosition.x + 'px';
-    textarea.style.width = textNode.width();
+    textarea.style.width = owner_text.width();
 
     textarea.focus();
 
@@ -229,7 +232,7 @@ function ap_draw(enable__, ap_data) {
       // hide on enter
       if (e.keyCode === 13) {
         owner_text.text(textarea.value);
-        layer.draw();
+        ap_owner_layer.draw();
         document.body.removeChild(textarea);
       }
     });
