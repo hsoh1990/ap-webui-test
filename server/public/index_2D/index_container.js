@@ -9,7 +9,6 @@ var stage = new Konva.Stage({
 });
 
 var aplayer = new Konva.Layer();
-var textlayer = new Konva.Layer();
 var wlanlayer = new Konva.Layer();
 var disconnect_device_Layer = new Konva.Layer();
 var disconnect_line_Layer = new Konva.Layer();
@@ -460,7 +459,7 @@ function connection_text(length, conn_count) {
     document.getElementById("connent_text").innerHTML = content;
 
   }
-  stage.batchDraw();
+  //stage.batchDraw();
   stage.draw();
 }
 
