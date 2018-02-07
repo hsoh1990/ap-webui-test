@@ -145,7 +145,7 @@ module.exports = function(app, fs, url) {
     const text = execSync('curl \"http://whois.kisa.or.kr/openapi/whois.jsp?query=39.119.118.152\&key=2018020617475141381350\&answer=json\"', {
       encoding: 'utf8'
     });
-    console.log(text);
+    console.log(text['whois']);
     console.log("whois : " + text['whois']['english']['ISP']['netinfo']['orgName']);
   }
   io.sockets.on('connect', function(socket) {
