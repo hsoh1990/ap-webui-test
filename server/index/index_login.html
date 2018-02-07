@@ -94,10 +94,10 @@
           </div>
         </div>
         <div>
+          IP Enable
+          <input id=ipenable type=checkbox class='form-check-input' value=1 checked=checked onclick="ip_onoff()">
           MAC Enable
           <input id=macenable type=checkbox class='form-check-input' value=1 checked=checked>
-          IP Enable
-          <input id=ipenable type=checkbox class='form-check-input' value=1 checked=checked>
           Host name Enable
           <input id=hostnameenable type=checkbox class='form-check-input' value=1 checked=checked>
         </div>
@@ -142,6 +142,10 @@
       connection_text(1000, 0);
     }
 
+    function ip_onoff() {
+      var ip_select = document.getElementById("ipenable").value;
+      alert(ip_select);
+    }
     function conn_disconn_draw(wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count) {
       layer_removechildren();
       disconnect_draw(disconnect_data, disconnect_count);

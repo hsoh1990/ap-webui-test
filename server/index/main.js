@@ -140,6 +140,21 @@ module.exports = function(app, fs, url) {
       return "No IP Address Found";
     }
   }
+  function eth0_mac_rec() {
+    const text = execSync('ip a s eth0', {
+      encoding: 'utf8'
+    });
+    var mac = text.match(/link\/ether ([0-9a-f:]+)/i);
+    try {
+      if (mac != null) {
+        return mac[1];
+      } else {
+        throw "No MAC Address Found";
+      }
+    } catch (e) {
+      return "No MAC Address Found";
+    }
+  }
 
   function wlan_whois() {
     var text = execSync('curl \"http://whois.kisa.or.kr/openapi/whois.jsp?query=39.119.118.152\&key=2018020617475141381350\&answer=json\"', {
@@ -148,6 +163,7 @@ module.exports = function(app, fs, url) {
     text = JSON.parse(text);
     wlan_infor = {
       'IP Address': '39.119.118.152',
+      'MAC Address': 'aa.aa.aa.aa.aa.aa',
       'orgName': text['whois']['english']['ISP']['netinfo']['orgName']
     }
     return wlan_infor;
@@ -155,10 +171,12 @@ module.exports = function(app, fs, url) {
   io.sockets.on('connect', function(socket) {
     var connect_bool = true;
     var ap_ip = eth0_ip_rec();
+    var ap_mac = eth0_mac_rec();
     var ap_hostname = hostname_rec();
     var wlan_infor = wlan_whois();
     ap_infor = {
       'IP Address': ap_ip,
+      'MAC Address': ap_mac,
       'Host name': ap_hostname
     }
     socket.emit('wlaninfor', wlan_infor);
