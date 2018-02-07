@@ -461,7 +461,6 @@ function connection_text(length, conn_count) {
 
   }
   stage.batchDraw();
-  //stage.draw();
 }
 
 
