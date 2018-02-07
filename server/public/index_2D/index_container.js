@@ -317,6 +317,8 @@ function wlan_draw(enable__, wlan_data) {
   wlanlayer.add(wlantextbox);
   wlanlayer.add(wlantext);
   wlanlayer.draw();
+
+  stage.batchDraw();
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //반원 상에서 기기들 위치 계산 부분
