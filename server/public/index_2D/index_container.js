@@ -62,7 +62,6 @@ window.addEventListener('resize', fitStageIntoParentContainer);
 //레이어에 추가한것 제거부분, stage clear 부분
 function layer_removechildren() {
   stage.clear();
-  stage.removeChildren();
   aplayer.removeChildren();
   wlanlayer.removeChildren();
   connect_line_Layer.removeChildren();
