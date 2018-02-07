@@ -79,7 +79,7 @@ function ap_draw(enable__, ap_data) {
   imageObj.src = ap_svgpath;
   var ap = new Konva.Image({
     x: stage.getWidth() / 2 - 35,
-    y: stage.getHeight() / 2 - 50,
+    y: stage.getHeight() / 2 - 55,
     image: imageObj,
     width: 70,
     height: 85
@@ -100,7 +100,7 @@ function ap_draw(enable__, ap_data) {
 
   var aptext = new Konva.Text({
     x: stage.getWidth() / 2 - 80 - ap.getWidth(),
-    y: stage.getHeight() / 2 - 30 + 55,
+    y: stage.getHeight() / 2 - 30 + 60,
     text: ap_text,
     fontSize: 18,
     fontFamily: 'Calibri',
