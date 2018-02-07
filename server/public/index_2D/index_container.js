@@ -325,7 +325,6 @@ function disconnect_draw(enable, res_count, conn_count) {
 
     stage.add(disconnect_device_Layer);
     // add the layer to the stage
-    alert(JSON.stringify(enable));
     var device_text = "";
     if (enable['ip'] == 1) {
       device_text += res_count[a]['IP Address'] + "\n";
