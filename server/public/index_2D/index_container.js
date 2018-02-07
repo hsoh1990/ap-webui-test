@@ -78,10 +78,12 @@ function ap_draw(enable__, ap_data) {
   if (enable__['ip'] == 1) {
     ap_text += ap_data[0]['IP Address'];
     ap_text += "\n";
-  } else if (enable__['mac'] == 1) {
+  }
+  if (enable__['mac'] == 1) {
     ap_text += ap_data[0]['MAC Address'];
     ap_text += "\n";
-  } else if (enable__['hostname'] == 1) {
+  }
+  if (enable__['hostname'] == 1) {
     ap_text += ap_data[0]['Host name'];
   }
 
@@ -192,9 +194,11 @@ function wlan_draw(enable__, wlan_data) {
   var wlan_text = "";
   if (enable__['ip'] == 1) {
     wlan_text += wlan_data[0]['IP Address'] + "\n";
-  } else if (enable__['mac'] == 1) {
+  }
+  if (enable__['mac'] == 1) {
     wlan_text += wlan_data[0]['MAC Address'] + "\n";
-  } else if (enable__['hostname'] == 1) {
+  }
+  if (enable__['hostname'] == 1) {
     wlan_text += wlan_data[0]['orgName'];
   }
 
@@ -324,9 +328,11 @@ function disconnect_draw(enable__, res_count, conn_count) {
     var device_text = "";
     if (enable__['ip'] == 1) {
       device_text += res_count[a]['IP Address'] + "\n";
-    } else if (enable__['mac'] == 1) {
+    }
+    if (enable__['mac'] == 1) {
       device_text += res_count[a]['MAC Address'] + "\n";
-    } else if (enable__['hostname'] == 1) {
+    }
+    if (enable__['hostname'] == 1) {
       device_text += res_count[a]['Host name'];
     }
     var devicetext = new Konva.Text({
@@ -405,9 +411,11 @@ function connect_draw(enable__, res_count, conn_count) {
     var device_text = "";
     if (enable__['ip'] == 1) {
       device_text += res_count[a]['IP Address'] + "\n";
-    } else if (enable__['mac'] == 1) {
+    }
+    if (enable__['mac'] == 1) {
       device_text += res_count[a]['MAC Address'] + "\n";
-    } else if (enable__['hostname'] == 1) {
+    }
+    if (enable__['hostname'] == 1) {
       device_text += res_count[a]['Host name'];
     }
     var devicetext = new Konva.Text({
