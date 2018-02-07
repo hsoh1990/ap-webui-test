@@ -1,5 +1,5 @@
 var stageWidth = 1000;
-        var stageHeight = 1000;
+var stageHeight = 600;
 
 var stage = new Konva.Stage({
   container: 'container', // id of container <div>
