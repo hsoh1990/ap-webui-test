@@ -1,7 +1,10 @@
+var stageWidth = 1000;
+        var stageHeight = 1000;
+
 var stage = new Konva.Stage({
   container: 'container', // id of container <div>
-  width: 850,
-  height: 600,
+  width: stageWidth,
+  height: stageHeight,
   draggable: true
 });
 
@@ -31,7 +34,7 @@ function fitStageIntoParentContainer() {
 
 
   stage.width(stageWidth * scale);
-  stage.height(stageHeight * scale);
+  //stage.height(stageHeight * scale);
   stage.scale({
     x: scale,
     y: scale
