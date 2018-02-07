@@ -99,7 +99,7 @@ function ap_draw(enable__, ap_data) {
   }
 
   var aptext = new Konva.Text({
-    x: stage.getWidth() / 2 - 70 - ap.getWidth(),
+    x: stage.getWidth() / 2 - 80 - ap.getWidth(),
     y: stage.getHeight() / 2 - 30 + 55,
     text: ap_text,
     fontSize: 18,
