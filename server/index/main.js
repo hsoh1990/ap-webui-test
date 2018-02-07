@@ -142,9 +142,10 @@ module.exports = function(app, fs, url) {
   }
 
   function wlan_whois() {
-    const text = execSync('curl \"http://whois.kisa.or.kr/openapi/whois.jsp?query=39.119.118.152\&key=2018020617475141381350\&answer=json\"', {
+    var text = execSync('curl \"http://whois.kisa.or.kr/openapi/whois.jsp?query=39.119.118.152\&key=2018020617475141381350\&answer=json\"', {
       encoding: 'utf8'
     });
+    text = JSON.parse(text);
     console.log(text['whois']);
     console.log("whois : " + text['whois']['english']['ISP']['netinfo']['orgName']);
   }
