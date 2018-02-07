@@ -207,8 +207,6 @@ function ap_draw(enable__, ap_data) {
   aplayer.add(Line3);
   aplayer.add(Line4);
 */
-  stage.add(aplayer);
-  stage.add(ap_owner_layer);
   aplayer.draw();
   ap_owner_layer.draw();
 
