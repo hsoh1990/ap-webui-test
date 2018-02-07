@@ -422,7 +422,7 @@ function connect_draw(enable, res_count, conn_count) {
       fontSize: 18,
       fontFamily: 'Calibri',
       fill: '#555',
-      width: 170,
+      width: 175,
       padding: 20,
       align: 'center'
     });
