@@ -75,6 +75,16 @@ function ap_draw(enable__, ap_data) {
 
   });
   */
+  var imageObj = new Image();
+  imageObj.src = ap_svgpath;
+  var ap = new Konva.Image({
+    x: stage.getWidth() / 2 - 40,
+    y: stage.getHeight() / 2 - 30,
+    image: imageObj,
+    width: 55,
+    height: 65
+  });
+
   var ap_text = "";
   if (enable__['ip'] == 1) {
     ap_text += ap_data[0]['IP Address'];
@@ -89,7 +99,7 @@ function ap_draw(enable__, ap_data) {
   }
 
   var aptext = new Konva.Text({
-    x: stage.getWidth() / 2 - 70 - AP_Rect.getWidth(),
+    x: stage.getWidth() / 2 - 70 - ap.getWidth(),
     y: stage.getHeight() / 2 - 30 + 55,
     text: ap_text,
     fontSize: 18,
@@ -150,26 +160,16 @@ function ap_draw(enable__, ap_data) {
     tension: 1
   });*/
 
-  var imageObj = new Image();
-  imageObj.src = ap_svgpath;
-  var ap = new Konva.Image({
-    x: stage.getWidth() / 2 - 40,
-    y: stage.getHeight() / 2 - 30,
-    image: imageObj,
-    width: 55,
-    height: 65
-  });
-
   // add the shape to the layer
 
   // add the layer to the stage
 
 
-  AP_Rect.on('mouseenter', function() {
+  ap.on('mouseenter', function() {
     stage.container().style.cursor = 'pointer';
   });
 
-  AP_Rect.on('mouseleave', function() {
+  ap.on('mouseleave', function() {
     stage.container().style.cursor = 'default';
   });
 
