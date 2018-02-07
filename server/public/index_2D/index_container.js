@@ -181,8 +181,8 @@ function wlan_draw(wlan_data) {
 
   var wlan_text = wlan_data[0]['IP Address'] + "\n" + wlan_data[0]['orgName'];
   var wlantext = new Konva.Text({
-    x: stage.getWidth() / 2 - 70 - wlan_box.getWidth(),
-    y: stage.getHeight() / 2 - 30 + 55,
+    x: wlan_x - 70 - wlan_box.getWidth(),
+    y: wlan_y - 30 + 55,
     text: wlan_text,
     fontSize: 18,
     fontFamily: 'Calibri',
@@ -192,8 +192,8 @@ function wlan_draw(wlan_data) {
     align: 'center'
   });
   var wlantextbox = new Konva.Rect({
-    x: stage.getWidth() / 2 - 65,
-    y: stage.getHeight() / 2 + 35,
+    x: wlan_x - 65,
+    y: wlan_y + 35,
     stroke: '#555',
     strokeWidth: 5,
     fill: '#ddd',
