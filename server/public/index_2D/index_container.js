@@ -530,9 +530,9 @@ function connect_draw(enable, res_count, conn_count) {
     connect_text_Layer.add(devicetextbox);
     connect_text_Layer.add(devicetext);
 
-    connect_line_Layer.draw();
+    /*connect_line_Layer.draw();
     connect_device_Layer.draw();
-    connect_text_Layer.draw();
+    connect_text_Layer.draw();*/
 
     stage.batchDraw();
   }
