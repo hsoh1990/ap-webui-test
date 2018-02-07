@@ -1,6 +1,6 @@
 var stage = new Konva.Stage({
   container: 'container', // id of container <div>
-  width: 800,
+  width: 850,
   height: 600,
   draggable: true
 });
@@ -158,7 +158,7 @@ function wlan_draw() {
   stage.add(wlanlayer);
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-//disconnect한 기기들 draw 부분
+//반원 상에서 기기들 위치 계산 부분
 
 function semicircle_calcul(resultxy, device_count, radius) {
   if (device_count == 1) { //디바이스가 1개일 경우
@@ -205,6 +205,8 @@ function semicircle_calcul(resultxy, device_count, radius) {
     }
   }
 }
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+//disconnect 기기들 draw부분
 function disconnect_draw(res_count, conn_count) {
 
   var device_count = conn_count;
@@ -285,50 +287,8 @@ function connect_draw(res_count, conn_count) {
   var device_count = conn_count;
   var radius = connect_radius;
   var resultxy = [];
-  if (device_count == 1) { //디바이스가 1개일 경우
-    var xy = [];
-    xy.push(radius);
-    xy.push(0);
-    resultxy.push(xy);
-  } else if (device_count > 1 && device_count % 2 == 0) { //짝수일 경우
-    var angle = 180 / (device_count + 1);
-    var half_angle = angle / 2;
-    for (var a = 0; a < device_count / 2; a++) {
-      var xy = [];
-      var x = radius * Math.cos(half_angle * Math.PI / 180);
-      var y = radius * Math.sin(half_angle * Math.PI / 180);
-      xy.push(x);
-      xy.push(y);
-      resultxy.push(xy);
-      var x_y = [];
-      x_y.push(x);
-      x_y.push(y * -1);
-      resultxy.push(x_y);
-      half_angle += angle;
-    }
-  } else if (device_count > 1 && device_count % 2 == 1) { //홀수일 경우
-    var xy = [];
-    xy.push(radius);
-    xy.push(0);
-    resultxy.push(xy);
 
-    var angle = 180 / (device_count + 1);
-    var angle__ = angle;
-    for (var a = 0; a < Math.floor(device_count / 2); a++) {
-      var xy = [];
-      var x = radius * Math.cos(angle__ * Math.PI / 180);
-      var y = radius * Math.sin(angle__ * Math.PI / 180);
-      xy.push(x);
-      xy.push(y);
-      resultxy.push(xy);
-      var x_y = [];
-      x_y.push(x);
-      x_y.push(y * -1);
-      resultxy.push(x_y);
-      angle__ += angle;
-    }
-  }
-
+  semicircle_calcul(resultxy, device_count, radius);
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
@@ -347,27 +307,22 @@ function connect_draw(res_count, conn_count) {
     stage.add(connect_line_Layer);
 
     var imageObj = new Image();
-
-    function draw_image(imageObj) {
-
-      var device = new Konva.Image({
-        x: x,
-        y: y - 11,
-        image: imageObj,
-        width: 55,
-        height: 55
-      });
-
-      // add the shape to the layer
-      connect_device_Layer.add(device);
-
-      // add the layer to the stage
-      stage.add(connect_device_Layer);
-
-    };
     imageObj.src = green_svgpath;
+    var device = new Konva.Image({
+      x: x,
+      y: y - 11,
+      image: imageObj,
+      width: 55,
+      height: 55
+    });
 
-    draw_image(imageObj);
+    // add the shape to the layer
+    connect_device_Layer.add(device);
+
+    // add the layer to the stage
+    stage.add(connect_device_Layer);
+
+
 
     var device_text = res_count[a]['IP Address'] + "\n" + res_count[a]['Host name'];
     var devicetext = new Konva.Text({
@@ -404,6 +359,7 @@ function connect_draw(res_count, conn_count) {
 
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+//connection text 부분
 function connection_text(length, conn_count) {
   var content = "";
   if (length > conn_count) {
@@ -420,6 +376,7 @@ function connection_text(length, conn_count) {
 
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+//stage drag 구현 부분
 var lastDist = 0;
 var startScale = 1;
 
@@ -457,7 +414,7 @@ stage.getContent().addEventListener('touchend', function() {
   lastDist = 0;
 }, false);
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
+//wheel로 줌인, 줌아웃 구현 부분
 
 var scaleBy = 1.15;
 window.addEventListener('wheel', (e) => {
