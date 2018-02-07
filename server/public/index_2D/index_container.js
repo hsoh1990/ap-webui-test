@@ -160,7 +160,7 @@ function wlan_draw() {
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //disconnect한 기기들 draw 부분
 
-function semicircle_calcul() {
+function semicircle_calcul(resultxy, device_count, radius) {
   if (device_count == 1) { //디바이스가 1개일 경우
     var xy = [];
     xy.push(radius);
@@ -210,6 +210,8 @@ function disconnect_draw(res_count, conn_count) {
   var device_count = conn_count;
   var radius = disconnect_radius;
   var resultxy = [];
+
+  semicircle_calcul(resultxy, device_count, radius);
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];

@@ -146,8 +146,7 @@ module.exports = function(app, fs, url) {
       encoding: 'utf8'
     });
     text = JSON.parse(text);
-    console.log(text['whois']);
-    console.log("whois : " + text['whois']['english']['ISP']['netinfo']['orgName']);
+    return text['whois']['english']['ISP']['netinfo']['orgName'];
   }
   io.sockets.on('connect', function(socket) {
     wlan_whois();
