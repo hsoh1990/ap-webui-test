@@ -333,13 +333,13 @@ function disconnect_draw(enable, res_count, conn_count) {
       device_text += res_count[a]['Host name'];
     }
     var devicetext = new Konva.Text({
-      x: x - 60,
+      x: x - 63,
       y: y + 35,
       text: device_text,
       fontSize: 18,
       fontFamily: 'Calibri',
       fill: '#555',
-      width: 170,
+      width: 176,
       padding: 20,
       align: 'center'
     });
@@ -416,13 +416,13 @@ function connect_draw(enable, res_count, conn_count) {
       device_text += res_count[a]['Host name'];
     }
     var devicetext = new Konva.Text({
-      x: x - 60,
+      x: x - 63,
       y: y + 35,
       text: device_text,
       fontSize: 18,
       fontFamily: 'Calibri',
       fill: '#555',
-      width: 175,
+      width: 176,
       padding: 20,
       align: 'center'
     });
