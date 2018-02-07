@@ -97,7 +97,7 @@ function ap_draw(enable__, ap_data) {
     align: 'center'
   });
   var aptextbox = new Konva.Rect({
-    x: stage.getWidth() / 2 - 65,
+    x: stage.getWidth() / 2 - 75,
     y: stage.getHeight() / 2 + 35,
     stroke: '#555',
     strokeWidth: 5,
