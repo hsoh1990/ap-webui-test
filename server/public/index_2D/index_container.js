@@ -102,7 +102,7 @@ function ap_draw(enable__, ap_data) {
     stroke: '#555',
     strokeWidth: 5,
     fill: '#ddd',
-    width: 130,
+    width: 150,
     height: aptext.getHeight() - 20,
     shadowColor: 'black',
     shadowBlur: 10,
