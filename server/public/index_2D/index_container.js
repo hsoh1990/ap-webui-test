@@ -20,9 +20,9 @@ var disconnect_radius = 550;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
 const green_svgpath = '/svg/button-green_benji_park_01.svg';
 
-//반원 처리 부분
-//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+//레이어에 추가한것 제거부분, stage clear 부분
 function layer_removechildren() {
   stage.clear();
   stage.removeChildren();
@@ -130,6 +130,7 @@ function connect_AP(ap_data) {
   stage.add(aplayer);
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+//wlan draw 부분
 function wlan_draw() {
   var wlan_x = stage.getWidth() / 2 - 40 - 300;
   var wlan_y = stage.getHeight() / 2 - 15;
@@ -156,12 +157,10 @@ function wlan_draw() {
   wlanlayer.add(wlan_box);
   stage.add(wlanlayer);
 }
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+//disconnect한 기기들 draw 부분
 
-function disconnect_draw(res_count, conn_count) {
-
-  var device_count = conn_count;
-  var radius = disconnect_radius;
-  var resultxy = [];
+function semicircle_calcul() {
   if (device_count == 1) { //디바이스가 1개일 경우
     var xy = [];
     xy.push(radius);
@@ -205,6 +204,12 @@ function disconnect_draw(res_count, conn_count) {
       angle__ += angle;
     }
   }
+}
+function disconnect_draw(res_count, conn_count) {
+
+  var device_count = conn_count;
+  var radius = disconnect_radius;
+  var resultxy = [];
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
@@ -271,7 +276,8 @@ function disconnect_draw(res_count, conn_count) {
     stage.add(disconnect_text_Layer);
   }
 }
-
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+//connect한 기기들 draw 부분
 function connect_draw(res_count, conn_count) {
 
   var device_count = conn_count;
@@ -350,11 +356,6 @@ function connect_draw(res_count, conn_count) {
         height: 55
       });
 
-      /*
-      device.on('dragstart', function() {
-        Line.points([stage.getWidth() / 2, stage.getHeight() / 2, device.x, device.y]);
-
-      });*/
       // add the shape to the layer
       connect_device_Layer.add(device);
 
