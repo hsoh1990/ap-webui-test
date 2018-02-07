@@ -192,7 +192,7 @@ function wlan_draw(wlan_data) {
     align: 'center'
   });
   var wlantextbox = new Konva.Rect({
-    x: wlan_x - 55,
+    x: wlan_x - 60,
     y: wlan_y + 35,
     stroke: '#555',
     strokeWidth: 5,
