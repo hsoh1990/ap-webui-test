@@ -149,6 +149,7 @@ module.exports = function(app, fs, url) {
     return text['whois']['english']['ISP']['netinfo']['orgName'];
   }
   io.sockets.on('connect', function(socket) {
+    console.log(socket);
     wlan_whois();
     var connect_bool = true;
     var ap_ip = eth0_ip_rec();
@@ -200,6 +201,7 @@ module.exports = function(app, fs, url) {
     }()
 
     socket.on('disconnect', function() {
+      console.log("소켓 접속 종료");
       connect_bool = false;
     });
 
