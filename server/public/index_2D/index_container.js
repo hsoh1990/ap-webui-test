@@ -18,6 +18,16 @@ var connect_device_Layer = new Konva.Layer();
 var connect_line_Layer = new Konva.Layer();
 var connect_text_Layer = new Konva.Layer();
 
+stage.add(aplayer);
+stage.add(ap_owner_layer);
+stage.add(wlanlayer);
+stage.add(disconnect_device_Layer);
+stage.add(disconnect_line_Layer);
+stage.add(disconnect_text_Layer);
+stage.add(connect_device_Layer);
+stage.add(connect_line_Layer);
+stage.add(connect_text_Layer);
+
 var connect_radius = 380;
 var disconnect_radius = 550;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
@@ -199,7 +209,8 @@ function ap_draw(enable__, ap_data) {
 */
   stage.add(aplayer);
   stage.add(ap_owner_layer);
-  stage.batchDraw();
+  aplayer.draw();
+  ap_owner_layer.draw();
 
   owner_text.on('dblclick', () => {
     // create textarea over canvas with absolute position
@@ -231,10 +242,7 @@ function ap_draw(enable__, ap_data) {
       // hide on enter
       if (e.keyCode === 13) {
         owner_text.text(textarea.value);
-        stage.clear();
-        stage.removeName('ap_owner_layer');
-        stage.add(ap_owner_layer);
-        stage.batchDraw();
+        ap_owner_layer.draw();
         document.body.removeChild(textarea);
       }
     });
@@ -305,7 +313,7 @@ function wlan_draw(enable__, wlan_data) {
   wlanlayer.add(wlan_box);
   wlanlayer.add(wlantextbox);
   wlanlayer.add(wlantext);
-  stage.add(wlanlayer);
+  wlanlayer.draw();
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //반원 상에서 기기들 위치 계산 부분
@@ -379,7 +387,6 @@ function disconnect_draw(enable, res_count, conn_count) {
 
     disconnect_line_Layer.add(Line);
 
-    stage.add(disconnect_line_Layer);
 
 
     var imageObj = new Image();
@@ -395,7 +402,6 @@ function disconnect_draw(enable, res_count, conn_count) {
     // add the shape to the layer
     disconnect_device_Layer.add(device);
 
-    stage.add(disconnect_device_Layer);
     // add the layer to the stage
     var device_text = "";
     if (enable['ip'] == 1) {
@@ -435,7 +441,10 @@ function disconnect_draw(enable, res_count, conn_count) {
 
     disconnect_text_Layer.add(devicetextbox);
     disconnect_text_Layer.add(devicetext);
-    stage.add(disconnect_text_Layer);
+
+    disconnect_line_Layer.draw();
+    disconnect_device_Layer.draw();
+    disconnect_text_Layer.draw();
   }
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -462,7 +471,6 @@ function connect_draw(enable, res_count, conn_count) {
 
     connect_line_Layer.add(Line);
 
-    stage.add(connect_line_Layer);
 
     var imageObj = new Image();
     imageObj.src = green_svgpath;
@@ -478,8 +486,6 @@ function connect_draw(enable, res_count, conn_count) {
     connect_device_Layer.add(device);
 
     // add the layer to the stage
-    stage.add(connect_device_Layer);
-
     var device_text = "";
     if (enable['ip'] == 1) {
       device_text += res_count[a]['IP Address'] + "\n";
@@ -518,7 +524,10 @@ function connect_draw(enable, res_count, conn_count) {
 
     connect_text_Layer.add(devicetextbox);
     connect_text_Layer.add(devicetext);
-    stage.add(connect_text_Layer);
+
+    connect_line_Layer.draw();
+    connect_device_Layer.draw();
+    connect_text_Layer.draw();
   }
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -534,7 +543,6 @@ function connection_text(length, conn_count) {
     document.getElementById("connent_text").innerHTML = content;
 
   }
-  stage.batchDraw();
 }
 
 
