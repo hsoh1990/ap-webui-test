@@ -183,7 +183,7 @@ function wlan_draw(wlan_data) {
   var wlantext = new Konva.Text({
     x: stage.getWidth() / 2 - 70 - wlan_box.getWidth(),
     y: stage.getHeight() / 2 - 30 + 55,
-    text: ap_text,
+    text: wlan_text,
     fontSize: 18,
     fontFamily: 'Calibri',
     fill: '#555',
