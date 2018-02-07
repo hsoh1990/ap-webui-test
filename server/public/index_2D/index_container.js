@@ -78,8 +78,8 @@ function ap_draw(enable__, ap_data) {
   var imageObj = new Image();
   imageObj.src = ap_svgpath;
   var ap = new Konva.Image({
-    x: stage.getWidth() / 2 - 60,
-    y: stage.getHeight() / 2 - 45,
+    x: stage.getWidth() / 2 - 35,
+    y: stage.getHeight() / 2 - 50,
     image: imageObj,
     width: 70,
     height: 85
