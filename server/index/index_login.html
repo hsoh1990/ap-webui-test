@@ -136,7 +136,11 @@
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
     console.log("conn | disconn");
-
+    var enable__ {
+      'ip' : 1,
+      'mac' : 1,
+      'hostname' : 1
+    }
     function start_draw() {
       //layer_removechildren();
       connection_text(1000, 0);
@@ -147,8 +151,10 @@
 
       if (value == 1) {
         document.getElementById("ipenable").value = 0;
+        enable__['ip'] = 0;
       } else if (value == 0) {
         document.getElementById("ipenable").value = 1;
+        enable__['ip'] = 1;
       }
     }
     function mac_onoff() {
@@ -156,8 +162,10 @@
 
       if (value == 1) {
         document.getElementById("macenable").value = 0;
+        enable__['mac'] = 0;
       } else if (value == 0) {
         document.getElementById("macenable").value = 1;
+        enable__['mac'] = 1;
       }
     }
     function hostname_onoff() {
@@ -165,17 +173,19 @@
 
       if (value == 1) {
         document.getElementById("hostnameenable").value = 0;
+        enable__['hostname'] = 0;
       } else if (value == 0) {
         document.getElementById("hostnameenable").value = 1;
+        enable__['hostname'] = 1;
       }
     }
 
-    function conn_disconn_draw(wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count) {
+    function conn_disconn_draw(enable__, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count, enable__) {
       layer_removechildren();
-      disconnect_draw(disconnect_data, disconnect_count);
-      connect_draw(connect_data, connect_count);
-      wlan_draw(wlan_data);
-      connect_AP(ap_data);
+      disconnect_draw(enable__, disconnect_data, disconnect_count);
+      connect_draw(enable__, connect_data, connect_count);
+      wlan_draw(enable__, wlan_data);
+      ap_draw(enable__, ap_data);
       connection_text(data['length'], (connect_count + disconnect_count));
     }
 
@@ -225,7 +235,7 @@
                 connect_data.push(data);
               }
             }
-            conn_disconn_draw(wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
+            conn_disconn_draw(enable__, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           } else {
             if (data['arp'] == 1) {
               connect_count += 1;
@@ -234,7 +244,7 @@
               disconnect_count += 1;
               disconnect_data.push(data);
             }
-            conn_disconn_draw(wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
+            conn_disconn_draw(enable__, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           }
 
           console.log(connect_count + "    ,    " + disconnect_count);
@@ -248,13 +258,13 @@
         function(data) {
           ap_data.push(data);
           start_draw();
-          connect_AP(ap_data);
+          ap_draw(enable__, ap_data);
         });
       socket.on('wlaninfor',
         function(data) {
           wlan_data.push(data);
           start_draw();
-          wlan_draw(wlan_data);
+          wlan_draw(enable__, wlan_data);
         });
     }
   </script>
