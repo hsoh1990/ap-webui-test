@@ -76,9 +76,11 @@ function ap_draw(enable__, ap_data) {
   console.log(JSON.stringify(enable__));
   var ap_text = "";
   if (enable__['ip'] == 1) {
-    ap_text += ap_data[0]['IP Address'] + "\n";
+    ap_text += ap_data[0]['IP Address'];
+    ap_text += "\n";
   } else if (enable__['mac'] == 1) {
-    ap_text += ap_data[0]['MAC Address'] + "\n";
+    ap_text += ap_data[0]['MAC Address'];
+    ap_text += "\n";
   } else if (enable__['hostname'] == 1) {
     ap_text += ap_data[0]['Host name'];
   }
