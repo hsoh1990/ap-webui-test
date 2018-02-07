@@ -54,11 +54,11 @@ function layer_removechildren() {
   stage.clear();
   stage.removeChildren();
 
-  stage.add(disconnect_device_Layer);
   stage.add(disconnect_line_Layer);
+  stage.add(disconnect_device_Layer);
   stage.add(disconnect_text_Layer);
-  stage.add(connect_device_Layer);
   stage.add(connect_line_Layer);
+  stage.add(connect_device_Layer);
   stage.add(connect_text_Layer);
 
   aplayer.removeChildren();
