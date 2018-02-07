@@ -21,6 +21,7 @@ var connect_radius = 380;
 var disconnect_radius = 550;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
 const green_svgpath = '/svg/button-green_benji_park_01.svg';
+const ap_svgpath = '/svg/No_Hope_Wireless_Access_Point_clip_art.svg';
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //stage의 wudth 크기 브라우저크기에 따라 자동 설정
@@ -62,6 +63,7 @@ function layer_removechildren() {
 }
 
 function ap_draw(enable__, ap_data) {
+  /*
   var AP_Rect = new Konva.Rect({
     x: stage.getWidth() / 2 - 40,
     y: stage.getHeight() / 2 - 30,
@@ -72,6 +74,7 @@ function ap_draw(enable__, ap_data) {
     strokeWidth: 3
 
   });
+  */
   var ap_text = "";
   if (enable__['ip'] == 1) {
     ap_text += ap_data[0]['IP Address'];
@@ -113,7 +116,8 @@ function ap_draw(enable__, ap_data) {
 
   var Line_Rect_position_x = stage.getWidth() / 2 - 40;
   var Line_Rect_position_y = stage.getHeight() / 2 - 30;
-  var Line1 = new Konva.Line({ //좌측 위 작은선
+
+  /*var Line1 = new Konva.Line({ //좌측 위 작은선
     points: [Line_Rect_position_x - 20, Line_Rect_position_y - 5, Line_Rect_position_x - 20, Line_Rect_position_y - 20, Line_Rect_position_x - 5, Line_Rect_position_y - 20],
     stroke: 'blue',
     strokeWidth: 3,
@@ -144,7 +148,21 @@ function ap_draw(enable__, ap_data) {
     lineCap: 'round',
     lineJoin: 'round',
     tension: 1
+  });*/
+
+  var imageObj = new Image();
+  imageObj.src = ap_svgpath;
+  var ap = new Konva.Image({
+    x: stage.getWidth() / 2 - 40,
+    y: stage.getHeight() / 2 - 30,
+    image: imageObj,
+    width: 55,
+    height: 65
   });
+
+  // add the shape to the layer
+
+  // add the layer to the stage
 
 
   AP_Rect.on('mouseenter', function() {
@@ -155,14 +173,16 @@ function ap_draw(enable__, ap_data) {
     stage.container().style.cursor = 'default';
   });
 
-  aplayer.add(AP_Rect);
+  //aplayer.add(AP_Rect);
+  aplayer.add(ap);
   aplayer.add(aptextbox);
   aplayer.add(aptext);
+  /*
   aplayer.add(Line1);
   aplayer.add(Line2);
   aplayer.add(Line3);
   aplayer.add(Line4);
-
+*/
   stage.add(aplayer);
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -444,7 +464,6 @@ function connect_draw(enable, res_count, conn_count) {
     connect_text_Layer.add(devicetextbox);
     connect_text_Layer.add(devicetext);
     stage.add(connect_text_Layer);
-    connect_device_Layer.batchDraw();
   }
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
