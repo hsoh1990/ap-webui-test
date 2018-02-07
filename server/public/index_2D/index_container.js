@@ -232,7 +232,9 @@ function ap_draw(enable__, ap_data) {
       if (e.keyCode === 13) {
         owner_text.text(textarea.value);
         stage.clear();
-        ap_owner_layer.draw();
+        stage.removeName('ap_owner_layer');
+        stage.add(ap_owner_layer);
+        stage.batchDraw();
         document.body.removeChild(textarea);
       }
     });
