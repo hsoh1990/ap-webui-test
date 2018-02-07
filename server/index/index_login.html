@@ -95,10 +95,8 @@
         </div>
         <div>
           IP Enable
-          <input id=ipenable type=checkbox class='form-check-input' value=1 checked=checked onclick="ip_onoff()">
-          MAC Enable
-          <input id=macenable type=checkbox class='form-check-input' value=1 checked=checked onclick="mac_onoff()">
-          Host name Enable
+          <input id=ipenable type=checkbox class='form-check-input' value=1 checked=checked onclick="ip_onoff()"> MAC Enable
+          <input id=macenable type=checkbox class='form-check-input' value=1 checked=checked onclick="mac_onoff()"> Host name Enable
           <input id=hostnameenable type=checkbox class='form-check-input' value=1 checked=checked onclick="hostname_onoff()">
         </div>
       </div>
@@ -154,6 +152,7 @@
       }
       conn_disconn_draw(enable__, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
     }
+
     function mac_onoff() {
       var value = document.getElementById("macenable").value;
 
@@ -166,6 +165,7 @@
       }
       conn_disconn_draw(enable__, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
     }
+
     function hostname_onoff() {
       var value = document.getElementById("hostnameenable").value;
 
@@ -205,9 +205,9 @@
       ap_data = new Array();
       wlan_data = new Array();
       enable__ = {
-        'ip' : 1,
-        'mac' : 1,
-        'hostname' : 1
+        'ip': 1,
+        'mac': 1,
+        'hostname': 1
       }
       arp_data = new Object();
 
@@ -266,6 +266,7 @@
           wlan_draw(enable__, wlan_data);
         });
     }
+
     function conn_disconn_draw(enable__, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count) {
       layer_removechildren();
       disconnect_draw(enable__, disconnect_data, disconnect_count);
@@ -275,6 +276,15 @@
       connection_text(data['length'], (connect_count + disconnect_count));
     }
 
+    function device_owner_setcookie(cookie_name, value, days) {
+      var exdate = new Date();
+      exdate.setDate(exdate.getDate() + days);
+      // 설정 일수만큼 현재시간에 만료값으로 지정
+
+      var cookie_value = escape(value) + ((days == null) ? '' : ';    expires=' + exdate.toUTCString());
+      document.cookie = cookie_name + '=' + cookie_value;
+      document.cookie;
+    }
   </script>
 </body>
 

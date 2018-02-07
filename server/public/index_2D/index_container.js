@@ -185,6 +185,54 @@ function ap_draw(enable__, ap_data) {
 */
   stage.add(aplayer);
   stage.batchDraw();
+
+  var owner_text = new Konva.Text({
+    x: stage.getWidth() / 2 - 80 - ap.getWidth(),
+    y: stage.getHeight() / 2 - 20,
+    text: "test",
+    fontSize: 18,
+    fontFamily: 'Calibri',
+    fill: '#555',
+    width: 300,
+    padding: 20,
+    align: 'center'
+  });
+
+  owner_text.on('dblclick', () => {
+    // create textarea over canvas with absolute position
+
+    // first we need to find its positon
+    var textPosition = owner_text.getAbsolutePosition();
+    var stageBox = stage.getContainer().getBoundingClientRect();
+
+    var areaPosition = {
+      x: textPosition.x + stageBox.left,
+      y: textPosition.y + stageBox.top
+    };
+
+
+    // create textarea and style it
+    var textarea = document.createElement('textarea');
+    document.body.appendChild(textarea);
+
+    textarea.value = textNode.text();
+    textarea.style.position = 'absolute';
+    textarea.style.top = areaPosition.y + 'px';
+    textarea.style.left = areaPosition.x + 'px';
+    textarea.style.width = textNode.width();
+
+    textarea.focus();
+
+
+    textarea.addEventListener('keydown', function(e) {
+      // hide on enter
+      if (e.keyCode === 13) {
+        owner_text.text(textarea.value);
+        layer.draw();
+        document.body.removeChild(textarea);
+      }
+    });
+  })
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //wlan draw 부분
