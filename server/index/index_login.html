@@ -41,7 +41,11 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+  <style>
+    #stage-parent {
+      width: 100%;
+    }
+  </style>
 </head>
 
 <body onload="sidemenu_get(), socket_connect_draw()">
@@ -83,18 +87,18 @@
       </div>
       <!-- /.row -->
       <div class="row">
-      <div id="connent_text">
-      </div>
-      <div id="container"
-      style="margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: #F0F0F0;
-      width: 100%;
-      ">
+        <div id="connent_text">
+        </div>
+        <div id="stage-parent">
+          <div id="container" style="margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: #F0F0F0;
+          ">
 
+          </div>
+        </div>
       </div>
-    </div>
     </div>
     <!-- /#page-wrapper -->
   </div>

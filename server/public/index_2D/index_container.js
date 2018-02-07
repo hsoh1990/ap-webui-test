@@ -21,6 +21,28 @@ const red_svgpath = '/svg/button-red_benji_park_01.svg';
 const green_svgpath = '/svg/button-green_benji_park_01.svg';
 
 
+function fitStageIntoParentContainer() {
+  var container = document.querySelector('#stage-parent');
+
+  // now we need to fit stage into parent
+  var containerWidth = container.offsetWidth;
+  // to do this we need to scale the stage
+  var scale = containerWidth / stageWidth;
+
+
+  stage.width(stageWidth * scale);
+  //stage.height(stageHeight * scale);
+  stage.scale({
+    x: scale,
+    y: scale
+  });
+  stage.draw();
+}
+
+fitStageIntoParentContainer();
+// adapt the stage on any window resize
+window.addEventListener('resize', fitStageIntoParentContainer);
+
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //레이어에 추가한것 제거부분, stage clear 부분
 function layer_removechildren() {
