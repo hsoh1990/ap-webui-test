@@ -31,7 +31,7 @@ function fitStageIntoParentContainer() {
 
 
   stage.width(stageWidth * scale);
-  //stage.height(stageHeight * scale);
+  stage.height(stageHeight * scale);
   stage.scale({
     x: scale,
     y: scale
