@@ -232,8 +232,7 @@ function ap_draw(enable__, ap_data) {
       if (e.keyCode === 13) {
         owner_text.text(textarea.value);
         stage.clear();
-        ap_owner_layer.removeChildren();
-        stage.batchDraw();
+        ap_owner_layer.draw();
         document.body.removeChild(textarea);
       }
     });
