@@ -344,12 +344,12 @@ function disconnect_draw(enable, res_count, conn_count) {
       align: 'center'
     });
     var devicetextbox = new Konva.Rect({
-      x: x - 40,
+      x: x - 50,
       y: y + 45,
       stroke: '#555',
       strokeWidth: 5,
       fill: '#ddd',
-      width: 130,
+      width: 150,
       height: devicetext.getHeight() - 20,
       shadowColor: 'black',
       shadowBlur: 10,
@@ -427,12 +427,12 @@ function connect_draw(enable, res_count, conn_count) {
       align: 'center'
     });
     var devicetextbox = new Konva.Rect({
-      x: x - 40,
+      x: x - 50,
       y: y + 45,
       stroke: '#555',
       strokeWidth: 5,
       fill: '#ddd',
-      width: 130,
+      width: 150,
       height: devicetext.getHeight() - 20,
       shadowColor: 'black',
       shadowBlur: 10,
