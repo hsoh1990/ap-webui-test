@@ -212,6 +212,8 @@ function ap_draw(enable__, ap_data) {
   aplayer.draw();
   ap_owner_layer.draw();
 
+  stage.batchDraw();
+
   owner_text.on('dblclick', () => {
     // create textarea over canvas with absolute position
 
@@ -446,6 +448,8 @@ function disconnect_draw(enable, res_count, conn_count) {
     disconnect_line_Layer.draw();
     disconnect_device_Layer.draw();
     disconnect_text_Layer.draw();
+
+    stage.batchDraw();
   }
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -529,6 +533,8 @@ function connect_draw(enable, res_count, conn_count) {
     connect_line_Layer.draw();
     connect_device_Layer.draw();
     connect_text_Layer.draw();
+
+    stage.batchDraw();
   }
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
