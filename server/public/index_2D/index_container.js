@@ -73,7 +73,6 @@ function ap_draw(enable__, ap_data) {
     strokeWidth: 3
 
   });
-  console.log(JSON.stringify(enable__));
   var ap_text = "";
   if (enable__['ip'] == 1) {
     ap_text += ap_data[0]['IP Address'];
@@ -311,7 +310,6 @@ function disconnect_draw(enable, res_count, conn_count) {
 
     var imageObj = new Image();
     imageObj.src = red_svgpath;
-
     var device = new Konva.Image({
       x: x,
       y: y - 11,
@@ -448,8 +446,6 @@ function connect_draw(enable, res_count, conn_count) {
     connect_text_Layer.add(devicetext);
     stage.add(connect_text_Layer);
   }
-
-
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //connection text 부분
@@ -465,6 +461,7 @@ function connection_text(length, conn_count) {
 
   }
   stage.batchDraw();
+  stage.draw();
 }
 
 
