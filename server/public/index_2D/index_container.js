@@ -73,7 +73,7 @@ function ap_draw(enable__, ap_data) {
     strokeWidth: 3
 
   });
-
+  console.log(JSON.stringify(enable__));
   var ap_text = "";
   if (enable__['ip'] == 1) {
     ap_text += ap_data[0]['IP Address'] + "\n";
