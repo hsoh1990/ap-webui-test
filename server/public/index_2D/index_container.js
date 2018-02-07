@@ -18,16 +18,6 @@ var connect_device_Layer = new Konva.Layer();
 var connect_line_Layer = new Konva.Layer();
 var connect_text_Layer = new Konva.Layer();
 
-stage.add(aplayer);
-stage.add(ap_owner_layer);
-stage.add(wlanlayer);
-stage.add(disconnect_device_Layer);
-stage.add(disconnect_line_Layer);
-stage.add(disconnect_text_Layer);
-stage.add(connect_device_Layer);
-stage.add(connect_line_Layer);
-stage.add(connect_text_Layer);
-
 var connect_radius = 380;
 var disconnect_radius = 550;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
@@ -62,6 +52,15 @@ window.addEventListener('resize', fitStageIntoParentContainer);
 //레이어에 추가한것 제거부분, stage clear 부분
 function layer_removechildren() {
   stage.clear();
+  stage.removeChildren();
+
+  stage.add(disconnect_device_Layer);
+  stage.add(disconnect_line_Layer);
+  stage.add(disconnect_text_Layer);
+  stage.add(connect_device_Layer);
+  stage.add(connect_line_Layer);
+  stage.add(connect_text_Layer);
+
   aplayer.removeChildren();
   ap_owner_layer.removeChildren();
   wlanlayer.removeChildren();
@@ -86,6 +85,9 @@ function ap_draw(enable__, ap_data) {
 
   });
   */
+  stage.add(aplayer);
+  stage.add(ap_owner_layer);
+
   var imageObj = new Image();
   imageObj.src = ap_svgpath;
   var ap = new Konva.Image({
@@ -249,6 +251,7 @@ function ap_draw(enable__, ap_data) {
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //wlan draw 부분
 function wlan_draw(enable__, wlan_data) {
+  stage.add(wlanlayer);
   var wlan_x = stage.getWidth() / 2 - 40 - 300;
   var wlan_y = stage.getHeight() / 2 - 15;
 
