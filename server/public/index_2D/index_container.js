@@ -1,4 +1,20 @@
 
+function addJavascript(jsname) {
+
+	var th = document.getElementsByTagName('head')[0];
+
+	var s = document.createElement('script');
+
+	s.setAttribute('type','text/javascript');
+
+	s.setAttribute('src',jsname);
+
+	th.appendChild(s);
+
+}
+
+addJavascript('/socket.io.js');
+
 var stageWidth = 1000;
 var stageHeight = 550;
 
@@ -651,7 +667,7 @@ function connect_draw(enable, res_count, conn_count) {
     }
 
     var device = new Konva.Image({
-      x: x,
+      x: x - 5,
       y: y - 50,
       image: imageObj,
       width: 55,
