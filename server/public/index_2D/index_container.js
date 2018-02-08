@@ -439,7 +439,7 @@ function wlan_ex_net_draw(enable, res_count, conn_count) {
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
     var Line = new Konva.Line({
-      points: [stage.getWidth() / 2 - 310, stage.getHeight() / 2, x + 20, y + 15],
+      points: [stage.getWidth() / 2 - 320, stage.getHeight() / 2, x + 20, y + 15],
       stroke: 'black',
       strokeWidth: 3,
       lineCap: 'round',
