@@ -7,9 +7,11 @@ module.exports = function(app, fs, url) {
   } = require('child_process');
   var arp = require('node-arp');
   var io = require('socket.io').listen(8080);
+  var util = require('util');
+  var filter = 'tcp port '+0x27C3;
   var pcap = require('pcap'),
       tcp_tracker = new pcap.TCP_tracker(),
-      pcap_session = pcap.createSession('wlan0', "ip proto \\tcp");
+      pcap_session = pcap.createSession('wlan0', filter);
 
 
 
@@ -251,8 +253,8 @@ module.exports = function(app, fs, url) {
   });
 
 
-  pcap_session.on('packet', function(raw_packet) {
-    var packet = pcap.decode.packet(raw_packet);
-    console.log(packet);
+  pcap_session.on('packet', function(packet) {
+    packet = pcap.decode.packet(packet);
+    console.log(pcap.print.packet(packet));
   });
 }
