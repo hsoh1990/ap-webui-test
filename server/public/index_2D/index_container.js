@@ -12,7 +12,9 @@ function addJavascript(jsname) {
 	th.appendChild(s);
 
 }
+var path = window.location.pathname;
 
+alert(path);
 addJavascript('../socket.io.js');
 
 socket_ = io.connect('http://172.16.171.181:8080');
