@@ -275,7 +275,7 @@ module.exports = function(app, fs, url) {
     });
 
     // 클라이언트에서 my other event가 발생하면 데이터를 받는다.
-    socket.on('my other event', function(data) {
+    socket.on('owner__', function(data) {
       console.log(data);
     });
   });

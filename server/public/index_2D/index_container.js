@@ -1,3 +1,4 @@
+
 var stageWidth = 1000;
 var stageHeight = 550;
 
@@ -263,7 +264,7 @@ function ap_draw(enable__, ap_data) {
         ap_owner_layer.draw();
         document.body.removeChild(textarea);
         owner_input_dec++;
-        alert(owner_input_dec);
+        socket.emit('owner__', owner_data(ap_data[0]['MAC Address'], textarea.value));
       }
     });
   })
