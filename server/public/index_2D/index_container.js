@@ -429,7 +429,7 @@ function semicircle_calcul_wlan(resultxy, device_count, radius) {
 function wlan_ex_net_draw(enable, res_count, conn_count) {
 
   var device_count = conn_count;
-  var radius = disconnect_radius;
+  var radius = connect_radius;
   var resultxy = [];
 
   semicircle_calcul_wlan(resultxy, device_count, radius);
