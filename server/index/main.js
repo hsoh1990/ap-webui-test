@@ -8,7 +8,8 @@ module.exports = function(app, fs, url) {
   var arp = require('node-arp');
   var io = require('socket.io').listen(8080);
   var pcap = require('pcap');
-  var pcap_session = pcap.createSession('wlan0');
+  var tcp_tracker = new pcap.TCP_tracker(),
+    var pcap_session = pcap.createSession('wlan0', "ip proto \\tcp");
 
 
 
@@ -240,6 +241,15 @@ module.exports = function(app, fs, url) {
     });
   });*/
   console.log(pcap.lib_version);
+
+  tcp_tracker.on('start', function(session) {
+    console.log("Start of TCP session between " + session.src_name + " and " + session.dst_name);
+  });
+
+  tcp_tracker.on('end', function(session) {
+    console.log("End of TCP session between " + session.src_name + " and " + session.dst_name);
+  });
+
 
   pcap_session.on('packet', function(raw_packet) {
     var packet = pcap.decode.packet(raw_packet);
