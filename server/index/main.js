@@ -214,9 +214,9 @@ module.exports = function(app, fs, url) {
       'MAC Address': ap_mac,
       'Host name': ap_hostname
     }
+    socket.emit('exnetinfor', wlan_exnetinfor);
     socket.emit('wlaninfor', wlan_infor);
     socket.emit('apinfor', ap_infor);
-    socket.emit('exnetinfor', wlan_exnetinfor);
     console.log(wlan_exnetinfor);
 
     ! function arp_repeat() {
