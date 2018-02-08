@@ -7,12 +7,6 @@ module.exports = function(app, fs, url) {
   } = require('child_process');
   var arp = require('node-arp');
   var io = require('socket.io').listen(8080);
-  var util = require('util');
-  var pcap = require('pcap');
-  var filter = 'tcp port '+0x27C3;
-  var pcap_session = pcap.createSession('wlan0');
-
-
 
   app.get('/', function(req, res) {
     res.render('index.html');
@@ -177,7 +171,7 @@ module.exports = function(app, fs, url) {
     }
     return wlan_infor;
   }
-  /*
+
   io.sockets.on('connect', function(socket) {
     var connect_bool = true;
     var ap_ip = eth0_ip_rec();
@@ -240,16 +234,5 @@ module.exports = function(app, fs, url) {
     socket.on('my other event', function(data) {
       console.log(data);
     });
-  });*/
-  console.log(pcap.lib_version);
-
-
-  pcap_session.on('packet', function(rawpacket) {
-    var packet = pcap.decode.packet(rawpacket);
-    console.log(pcap.print.packet(packet));
-
-    if (packet.link.ip.tcp.data) {
-      util.print(packet.link.ip.tcp.data.toString());
-    }
   });
 }
