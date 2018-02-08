@@ -6,7 +6,7 @@ function includejs(jsfilepath) {
 
   document.body.appendChild(js);
 }
-includejs("../socket.io.js");
+includejs("/../socket.io.js");
 
 socket_ = io.connect('http://172.16.171.181:8080');
 
