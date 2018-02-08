@@ -239,19 +239,9 @@ module.exports = function(app, fs, url) {
       console.log(data);
     });
   });*/
+  console.log(pcap.lib_version);
 
-  var all_devs = pcap_session.findalldevs();
-
-  console.log(all_devs);
-  console.log('------------------------------------------------');
-
-  all_devs.forEach(function(dev) {
-    if (dev.addresses.length > 0) {
-      dev.addresses.forEach(function(address) {
-        if (address.addr.indexOf(':') === -1) {
-          console.log(dev.name, address.addr, address.netmask);
-        }
-      });
-    }
-  });
+  pcap_session.on('packet', function (raw_packet) {
+			console.log( raw_packet );
+		});
 }
