@@ -13,7 +13,7 @@ function addJavascript(jsname) {
 
 }
 
-addJavascript('/../socket.io.js');
+addJavascript('../socket.io.js');
 
 socket_ = io.connect('http://172.16.171.181:8080');
 
