@@ -206,7 +206,7 @@ module.exports = function(app, fs, url) {
     var ap_ip = eth0_ip_rec();
     var ap_mac = eth0_mac_rec();
     var ap_hostname = hostname_rec();
-    var wlan_infor = wlan_exnet_data();
+    var wlan_infor = wlan_whois();
     var wlan_exnetinfor = wlan_exnet_data();
 
     ap_infor = {
