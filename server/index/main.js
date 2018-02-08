@@ -8,10 +8,9 @@ module.exports = function(app, fs, url) {
   var arp = require('node-arp');
   var io = require('socket.io').listen(8080);
   var util = require('util');
+  var pcap = require('pcap');
   var filter = 'tcp port '+0x27C3;
-  var pcap = require('pcap'),
-      tcp_tracker = new pcap.TCP_tracker(),
-      pcap_session = pcap.createSession('wlan0', filter);
+  var pcap_session = pcap.createSession('wlan0', filter);
 
 
 
