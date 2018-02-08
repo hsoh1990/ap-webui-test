@@ -628,7 +628,7 @@ function connect_draw(enable, res_count, conn_count) {
 
   for (var a = 0; a < device_count; a++) {
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
-    var y = stage.getHeight() / 2 - 15 + resultxy[a][1] - 40;
+    var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
     var Line = new Konva.Line({
       points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
@@ -652,7 +652,7 @@ function connect_draw(enable, res_count, conn_count) {
 
     var device = new Konva.Image({
       x: x,
-      y: y - 11,
+      y: y - 50,
       image: imageObj,
       width: 55,
       height: 55
