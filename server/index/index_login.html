@@ -90,7 +90,7 @@
         <div id="connent_text">
         </div>
         <div id="stage-parent">
-          <div id="container" style="margin: 0; padding: 0; overflow: hidden; background-color: #F0F0F0;">
+          <div id="container" style="margin: 0; padding: 0; overflow: hidden; background-color: #F0F0F0;" onKeyPress="if (event.keyCode==13){ session_check() }">
           </div>
         </div>
         <div>
@@ -134,7 +134,6 @@
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
     console.log("conn | disconn");
-
     function start_draw() {
       //layer_removechildren();
       connection_text(1000, 0);
@@ -196,7 +195,7 @@
     }
 
     function socket_connect_draw() {
-      socket = return_socket();
+      socket = io.connect('http://172.16.171.181:8080');
       //전역변수 선언
       connect_count = 0;
       disconnect_count = 0;
@@ -285,14 +284,8 @@
       connection_text(data['length'], (connect_count + disconnect_count));
     }
 
-    function device_owner_setcookie(cookie_name, value, days) {
-      var exdate = new Date();
-      exdate.setDate(exdate.getDate() + days);
-      // 설정 일수만큼 현재시간에 만료값으로 지정
-
-      var cookie_value = escape(value) + ((days == null) ? '' : ';    expires=' + exdate.toUTCString());
-      document.cookie = cookie_name + '=' + cookie_value;
-      document.cookie;
+    function canvas_keydown_dec() {
+      alert("키다운");
     }
   </script>
 </body>

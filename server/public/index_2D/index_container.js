@@ -1,4 +1,4 @@
-var socket = io.connect('http://172.16.171.181:8080');
+
 
 var stageWidth = 1000;
 var stageHeight = 550;
