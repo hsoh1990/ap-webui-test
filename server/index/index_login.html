@@ -89,8 +89,8 @@
       <div class="row">
         <div id="connent_text">
         </div>
-        <div id="stage-parent">
-          <div id="container" style="margin: 0; padding: 0; overflow: hidden; background-color: #F0F0F0;" onKeyPress="if (event.keyCode==13){ canvas_keydown_dec() }">
+        <div id="stage-parent"  onKeyPress="if (event.keyCode==13){ canvas_keydown_dec() }">
+          <div id="container" style="margin: 0; padding: 0; overflow: hidden; background-color: #F0F0F0;">
           </div>
         </div>
         <div>
@@ -263,7 +263,6 @@
         function(data) {
           wlan_data.push(data);
           start_draw();
-          alert(JSON.stringify(wlan_data));
           wlan_draw(enable__, wlan_data);
         });
       socket.on('apinfor',
