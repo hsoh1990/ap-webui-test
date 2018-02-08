@@ -1,4 +1,14 @@
+function includejs(jsfilepath) {
+  var js = document.createElement("script");
 
+  js.type = "text/javascript";
+  js.src = jsfilepath;
+
+  document.body.appendChild(js);
+}
+includejs("socket.io.js");
+
+socket_ = io.connect('http://172.16.171.181:8080');
 
 var stageWidth = 1000;
 var stageHeight = 550;
@@ -34,7 +44,7 @@ const blue_svgpath = '/svg/button-blue_benji_park_01.svg';
 //stage의 wudth 크기 브라우저크기에 따라 자동 설정
 
 function return_socket() {
-  return socket;
+  return socket_;
 }
 function fitStageIntoParentContainer() {
   var container = document.querySelector('#stage-parent');
