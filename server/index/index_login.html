@@ -150,7 +150,7 @@
         document.getElementById("ipenable").value = 1;
         enable__['ip'] = 1;
       }
-      conn_disconn_draw(enable__, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
+      conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
     }
 
     function mac_onoff() {
@@ -163,7 +163,7 @@
         document.getElementById("macenable").value = 1;
         enable__['mac'] = 1;
       }
-      conn_disconn_draw(enable__, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
+      conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
     }
 
     function hostname_onoff() {
@@ -176,7 +176,7 @@
         document.getElementById("hostnameenable").value = 1;
         enable__['hostname'] = 1;
       }
-      conn_disconn_draw(enable__, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
+      conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
     }
 
     function arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count) {
