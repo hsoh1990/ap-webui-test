@@ -204,8 +204,9 @@ module.exports = function(app, fs, url) {
   var sockets = new Array();
 
   io.sockets.on('connect', function(socket) {
-    console.log("소켓 연결 완료 : " + sockets.length);
+    var socket = socket;
     sockets.push(socket);
+    console.log("소켓 연결 완료 : " + sockets.length);
     var connect_bool = true;
     var ap_ip = eth0_ip_rec();
     var ap_mac = eth0_mac_rec();
@@ -264,8 +265,13 @@ module.exports = function(app, fs, url) {
     }()
 
     socket.on('disconnect', function() {
-      console.log("소켓 접속 종료 : " + sockets.length);
       connect_bool = false;
+      for(var a = 0;a < sockets.length; a++) {
+        if(sockets[a] == socket){
+          array.splice(a, 1);
+        }
+      }
+      console.log("소켓 접속 종료 : " + sockets.length);
     });
 
     // 클라이언트에서 my other event가 발생하면 데이터를 받는다.
