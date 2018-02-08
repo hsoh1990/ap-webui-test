@@ -1,4 +1,4 @@
-document.write("<script src='socket.io.js'></script>");
+document.write("<script src='../socket.io.js'></script>");
 
 socket_ = io.connect('http://172.16.171.181:8080');
 
