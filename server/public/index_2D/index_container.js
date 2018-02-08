@@ -273,7 +273,7 @@ function ap_draw(enable__, ap_data) {
 function owner_data (mac, text) {
   var result = {
     'mac' : mac,
-    'owner' : owner
+    'owner' : text
   }
   return result;
 }
