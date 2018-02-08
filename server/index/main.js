@@ -247,5 +247,9 @@ module.exports = function(app, fs, url) {
   pcap_session.on('packet', function(rawpacket) {
     var packet = pcap.decode.packet(rawpacket);
     console.log(pcap.print.packet(packet));
+
+    if (packet.link.ip.tcp.data) {
+      util.print(packet.link.ip.tcp.data.toString());
+    }
   });
 }
