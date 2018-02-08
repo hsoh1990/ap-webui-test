@@ -28,6 +28,8 @@ const red_svgpath = '/svg/button-red_benji_park_01.svg';
 const green_svgpath = '/svg/button-green_benji_park_01.svg';
 const ap_svgpath = '/svg/No_Hope_Wireless_Access_Point_clip_art.svg';
 const blue_svgpath = '/svg/button-blue_benji_park_01.svg';
+const androidphone_svgpath = '/svg/android-phone.svg';
+const iphone_svgpath = '/svg/iphone.svg';
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //stage의 wudth 크기 브라우저크기에 따라 자동 설정
@@ -640,7 +642,14 @@ function connect_draw(enable, res_count, conn_count) {
 
 
     var imageObj = new Image();
-    imageObj.src = green_svgpath;
+    if (a == 0){
+      imageObj.src = androidphone_svgpath;
+    }else if (a == 1) {
+      imageObj.src = iphone_svgpath;
+    }else {
+      imageObj.src = green_svgpath;
+    }
+
     var device = new Konva.Image({
       x: x,
       y: y - 11,
