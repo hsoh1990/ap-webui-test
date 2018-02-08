@@ -58,6 +58,9 @@ function layer_removechildren() {
   stage.clear();
   stage.removeChildren();
 
+  stage.add(wlan_line_Layer);
+  stage.add(wlan_exnet_Layer);
+  stage.add(wlan_text_Layer);
   stage.add(disconnect_line_Layer);
   stage.add(disconnect_device_Layer);
   stage.add(disconnect_text_Layer);
