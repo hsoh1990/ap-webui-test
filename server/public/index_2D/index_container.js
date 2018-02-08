@@ -1,3 +1,5 @@
+var socket = io.connect('http://172.16.171.181:8080');
+
 var stageWidth = 1000;
 var stageHeight = 550;
 
@@ -20,7 +22,7 @@ var disconnect_text_Layer = new Konva.Layer();
 var connect_device_Layer = new Konva.Layer();
 var connect_line_Layer = new Konva.Layer();
 var connect_text_Layer = new Konva.Layer();
-
+var owner_input_dec = 0;
 var connect_radius = 380;
 var disconnect_radius = 550;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
@@ -30,6 +32,10 @@ const blue_svgpath = '/svg/button-blue_benji_park_01.svg';
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //stage의 wudth 크기 브라우저크기에 따라 자동 설정
+
+function return_socket() {
+  return socket;
+}
 function fitStageIntoParentContainer() {
   var container = document.querySelector('#stage-parent');
 
@@ -256,9 +262,22 @@ function ap_draw(enable__, ap_data) {
         owner_text.text(textarea.value);
         ap_owner_layer.draw();
         document.body.removeChild(textarea);
+        owner_input_dec = 1;
+
       }
     });
   })
+}
+
+function owner_data (mac, text) {
+  var result = {
+    'mac' : mac,
+    'owner' : owner
+  }
+  return result;
+}
+function return_owner_dec () {
+  return owner_input_dec;
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //wlan draw 부분
