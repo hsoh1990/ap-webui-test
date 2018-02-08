@@ -240,10 +240,18 @@ module.exports = function(app, fs, url) {
     });
   });*/
 
-  pcap_session.on('packet', function (raw_packet) {
+  var all_devs = pcap_session.findalldevs();
 
-			var packet = pcap.decode.packet(raw_packet);
-			console.log(pcap.print.packet(packet));
-		});
+  console.log(all_devs);
+  console.log('------------------------------------------------');
 
+  all_devs.forEach(function(dev) {
+    if (dev.addresses.length > 0) {
+      dev.addresses.forEach(function(address) {
+        if (address.addr.indexOf(':') === -1) {
+          console.log(dev.name, address.addr, address.netmask);
+        }
+      });
+    }
+  });
 }
