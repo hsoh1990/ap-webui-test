@@ -172,12 +172,44 @@ module.exports = function(app, fs, url) {
     return wlan_infor;
   }
 
+  function wlan_exnet_data() {
+    /*var text = execSync('curl \"http://whois.kisa.or.kr/openapi/whois.jsp?query=39.119.118.152\&key=2018020617475141381350\&answer=json\"', {
+      encoding: 'utf8'
+    });
+    text = JSON.parse(text);*/
+    exnet = [
+      {
+        'IP Address': '1.2.3.4',
+        'MAC Address': 'aa.aa.aa.aa.aa.aa',
+        'Host name': 'test1'
+      },
+      {
+        'IP Address': '11.22.33.44',
+        'MAC Address': 'bb.bb.bb.bb.bb.bb',
+        'Host name': 'test2'
+      },
+      {
+        'IP Address': '11.12.13.14',
+        'MAC Address': 'cc.cc.cc.cc.cc.cc',
+        'Host name': 'test3'
+      },
+      {
+        'IP Address': '110.120.130.140',
+        'MAC Address': 'dd.dd.dd.dd.dd.dd',
+        'Host name': 'test4'
+      }
+    ]
+    return exnet;
+  }
+
   io.sockets.on('connect', function(socket) {
     var connect_bool = true;
     var ap_ip = eth0_ip_rec();
     var ap_mac = eth0_mac_rec();
     var ap_hostname = hostname_rec();
-    var wlan_infor = wlan_whois();
+    var wlan_infor = wlan_exnet_data();
+    var wlan_exnetinfor = wlan_exnet_data();
+
     ap_infor = {
       'IP Address': ap_ip,
       'MAC Address': ap_mac,
@@ -185,6 +217,7 @@ module.exports = function(app, fs, url) {
     }
     socket.emit('wlaninfor', wlan_infor);
     socket.emit('apinfor', ap_infor);
+    socket.emit('exnetinfor', wlan_exnetinfor);
     ! function arp_repeat() {
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
       //반복하는 부분

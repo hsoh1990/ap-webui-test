@@ -11,6 +11,9 @@ var stage = new Konva.Stage({
 var aplayer = new Konva.Layer();
 var ap_owner_layer = new Konva.Layer();
 var wlanlayer = new Konva.Layer();
+var wlan_exnet_Layer = new Konva.Layer();
+var wlan_line_Layer = new Konva.Layer();
+var wlan_text_Layer = new Konva.Layer();
 var disconnect_device_Layer = new Konva.Layer();
 var disconnect_line_Layer = new Konva.Layer();
 var disconnect_text_Layer = new Konva.Layer();
@@ -23,6 +26,7 @@ var disconnect_radius = 550;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
 const green_svgpath = '/svg/button-green_benji_park_01.svg';
 const ap_svgpath = '/svg/No_Hope_Wireless_Access_Point_clip_art.svg';
+const blue_svgpath = '/svg/button-blue_benji_park_01.svg';
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //stage의 wudth 크기 브라우저크기에 따라 자동 설정
@@ -64,6 +68,9 @@ function layer_removechildren() {
   aplayer.removeChildren();
   ap_owner_layer.removeChildren();
   wlanlayer.removeChildren();
+  wlan_line_Layer.removeChildren();
+  wlan_exnet_Layer.removeChildren();
+  wlan_text_Layer.removeChildren();
   connect_line_Layer.removeChildren();
   connect_device_Layer.removeChildren();
   connect_text_Layer.removeChildren();
@@ -368,6 +375,138 @@ function semicircle_calcul(resultxy, device_count, radius) {
     }
   }
 }
+
+function semicircle_calcul_wlan(resultxy, device_count, radius) {
+  if (device_count == 1) { //디바이스가 1개일 경우
+    var xy = [];
+    xy.push(radius);
+    xy.push(0);
+    resultxy.push(xy);
+  } else if (device_count > 1 && device_count % 2 == 0) { //짝수일 경우
+    var angle = 180 / (device_count + 1);
+    var half_angle = angle / 2;
+    for (var a = 0; a < device_count / 2; a++) {
+      var xy = [];
+      var x = radius * Math.cos(half_angle * Math.PI / 180) * -1;
+      var y = radius * Math.sin(half_angle * Math.PI / 180);
+      xy.push(x);
+      xy.push(y);
+      resultxy.push(xy);
+      var x_y = [];
+      x_y.push(x);
+      x_y.push(y * -1);
+      resultxy.push(x_y);
+      half_angle += angle;
+    }
+  } else if (device_count > 1 && device_count % 2 == 1) { //홀수일 경우
+    var xy = [];
+    xy.push(radius);
+    xy.push(0);
+    resultxy.push(xy);
+
+    var angle = 180 / (device_count + 1);
+    var angle__ = angle;
+    for (var a = 0; a < Math.floor(device_count / 2); a++) {
+      var xy = [];
+      var x = radius * Math.cos(angle__ * Math.PI / 180) * -1;
+      var y = radius * Math.sin(angle__ * Math.PI / 180);
+      xy.push(x);
+      xy.push(y);
+      resultxy.push(xy);
+      var x_y = [];
+      x_y.push(x);
+      x_y.push(y * -1);
+      resultxy.push(x_y);
+      angle__ += angle;
+    }
+  }
+}
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+//wlan external network draw부분
+function wlan_ex_net_draw(enable, res_count, conn_count) {
+
+  var device_count = conn_count;
+  var radius = disconnect_radius;
+  var resultxy = [];
+
+  semicircle_calcul_wlan(resultxy, device_count, radius);
+
+  for (var a = 0; a < device_count; a++) {
+    var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
+    var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
+
+    var Line = new Konva.Line({
+      points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
+      stroke: 'black',
+      strokeWidth: 3,
+      lineCap: 'round',
+      lineJoin: 'round'
+    });
+
+    wlan_line_Layer.add(Line);
+
+
+
+    var imageObj = new Image();
+    imageObj.src = blue_svgpath;
+    var exnet = new Konva.Image({
+      x: x,
+      y: y - 11,
+      image: imageObj,
+      width: 55,
+      height: 55
+    });
+
+    // add the shape to the layer
+    wlan_exnet_Layer.add(exnet);
+
+    // add the layer to the stage
+    var exnet_text = "";
+    if (enable['ip'] == 1) {
+      exnet_text += res_count[a]['IP Address'] + "\n";
+    }
+    if (enable['mac'] == 1) {
+      exnet_text += res_count[a]['MAC Address'] + "\n";
+    }
+    if (enable['hostname'] == 1) {
+      exnet_text += res_count[a]['Host name'];
+    }
+    var exnettext = new Konva.Text({
+      x: x - 63,
+      y: y + 35,
+      text: exnet_text,
+      fontSize: 18,
+      fontFamily: 'Calibri',
+      fill: '#555',
+      width: 176,
+      padding: 20,
+      align: 'center'
+    });
+    var exnettextbox = new Konva.Rect({
+      x: x - 50,
+      y: y + 45,
+      stroke: '#555',
+      strokeWidth: 5,
+      fill: '#ddd',
+      width: 150,
+      height: exnettext.getHeight() - 20,
+      shadowColor: 'black',
+      shadowBlur: 10,
+      shadowOffset: [10, 10],
+      shadowOpacity: 0.2,
+      cornerRadius: 10
+    });
+
+    wlan_text_Layer.add(exnettextbox);
+    wlan_text_Layer.add(exnettext);
+
+    wlan_line_Layer.draw();
+    wlan_exnet_Layer.draw();
+    wlan_text_Layer.draw();
+
+    stage.batchDraw();
+  }
+}
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //disconnect 기기들 draw부분
 function disconnect_draw(enable, res_count, conn_count) {
@@ -379,11 +518,11 @@ function disconnect_draw(enable, res_count, conn_count) {
   semicircle_calcul(resultxy, device_count, radius);
 
   for (var a = 0; a < device_count; a++) {
-    var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
+    var x = stage.getWidth() / 2 - 40 + resultxy[a][0] - 300;
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
     var Line = new Konva.Line({
-      points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
+      points: [stage.getWidth() / 2 - 300, stage.getHeight() / 2, x + 20 - 300, y + 15],
       stroke: 'black',
       strokeWidth: 3,
       lineCap: 'round',
