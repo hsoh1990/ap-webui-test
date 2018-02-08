@@ -1,12 +1,4 @@
-function includejs(jsfilepath) {
-  var js = document.createElement("script");
-
-  js.type = "text/javascript";
-  js.src = jsfilepath;
-
-  document.body.appendChild(js);
-}
-includejs("/../socket.io.js");
+document.write("<script src='socket.io.js'></script>");
 
 socket_ = io.connect('http://172.16.171.181:8080');
 
