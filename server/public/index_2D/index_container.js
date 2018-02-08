@@ -263,9 +263,7 @@ function ap_draw(enable__, ap_data) {
         owner_text.text(textarea.value);
         ap_owner_layer.draw();
         document.body.removeChild(textarea);
-        owner_input_dec = 1;
-        alert(owner_input_dec);
-        owner_input_dec = 0;
+        owner_input_dec++;
         alert(owner_input_dec);
       }
     });
