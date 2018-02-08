@@ -195,7 +195,7 @@
     }
 
     function socket_connect_draw() {
-      socket = return_socket();
+      socket = io.connect('http://172.16.171.181:8080');
       //전역변수 선언
       connect_count = 0;
       disconnect_count = 0;
