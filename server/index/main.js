@@ -268,7 +268,7 @@ module.exports = function(app, fs, url) {
       connect_bool = false;
       for(var a = 0;a < sockets.length; a++) {
         if(sockets[a] == socket){
-          array.splice(a, 1);
+          sockets.splice(a, 1);
         }
       }
       console.log("소켓 접속 종료 : " + sockets.length);
