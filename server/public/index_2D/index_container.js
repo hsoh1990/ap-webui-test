@@ -432,11 +432,11 @@ function wlan_ex_net_draw(enable, res_count, conn_count) {
   semicircle_calcul_wlan(resultxy, device_count, radius);
 
   for (var a = 0; a < device_count; a++) {
-    var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
+    var x = stage.getWidth() / 2 - 40 + resultxy[a][0] - 300;
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
     var Line = new Konva.Line({
-      points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
+      points: [stage.getWidth() / 2 - 300, stage.getHeight() / 2, x + 20 - 300, y + 15],
       stroke: 'black',
       strokeWidth: 3,
       lineCap: 'round',
@@ -518,11 +518,11 @@ function disconnect_draw(enable, res_count, conn_count) {
   semicircle_calcul(resultxy, device_count, radius);
 
   for (var a = 0; a < device_count; a++) {
-    var x = stage.getWidth() / 2 - 40 + resultxy[a][0] - 300;
+    var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
     var Line = new Konva.Line({
-      points: [stage.getWidth() / 2 - 300, stage.getHeight() / 2, x + 20 - 300, y + 15],
+      points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
       stroke: 'black',
       strokeWidth: 3,
       lineCap: 'round',

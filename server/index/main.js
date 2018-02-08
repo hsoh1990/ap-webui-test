@@ -177,8 +177,7 @@ module.exports = function(app, fs, url) {
       encoding: 'utf8'
     });
     text = JSON.parse(text);*/
-    exnet = [
-      {
+    exnet = [{
         'IP Address': '1.2.3.4',
         'MAC Address': 'aa.aa.aa.aa.aa.aa',
         'Host name': 'test1'
@@ -218,6 +217,8 @@ module.exports = function(app, fs, url) {
     socket.emit('wlaninfor', wlan_infor);
     socket.emit('apinfor', ap_infor);
     socket.emit('exnetinfor', wlan_exnetinfor);
+    console.log(wlan_exnetinfor);
+
     ! function arp_repeat() {
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
       //반복하는 부분
