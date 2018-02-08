@@ -264,7 +264,7 @@
         function(data) {
           wlan_data.push(data);
           start_draw();
-          alert(wlan_data);
+          alert(JSON.stringify(wlan_data));
           wlan_draw(enable__, wlan_data);
         });
       socket.on('apinfor',
