@@ -7,6 +7,10 @@ module.exports = function(app, fs, url) {
   } = require('child_process');
   var arp = require('node-arp');
   var io = require('socket.io').listen(8080);
+  var pcap = require('pcap');
+  var pcap_session = pcap.createSession('eth0');
+
+
 
   app.get('/', function(req, res) {
     res.render('index.html');
@@ -117,6 +121,7 @@ module.exports = function(app, fs, url) {
       cur = new Date().getTime();
     }
   }
+
   function hostname_rec() {
     const std_hostname = execSync('hostname -f', {
       encoding: 'utf8'
@@ -125,6 +130,7 @@ module.exports = function(app, fs, url) {
 
     return hostname[0];
   }
+
   function eth0_ip_rec() {
     const text = execSync('ip a s eth0', {
       encoding: 'utf8'
@@ -140,6 +146,7 @@ module.exports = function(app, fs, url) {
       return "No IP Address Found";
     }
   }
+
   function eth0_mac_rec() {
     const text = execSync('ip a s eth0', {
       encoding: 'utf8'
@@ -168,6 +175,7 @@ module.exports = function(app, fs, url) {
     }
     return wlan_infor;
   }
+  /*
   io.sockets.on('connect', function(socket) {
     var connect_bool = true;
     var ap_ip = eth0_ip_rec();
@@ -230,5 +238,12 @@ module.exports = function(app, fs, url) {
     socket.on('my other event', function(data) {
       console.log(data);
     });
-  });
+  });*/
+
+  pcap_session.on('packet', function (raw_packet) {
+
+			var packet = pcap.decode.packet(raw_packet);
+			console.log(pcap.print.packet(packet));
+		});
+
 }
