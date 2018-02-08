@@ -234,6 +234,7 @@
                 connect_data.push(data);
               }
             }
+
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           } else {
             if (data['arp'] == 1) {
@@ -283,8 +284,14 @@
       connection_text(data['length'], (connect_count + disconnect_count));
     }
 
-    function canvas_keydown_dec() {
-      alert("키다운");
+    function owner_text_check(socket) {
+      var check_ = return_owner_dec();
+      if (check_ == 1){
+
+      }
+      else if (check_ == 0) {
+
+      }
     }
   </script>
 </body>

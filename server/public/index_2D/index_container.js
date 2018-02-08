@@ -1,23 +1,4 @@
 
-function addJavascript(jsname) {
-
-	var th = document.getElementsByTagName('head')[0];
-
-	var s = document.createElement('script');
-
-	s.setAttribute('type','text/javascript');
-
-	s.setAttribute('src',jsname);
-
-	th.appendChild(s);
-
-}
-var path = window.location.pathname;
-
-addJavascript(path + '/../index_2D/socket.io.js');
-
-socket_ = io.connect('http://172.16.171.181:8080');
-
 var stageWidth = 1000;
 var stageHeight = 550;
 
@@ -283,7 +264,9 @@ function ap_draw(enable__, ap_data) {
         ap_owner_layer.draw();
         document.body.removeChild(textarea);
         owner_input_dec = 1;
-
+        alert(owner_input_dec);
+        owner_input_dec = 0;
+        alert(owner_input_dec);
       }
     });
   })
@@ -298,6 +281,9 @@ function owner_data (mac, text) {
 }
 function return_owner_dec () {
   return owner_input_dec;
+}
+function owner_set_0 () {
+  owner_input_dec = 0;
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //wlan draw 부분
