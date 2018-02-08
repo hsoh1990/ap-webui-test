@@ -10,7 +10,7 @@ module.exports = function(app, fs, url) {
   var util = require('util');
   var pcap = require('pcap');
   var filter = 'tcp port '+0x27C3;
-  var pcap_session = pcap.createSession('wlan0', filter);
+  var pcap_session = pcap.createSession('wlan0');
 
 
 
