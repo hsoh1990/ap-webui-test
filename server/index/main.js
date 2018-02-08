@@ -7,9 +7,9 @@ module.exports = function(app, fs, url) {
   } = require('child_process');
   var arp = require('node-arp');
   var io = require('socket.io').listen(8080);
-  var pcap = require('pcap');
-  var tcp_tracker = new pcap.TCP_tracker();
-  var pcap_session = pcap.createSession('wlan0', "ip proto \\tcp");
+  var pcap = require('pcap'),
+      tcp_tracker = new pcap.TCP_tracker(),
+      pcap_session = pcap.createSession('wlan0', "ip proto \\tcp");
 
 
 
