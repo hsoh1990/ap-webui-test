@@ -14,8 +14,7 @@ function addJavascript(jsname) {
 }
 var path = window.location.pathname;
 
-alert(path);
-addJavascript('../socket.io.js');
+addJavascript(path + '/socket.io.js');
 
 socket_ = io.connect('http://172.16.171.181:8080');
 
