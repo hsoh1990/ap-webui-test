@@ -241,7 +241,8 @@ module.exports = function(app, fs, url) {
   });*/
   console.log(pcap.lib_version);
 
-  pcap_session.on('packet', function (raw_packet) {
-			console.log( raw_packet );
-		});
+  pcap_session.on('packet', function(raw_packet) {
+    var packet = pcap.decode.packet(raw_packet);
+    console.log(packet);
+  });
 }
