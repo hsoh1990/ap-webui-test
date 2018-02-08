@@ -8,7 +8,7 @@ module.exports = function(app, fs, url) {
   var arp = require('node-arp');
   var io = require('socket.io').listen(8080);
   var pcap = require('pcap');
-  var pcap_session = pcap.createSession('eth0');
+  var pcap_session = pcap.createSession('wlan0');
 
 
 
