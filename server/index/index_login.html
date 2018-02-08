@@ -254,25 +254,25 @@
             my: 'data'
           });*/
         });
-      socket.on('apinfor',
-        function(data) {
-          ap_data.push(data);
-          start_draw();
-          ap_draw(enable__, ap_data);
-        });
-      socket.on('wlaninfor',
-        function(data) {
-          wlan_data.push(data);
-          start_draw();
-          wlan_draw(enable__, wlan_data);
-        });
       socket.on('exnetinfor',
         function(data) {
           exnet_data.push(data);
           start_draw();
           wlan_ex_net_draw(enable__, exnet_data, 4);
         });
-
+      socket.on('wlaninfor',
+        function(data) {
+          wlan_data.push(data);
+          start_draw();
+          alert(wlan_data);
+          wlan_draw(enable__, wlan_data);
+        });
+      socket.on('apinfor',
+        function(data) {
+          ap_data.push(data);
+          start_draw();
+          ap_draw(enable__, ap_data);
+        });
     }
 
     function conn_disconn_draw(enable__, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count) {
