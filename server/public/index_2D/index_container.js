@@ -655,7 +655,7 @@ function connect_draw(enable, res_count, conn_count) {
       y: y - 50,
       image: imageObj,
       width: 55,
-      height: 55
+      height: 120
     });
 
     // add the shape to the layer
