@@ -201,7 +201,11 @@ module.exports = function(app, fs, url) {
     return exnet;
   }
 
+  var sockets = new Array();
+
   io.sockets.on('connect', function(socket) {
+    console.log("소켓 연결 완료 : " + sockets.length);
+    sockets.push(socket);
     var connect_bool = true;
     var ap_ip = eth0_ip_rec();
     var ap_mac = eth0_mac_rec();
@@ -260,7 +264,7 @@ module.exports = function(app, fs, url) {
     }()
 
     socket.on('disconnect', function() {
-      console.log("소켓 접속 종료");
+      console.log("소켓 접속 종료 : " + sockets.length);
       connect_bool = false;
     });
 
