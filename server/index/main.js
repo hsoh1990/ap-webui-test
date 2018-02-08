@@ -243,14 +243,6 @@ module.exports = function(app, fs, url) {
   });*/
   console.log(pcap.lib_version);
 
-  tcp_tracker.on('start', function(session) {
-    console.log("Start of TCP session between " + session.src_name + " and " + session.dst_name);
-  });
-
-  tcp_tracker.on('end', function(session) {
-    console.log("End of TCP session between " + session.src_name + " and " + session.dst_name);
-  });
-
 
   pcap_session.on('packet', function(packet) {
     packet = pcap.decode.packet(packet);
