@@ -117,7 +117,7 @@ module.exports = function(app, fs, url) {
       console.log("소켓 접속 종료 : " + sockets.length);
     });
 
-  }
+  });
 /*
   io.sockets.on('connect', function(socket) {
     var socket = socket;
@@ -154,5 +154,5 @@ module.exports = function(app, fs, url) {
     socket.on('owner__', function(data) {
       console.log(data);
     });
-  });
-}*/
+  });*/
+}
