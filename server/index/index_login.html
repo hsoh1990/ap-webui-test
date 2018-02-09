@@ -266,7 +266,7 @@
         });
       socket.on('apinfor',
         function(data) {
-          var check_apcount = 0;
+          const check_apcount = 0;
           for(var a = 0;a < ap_data.length; a++) {
             if(ap_data[a]['owner'] != data['owner']) {
               ap_data.splice(a, 1, data);
