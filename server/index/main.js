@@ -68,11 +68,11 @@ module.exports = function(app, fs, url) {
     sockets.push(socket);
     console.log("소켓 연결 완료 : " + sockets.length);
     var connect_bool = true;
-    var ap_ip = eth0_ip_rec();
-    var ap_mac = eth0_mac_rec();
-    var ap_hostname = hostname_rec();
-    var wlan_infor = wlan_whois();
-    var wlan_exnetinfor = wlan_exnet_data();
+    var ap_ip = router_socket.eth0_ip_rec();
+    var ap_mac = router_socket.eth0_mac_rec();
+    var ap_hostname = router_socket.hostname_rec();
+    var wlan_infor = router_socket.wlan_whois();
+    var wlan_exnetinfor = router_socket.wlan_exnet_data();
 
     ap_infor = {
       'IP Address': ap_ip,
