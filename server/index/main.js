@@ -68,6 +68,12 @@ module.exports = function(app, fs, url) {
   var device_data = JSON.parse(read_data);
 
   console.log("read_data : " + read_data);
+
+  function data_broadcasting(result_data) {
+    for(var a = 0;a < sockets.length; a++) {
+      sockets.emit('arp', result_data);
+    }
+  }
   ! function arp_repeat() {
     arp_count++;
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -102,6 +108,7 @@ module.exports = function(app, fs, url) {
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
+            data_broadcasting(device_data);
           }
           else {
             console.log("데이터 저장 완료");
@@ -163,7 +170,9 @@ module.exports = function(app, fs, url) {
     socket.emit('exnetinfor', wlan_exnetinfor);
     socket.emit('wlaninfor', wlan_infor);
     socket.emit('apinfor', ap_infor);
-
+    for(var a = 0;a < device_data.length; a++) {
+      socket.emit('arp', device_data[a]);
+    }
     socket.on('disconnect', function() {
       connect_bool = false;
       for(var a = 0;a < sockets.length; a++) {
