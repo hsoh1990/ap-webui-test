@@ -80,6 +80,11 @@ module.exports = function(app, fs, url) {
       sockets[a].emit('apinfor', result_data);
     }
   }
+  function data_wlan_broadcasting(result_data) {
+    for(var a = 0;a < sockets.length; a++) {
+      sockets[a].emit('wlaninfor', result_data);
+    }
+  }
 
   ! function arp_repeat() {
     arp_count++;
@@ -207,7 +212,7 @@ module.exports = function(app, fs, url) {
     socket.on('owner__wlan', function(data) {
       wlan_infor['MAC Address'] = data['mac'];
       wlan_infor['owner'] = data['owner'];
-      data_ap_broadcasting(wlan_infor);
+      data_wlan_broadcasting(wlan_infor);
     });
 
   });

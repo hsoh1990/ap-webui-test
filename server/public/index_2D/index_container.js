@@ -342,7 +342,7 @@ function wlan_draw(enable__, wlan_data) {
     cornerRadius: 10
   });
 
-  var wlan_owner_text = new Konva.Text({
+  var owner_text = new Konva.Text({
     x: stage.getWidth() / 2 - 90 - wlantext.getWidth(),
     y: stage.getHeight() / 2 - 100,
     text: wlan_data[0]['owner'],
@@ -358,17 +358,17 @@ function wlan_draw(enable__, wlan_data) {
   wlanlayer.add(wlan_box);
   wlanlayer.add(wlantextbox);
   wlanlayer.add(wlantext);
-  wlan_owner_layer.add(wlan_owner_text);
+  wlan_owner_layer.add(owner_text);
   wlanlayer.draw();
   wlan_owner_layer.draw();
 
   stage.batchDraw();
 
-  wlan_owner_text.on('dblclick', () => {
+  owner_text.on('dblclick', () => {
     // create textarea over canvas with absolute position
 
     // first we need to find its positon
-    var textPosition = wlan_owner_text.getAbsolutePosition();
+    var textPosition = owner_text.getAbsolutePosition();
     var stageBox = stage.getContainer().getBoundingClientRect();
 
     var areaPosition = {
@@ -381,11 +381,11 @@ function wlan_draw(enable__, wlan_data) {
     var textarea = document.createElement('textarea');
     document.body.appendChild(textarea);
 
-    textarea.value = wlan_owner_text.text();
+    textarea.value = owner_text.text();
     textarea.style.position = 'absolute';
     textarea.style.top = areaPosition.y + 'px';
     textarea.style.left = areaPosition.x + 'px';
-    textarea.style.width = wlan_owner_text.width();
+    textarea.style.width = owner_text.width();
 
     textarea.focus();
 
@@ -393,7 +393,7 @@ function wlan_draw(enable__, wlan_data) {
     textarea.addEventListener('keydown', function(e) {
       // hide on enter
       if (e.keyCode === 13) {
-        wlan_owner_text.text(textarea.value);
+        owner_text.text(textarea.value);
         wlan_owner_layer.draw();
         document.body.removeChild(textarea);
         socket.emit('owner__wlan', owner_data(wlan_data[0]['MAC Address'], textarea.value));
