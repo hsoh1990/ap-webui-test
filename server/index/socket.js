@@ -112,7 +112,8 @@ exports.wlan_whois = function() {
   wlan_infor = {
     'IP Address': '39.119.118.152',
     'MAC Address': 'aa.aa.aa.aa.aa.aa',
-    'orgName': text['whois']['english']['ISP']['netinfo']['orgName']
+    'orgName': text['whois']['english']['ISP']['netinfo']['orgName'],
+    'owner': 'wlan'
   }
   return wlan_infor;
 }

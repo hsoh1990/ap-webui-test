@@ -12,6 +12,7 @@ var stage = new Konva.Stage({
 var aplayer = new Konva.Layer();
 var ap_owner_layer = new Konva.Layer();
 var wlanlayer = new Konva.Layer();
+var wlan_owner_layer = new Konva.Layer();
 var wlan_exnet_Layer = new Konva.Layer();
 var wlan_line_Layer = new Konva.Layer();
 var wlan_text_Layer = new Konva.Layer();
@@ -74,7 +75,6 @@ function layer_removechildren() {
   stage.add(connect_device_Layer);
   stage.add(connect_text_Layer);
 
-  wlanlayer.removeChildren();
   wlan_line_Layer.removeChildren();
   wlan_exnet_Layer.removeChildren();
   wlan_text_Layer.removeChildren();
@@ -278,7 +278,12 @@ function owner_data (mac, text) {
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //wlan draw 부분
 function wlan_draw(enable__, wlan_data) {
+
+  wlanlayer.removeChildren();
+  wlan_owner_layer.removeChildren();
   stage.add(wlanlayer);
+  stage.add(wlan_owner_layer);
+
   var wlan_x = stage.getWidth() / 2 - 40 - 300;
   var wlan_y = stage.getHeight() / 2 - 15;
 
@@ -337,13 +342,64 @@ function wlan_draw(enable__, wlan_data) {
     cornerRadius: 10
   });
 
+  var owner_text = new Konva.Text({
+    x: stage.getWidth() / 2 - 90 - wlan_box.getWidth(),
+    y: stage.getHeight() / 2 - 100,
+    text: wlan_data[0]['owner'],
+    fontSize: 18,
+    fontFamily: 'Calibri',
+    fill: '#555',
+    width: 320,
+    padding: 20,
+    align: 'center'
+  });
+
   wlanlayer.add(wlan_line);
   wlanlayer.add(wlan_box);
   wlanlayer.add(wlantextbox);
   wlanlayer.add(wlantext);
+  wlan_owner_layer.add(owner_text);
   wlanlayer.draw();
+  wlan_owner_layer.draw();
 
   stage.batchDraw();
+
+  owner_text.on('dblclick', () => {
+    // create textarea over canvas with absolute position
+
+    // first we need to find its positon
+    var textPosition = owner_text.getAbsolutePosition();
+    var stageBox = stage.getContainer().getBoundingClientRect();
+
+    var areaPosition = {
+      x: textPosition.x + stageBox.left,
+      y: textPosition.y + stageBox.top
+    };
+
+
+    // create textarea and style it
+    var textarea = document.createElement('textarea');
+    document.body.appendChild(textarea);
+
+    textarea.value = owner_text.text();
+    textarea.style.position = 'absolute';
+    textarea.style.top = areaPosition.y + 'px';
+    textarea.style.left = areaPosition.x + 'px';
+    textarea.style.width = owner_text.width();
+
+    textarea.focus();
+
+
+    textarea.addEventListener('keydown', function(e) {
+      // hide on enter
+      if (e.keyCode === 13) {
+        owner_text.text(textarea.value);
+        wlan_owner_layer.draw();
+        document.body.removeChild(textarea);
+        socket.emit('owner__wlan', owner_data(wlan_data[0]['MAC Address'], textarea.value));
+      }
+    });
+  })
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //반원 상에서 기기들 위치 계산 부분

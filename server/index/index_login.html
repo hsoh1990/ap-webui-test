@@ -256,7 +256,19 @@
         });
       socket.on('wlaninfor',
         function(data) {
-          wlan_data.push(data);
+          var check_apcount = 0;
+          for(var a = 0;a < wlan_data.length; a++) {
+            if(wlan_data[a]['owner'] != data['owner']) {
+              wlan_data.splice(a, 1, data);
+              check_apcount++;
+            }
+            else if (wlan_data[a]['owner'] == data['owner']) {
+              check_apcount++;
+            }
+          }
+          if(check_apcount == 0) {
+            wlan_data.push(data);
+          }
           wlan_draw(enable__, wlan_data);
         });
       socket.on('apinfor',

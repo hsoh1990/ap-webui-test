@@ -204,6 +204,11 @@ module.exports = function(app, fs, url) {
       ap_infor['owner'] = data['owner'];
       data_ap_broadcasting(ap_infor);
     });
+    socket.on('owner__wlan', function(data) {
+      wlan_infor['MAC Address'] = data['mac'];
+      wlan_infor['owner'] = data['owner'];
+      data_ap_broadcasting(wlan_infor);
+    });
 
   });
 }
