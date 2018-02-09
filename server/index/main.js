@@ -102,7 +102,7 @@ module.exports = function(app, fs, url) {
           }
           else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
-            device_data.splice(data_check['a'], 0, result);
+            device_data.splice(data_check['a'], 1, result);
             delete device_data['check'];
             delete device_data['a'];
             const stringify_data = JSON.stringify(device_data, null, '\t');
@@ -134,7 +134,7 @@ module.exports = function(app, fs, url) {
             console.log("데이터 수정 완료");
             delete device_data['check'];
             delete device_data['a'];
-            device_data.splice(data_check['a'], 0, result);
+            device_data.splice(data_check['a'], 1, result);
             const stringify_data = JSON.stringify(device_data, null, '\t');
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
