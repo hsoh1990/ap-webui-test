@@ -320,7 +320,7 @@ function wlan_draw(enable__, wlan_data) {
   }
 
   var wlantext = new Konva.Text({
-    x: wlan_x - 140 - wlan_box.getWidth(),
+    x: wlan_x - 100 - wlan_box.getWidth(),
     y: wlan_y + 25,
     text: wlan_text,
     fontSize: 18,
@@ -498,7 +498,7 @@ function wlan_ex_net_draw(enable, res_count, conn_count) {
       exnet_text += res_count[0][a]['Host name'];
     }
     var exnettext = new Konva.Text({
-      x: x - 100,
+      x: x - 150,
       y: y + 35,
       text: exnet_text,
       fontSize: 18,
