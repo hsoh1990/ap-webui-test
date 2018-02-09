@@ -104,6 +104,20 @@ exports.eth0_mac_rec = function() {
   }
 }
 
+exports.ap_data_save = function(ip, mac, hostname) {
+  var read_data = fs.readFileSync(__dirname + "/data/ap_data.json", 'utf8');
+  var data_readed = JSON.parse(read_data);
+  var data_ = {};
+  data_['IP Address'] = ip;
+  data_['MAC Address'] = mac;
+  data_['Host name'] = hostname;
+  data_['owner'] = data_readed['owner'];
+  fs.writeFileSync(__dirname + "/data/" + "ap_data.json",
+    JSON.stringify(data_, null, '\t'), "utf8",
+    function(err, data) {})
+
+  return data_;
+}
 exports.wlan_whois = function() {
   var text = execSync('curl \"http://whois.kisa.or.kr/openapi/whois.jsp?query=39.119.118.152\&key=2018020617475141381350\&answer=json\"', {
     encoding: 'utf8'

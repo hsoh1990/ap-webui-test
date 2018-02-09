@@ -183,12 +183,8 @@ module.exports = function(app, fs, url) {
     var wlan_infor = router_socket.wlan_whois();
     var wlan_exnetinfor = router_socket.wlan_exnet_data();
 
-    var ap_infor = {
-      'IP Address': ap_ip,
-      'MAC Address': ap_mac,
-      'Host name': ap_hostname,
-      'owner': 'AP'
-    }
+    var ap_infor = router_socket.ap_data_save(ap_ip, ap_mac, ap_hostname);
+
     socket.emit('exnetinfor', wlan_exnetinfor);
     socket.emit('wlaninfor', wlan_infor);
     socket.emit('apinfor', ap_infor);
@@ -208,10 +204,16 @@ module.exports = function(app, fs, url) {
       ap_infor['MAC Address'] = data['mac'];
       ap_infor['owner'] = data['owner'];
       data_ap_broadcasting(ap_infor);
+      fs.writeFileSync(__dirname + "/data/" + "ap_data.json",
+        JSON.stringify(ap_infor, null, '\t'), "utf8",
+        function(err, data) {})
     });
     socket.on('owner__wlan', function(data) {
       wlan_infor['MAC Address'] = data['mac'];
       wlan_infor['owner'] = data['owner'];
+      fs.writeFileSync(__dirname + "/data/" + "wlan_data.json",
+        JSON.stringify(wlan_infor, null, '\t'), "utf8",
+        function(err, data) {})
       data_wlan_broadcasting(wlan_infor);
     });
 
