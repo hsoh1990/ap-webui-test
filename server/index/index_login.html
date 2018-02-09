@@ -266,7 +266,19 @@
         });
       socket.on('apinfor',
         function(data) {
-          ap_data.push(data);
+          const check_apcount = 0;
+          for(var a = 0;a < ap_data.length; a++) {
+            if(ap_data[a]['owner'] != data['owner']) {
+              ap_data.splice(a, 1, data);
+              check_apcount++;
+            }
+            else if (ap_data[a]['owner'] == data['owner']) {
+              check_apcount++;
+            }
+          }
+          if(check_apcount = 0) {
+            ap_data.push(data);
+          }
           start_draw();
           ap_draw(enable__, ap_data);
         });

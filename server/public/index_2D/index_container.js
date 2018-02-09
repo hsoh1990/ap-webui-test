@@ -21,7 +21,6 @@ var disconnect_text_Layer = new Konva.Layer();
 var connect_device_Layer = new Konva.Layer();
 var connect_line_Layer = new Konva.Layer();
 var connect_text_Layer = new Konva.Layer();
-var owner_input_dec = 0;
 var connect_radius = 380;
 var disconnect_radius = 550;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
@@ -206,7 +205,7 @@ function ap_draw(enable__, ap_data) {
   var owner_text = new Konva.Text({
     x: stage.getWidth() / 2 - 90 - ap.getWidth(),
     y: stage.getHeight() / 2 - 100,
-    text: "test",
+    text: ap_data[0]['owner'],
     fontSize: 18,
     fontFamily: 'Calibri',
     fill: '#555',
@@ -263,7 +262,6 @@ function ap_draw(enable__, ap_data) {
         owner_text.text(textarea.value);
         ap_owner_layer.draw();
         document.body.removeChild(textarea);
-        owner_input_dec++;
         socket.emit('owner__ap', owner_data(ap_data[0]['MAC Address'], textarea.value));
       }
     });
