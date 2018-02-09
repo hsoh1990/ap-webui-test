@@ -97,7 +97,7 @@ module.exports = function(app, fs, url) {
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
     setTimeout(function() {
       arp_repeat();
-    }, 10000);
+    }, 11000);
   }()
   io.sockets.on('connect', function(socket) {
     var connect_bool = true;
