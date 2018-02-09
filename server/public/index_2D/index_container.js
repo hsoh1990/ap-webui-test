@@ -584,7 +584,7 @@ function disconnect_draw(enable, res_count, conn_count) {
       device_text += res_count[a]['Host name'];
     }
     var devicetext = new Konva.Text({
-      x: x - 140,
+      x: x - 135,
       y: y + 35,
       text: device_text,
       fontSize: 18,
