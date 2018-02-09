@@ -23,7 +23,7 @@ var disconnect_owner_Layer = new Konva.Layer();
 var connect_device_Layer = new Konva.Layer();
 var connect_line_Layer = new Konva.Layer();
 var connect_text_Layer = new Konva.Layer();
-var connect_owner_Layer = new Konva.Layer();
+var conn_owner_layer_Array = new Array();
 var connect_radius = 380;
 var disconnect_radius = 550;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
@@ -76,7 +76,6 @@ function layer_removechildren() {
   stage.add(connect_line_Layer);
   stage.add(connect_device_Layer);
   stage.add(connect_text_Layer);
-  stage.add(connect_owner_Layer);
 
   wlan_line_Layer.removeChildren();
   wlan_exnet_Layer.removeChildren();
@@ -84,7 +83,6 @@ function layer_removechildren() {
   connect_line_Layer.removeChildren();
   connect_device_Layer.removeChildren();
   connect_text_Layer.removeChildren();
-  connect_owner_Layer.removeChildren();
   disconnect_line_Layer.removeChildren();
   disconnect_device_Layer.removeChildren();
   disconnect_text_Layer.removeChildren();
@@ -682,6 +680,8 @@ function connect_draw(enable, res_count, conn_count) {
   semicircle_calcul(resultxy, device_count, radius);
 
   for (var a = 0; a < device_count; a++) {
+    conn_owner_layer_Array[a] = new Konva.Layer();
+    stage.add(conn_owner_layer_Array[a]);
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
@@ -754,7 +754,7 @@ function connect_draw(enable, res_count, conn_count) {
     });
 
     var owner_text = new Konva.Text({
-      x: x - 135,
+      x: x - 175,
       y: y - 50,
       text: res_count[a]['owner'],
       fontSize: 18,
@@ -767,12 +767,12 @@ function connect_draw(enable, res_count, conn_count) {
 
     connect_text_Layer.add(devicetextbox);
     connect_text_Layer.add(devicetext);
-    connect_owner_Layer.add(owner_text);
+    conn_owner_layer_Array[a].add(owner_text);
 
     connect_line_Layer.draw();
     connect_device_Layer.draw();
     connect_text_Layer.draw();
-    connect_owner_Layer.draw();
+    conn_owner_layer_Array[a].draw();
 
     stage.batchDraw();
 
@@ -806,7 +806,7 @@ function connect_draw(enable, res_count, conn_count) {
         // hide on enter
         if (e.keyCode === 13) {
           owner_text.text(textarea.value);
-          connect_owner_layer.draw();
+          conn_owner_layer_Array[a].draw();
           document.body.removeChild(textarea);
           //socket.emit('owner__connect', owner_data(res_count[a]['MAC Address'], textarea.value));
         }
