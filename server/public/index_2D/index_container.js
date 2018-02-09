@@ -75,8 +75,6 @@ function layer_removechildren() {
   stage.add(connect_device_Layer);
   stage.add(connect_text_Layer);
 
-  aplayer.removeChildren();
-  ap_owner_layer.removeChildren();
   wlanlayer.removeChildren();
   wlan_line_Layer.removeChildren();
   wlan_exnet_Layer.removeChildren();
@@ -102,6 +100,8 @@ function ap_draw(enable__, ap_data) {
 
   });
   */
+  aplayer.removeChildren();
+  ap_owner_layer.removeChildren();
   stage.add(aplayer);
   stage.add(ap_owner_layer);
 
@@ -264,7 +264,7 @@ function ap_draw(enable__, ap_data) {
         ap_owner_layer.draw();
         document.body.removeChild(textarea);
         owner_input_dec++;
-        socket.emit('owner__', owner_data(ap_data[0]['MAC Address'], textarea.value));
+        socket.emit('owner__ap', owner_data(ap_data[0]['MAC Address'], textarea.value));
       }
     });
   })
@@ -276,12 +276,6 @@ function owner_data (mac, text) {
     'owner' : text
   }
   return result;
-}
-function return_owner_dec () {
-  return owner_input_dec;
-}
-function owner_set_0 () {
-  owner_input_dec = 0;
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //wlan draw 부분

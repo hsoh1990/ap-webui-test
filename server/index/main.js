@@ -172,10 +172,11 @@ module.exports = function(app, fs, url) {
     var wlan_infor = router_socket.wlan_whois();
     var wlan_exnetinfor = router_socket.wlan_exnet_data();
 
-    ap_infor = {
+    var ap_infor = {
       'IP Address': ap_ip,
       'MAC Address': ap_mac,
-      'Host name': ap_hostname
+      'Host name': ap_hostname,
+      'owner': '이름이 없습니다.'
     }
     socket.emit('exnetinfor', wlan_exnetinfor);
     socket.emit('wlaninfor', wlan_infor);
@@ -191,6 +192,11 @@ module.exports = function(app, fs, url) {
         }
       }
       console.log("소켓 접속 종료 : " + sockets.length);
+    });
+    socket.on('owner__ap', function(data) {
+      ap_infor['MAC Address'] = data['mac'];
+      ap_infor['owner'] = data['owner'];
+      socket.emit('apinfor', ap_infor);
     });
 
   });
