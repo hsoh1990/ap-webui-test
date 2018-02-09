@@ -251,7 +251,6 @@
       socket.on('exnetinfor',
         function(data) {
           exnet_data.push(data);
-          start_draw();
           wlan_ex_net_draw(enable__, exnet_data, exnet_data[0].length);
         });
       socket.on('wlaninfor',
