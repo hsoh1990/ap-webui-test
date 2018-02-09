@@ -326,7 +326,7 @@ function wlan_draw(enable__, wlan_data) {
     fontSize: 18,
     fontFamily: 'Calibri',
     fill: '#555',
-    width: 300,
+    width: 320,
     padding: 20,
     align: 'center'
   });
