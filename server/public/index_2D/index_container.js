@@ -806,9 +806,8 @@ function connect_draw(enable, res_count, conn_count) {
         // hide on enter
         if (e.keyCode === 13) {
           owner_text.text(textarea.value);
-          conn_owner_layer_Array[a].draw();
           document.body.removeChild(textarea);
-          //socket.emit('owner__connect', owner_data(res_count[a]['MAC Address'], textarea.value));
+          socket.emit('owner__connect', owner_data(res_count[a]['MAC Address'], textarea.value));
         }
       });
     })
