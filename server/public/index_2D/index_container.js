@@ -676,13 +676,13 @@ function connect_draw(enable, res_count, conn_count) {
       device_text += res_count[a]['Host name'];
     }
     var devicetext = new Konva.Text({
-      x: x - 63,
+      x: x - 140,
       y: y + 35,
       text: device_text,
       fontSize: 18,
       fontFamily: 'Calibri',
       fill: '#555',
-      width: 176,
+      width: 320,
       padding: 20,
       align: 'center'
     });
