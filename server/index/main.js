@@ -203,10 +203,10 @@ module.exports = function(app, fs, url) {
     socket.on('owner__ap', function(data) {
       ap_infor['MAC Address'] = data['mac'];
       ap_infor['owner'] = data['owner'];
-      data_ap_broadcasting(ap_infor);
       fs.writeFileSync(__dirname + "/data/" + "ap_data.json",
         JSON.stringify(ap_infor, null, '\t'), "utf8",
         function(err, data) {})
+      data_ap_broadcasting(ap_infor);
     });
     socket.on('owner__wlan', function(data) {
       wlan_infor['MAC Address'] = data['mac'];

@@ -19,9 +19,11 @@ var wlan_text_Layer = new Konva.Layer();
 var disconnect_device_Layer = new Konva.Layer();
 var disconnect_line_Layer = new Konva.Layer();
 var disconnect_text_Layer = new Konva.Layer();
+var disconnect_owner_Layer = new Konva.Layer();
 var connect_device_Layer = new Konva.Layer();
 var connect_line_Layer = new Konva.Layer();
 var connect_text_Layer = new Konva.Layer();
+var connect_owner_Layer = new Konva.Layer();
 var connect_radius = 380;
 var disconnect_radius = 550;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
@@ -749,14 +751,65 @@ function connect_draw(enable, res_count, conn_count) {
       cornerRadius: 10
     });
 
+    var owner_text = new Konva.Text({
+      x: x - 135,
+      y: y - 50,
+      text: res_count[a]['owner'],
+      fontSize: 18,
+      fontFamily: 'Calibri',
+      fill: '#555',
+      width: 320,
+      padding: 20,
+      align: 'center'
+    });
+
     connect_text_Layer.add(devicetextbox);
     connect_text_Layer.add(devicetext);
+    connect_owner_Layer.add(owner_text);
 
-    /*connect_line_Layer.draw();
+    connect_line_Layer.draw();
     connect_device_Layer.draw();
-    connect_text_Layer.draw();*/
+    connect_text_Layer.draw();
+    connect_owner_Layer.draw();
 
     stage.batchDraw();
+
+    owner_text.on('dblclick', () => {
+      // create textarea over canvas with absolute position
+
+      // first we need to find its positon
+      var textPosition = owner_text.getAbsolutePosition();
+      var stageBox = stage.getContainer().getBoundingClientRect();
+
+      var areaPosition = {
+        x: textPosition.x + stageBox.left,
+        y: textPosition.y + stageBox.top
+      };
+
+
+      // create textarea and style it
+      var textarea = document.createElement('textarea');
+      document.body.appendChild(textarea);
+
+      textarea.value = owner_text.text();
+      textarea.style.position = 'absolute';
+      textarea.style.top = areaPosition.y + 'px';
+      textarea.style.left = areaPosition.x + 'px';
+      textarea.style.width = owner_text.width();
+
+      textarea.focus();
+
+
+      textarea.addEventListener('keydown', function(e) {
+        // hide on enter
+        if (e.keyCode === 13) {
+          owner_text.text(textarea.value);
+          connect_owner_layer.draw();
+          document.body.removeChild(textarea);
+          //socket.emit('owner__connect', owner_data(res_count[a]['MAC Address'], textarea.value));
+        }
+      });
+    })
   }
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
