@@ -186,8 +186,8 @@ module.exports = function(app, fs, url) {
     var ap_infor = router_socket.ap_data_save(ap_ip, ap_mac, ap_hostname);
 
     socket.emit('exnetinfor', wlan_exnetinfor);
-    socket.emit('wlaninfor', wlan_infor);
     socket.emit('apinfor', ap_infor);
+    socket.emit('wlaninfor', wlan_infor);
     for(var a = 0;a < device_data.length; a++) {
       socket.emit('arp', device_data[a]);
     }
