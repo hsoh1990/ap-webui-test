@@ -62,8 +62,8 @@ module.exports = function(app, fs, url) {
 
 
   var sockets = new Array();
-  var device_data = new Array();
   var arp_count = 0;
+  var device_data = fs.readFileSync(__dirname + "/../device_data.json", 'utf8');
 
   ! function arp_repeat() {
     arp_count++;
@@ -93,10 +93,16 @@ module.exports = function(app, fs, url) {
           else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
             device_data.splice(data_check['a'], 0, result);
+            fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+              device_data, "utf8",
+              function(err, data) {})
           }
           else {
             console.log("데이터 저장 완료");
             device_data.push(result);
+            fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+              device_data, "utf8",
+              function(err, data) {})
           }
         }, function(result) {
           // 실패시
@@ -109,10 +115,16 @@ module.exports = function(app, fs, url) {
           else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
             device_data.splice(data_check['a'], 0, result);
+            fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+              device_data, "utf8",
+              function(err, data) {})
           }
           else {
             console.log("데이터 저장 완료");
             device_data.push(result);
+            fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+              device_data, "utf8",
+              function(err, data) {})
           }
         });
 
