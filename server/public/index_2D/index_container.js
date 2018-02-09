@@ -359,7 +359,7 @@ function wlan_draw(enable__, wlan_data) {
   wlanlayer.add(wlantextbox);
   wlanlayer.add(wlantext);
   wlan_owner_layer.add(owner_text);
-  //wlanlayer.draw();
+  wlanlayer.draw();
   wlan_owner_layer.draw();
 
   stage.batchDraw();

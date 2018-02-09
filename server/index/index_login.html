@@ -270,6 +270,7 @@
             wlan_data.push(data);
           }
           wlan_draw(enable__, wlan_data);
+          ap_draw(enable__, ap_data);
         });
       socket.on('apinfor',
         function(data) {
