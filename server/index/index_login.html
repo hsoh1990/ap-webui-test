@@ -132,10 +132,6 @@
   <script src="dist/js/sb-admin-2.js"></script>
   <script>
     console.log("conn | disconn");
-    function start_draw() {
-      //layer_removechildren();
-      connection_text(1000, 0);
-    }
 
     function ip_onoff() {
       var value = document.getElementById("ipenable").value;
@@ -261,7 +257,6 @@
       socket.on('wlaninfor',
         function(data) {
           wlan_data.push(data);
-          start_draw();
           wlan_draw(enable__, wlan_data);
         });
       socket.on('apinfor',
@@ -279,7 +274,6 @@
           if(check_apcount == 0) {
             ap_data.push(data);
           }
-          start_draw();
           ap_draw(enable__, ap_data);
         });
     }
