@@ -498,7 +498,7 @@ function wlan_ex_net_draw(enable, res_count, conn_count) {
       exnet_text += res_count[0][a]['Host name'];
     }
     var exnettext = new Konva.Text({
-      x: x - 150,
+      x: x - 140,
       y: y + 35,
       text: exnet_text,
       fontSize: 18,
