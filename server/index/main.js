@@ -71,7 +71,7 @@ module.exports = function(app, fs, url) {
 
   function data_broadcasting(result_data) {
     for(var a = 0;a < sockets.length; a++) {
-      sockets.emit('arp', result_data);
+      sockets[a].emit('arp', result_data);
     }
   }
 
