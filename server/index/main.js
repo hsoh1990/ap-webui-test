@@ -1,4 +1,6 @@
 module.exports = function(app, fs, url) {
+  var router_index_login = require('./index_login.js');
+  var router_socket = require('./socket.js');
 
   var exec = require('child_process').exec,
     child;
@@ -7,9 +9,6 @@ module.exports = function(app, fs, url) {
   } = require('child_process');
   var arp = require('node-arp');
   var io = require('socket.io').listen(8080);
-
-  var router_index_login = require('./index_login.js');
-  var router_socket = require('./socket.js');
 
 
   app.get('/', function(req, res) {
@@ -87,12 +86,18 @@ module.exports = function(app, fs, url) {
           // 성공시/*
           console.log(result['MAC Address'] + ',, ' + result['arp']);
           //socket.emit('arp', result);
-          router_socket.device_data_save(result);
+          const check = router_socket.device_data_save(device_data, result);
+          if (check == 0) {}else {
+            device_data.push(result);
+          }
         }, function(result) {
           // 실패시
           console.log(result['MAC Address'] + ',, ' + result['arp']);
           //socket.emit('arp', result);
-          router_socket.device_data_save(result);
+          const check = router_socket.device_data_save(device_data, result);
+          if (check == 0) {}else {
+            device_data.push(result);
+          }
         });
 
     }

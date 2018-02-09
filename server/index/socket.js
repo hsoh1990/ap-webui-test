@@ -1,3 +1,7 @@
+const {
+  execSync
+} = require('child_process');
+var arp = require('node-arp');
 
 exports.data_get = function() {
   const stdout = execSync('cat /var/lib/misc/dnsmasq.leases', {
@@ -143,7 +147,7 @@ exports.wlan_exnet_data = function() {
 }
 
 
-exports.device_data_save = function(data__) {
+exports.device_data_save = function(device_data, data__) {
   var count = 0;
   for(var a = 0;a < device_data.length; a++) {
     if(device_data[a]['MAC Address'] == data__['MAC Address']){
@@ -151,7 +155,10 @@ exports.device_data_save = function(data__) {
     }
   }
   if(count == 0) {
-    device_data.push(data__);
     console.log("데이터 저장 완료");
+    return data__;
+  }
+  else {
+    return 0;
   }
 }
