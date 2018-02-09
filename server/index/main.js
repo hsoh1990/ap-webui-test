@@ -73,9 +73,6 @@ module.exports = function(app, fs, url) {
     console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
     console.log("반복 시작 : " + arp_count + "번째");
     console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-    if (connect_bool == false) {
-      return;
-    }
     var data__ = router_socket.data_get();
     var data_key = Object.getOwnPropertyNames(data__);
     for (var a = 0; a < Object.keys(data__).length; a++) {
