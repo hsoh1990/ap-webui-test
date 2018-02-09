@@ -8,6 +8,9 @@ module.exports = function(app, fs, url) {
   var arp = require('node-arp');
   var io = require('socket.io').listen(8080);
 
+  var router_index_login = require('./index_login.js');
+  var router_socket = require('./socket.js');
+
 
   app.get('/', function(req, res) {
     res.render('index.html');
@@ -152,7 +155,4 @@ module.exports = function(app, fs, url) {
       console.log(data);
     });
   });*/
-
-  var router_index_login = require('./index_login.js');
-  var router_socket = require('./socket.js');
 }
