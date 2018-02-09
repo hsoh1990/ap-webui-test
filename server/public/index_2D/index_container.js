@@ -343,7 +343,7 @@ function wlan_draw(enable__, wlan_data) {
   });
 
   var owner_text = new Konva.Text({
-    x: stage.getWidth() / 2 - 150 - wlantext.getWidth(),
+    x: stage.getWidth() / 2 - 155 - wlantext.getWidth(),
     y: stage.getHeight() / 2 - 70,
     text: wlan_data[0]['owner'],
     fontSize: 18,
