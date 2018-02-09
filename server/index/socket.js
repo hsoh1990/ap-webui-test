@@ -120,17 +120,19 @@ exports.ap_data_save = function(ip, mac, hostname) {
   return data_;
 }
 exports.wlan_whois = function() {
+  var read_data = fs.readFileSync(__dirname + "/data/wlan_data.json", 'utf8');
+  var data_readed = JSON.parse(read_data);
   var text = execSync('curl \"http://whois.kisa.or.kr/openapi/whois.jsp?query=39.119.118.152\&key=2018020617475141381350\&answer=json\"', {
     encoding: 'utf8'
   });
   text = JSON.parse(text);
-  wlan_infor = {
-    'IP Address': '39.119.118.152',
-    'MAC Address': 'aa.aa.aa.aa.aa.aa',
-    'orgName': text['whois']['english']['ISP']['netinfo']['orgName'],
-    'owner': 'wlan'
-  }
-  return wlan_infor;
+  data_readed['orgName'] = text['whois']['english']['ISP']['netinfo']['orgName'];
+
+  fs.writeFileSync(__dirname + "/data/" + "wlan_data.json",
+    JSON.stringify(data_readed, null, '\t'), "utf8",
+    function(err, data) {})
+
+  return data_readed;
 }
 
 exports.wlan_exnet_data = function() {
