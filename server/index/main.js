@@ -74,6 +74,7 @@ module.exports = function(app, fs, url) {
       sockets.emit('arp', result_data);
     }
   }
+
   ! function arp_repeat() {
     arp_count++;
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -108,15 +109,18 @@ module.exports = function(app, fs, url) {
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
-            data_broadcasting(device_data);
+            data_broadcasting(result);
           }
           else {
             console.log("데이터 저장 완료");
             device_data.push(result);
+            delete device_data['check'];
+            delete device_data['a'];
             const stringify_data = JSON.stringify(device_data, null, '\t');
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
+            data_broadcasting(result);
           }
         }, function(result) {
           // 실패시
@@ -128,19 +132,25 @@ module.exports = function(app, fs, url) {
           }
           else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
+            delete device_data['check'];
+            delete device_data['a'];
             device_data.splice(data_check['a'], 0, result);
             const stringify_data = JSON.stringify(device_data, null, '\t');
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
+            data_broadcasting(result);
           }
           else {
             console.log("데이터 저장 완료");
             device_data.push(result);
+            delete device_data['check'];
+            delete device_data['a'];
             const stringify_data = JSON.stringify(device_data, null, '\t');
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
+            data_broadcasting(result);
           }
         });
 
