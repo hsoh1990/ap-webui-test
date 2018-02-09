@@ -129,13 +129,13 @@ function ap_draw(enable__, ap_data) {
   }
 
   var aptext = new Konva.Text({
-    x: stage.getWidth() / 2 - 80 - ap.getWidth(),
+    x: stage.getWidth() / 2 - 90 - ap.getWidth(),
     y: stage.getHeight() / 2 - 30 + 60,
     text: ap_text,
     fontSize: 18,
     fontFamily: 'Calibri',
     fill: '#555',
-    width: 300,
+    width: 320,
     padding: 20,
     align: 'center'
   });
@@ -204,13 +204,13 @@ function ap_draw(enable__, ap_data) {
   });
 
   var owner_text = new Konva.Text({
-    x: stage.getWidth() / 2 - 80 - ap.getWidth(),
+    x: stage.getWidth() / 2 - 90 - ap.getWidth(),
     y: stage.getHeight() / 2 - 100,
     text: "test",
     fontSize: 18,
     fontFamily: 'Calibri',
     fill: '#555',
-    width: 300,
+    width: 320,
     padding: 20,
     align: 'center'
   });
@@ -320,7 +320,7 @@ function wlan_draw(enable__, wlan_data) {
   }
 
   var wlantext = new Konva.Text({
-    x: wlan_x - 110 - wlan_box.getWidth(),
+    x: wlan_x - 100 - wlan_box.getWidth(),
     y: wlan_y + 25,
     text: wlan_text,
     fontSize: 18,
@@ -498,13 +498,13 @@ function wlan_ex_net_draw(enable, res_count, conn_count) {
       exnet_text += res_count[0][a]['Host name'];
     }
     var exnettext = new Konva.Text({
-      x: x - 63,
+      x: x - 100,
       y: y + 35,
       text: exnet_text,
       fontSize: 18,
       fontFamily: 'Calibri',
       fill: '#555',
-      width: 176,
+      width: 320,
       padding: 20,
       align: 'center'
     });
@@ -584,13 +584,13 @@ function disconnect_draw(enable, res_count, conn_count) {
       device_text += res_count[a]['Host name'];
     }
     var devicetext = new Konva.Text({
-      x: x - 63,
+      x: x - 150,
       y: y + 35,
       text: device_text,
       fontSize: 18,
       fontFamily: 'Calibri',
       fill: '#555',
-      width: 176,
+      width: 320,
       padding: 20,
       align: 'center'
     });
