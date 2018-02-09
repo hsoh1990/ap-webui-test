@@ -148,17 +148,30 @@ exports.wlan_exnet_data = function() {
 
 
 exports.device_data_save = function(device_data, data__) {
-  var count = 0;
+  var data__ = data__;
+  var check = 0;
   for(var a = 0;a < device_data.length; a++) {
-    if(device_data[a]['MAC Address'] == data__['MAC Address']){
-      count++;
+    if(device_data[a]['MAC Address'] == data__['MAC Address']){//연결 신규 추가
+      check = 1;
+      if (device_data[a]['arp'] != data__['arp']){
+        check = 2;
+      }
+      break;
     }
   }
-  if(count == 0) {
-    console.log("데이터 저장 완료");
+  if(check == 1) {
+    data__['check'] = 1;
+    data__['a'] = a;
+    return data__;
+  }
+  else if(check == 2) {
+    data__['check'] = 2;
+    data__['a'] = a;
     return data__;
   }
   else {
-    return 0;
+    data__['check'] = 3;
+    data__['a'] = 0;
+    return  data__;
   }
 }

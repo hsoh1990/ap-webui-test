@@ -86,16 +86,32 @@ module.exports = function(app, fs, url) {
           // 성공시/*
           console.log(result['MAC Address'] + ',, ' + result['arp']);
           //socket.emit('arp', result);
-          const check = router_socket.device_data_save(device_data, result);
-          if (check == 0) {}else {
+          const data_check = router_socket.device_data_save(device_data, result);
+          if (data_check['check'] == 1) {
+
+          }
+          else if (data_check['check'] == 2) {
+            console.log("데이터 수정 완료");
+            device_data.splice(data_check['a'], 0, result);
+          }
+          else {
+            console.log("데이터 저장 완료");
             device_data.push(result);
           }
         }, function(result) {
           // 실패시
           console.log(result['MAC Address'] + ',, ' + result['arp']);
           //socket.emit('arp', result);
-          const check = router_socket.device_data_save(device_data, result);
-          if (check == 0) {}else {
+          const data_check = router_socket.device_data_save(device_data, result);
+          if (data_check['check'] == 1) {
+
+          }
+          else if (data_check['check'] == 2) {
+            console.log("데이터 수정 완료");
+            device_data.splice(data_check['a'], 0, result);
+          }
+          else {
+            console.log("데이터 저장 완료");
             device_data.push(result);
           }
         });
