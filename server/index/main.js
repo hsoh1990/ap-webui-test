@@ -62,7 +62,63 @@ module.exports = function(app, fs, url) {
 
 
   var sockets = new Array();
+  var device_data = new Array();
+  var arp_count = 0;
 
+  ! function arp_repeat() {
+    arp_count++;
+    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    //반복하는 부분
+    router_socket.wait(1000);
+    console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+    console.log("반복 시작 : " + arp_count + "번째");
+    console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+    if (connect_bool == false) {
+      return;
+    }
+    var data__ = router_socket.data_get();
+    var data_key = Object.getOwnPropertyNames(data__);
+    for (var a = 0; a < Object.keys(data__).length; a++) {
+      var _promise = function(a, data__, data_key) {
+        return new Promise(function(resolve, reject) {
+          router_socket.arp_req(a, data__, data_key, resolve, reject);
+        });
+      };
+      _promise(a, data__, data_key)
+        .then(function(result) {
+          // 성공시/*
+          console.log(result['MAC Address'] + ',, ' + result['arp']);
+          //socket.emit('arp', result);
+        }, function(result) {
+          // 실패시
+          console.log(result['MAC Address'] + ',, ' + result['arp']);
+          //socket.emit('arp', result);
+        });
+
+    }
+
+    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    setTimeout(function() {
+      arp_repeat();
+    }, 10000);
+  }()
+  io.sockets.on('connect', function(socket) {
+    var connect_bool = true;
+    sockets.push(socket);
+    console.log("소켓 연결 완료 : " + sockets.length);
+
+    socket.on('disconnect', function() {
+      connect_bool = false;
+      for(var a = 0;a < sockets.length; a++) {
+        if(sockets[a] == socket){
+          sockets.splice(a, 1);
+        }
+      }
+      console.log("소켓 접속 종료 : " + sockets.length);
+    });
+
+  }
+/*
   io.sockets.on('connect', function(socket) {
     var socket = socket;
     sockets.push(socket);
@@ -84,46 +140,6 @@ module.exports = function(app, fs, url) {
     socket.emit('apinfor', ap_infor);
     console.log(wlan_exnetinfor);
 
-    ! function arp_repeat() {
-      //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-      //반복하는 부분
-      router_socket.wait(1000);
-      console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-      console.log("반복 시작");
-      console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-      if (connect_bool == false) {
-        return;
-      }
-      var data__ = router_socket.data_get();
-      var data_key = Object.getOwnPropertyNames(data__);
-      for (var a = 0; a < Object.keys(data__).length; a++) {
-        var _promise = function(a, data__, data_key) {
-          return new Promise(function(resolve, reject) {
-            router_socket.arp_req(a, data__, data_key, resolve, reject);
-          });
-        };
-        _promise(a, data__, data_key)
-          .then(function(result) {
-            // 성공시/*
-            console.log(result['MAC Address'] + ',, ' + result['arp']);
-            socket.emit('arp', result);
-          }, function(result) {
-            // 실패시
-            console.log(result['MAC Address'] + ',, ' + result['arp']);
-            socket.emit('arp', result);
-          });
-
-      }
-
-      if (connect_bool == false) {
-        return;
-      }
-      //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-      setTimeout(function() {
-        arp_repeat();
-      }, 10000);
-    }()
-
     socket.on('disconnect', function() {
       connect_bool = false;
       for(var a = 0;a < sockets.length; a++) {
@@ -139,4 +155,4 @@ module.exports = function(app, fs, url) {
       console.log(data);
     });
   });
-}
+}*/
