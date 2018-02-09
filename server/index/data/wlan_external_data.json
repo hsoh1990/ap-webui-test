@@ -1,0 +1,22 @@
+[
+  {
+    'IP Address': '1.2.3.4',
+    'MAC Address': 'aa.aa.aa.aa.aa.aa',
+    'Host name': 'test1'
+  },
+  {
+    'IP Address': '11.22.33.44',
+    'MAC Address': 'bb.bb.bb.bb.bb.bb',
+    'Host name': 'test2'
+  },
+  {
+    'IP Address': '11.12.13.14',
+    'MAC Address': 'cc.cc.cc.cc.cc.cc',
+    'Host name': 'test3'
+  },
+  {
+    'IP Address': '110.120.130.140',
+    'MAC Address': 'dd.dd.dd.dd.dd.dd',
+    'Host name': 'test4'
+  }
+]

@@ -96,6 +96,8 @@ module.exports = function(app, fs, url) {
           else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
             device_data.splice(data_check['a'], 0, result);
+            delete device_data['check'];
+            delete device_data['a'];
             const stringify_data = JSON.stringify(device_data, null, '\t');
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
@@ -146,6 +148,21 @@ module.exports = function(app, fs, url) {
     var connect_bool = true;
     sockets.push(socket);
     console.log("소켓 연결 완료 : " + sockets.length);
+
+    var ap_ip = router_socket.eth0_ip_rec();
+    var ap_mac = router_socket.eth0_mac_rec();
+    var ap_hostname = router_socket.hostname_rec();
+    var wlan_infor = router_socket.wlan_whois();
+    var wlan_exnetinfor = router_socket.wlan_exnet_data();
+
+    ap_infor = {
+      'IP Address': ap_ip,
+      'MAC Address': ap_mac,
+      'Host name': ap_hostname
+    }
+    socket.emit('exnetinfor', wlan_exnetinfor);
+    socket.emit('wlaninfor', wlan_infor);
+    socket.emit('apinfor', ap_infor);
 
     socket.on('disconnect', function() {
       connect_bool = false;
