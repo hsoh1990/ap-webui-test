@@ -64,7 +64,7 @@ module.exports = function(app, fs, url) {
 
   var sockets = new Array();
   var arp_count = 0;
-  var device_data = fs.readFileSync(__dirname + "/device_data.json", 'utf8');
+  var device_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
 
   ! function arp_repeat() {
     arp_count++;
