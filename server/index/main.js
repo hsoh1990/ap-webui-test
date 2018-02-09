@@ -87,7 +87,7 @@ module.exports = function(app, fs, url) {
     ! function arp_repeat() {
       //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
       //반복하는 부분
-      wait(1000);
+      router_socket.wait(1000);
       console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
       console.log("반복 시작");
       console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
@@ -99,7 +99,7 @@ module.exports = function(app, fs, url) {
       for (var a = 0; a < Object.keys(data__).length; a++) {
         var _promise = function(a, data__, data_key) {
           return new Promise(function(resolve, reject) {
-            arp_req(a, data__, data_key, resolve, reject);
+            router_socket.arp_req(a, data__, data_key, resolve, reject);
           });
         };
         _promise(a, data__, data_key)
