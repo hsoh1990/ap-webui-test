@@ -182,7 +182,7 @@ module.exports = function(app, fs, url) {
       'IP Address': ap_ip,
       'MAC Address': ap_mac,
       'Host name': ap_hostname,
-      'owner': '이름이 없습니다.'
+      'owner': 'AP'
     }
     socket.emit('exnetinfor', wlan_exnetinfor);
     socket.emit('wlaninfor', wlan_infor);
@@ -206,41 +206,4 @@ module.exports = function(app, fs, url) {
     });
 
   });
-/*
-  io.sockets.on('connect', function(socket) {
-    var socket = socket;
-    sockets.push(socket);
-    console.log("소켓 연결 완료 : " + sockets.length);
-    var connect_bool = true;
-    var ap_ip = router_socket.eth0_ip_rec();
-    var ap_mac = router_socket.eth0_mac_rec();
-    var ap_hostname = router_socket.hostname_rec();
-    var wlan_infor = router_socket.wlan_whois();
-    var wlan_exnetinfor = router_socket.wlan_exnet_data();
-
-    ap_infor = {
-      'IP Address': ap_ip,
-      'MAC Address': ap_mac,
-      'Host name': ap_hostname
-    }
-    socket.emit('exnetinfor', wlan_exnetinfor);
-    socket.emit('wlaninfor', wlan_infor);
-    socket.emit('apinfor', ap_infor);
-    console.log(wlan_exnetinfor);
-
-    socket.on('disconnect', function() {
-      connect_bool = false;
-      for(var a = 0;a < sockets.length; a++) {
-        if(sockets[a] == socket){
-          sockets.splice(a, 1);
-        }
-      }
-      console.log("소켓 접속 종료 : " + sockets.length);
-    });
-
-    // 클라이언트에서 my other event가 발생하면 데이터를 받는다.
-    socket.on('owner__', function(data) {
-      console.log(data);
-    });
-  });*/
 }
