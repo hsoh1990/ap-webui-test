@@ -69,9 +69,15 @@ module.exports = function(app, fs, url) {
 
   console.log("read_data : " + read_data);
 
-  function data_broadcasting(result_data) {
+  function data_arp_broadcasting(result_data) {
     for(var a = 0;a < sockets.length; a++) {
       sockets[a].emit('arp', result_data);
+    }
+  }
+
+  function data_ap_broadcasting(result_data) {
+    for(var a = 0;a < sockets.length; a++) {
+      sockets[a].emit('apinfor', result_data);
     }
   }
 
@@ -109,7 +115,7 @@ module.exports = function(app, fs, url) {
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
-            data_broadcasting(result);
+            data_arp_broadcasting(result);
           }
           else {
             console.log("데이터 저장 완료");
@@ -120,7 +126,7 @@ module.exports = function(app, fs, url) {
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
-            data_broadcasting(result);
+            data_arp_broadcasting(result);
           }
         }, function(result) {
           // 실패시
@@ -139,7 +145,7 @@ module.exports = function(app, fs, url) {
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
-            data_broadcasting(result);
+            data_arp_broadcasting(result);
           }
           else {
             console.log("데이터 저장 완료");
@@ -150,7 +156,7 @@ module.exports = function(app, fs, url) {
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
-            data_broadcasting(result);
+            data_arp_broadcasting(result);
           }
         });
 
@@ -196,7 +202,7 @@ module.exports = function(app, fs, url) {
     socket.on('owner__ap', function(data) {
       ap_infor['MAC Address'] = data['mac'];
       ap_infor['owner'] = data['owner'];
-      socket.emit('apinfor', ap_infor);
+      data_ap_broadcasting(ap_infor);
     });
 
   });
