@@ -64,8 +64,9 @@ module.exports = function(app, fs, url) {
 
   var sockets = new Array();
   var arp_count = 0;
-  var device_data = new Array();
   var read_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
+  var device_data = JSON.parse(read_data);
+
   console.log("read_data : " + read_data);
   ! function arp_repeat() {
     arp_count++;
@@ -95,15 +96,17 @@ module.exports = function(app, fs, url) {
           else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
             device_data.splice(data_check['a'], 0, result);
+            const stringify_data = JSON.stringify(device_data);
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-              device_data, "utf8",
+              stringify_data, "utf8",
               function(err, data) {})
           }
           else {
             console.log("데이터 저장 완료");
             device_data.push(result);
+            const stringify_data = JSON.stringify(device_data);
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-              device_data, "utf8",
+              stringify_data, "utf8",
               function(err, data) {})
           }
         }, function(result) {
@@ -117,15 +120,17 @@ module.exports = function(app, fs, url) {
           else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
             device_data.splice(data_check['a'], 0, result);
+            const stringify_data = JSON.stringify(device_data);
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-              device_data, "utf8",
+              stringify_data, "utf8",
               function(err, data) {})
           }
           else {
             console.log("데이터 저장 완료");
             device_data.push(result);
+            const stringify_data = JSON.stringify(device_data);
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-              device_data, "utf8",
+              stringify_data, "utf8",
               function(err, data) {})
           }
         });
