@@ -2,6 +2,7 @@ module.exports = function(app, fs, url) {
   var router_index_login = require('./index_login.js');
   var router_socket = require('./socket.js');
 
+  var fs = require("fs");
   var exec = require('child_process').exec,
     child;
   const {
