@@ -218,5 +218,9 @@ module.exports = function(app, fs, url) {
       data_wlan_broadcasting(wlan_infor);
     });
 
+    socket.on('owner__connect', function(data) {
+      console.log(JSON.stringify(data));
+    });
+
   });
 }
