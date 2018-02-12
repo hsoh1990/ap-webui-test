@@ -778,7 +778,7 @@ function connect_draw(enable, res_count, conn_count) {
 
     stage.batchDraw();
 
-
+/*
     var tmp_ = new Object();
     tmp_['a'] = a;
     tmp_['mac'] = res_count[a]['MAC Address'];
@@ -790,7 +790,7 @@ function connect_draw(enable, res_count, conn_count) {
     }
     if (tmp_c == 0) {
       owner_index_mac.push
-    }
+    }*/
     owner_text.on('dblclick', () => {
       // create textarea over canvas with absolute position
 
