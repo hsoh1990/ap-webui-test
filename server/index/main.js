@@ -71,6 +71,7 @@ module.exports = function(app, fs, url) {
 
   function data_arp_broadcasting(result_data) {
     for(var a = 0;a < sockets.length; a++) {
+      console.log("브로드캐스팅 보냄");
       sockets[a].emit('arp', result_data);
     }
   }
