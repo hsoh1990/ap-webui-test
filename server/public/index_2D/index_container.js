@@ -791,7 +791,8 @@ function connect_draw(enable, res_count, conn_count) {
     if (tmp_c == 0) {
       owner_index_mac.push
     }*/
-    owner_text.on('dblclick', () => {
+    var count = a;
+    owner_text.on('dblclick', (count) => {
       // create textarea over canvas with absolute position
 
       // first we need to find its positon
@@ -822,7 +823,7 @@ function connect_draw(enable, res_count, conn_count) {
         if (e.keyCode === 13) {
           owner_text.text(textarea.value);
           document.body.removeChild(textarea);
-          socket.emit('owner__connect', owner_data(res_count[0]['MAC Address'], textarea.value));
+          socket.emit('owner__connect', owner_data(res_count[count]['MAC Address'], textarea.value));
         }
       });
     })
