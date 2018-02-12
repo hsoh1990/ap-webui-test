@@ -33,6 +33,8 @@ const blue_svgpath = '/svg/button-blue_benji_park_01.svg';
 const androidphone_svgpath = '/svg/android-phone.svg';
 const iphone_svgpath = '/svg/iphone.svg';
 
+var owner_index_mac = new Array();
+
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //stage의 wudth 크기 브라우저크기에 따라 자동 설정
 
@@ -776,6 +778,19 @@ function connect_draw(enable, res_count, conn_count) {
 
     stage.batchDraw();
 
+
+    var tmp_ = new Object();
+    tmp_['a'] = a;
+    tmp_['mac'] = res_count[a]['MAC Address'];
+    var tmp_c = 0;
+    for (var a = 0;a < owner_index_mac.length; a++) {
+      if(owner_index_mac[a]['mac'] == res_count[a]['MAC Address']){
+        tmp_c++;
+      }
+    }
+    if (tmp_c == 0) {
+      owner_index_mac.push
+    }
     owner_text.on('dblclick', () => {
       // create textarea over canvas with absolute position
 
@@ -807,7 +822,7 @@ function connect_draw(enable, res_count, conn_count) {
         if (e.keyCode === 13) {
           owner_text.text(textarea.value);
           document.body.removeChild(textarea);
-          socket.emit('owner__connect', owner_data(res_count[a]['MAC Address'], textarea.value));
+          socket.emit('owner__connect', owner_data(res_count[0]['MAC Address'], textarea.value));
         }
       });
     })
