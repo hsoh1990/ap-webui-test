@@ -807,7 +807,6 @@ function connect_draw(enable, res_count, conn_count) {
         if (e.keyCode === 13) {
           owner_text.text(textarea.value);
           document.body.removeChild(textarea);
-          alert(a);
           socket.emit('owner__connect', owner_data(res_count[a]['MAC Address'], textarea.value));
         }
       });
