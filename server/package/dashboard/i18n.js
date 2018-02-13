@@ -21,7 +21,7 @@ i18next.init({
 });
 
 function updateContent() {
-  document.getElementById('output').innerHTML = i18next.t('key');
+  document.getElementById('test').innerHTML = i18next.t('key');
 }
 
 function changeLng(lng) {
