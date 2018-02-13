@@ -67,9 +67,9 @@
       </div>
       <!-- /.navbar-default -->
       <div style="float: right; padding: 5px 5px;">
-        <select class="form-control" id="lee">
-          <option onclick="i18next.changeLanguage('en')">english</option>
-          <option onclick="i18next.changeLanguage('kr')">한국어</option>
+        <select id="lang_select" class="form-control" onchange="changeLng()">
+          <option value="en">english</option>
+          <option value="ko">한국어</option>
         </select>
         <!--
         <button onclick="i18next.changeLanguage('en')">

@@ -9,7 +9,7 @@ i18next.init({
         "key": "hello world"
       }
     },
-    kr: {
+    ko: {
       translation: {
         "key": "hello welt"
       }
@@ -24,8 +24,10 @@ function updateContent() {
   document.getElementById('test').innerHTML = i18next.t('key');
 }
 
-function changeLng(lng) {
-  i18next.changeLanguage(lng);
+function changeLng() {
+  var langSelect = document.getElementById("lang_select");
+  var selectValue = langSelect.options[langSelect.selectedIndex].value;
+  i18next.changeLanguage(selectValue);
 }
 
 i18next.on('languageChanged', () => {
