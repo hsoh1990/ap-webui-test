@@ -97,7 +97,18 @@ module.exports = function(app, fs, url) {
       sockets[a].emit('owner_conn_result', result_data);
     }
   }
-
+  function device_data_splice(data_check, result) {
+    device_data.splice(data_check['a'], 1, result);
+    delete device_data['check'];
+    delete device_data['a'];
+    return JSON.stringify(device_data, null, '\t');
+  }
+  function device_data_push(data_check, result) {
+    device_data.push(result);
+    delete device_data['check'];
+    delete device_data['a'];
+    return JSON.stringify(device_data, null, '\t');
+  }
   ! function arp_repeat() {
     arp_count++;
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -125,10 +136,7 @@ module.exports = function(app, fs, url) {
           }
           else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
-            device_data.splice(data_check['a'], 1, result);
-            delete device_data['check'];
-            delete device_data['a'];
-            const stringify_data = JSON.stringify(device_data, null, '\t');
+            const stringify_data = device_data_splice(data_check, result);
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
@@ -136,10 +144,7 @@ module.exports = function(app, fs, url) {
           }
           else {
             console.log("데이터 저장 완료");
-            device_data.push(result);
-            delete device_data['check'];
-            delete device_data['a'];
-            const stringify_data = JSON.stringify(device_data, null, '\t');
+            const stringify_data = device_data_push(data_check, result);
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
@@ -155,10 +160,7 @@ module.exports = function(app, fs, url) {
           }
           else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
-            delete device_data['check'];
-            delete device_data['a'];
-            device_data.splice(data_check['a'], 1, result);
-            const stringify_data = JSON.stringify(device_data, null, '\t');
+            const stringify_data = device_data_splice(data_check, result);
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
@@ -166,10 +168,7 @@ module.exports = function(app, fs, url) {
           }
           else {
             console.log("데이터 저장 완료");
-            device_data.push(result);
-            delete device_data['check'];
-            delete device_data['a'];
-            const stringify_data = JSON.stringify(device_data, null, '\t');
+            const stringify_data = device_data_push(data_check, result);
             fs.writeFileSync(__dirname + "/data/" + "device_data.json",
               stringify_data, "utf8",
               function(err, data) {})
@@ -184,18 +183,19 @@ module.exports = function(app, fs, url) {
       arp_repeat();
     }, 11000);
   }()
-  io.sockets.on('connect', function(socket) {
-    var connect_bool = true;
+
+  function socket_init() {
+    connect_bool = true;
     sockets.push(socket);
     console.log("소켓 연결 완료 : " + sockets.length);
 
-    var ap_ip = router_socket.eth0_ip_rec();
-    var ap_mac = router_socket.eth0_mac_rec();
-    var ap_hostname = router_socket.hostname_rec();
-    var wlan_infor = router_socket.wlan_whois();
-    var wlan_exnetinfor = router_socket.wlan_exnet_data();
+    ap_ip = router_socket.eth0_ip_rec();
+    ap_mac = router_socket.eth0_mac_rec();
+    ap_hostname = router_socket.hostname_rec();
+    wlan_infor = router_socket.wlan_whois();
+    wlan_exnetinfor = router_socket.wlan_exnet_data();
 
-    var ap_infor = router_socket.ap_data_save(ap_ip, ap_mac, ap_hostname);
+    ap_infor = router_socket.ap_data_save(ap_ip, ap_mac, ap_hostname);
 
     socket.emit('exnetinfor', wlan_exnetinfor);
     socket.emit('apinfor', ap_infor);
@@ -203,6 +203,11 @@ module.exports = function(app, fs, url) {
     for(var a = 0;a < device_data.length; a++) {
       socket.emit('arp', device_data[a]);
     }
+  }
+
+  io.sockets.on('connect', function(socket) {
+    socket_init();
+
     socket.on('disconnect', function() {
       connect_bool = false;
       for(var a = 0;a < sockets.length; a++) {
@@ -212,6 +217,7 @@ module.exports = function(app, fs, url) {
       }
       console.log("소켓 접속 종료 : " + sockets.length);
     });
+
     socket.on('owner__ap', function(data) {
       ap_infor['MAC Address'] = data['mac'];
       ap_infor['owner'] = data['owner'];
@@ -220,6 +226,7 @@ module.exports = function(app, fs, url) {
         function(err, data) {})
       data_ap_broadcasting(ap_infor);
     });
+
     socket.on('owner__wlan', function(data) {
       wlan_infor['MAC Address'] = data['mac'];
       wlan_infor['owner'] = data['owner'];
@@ -245,6 +252,7 @@ module.exports = function(app, fs, url) {
         function(err, data) {})
       data_disconn_owner_broadcasting(parse_data[a]);
     });
+
     socket.on('owner__connect', function(data) {
       var stringify_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
       var parse_data = JSON.parse(stringify_data);
@@ -261,5 +269,6 @@ module.exports = function(app, fs, url) {
         function(err, data) {})
       data_conn_owner_broadcasting(parse_data[a]);
     });
+
   });
 }
