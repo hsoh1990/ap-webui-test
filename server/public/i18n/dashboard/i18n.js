@@ -25,7 +25,14 @@ i18next.init({
 
 function updateContent() {
   document.getElementById('name_id').innerHTML = i18next.t('name');
-  //document.getElementById('auth_navid').innerHTML = i18next.t('nav_auth');
+  if ( document.getElementById("dashboard_navid")  != null ) {
+    document.getElementById('dashboard_navid').innerHTML = i18next.t('name');
+  }
+}
+
+
+
+출처: http://d4emon.tistory.com/40 [게으른 개발자!!!]
 }
 
 function changeLng() {
