@@ -227,7 +227,7 @@ module.exports = function(app, fs, url) {
       var stringify_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
       var parse_data = JSON.parse(stringify_data);
       console.log(parse_data);
-      console.log("mac === " + data['mac']);
+      console.log("data = \n" + data);
       for (var a = 0;a < parse_data.lrngth; a++) {
         if(parse_data[a]['MAC Address'] == data['mac']) {
           parse_data[a]['owner'] = data['owner'];
