@@ -184,7 +184,7 @@ module.exports = function(app, fs, url) {
     }, 11000);
   }()
 
-  function socket_init() {
+  function socket_init(socket) {
     connect_bool = true;
     sockets.push(socket);
     console.log("소켓 연결 완료 : " + sockets.length);
@@ -206,7 +206,7 @@ module.exports = function(app, fs, url) {
   }
 
   io.sockets.on('connect', function(socket) {
-    socket_init();
+    socket_init(socket);
 
     socket.on('disconnect', function() {
       connect_bool = false;
