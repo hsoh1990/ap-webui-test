@@ -143,7 +143,53 @@ function textarea_on(owner_text, layer, data) {
       }
     });
   })
+}
+function textarea_device_on(layer, text_layer_dex, data, index) {
+  text_layer_dex.on('dblclick', function(evt) {
+    // create textarea over canvas with absolute position
+    var tmp_i = 0;
+    for( var b = 0;b < layer.length; b++) {
+      if (layer[b]._id == evt.target._id) {
+        tmp_i = b;
+        break;
+      }
+    }
+    // first we need to find its positon
+    var textPosition = layer[tmp_i].getAbsolutePosition();
+    var stageBox = stage.getContainer().getBoundingClientRect();
 
+    var areaPosition = {
+      x: textPosition.x + stageBox.left,
+      y: textPosition.y + stageBox.top
+    };
+
+
+    // create textarea and style it
+    var textarea = document.createElement('textarea');
+    document.body.appendChild(textarea);
+
+    textarea.value = layer[tmp_i].text();
+    textarea.style.position = 'absolute';
+    textarea.style.top = areaPosition.y + 'px';
+    textarea.style.left = areaPosition.x + 'px';
+    textarea.style.width = layer[tmp_i].width();
+
+    textarea.focus();
+
+
+    textarea.addEventListener('keydown', function(e) {
+      // hide on enter
+      if (e.keyCode === 13) {
+        layer[tmp_i].text(textarea.value);
+        document.body.removeChild(textarea);
+        if(index == 1) {
+          socket.emit('owner__disconnect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
+        } else if (index == 2) {
+          socket.emit('owner__connect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
+        }
+      }
+    });
+  })
 }
 function ap_draw(enable__, ap_data) {
   aplayer.removeChildren();
@@ -236,43 +282,6 @@ function ap_draw(enable__, ap_data) {
   stage.batchDraw();
 
   textarea_on(owner_text, ap_owner_layer, ap_data);
- /*
-  owner_text.on('dblclick', () => {
-    // create textarea over canvas with absolute position
-
-    // first we need to find its positon
-    var textPosition = owner_text.getAbsolutePosition();
-    var stageBox = stage.getContainer().getBoundingClientRect();
-
-    var areaPosition = {
-      x: textPosition.x + stageBox.left,
-      y: textPosition.y + stageBox.top
-    };
-
-
-    // create textarea and style it
-    var textarea = document.createElement('textarea');
-    document.body.appendChild(textarea);
-
-    textarea.value = owner_text.text();
-    textarea.style.position = 'absolute';
-    textarea.style.top = areaPosition.y + 'px';
-    textarea.style.left = areaPosition.x + 'px';
-    textarea.style.width = owner_text.width();
-
-    textarea.focus();
-
-
-    textarea.addEventListener('keydown', function(e) {
-      // hide on enter
-      if (e.keyCode === 13) {
-        owner_text.text(textarea.value);
-        ap_owner_layer.draw();
-        document.body.removeChild(textarea);
-        socket.emit('owner__ap', owner_data(ap_data[0]['MAC Address'], textarea.value));
-      }
-    });
-  })*/
 }
 
 function owner_data (mac, text) {
@@ -373,42 +382,7 @@ function wlan_draw(enable__, wlan_data) {
 
   stage.batchDraw();
 
-  owner_text.on('dblclick', () => {
-    // create textarea over canvas with absolute position
-
-    // first we need to find its positon
-    var textPosition = owner_text.getAbsolutePosition();
-    var stageBox = stage.getContainer().getBoundingClientRect();
-
-    var areaPosition = {
-      x: textPosition.x + stageBox.left,
-      y: textPosition.y + stageBox.top
-    };
-
-
-    // create textarea and style it
-    var textarea = document.createElement('textarea');
-    document.body.appendChild(textarea);
-
-    textarea.value = owner_text.text();
-    textarea.style.position = 'absolute';
-    textarea.style.top = areaPosition.y + 'px';
-    textarea.style.left = areaPosition.x + 'px';
-    textarea.style.width = owner_text.width();
-
-    textarea.focus();
-
-
-    textarea.addEventListener('keydown', function(e) {
-      // hide on enter
-      if (e.keyCode === 13) {
-        owner_text.text(textarea.value);
-        wlan_owner_layer.draw();
-        document.body.removeChild(textarea);
-        socket.emit('owner__wlan', owner_data(wlan_data[0]['MAC Address'], textarea.value));
-      }
-    });
-  })
+  textarea_on(owner_text, wlan_owner_layer, wlan_data);
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //반원 상에서 기기들 위치 계산 부분
@@ -697,47 +671,7 @@ function disconnect_draw(enable, res_count, conn_count) {
 
     stage.batchDraw();
 
-    disconn_owner_text[a].on('dblclick', function(evt) {
-      // create textarea over canvas with absolute position
-      var tmp_i = 0;
-      for( var b = 0;b < disconn_owner_text.length; b++) {
-        if (disconn_owner_text[b]._id == evt.target._id) {
-          tmp_i = b;
-          break;
-        }
-      }
-      // first we need to find its positon
-      var textPosition = disconn_owner_text[tmp_i].getAbsolutePosition();
-      var stageBox = stage.getContainer().getBoundingClientRect();
-
-      var areaPosition = {
-        x: textPosition.x + stageBox.left,
-        y: textPosition.y + stageBox.top
-      };
-
-
-      // create textarea and style it
-      var textarea = document.createElement('textarea');
-      document.body.appendChild(textarea);
-
-      textarea.value = disconn_owner_text[tmp_i].text();
-      textarea.style.position = 'absolute';
-      textarea.style.top = areaPosition.y + 'px';
-      textarea.style.left = areaPosition.x + 'px';
-      textarea.style.width = disconn_owner_text[tmp_i].width();
-
-      textarea.focus();
-
-
-      textarea.addEventListener('keydown', function(e) {
-        // hide on enter
-        if (e.keyCode === 13) {
-          disconn_owner_text[tmp_i].text(textarea.value);
-          document.body.removeChild(textarea);
-          socket.emit('owner__disconnect', owner_data(res_count[tmp_i]['MAC Address'], textarea.value));
-        }
-      });
-    })
+    textarea_device_on(disconn_owner_text, disconn_owner_text[a], res_count, 1);
   }
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -852,47 +786,7 @@ function connect_draw(enable, res_count, conn_count) {
 
     stage.batchDraw();
 
-    conn_owner_text[a].on('dblclick', function(evt) {
-      // create textarea over canvas with absolute position
-      var tmp_i = 0;
-      for( var b = 0;b < conn_owner_text.length; b++) {
-        if (conn_owner_text[b]._id == evt.target._id) {
-          tmp_i = b;
-          break;
-        }
-      }
-      // first we need to find its positon
-      var textPosition = conn_owner_text[tmp_i].getAbsolutePosition();
-      var stageBox = stage.getContainer().getBoundingClientRect();
-
-      var areaPosition = {
-        x: textPosition.x + stageBox.left,
-        y: textPosition.y + stageBox.top
-      };
-
-
-      // create textarea and style it
-      var textarea = document.createElement('textarea');
-      document.body.appendChild(textarea);
-
-      textarea.value = conn_owner_text[tmp_i].text();
-      textarea.style.position = 'absolute';
-      textarea.style.top = areaPosition.y + 'px';
-      textarea.style.left = areaPosition.x + 'px';
-      textarea.style.width = conn_owner_text[tmp_i].width();
-
-      textarea.focus();
-
-
-      textarea.addEventListener('keydown', function(e) {
-        // hide on enter
-        if (e.keyCode === 13) {
-          conn_owner_text[tmp_i].text(textarea.value);
-          document.body.removeChild(textarea);
-          socket.emit('owner__connect', owner_data(res_count[tmp_i]['MAC Address'], textarea.value));
-        }
-      });
-    })
+    textarea_device_on(conn_owner_text, conn_owner_text[a], res_count, 2);
   }
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
