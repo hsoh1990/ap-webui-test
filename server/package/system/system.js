@@ -207,6 +207,9 @@ exports.uninstall_package = function(req, res, select) {
       execSync('rm -r package/' + package_name, {
         encoding: 'utf8'
       });
+      execSync('rm -r public/i18n/' + package_name, {
+        encoding: 'utf8'
+      });
       execSync('sed -i /' + package_name + '/d ./server.js', {
         encoding: 'utf8'
       });

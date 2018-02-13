@@ -6,12 +6,15 @@ i18next.init({
   resources: {
     en: {
       translation: {
-        "key": "hello world"
+        "name": "Dashboard",
+        "nav_auth": "Auth"
+
       }
     },
     ko: {
       translation: {
-        "key": "hello welt"
+        "name": "대시보드",
+        "nav_auth": "암호 변경"
       }
     }
   }
@@ -21,7 +24,8 @@ i18next.init({
 });
 
 function updateContent() {
-  document.getElementById('test').innerHTML = i18next.t('key');
+  document.getElementById('name_id').innerHTML = i18next.t('name');
+  document.getElementById('nav_authid').innerHTML = i18next.t('nav_auth');
 }
 
 function changeLng() {

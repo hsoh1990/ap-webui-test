@@ -22,7 +22,7 @@ function sidemenu_output(sidemenu_data) {
   var content = "";
   for (var a = 0; a < Object.keys(sidemenu_data).length; a++) {
     content += "<li>";
-    content += "<a href=" + sidemenu_data_key[a] + "><i class=''></i> " + sidemenu_data[sidemenu_data_key[a]] + "</a>"
+    content += "<a href=" + sidemenu_data_key[a] + " id=\"" + sidemenu_data_key[a] + "_navid\"><i class=''></i> " + sidemenu_data[sidemenu_data_key[a]] + "</a>"
     content += "</li>";
   }
   document.getElementById("side-menu").innerHTML = content;
