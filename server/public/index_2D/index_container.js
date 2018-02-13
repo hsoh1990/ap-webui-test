@@ -708,6 +708,7 @@ function disconnect_draw(enable, res_count, conn_count) {
       // create textarea over canvas with absolute position
 
       // first we need to find its positon
+      console.log("a = " + a);
       var textPosition = disconn_owner_text[a].getAbsolutePosition();
       var stageBox = stage.getContainer().getBoundingClientRect();
 
