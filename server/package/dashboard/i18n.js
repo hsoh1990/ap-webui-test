@@ -9,7 +9,7 @@ i18next.init({
         "key": "hello world"
       }
     },
-    de: {
+    kr: {
       translation: {
         "key": "hello welt"
       }
