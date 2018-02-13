@@ -23,7 +23,12 @@ var disconnect_owner_Layer = new Konva.Layer();
 var connect_device_Layer = new Konva.Layer();
 var connect_line_Layer = new Konva.Layer();
 var connect_text_Layer = new Konva.Layer();
+
+var disconn_owner_layer_Array = new Array();
 var conn_owner_layer_Array = new Array();
+var disconn_owner_text = new Array();
+
+
 var connect_radius = 380;
 var disconnect_radius = 550;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
@@ -66,6 +71,15 @@ window.addEventListener('resize', fitStageIntoParentContainer);
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //레이어에 추가한것 제거부분, stage clear 부분
 function layer_removechildren() {
+  var count = disconn_owner_layer_Array.length;
+  for (var a = 0;a < count; a++) {
+    disconn_owner_layer_Array.pop();
+  }
+  var count = disconn_owner_text.length;
+  for (var a = 0;a < count; a++) {
+    disconn_owner_text.pop();
+  }
+
   stage.clear();
   stage.removeChildren();
 
@@ -595,7 +609,13 @@ function disconnect_draw(enable, res_count, conn_count) {
 
   semicircle_calcul(resultxy, device_count, radius);
 
+
   for (var a = 0; a < device_count; a++) {
+
+    const tmp__ = new Konva.Layer();
+    disconn_owner_layer_Array.push(tmp__);
+    stage.add(disconn_owner_layer_Array[a]);
+
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
 
@@ -661,14 +681,65 @@ function disconnect_draw(enable, res_count, conn_count) {
       cornerRadius: 10
     });
 
+    var owner_text = new Konva.Text({
+      x: x - 175,
+      y: y - 50,
+      text: res_count[a]['owner'],
+      fontSize: 18,
+      fontFamily: 'Calibri',
+      fill: '#555',
+      width: 320,
+      padding: 20,
+      align: 'center'
+    });
+    disconn_owner_text.push(owner_text);
+
     disconnect_text_Layer.add(devicetextbox);
     disconnect_text_Layer.add(devicetext);
-
+    disconn_owner_layer_Array[a].add(disconn_owner_text[a]);
     disconnect_line_Layer.draw();
     disconnect_device_Layer.draw();
     disconnect_text_Layer.draw();
+    disconn_owner_layer_Array[a].draw();
 
     stage.batchDraw();
+
+    disconn_owner_text[a].on('dblclick', function(evt) => {
+      // create textarea over canvas with absolute position
+
+      // first we need to find its positon
+      var textPosition = owner_text.getAbsolutePosition();
+      var stageBox = stage.getContainer().getBoundingClientRect();
+
+      var areaPosition = {
+        x: textPosition.x + stageBox.left,
+        y: textPosition.y + stageBox.top
+      };
+
+
+      // create textarea and style it
+      var textarea = document.createElement('textarea');
+      document.body.appendChild(textarea);
+
+      textarea.value = owner_text.text();
+      textarea.style.position = 'absolute';
+      textarea.style.top = areaPosition.y + 'px';
+      textarea.style.left = areaPosition.x + 'px';
+      textarea.style.width = owner_text.width();
+
+      textarea.focus();
+
+
+      textarea.addEventListener('keydown', function(e) {
+        // hide on enter
+        if (e.keyCode === 13) {
+          owner_text.text(textarea.value);
+          console.log(evt.target);
+          document.body.removeChild(textarea);
+          //socket.emit('owner__connect', owner_data(res_count[]['MAC Address'], textarea.value));
+        }
+      });
+    })
   }
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -777,7 +848,6 @@ function connect_draw(enable, res_count, conn_count) {
     conn_owner_layer_Array[a].draw();
 
     stage.batchDraw();
-
 /*
     var tmp_ = new Object();
     tmp_['a'] = a;
@@ -791,8 +861,7 @@ function connect_draw(enable, res_count, conn_count) {
     if (tmp_c == 0) {
       owner_index_mac.push
     }*/
-    var count = a;
-    owner_text.on('dblclick', (count) => {
+    owner_text.on('dblclick', () => {
       // create textarea over canvas with absolute position
 
       // first we need to find its positon
@@ -822,8 +891,9 @@ function connect_draw(enable, res_count, conn_count) {
         // hide on enter
         if (e.keyCode === 13) {
           owner_text.text(textarea.value);
+
           document.body.removeChild(textarea);
-          socket.emit('owner__connect', owner_data(res_count[count]['MAC Address'], textarea.value));
+          socket.emit('owner__connect', owner_data(res_count[]['MAC Address'], textarea.value));
         }
       });
     })
