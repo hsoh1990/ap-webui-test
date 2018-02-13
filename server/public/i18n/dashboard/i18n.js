@@ -25,7 +25,7 @@ i18next.init({
 
 function updateContent() {
   document.getElementById('name_id').innerHTML = i18next.t('name');
-  document.getElementById('nav_authid').innerHTML = i18next.t('nav_auth');
+  document.getElementById('auth_navid').innerHTML = i18next.t('nav_auth');
 }
 
 function changeLng() {
