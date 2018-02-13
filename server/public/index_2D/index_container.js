@@ -192,10 +192,11 @@ function ap_draw(enable__, ap_data) {
   aplayer.add(ap);
   aplayer.add(aptextbox);
   aplayer.add(aptext);
-  ap_owner_layer.add(owner_text);
   aplayer.draw();
-  ap_owner_layer.draw();
-
+  if (enable__['owner'] == 1) {
+    ap_owner_layer.add(owner_text);
+    ap_owner_layer.draw();
+  }
   stage.batchDraw();
 
   owner_text.on('dblclick', () => {
