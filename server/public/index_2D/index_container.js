@@ -327,9 +327,11 @@ function wlan_draw(enable__, wlan_data) {
   wlanlayer.add(wlan_box);
   wlanlayer.add(wlantextbox);
   wlanlayer.add(wlantext);
-  wlan_owner_layer.add(owner_text);
   wlanlayer.draw();
-  wlan_owner_layer.draw();
+  if (enable__['owner'] == 1) {
+    wlan_owner_layer.add(owner_text);
+    wlan_owner_layer.draw();
+  }
 
   stage.batchDraw();
 
@@ -646,11 +648,14 @@ function disconnect_draw(enable, res_count, conn_count) {
 
     disconnect_text_Layer.add(devicetextbox);
     disconnect_text_Layer.add(devicetext);
-    disconn_owner_layer_Array[a].add(disconn_owner_text[a]);
     disconnect_line_Layer.draw();
     disconnect_device_Layer.draw();
     disconnect_text_Layer.draw();
-    disconn_owner_layer_Array[a].draw();
+
+    if (enable__['owner'] == 1) {
+      disconn_owner_layer_Array[a].add(disconn_owner_text[a]);
+      disconn_owner_layer_Array[a].draw();
+    }
 
     stage.batchDraw();
 
@@ -797,12 +802,15 @@ function connect_draw(enable, res_count, conn_count) {
 
     connect_text_Layer.add(devicetextbox);
     connect_text_Layer.add(devicetext);
-    conn_owner_layer_Array[a].add(conn_owner_text[a]);
 
     connect_line_Layer.draw();
     connect_device_Layer.draw();
     connect_text_Layer.draw();
-    conn_owner_layer_Array[a].draw();
+
+    if (enable__['owner'] == 1) {
+      conn_owner_layer_Array[a].add(conn_owner_text[a]);
+      conn_owner_layer_Array[a].draw();
+    }
 
     stage.batchDraw();
 
