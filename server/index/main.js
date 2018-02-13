@@ -239,6 +239,7 @@ module.exports = function(app, fs, url) {
           break;
         }
       }
+      device_data = parse_data;
       fs.writeFileSync(__dirname + "/data/" + "device_data.json",
         JSON.stringify(parse_data, null, '\t'), "utf8",
         function(err, data) {})
@@ -254,6 +255,7 @@ module.exports = function(app, fs, url) {
           break;
         }
       }
+      device_data = parse_data;
       fs.writeFileSync(__dirname + "/data/" + "device_data.json",
         JSON.stringify(parse_data, null, '\t'), "utf8",
         function(err, data) {})
