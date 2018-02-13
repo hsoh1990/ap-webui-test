@@ -7,14 +7,14 @@ i18next.init({
     en: {
       translation: {
         "name": "Dashboard",
-        "nav_auth": "Auth"
+        "auth_nav": "Auth"
 
       }
     },
     ko: {
       translation: {
         "name": "대시보드",
-        "nav_auth": "암호 변경"
+        "auth_nav": "암호 변경"
       }
     }
   }
