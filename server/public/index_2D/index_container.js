@@ -783,7 +783,7 @@ function connect_draw(enable, res_count, conn_count) {
 
     var owner_text = new Konva.Text({
       x: x - 135,
-      y: y - 90,
+      y: y - 95,
       text: res_count[a]['owner'],
       fontSize: 18,
       fontFamily: 'Calibri',
