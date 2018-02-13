@@ -224,6 +224,7 @@ module.exports = function(app, fs, url) {
     });
 
     socket.on('owner__disconnect', function(data) {
+      console.log("확인");
       var stringify_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
       var parse_data = JSON.parse(stringify_data);
       for (var a = 0;a < parse_data.lrngth; a++) {
