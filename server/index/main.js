@@ -92,6 +92,12 @@ module.exports = function(app, fs, url) {
     }
   }
 
+  function data_conn_owner_broadcasting(result_data) {
+    for(var a = 0;a < sockets.length; a++) {
+      sockets[a].emit('owner_conn_result', result_data);
+    }
+  }
+
   ! function arp_repeat() {
     arp_count++;
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -238,6 +244,20 @@ module.exports = function(app, fs, url) {
         function(err, data) {})
       data_disconn_owner_broadcasting(parse_data[a]);
     });
-
+    socket.on('owner__connect', function(data) {
+      var stringify_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
+      var parse_data = JSON.parse(stringify_data);
+      for (var a = 0;a < parse_data.length; a++) {
+        if(parse_data[a]['MAC Address'] == data['mac']) {
+          parse_data[a]['owner'] = data['owner'];
+          console.log("owner = " + data['owner']);
+          break;
+        }
+      }
+      fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+        JSON.stringify(parse_data, null, '\t'), "utf8",
+        function(err, data) {})
+      data_conn_owner_broadcasting(parse_data[a]);
+    });
   });
 }

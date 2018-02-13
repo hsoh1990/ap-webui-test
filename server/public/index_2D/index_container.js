@@ -19,14 +19,15 @@ var wlan_text_Layer = new Konva.Layer();
 var disconnect_device_Layer = new Konva.Layer();
 var disconnect_line_Layer = new Konva.Layer();
 var disconnect_text_Layer = new Konva.Layer();
-var disconnect_owner_Layer = new Konva.Layer();
 var connect_device_Layer = new Konva.Layer();
 var connect_line_Layer = new Konva.Layer();
 var connect_text_Layer = new Konva.Layer();
 
 var disconn_owner_layer_Array = new Array();
-var conn_owner_layer_Array = new Array();
 var disconn_owner_text = new Array();
+var conn_owner_layer_Array = new Array();
+var conn_owner_text = new Array();
+
 
 
 var connect_radius = 380;
@@ -78,6 +79,14 @@ function layer_removechildren() {
   var count = disconn_owner_text.length;
   for (var a = 0;a < count; a++) {
     disconn_owner_text.pop();
+  }
+  var count = conn_owner_layer_Array.length;
+  for (var a = 0;a < count; a++) {
+    conn_owner_layer_Array.pop();
+  }
+  var count = conn_owner_text.length;
+  for (var a = 0;a < count; a++) {
+    conn_owner_text.pop();
   }
 
   stage.clear();
@@ -611,7 +620,6 @@ function disconnect_draw(enable, res_count, conn_count) {
 
 
   for (var a = 0; a < device_count; a++) {
-
     const tmp__ = new Konva.Layer();
     disconn_owner_layer_Array.push(tmp__);
     stage.add(disconn_owner_layer_Array[a]);
@@ -758,7 +766,8 @@ function connect_draw(enable, res_count, conn_count) {
   semicircle_calcul(resultxy, device_count, radius);
 
   for (var a = 0; a < device_count; a++) {
-    conn_owner_layer_Array[a] = new Konva.Layer();
+    const tmp__ = new Konva.Layer();
+    conn_owner_layer_Array.push(tmp__);
     stage.add(conn_owner_layer_Array[a]);
     var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
     var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
@@ -842,10 +851,11 @@ function connect_draw(enable, res_count, conn_count) {
       padding: 20,
       align: 'center'
     });
+    conn_owner_text.push(owner_text);
 
     connect_text_Layer.add(devicetextbox);
     connect_text_Layer.add(devicetext);
-    conn_owner_layer_Array[a].add(owner_text);
+    conn_owner_layer_Array[a].add(conn_owner_text[a]);
 
     connect_line_Layer.draw();
     connect_device_Layer.draw();
@@ -853,24 +863,18 @@ function connect_draw(enable, res_count, conn_count) {
     conn_owner_layer_Array[a].draw();
 
     stage.batchDraw();
-/*
-    var tmp_ = new Object();
-    tmp_['a'] = a;
-    tmp_['mac'] = res_count[a]['MAC Address'];
-    var tmp_c = 0;
-    for (var a = 0;a < owner_index_mac.length; a++) {
-      if(owner_index_mac[a]['mac'] == res_count[a]['MAC Address']){
-        tmp_c++;
-      }
-    }
-    if (tmp_c == 0) {
-      owner_index_mac.push
-    }*/
-    owner_text.on('dblclick', () => {
-      // create textarea over canvas with absolute position
 
+    conn_owner_text[a].on('dblclick', function(evt) {
+      // create textarea over canvas with absolute position
+      var tmp_i = 0;
+      for( var b = 0;b < conn_owner_text.length; b++) {
+        if (conn_owner_text[b]._id == evt.target._id) {
+          tmp_i = b;
+          break;
+        }
+      }
       // first we need to find its positon
-      var textPosition = owner_text.getAbsolutePosition();
+      var textPosition = conn_owner_text[tmp_i].getAbsolutePosition();
       var stageBox = stage.getContainer().getBoundingClientRect();
 
       var areaPosition = {
@@ -883,11 +887,11 @@ function connect_draw(enable, res_count, conn_count) {
       var textarea = document.createElement('textarea');
       document.body.appendChild(textarea);
 
-      textarea.value = owner_text.text();
+      textarea.value = conn_owner_text[tmp_i].text();
       textarea.style.position = 'absolute';
       textarea.style.top = areaPosition.y + 'px';
       textarea.style.left = areaPosition.x + 'px';
-      textarea.style.width = owner_text.width();
+      textarea.style.width = conn_owner_text[tmp_i].width();
 
       textarea.focus();
 
@@ -895,10 +899,9 @@ function connect_draw(enable, res_count, conn_count) {
       textarea.addEventListener('keydown', function(e) {
         // hide on enter
         if (e.keyCode === 13) {
-          owner_text.text(textarea.value);
-
+          conn_owner_text[tmp_i].text(textarea.value);
           document.body.removeChild(textarea);
-          //socket.emit('owner__connect', owner_data(res_count[]['MAC Address'], textarea.value));
+          socket.emit('owner__connect', owner_data(res_count[tmp_i]['MAC Address'], textarea.value));
         }
       });
     })
