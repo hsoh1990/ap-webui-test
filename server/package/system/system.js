@@ -310,6 +310,13 @@ exports.install_package = function(req, res, select) {
       execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + '.zip -d ' + __dirname + '/../' + package_name, {
         encoding: 'utf8'
       });
+      execSync('cd public/i18n && mkdir ' + package_name, {
+        encoding: 'utf8'
+      });
+      execSync('mv package/' + package_name + '/i18n.js public/i18n/' + package_name, {
+        encoding: 'utf8'
+      });
+
       const start_1 = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
         encoding: 'utf8'
       });
