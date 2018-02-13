@@ -89,7 +89,7 @@
       <div class="row">
         <div id="connent_text">
         </div>
-        <div id="stage-parent"  onKeyPress="if (event.keyCode==13){ canvas_keydown_dec() }">
+        <div id="stage-parent" onKeyPress="if (event.keyCode==13){ canvas_keydown_dec() }">
           <div id="container" style="margin: 0; padding: 0; overflow: hidden; background-color: #F0F0F0;">
           </div>
         </div>
@@ -257,16 +257,15 @@
       socket.on('wlaninfor',
         function(data) {
           var check_apcount = 0;
-          for(var a = 0;a < wlan_data.length; a++) {
-            if(wlan_data[a]['owner'] != data['owner']) {
+          for (var a = 0; a < wlan_data.length; a++) {
+            if (wlan_data[a]['owner'] != data['owner']) {
               wlan_data.splice(a, 1, data);
               check_apcount++;
-            }
-            else if (wlan_data[a]['owner'] == data['owner']) {
+            } else if (wlan_data[a]['owner'] == data['owner']) {
               check_apcount++;
             }
           }
-          if(check_apcount == 0) {
+          if (check_apcount == 0) {
             wlan_data.push(data);
           }
           wlan_draw(enable__, wlan_data);
@@ -275,19 +274,32 @@
       socket.on('apinfor',
         function(data) {
           var check_apcount = 0;
-          for(var a = 0;a < ap_data.length; a++) {
-            if(ap_data[a]['owner'] != data['owner']) {
+          for (var a = 0; a < ap_data.length; a++) {
+            if (ap_data[a]['owner'] != data['owner']) {
               ap_data.splice(a, 1, data);
               check_apcount++;
-            }
-            else if (ap_data[a]['owner'] == data['owner']) {
+            } else if (ap_data[a]['owner'] == data['owner']) {
               check_apcount++;
             }
           }
-          if(check_apcount == 0) {
+          if (check_apcount == 0) {
             ap_data.push(data);
           }
           ap_draw(enable__, ap_data);
+        });
+      socket.on('owner_conn_result',
+        function(data) {
+
+        });
+      socket.on('owner_disconn_result',
+        function(data) {
+          for (var e = 0;e < disconnect_data.length; e++) {
+            if (disconnect_data[e]['MAC Address'] == data['MAC Address']) {
+              disconnect_data[e]['owner'] = data['owner'];
+              break;
+            }
+          }
+          conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
         });
     }
 
@@ -300,7 +312,6 @@
       ap_draw(enable__, ap_data);
       connection_text(data['length'], (connect_count + disconnect_count));
     }
-
   </script>
 
   <script src="index_2D/index_container.js"></script>

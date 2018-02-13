@@ -713,7 +713,6 @@ function disconnect_draw(enable, res_count, conn_count) {
           break;
         }
       }
-      console.log(res_count[tmp_i]['MAC Address']);
       // first we need to find its positon
       var textPosition = disconn_owner_text[tmp_i].getAbsolutePosition();
       var stageBox = stage.getContainer().getBoundingClientRect();
@@ -743,7 +742,7 @@ function disconnect_draw(enable, res_count, conn_count) {
           disconn_owner_text[tmp_i].text(textarea.value);
           console.log(evt.target);
           document.body.removeChild(textarea);
-          //socket.emit('owner__connect', owner_data(res_count[]['MAC Address'], textarea.value));
+          socket.emit('owner__disconnect', owner_data(res_count[tmp_i]['MAC Address'], textarea.value));
         }
       });
     })
