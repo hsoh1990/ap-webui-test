@@ -25,9 +25,9 @@ i18next.init({
 
 function updateContent() {
   document.getElementById('name_id').innerHTML = i18next.t('name');
-  if ( document.getElementById("dashboard_navid")  != null ) {
+  //if ( document.getElementById("dashboard_navid")  != null ) {
     document.getElementById('dashboard_navid').innerHTML = i18next.t('name');
-  }
+  //}
 }
 
 function changeLng() {
