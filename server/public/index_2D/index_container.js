@@ -708,7 +708,7 @@ function disconnect_draw(enable, res_count, conn_count) {
       // create textarea over canvas with absolute position
 
       // first we need to find its positon
-      var textPosition = owner_text.getAbsolutePosition();
+      var textPosition = disconn_owner_text[a].getAbsolutePosition();
       var stageBox = stage.getContainer().getBoundingClientRect();
 
       var areaPosition = {
@@ -721,11 +721,11 @@ function disconnect_draw(enable, res_count, conn_count) {
       var textarea = document.createElement('textarea');
       document.body.appendChild(textarea);
 
-      textarea.value = owner_text.text();
+      textarea.value = disconn_owner_text[a].text();
       textarea.style.position = 'absolute';
       textarea.style.top = areaPosition.y + 'px';
       textarea.style.left = areaPosition.x + 'px';
-      textarea.style.width = owner_text.width();
+      textarea.style.width = disconn_owner_text[a].width();
 
       textarea.focus();
 
@@ -733,7 +733,7 @@ function disconnect_draw(enable, res_count, conn_count) {
       textarea.addEventListener('keydown', function(e) {
         // hide on enter
         if (e.keyCode === 13) {
-          owner_text.text(textarea.value);
+          disconn_owner_text[a].text(textarea.value);
           console.log(evt.target);
           document.body.removeChild(textarea);
           //socket.emit('owner__connect', owner_data(res_count[]['MAC Address'], textarea.value));
