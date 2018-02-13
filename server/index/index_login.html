@@ -171,6 +171,19 @@
       }
       conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
     }
+    function owner_onoff() {
+      var value = document.getElementById("ownerenable").value;
+
+      if (value == 1) {
+        document.getElementById("ownerenable").value = 0;
+        enable__['owner'] = 0;
+      } else if (value == 0) {
+        document.getElementById("ownerenable").value = 1;
+        enable__['owner'] = 1;
+      }
+      conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
+    }
+
 
     function arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count) {
       if (data['MAC Address'] == connect_data[a]['MAC Address']) {
@@ -202,7 +215,8 @@
       enable__ = {
         'ip': 1,
         'mac': 1,
-        'hostname': 1
+        'hostname': 1,
+        'owner': 1
       }
       arp_data = new Object();
 

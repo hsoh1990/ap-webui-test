@@ -57,11 +57,7 @@ function fitStageIntoParentContainer() {
 
 
   stage.width(stageWidth * scale);
-  //stage.height(stageHeight * scale);
-  /*stage.scale({
-    x: scale,
-    y: scale
-  });*/
+
   stage.draw();
 }
 
@@ -114,18 +110,6 @@ function layer_removechildren() {
 }
 
 function ap_draw(enable__, ap_data) {
-  /*
-  var AP_Rect = new Konva.Rect({
-    x: stage.getWidth() / 2 - 40,
-    y: stage.getHeight() / 2 - 30,
-    width: 80,
-    height: 60,
-    fill: 'yellow',
-    stroke: 'black',
-    strokeWidth: 3
-
-  });
-  */
   aplayer.removeChildren();
   ap_owner_layer.removeChildren();
   stage.add(aplayer);
@@ -183,43 +167,6 @@ function ap_draw(enable__, ap_data) {
   var Line_Rect_position_x = stage.getWidth() / 2 - 40;
   var Line_Rect_position_y = stage.getHeight() / 2 - 30;
 
-  /*var Line1 = new Konva.Line({ //좌측 위 작은선
-    points: [Line_Rect_position_x - 20, Line_Rect_position_y - 5, Line_Rect_position_x - 20, Line_Rect_position_y - 20, Line_Rect_position_x - 5, Line_Rect_position_y - 20],
-    stroke: 'blue',
-    strokeWidth: 3,
-    lineCap: 'round',
-    lineJoin: 'round',
-    tension: 1
-  });
-  var Line2 = new Konva.Line({ //좌측 위 큰선
-    points: [Line_Rect_position_x - 30, Line_Rect_position_y, Line_Rect_position_x - 30, Line_Rect_position_y - 30, Line_Rect_position_x, Line_Rect_position_y - 30],
-    stroke: 'blue',
-    strokeWidth: 3,
-    lineCap: 'round',
-    lineJoin: 'round',
-    tension: 1
-  });
-  var Line3 = new Konva.Line({ //우측 위 작은선
-    points: [Line_Rect_position_x + 20 + AP_Rect.getWidth(), Line_Rect_position_y - 5, Line_Rect_position_x + 20 + AP_Rect.getWidth(), Line_Rect_position_y - 20, Line_Rect_position_x + 5 + AP_Rect.getWidth(), Line_Rect_position_y - 20],
-    stroke: 'blue',
-    strokeWidth: 3,
-    lineCap: 'round',
-    lineJoin: 'round',
-    tension: 1
-  });
-  var Line4 = new Konva.Line({ //우측위 큰선
-    points: [Line_Rect_position_x + 30 + AP_Rect.getWidth(), Line_Rect_position_y, Line_Rect_position_x + 30 + AP_Rect.getWidth(), Line_Rect_position_y - 30, Line_Rect_position_x + AP_Rect.getWidth(), Line_Rect_position_y - 30],
-    stroke: 'blue',
-    strokeWidth: 3,
-    lineCap: 'round',
-    lineJoin: 'round',
-    tension: 1
-  });*/
-
-  // add the shape to the layer
-
-  // add the layer to the stage
-
 
   ap.on('mouseenter', function() {
     stage.container().style.cursor = 'pointer';
@@ -246,12 +193,6 @@ function ap_draw(enable__, ap_data) {
   aplayer.add(aptextbox);
   aplayer.add(aptext);
   ap_owner_layer.add(owner_text);
-  /*
-  aplayer.add(Line1);
-  aplayer.add(Line2);
-  aplayer.add(Line3);
-  aplayer.add(Line4);
-*/
   aplayer.draw();
   ap_owner_layer.draw();
 
@@ -690,8 +631,8 @@ function disconnect_draw(enable, res_count, conn_count) {
     });
 
     var owner_text = new Konva.Text({
-      x: x - 175,
-      y: y - 50,
+      x: x - 145,
+      y: y - 80,
       text: res_count[a]['owner'],
       fontSize: 18,
       fontFamily: 'Calibri',
@@ -841,8 +782,8 @@ function connect_draw(enable, res_count, conn_count) {
     });
 
     var owner_text = new Konva.Text({
-      x: x - 175,
-      y: y - 50,
+      x: x - 145,
+      y: y - 80,
       text: res_count[a]['owner'],
       fontSize: 18,
       fontFamily: 'Calibri',
