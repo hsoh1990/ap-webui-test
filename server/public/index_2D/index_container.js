@@ -704,8 +704,6 @@ function disconnect_draw(enable, res_count, conn_count) {
 
     stage.batchDraw();
 
-    console.log(disconn_owner_text[a]._id);
-
     disconn_owner_text[a].on('dblclick', function(evt) {
       // create textarea over canvas with absolute position
       var tmp_i = 0;
@@ -715,7 +713,7 @@ function disconnect_draw(enable, res_count, conn_count) {
           break;
         }
       }
-
+      console.log(res_count[tmp_i]['MAC Address']);
       // first we need to find its positon
       var textPosition = disconn_owner_text[tmp_i].getAbsolutePosition();
       var stageBox = stage.getContainer().getBoundingClientRect();
