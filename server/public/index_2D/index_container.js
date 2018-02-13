@@ -44,9 +44,6 @@ var owner_index_mac = new Array();
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //stage의 wudth 크기 브라우저크기에 따라 자동 설정
 
-function return_socket() {
-  return socket_;
-}
 function fitStageIntoParentContainer() {
   var container = document.querySelector('#stage-parent');
 
@@ -109,6 +106,45 @@ function layer_removechildren() {
   disconnect_text_Layer.removeChildren();
 }
 
+function textarea_on(owner_text, layer, data) {
+  owner_text.on('dblclick', () => {
+    // create textarea over canvas with absolute position
+
+    // first we need to find its positon
+    var textPosition = owner_text.getAbsolutePosition();
+    var stageBox = stage.getContainer().getBoundingClientRect();
+
+    var areaPosition = {
+      x: textPosition.x + stageBox.left,
+      y: textPosition.y + stageBox.top
+    };
+
+
+    // create textarea and style it
+    var textarea = document.createElement('textarea');
+    document.body.appendChild(textarea);
+
+    textarea.value = owner_text.text();
+    textarea.style.position = 'absolute';
+    textarea.style.top = areaPosition.y + 'px';
+    textarea.style.left = areaPosition.x + 'px';
+    textarea.style.width = owner_text.width();
+
+    textarea.focus();
+
+
+    textarea.addEventListener('keydown', function(e) {
+      // hide on enter
+      if (e.keyCode === 13) {
+        owner_text.text(textarea.value);
+        layer.draw();
+        document.body.removeChild(textarea);
+        socket.emit('owner__ap', owner_data(data[0]['MAC Address'], textarea.value));
+      }
+    });
+  })
+
+}
 function ap_draw(enable__, ap_data) {
   aplayer.removeChildren();
   ap_owner_layer.removeChildren();
@@ -199,6 +235,8 @@ function ap_draw(enable__, ap_data) {
   }
   stage.batchDraw();
 
+  textarea_on(owner_text, ap_owner_layer, ap_data);
+ /*
   owner_text.on('dblclick', () => {
     // create textarea over canvas with absolute position
 
@@ -234,7 +272,7 @@ function ap_draw(enable__, ap_data) {
         socket.emit('owner__ap', owner_data(ap_data[0]['MAC Address'], textarea.value));
       }
     });
-  })
+  })*/
 }
 
 function owner_data (mac, text) {
