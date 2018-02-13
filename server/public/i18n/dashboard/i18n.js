@@ -30,11 +30,6 @@ function updateContent() {
   }
 }
 
-
-
-출처: http://d4emon.tistory.com/40 [게으른 개발자!!!]
-}
-
 function changeLng() {
   var langSelect = document.getElementById("lang_select");
   var selectValue = langSelect.options[langSelect.selectedIndex].value;
