@@ -740,7 +740,6 @@ function disconnect_draw(enable, res_count, conn_count) {
         // hide on enter
         if (e.keyCode === 13) {
           disconn_owner_text[tmp_i].text(textarea.value);
-          console.log(evt.target);
           document.body.removeChild(textarea);
           socket.emit('owner__disconnect', owner_data(res_count[tmp_i]['MAC Address'], textarea.value));
         }

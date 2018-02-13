@@ -229,6 +229,7 @@ module.exports = function(app, fs, url) {
       for (var a = 0;a < parse_data.lrngth; a++) {
         if(parse_data[a]['MAC Address'] == data['mac']) {
           parse_data[a]['owner'] = data['owner'];
+          console.log("owner = " + data['owner']);
           break;
         }
       }
