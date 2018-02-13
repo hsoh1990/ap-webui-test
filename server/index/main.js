@@ -97,17 +97,23 @@ module.exports = function(app, fs, url) {
       sockets[a].emit('owner_conn_result', result_data);
     }
   }
+
   function device_data_splice(data_check, result) {
     device_data.splice(data_check['a'], 1, result);
     delete device_data['check'];
     delete device_data['a'];
-    return JSON.stringify(device_data, null, '\t');
+    fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+      JSON.stringify(device_data, null, '\t'), "utf8",
+      function(err, data) {})
   }
+
   function device_data_push(data_check, result) {
     device_data.push(result);
     delete device_data['check'];
     delete device_data['a'];
-    return JSON.stringify(device_data, null, '\t');
+    fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+      JSON.stringify(device_data, null, '\t'), "utf8",
+      function(err, data) {})
   }
   ! function arp_repeat() {
     arp_count++;
@@ -136,18 +142,12 @@ module.exports = function(app, fs, url) {
           }
           else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
-            const stringify_data = device_data_splice(data_check, result);
-            fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-              stringify_data, "utf8",
-              function(err, data) {})
+            device_data_splice(data_check, result);
             data_arp_broadcasting(result);
           }
           else {
             console.log("데이터 저장 완료");
-            const stringify_data = device_data_push(data_check, result);
-            fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-              stringify_data, "utf8",
-              function(err, data) {})
+            device_data_push(data_check, result);
             data_arp_broadcasting(result);
           }
         }, function(result) {
@@ -160,18 +160,12 @@ module.exports = function(app, fs, url) {
           }
           else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
-            const stringify_data = device_data_splice(data_check, result);
-            fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-              stringify_data, "utf8",
-              function(err, data) {})
+            device_data_splice(data_check, result);
             data_arp_broadcasting(result);
           }
           else {
             console.log("데이터 저장 완료");
-            const stringify_data = device_data_push(data_check, result);
-            fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-              stringify_data, "utf8",
-              function(err, data) {})
+            device_data_push(data_check, result);
             data_arp_broadcasting(result);
           }
         });
