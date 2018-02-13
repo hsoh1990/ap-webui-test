@@ -707,7 +707,7 @@ function disconnect_draw(enable, res_count, conn_count) {
     disconn_owner_text[a].on('dblclick', function(evt) {
       // create textarea over canvas with absolute position
 
-      console.log(evt.target.id);
+      console.log(evt.target._id);
 
       // first we need to find its positon
       var textPosition = disconn_owner_text[a].getAbsolutePosition();
