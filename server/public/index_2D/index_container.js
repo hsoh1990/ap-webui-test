@@ -708,11 +708,16 @@ function disconnect_draw(enable, res_count, conn_count) {
 
     disconn_owner_text[a].on('dblclick', function(evt) {
       // create textarea over canvas with absolute position
-
-      console.log(evt.target._id);
+      var tmp_i = 0;
+      for( var b = 0;b < disconn_owner_text.length; b++) {
+        if (disconn_owner_text[b]._id == evt.target._id) {
+          tmp_i = b;
+          break;
+        }
+      }
 
       // first we need to find its positon
-      var textPosition = disconn_owner_text[a].getAbsolutePosition();
+      var textPosition = disconn_owner_text[tmp_i].getAbsolutePosition();
       var stageBox = stage.getContainer().getBoundingClientRect();
 
       var areaPosition = {
@@ -725,11 +730,11 @@ function disconnect_draw(enable, res_count, conn_count) {
       var textarea = document.createElement('textarea');
       document.body.appendChild(textarea);
 
-      textarea.value = disconn_owner_text[a].text();
+      textarea.value = disconn_owner_text[tmp_i].text();
       textarea.style.position = 'absolute';
       textarea.style.top = areaPosition.y + 'px';
       textarea.style.left = areaPosition.x + 'px';
-      textarea.style.width = disconn_owner_text[a].width();
+      textarea.style.width = disconn_owner_text[tmp_i].width();
 
       textarea.focus();
 
@@ -737,7 +742,7 @@ function disconnect_draw(enable, res_count, conn_count) {
       textarea.addEventListener('keydown', function(e) {
         // hide on enter
         if (e.keyCode === 13) {
-          disconn_owner_text[a].text(textarea.value);
+          disconn_owner_text[tmp_i].text(textarea.value);
           console.log(evt.target);
           document.body.removeChild(textarea);
           //socket.emit('owner__connect', owner_data(res_count[]['MAC Address'], textarea.value));
