@@ -893,7 +893,7 @@ function connect_draw(enable, res_count, conn_count) {
           owner_text.text(textarea.value);
 
           document.body.removeChild(textarea);
-          socket.emit('owner__connect', owner_data(res_count[]['MAC Address'], textarea.value));
+          //socket.emit('owner__connect', owner_data(res_count[]['MAC Address'], textarea.value));
         }
       });
     })
