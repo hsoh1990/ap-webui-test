@@ -631,8 +631,8 @@ function disconnect_draw(enable, res_count, conn_count) {
     });
 
     var owner_text = new Konva.Text({
-      x: x - 145,
-      y: y - 80,
+      x: x - 140,
+      y: y - 90,
       text: res_count[a]['owner'],
       fontSize: 18,
       fontFamily: 'Calibri',
