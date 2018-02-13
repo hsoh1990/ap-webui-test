@@ -2,8 +2,8 @@
 	"system_Information": {
 		"Hostname": "raspberrypi",
 		"Pi Revision": "Pi 3 Model B",
-		"Uptime": "33 minutes ",
+		"Uptime": "3 hours ",
 		"Memory Used": "14",
-		"CPU Load": "0"
+		"CPU Load": "2.75"
 	}
 }
