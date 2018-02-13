@@ -226,7 +226,7 @@ module.exports = function(app, fs, url) {
     socket.on('owner__disconnect', function(data) {
       var stringify_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
       var parse_data = JSON.parse(stringify_data);
-      console.log(parse_data);
+      console.log(parse_data + ",,, " + data['mac']);
       for (var a = 0;a < parse_data.lrngth; a++) {
         if(parse_data[a]['MAC Address'] == data['mac']) {
           parse_data[a]['owner'] = data['owner'];
