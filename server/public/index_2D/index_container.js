@@ -704,6 +704,8 @@ function disconnect_draw(enable, res_count, conn_count) {
 
     stage.batchDraw();
 
+    console.log(disconn_owner_text[a]._id);
+
     disconn_owner_text[a].on('dblclick', function(evt) {
       // create textarea over canvas with absolute position
 
