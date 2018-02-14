@@ -29,8 +29,8 @@ function updateContent_nav() {
     document.getElementById('dashboard_navid').innerHTML = i18next.t('name');
   }
   var contentData = window.document.getElementsByClassName("nav");
-  //var child_li = contentData.getElementsByTagName("li");
-  console.log(contentData);
+  var child_li = contentData[0].getElementsByTagName("li");
+  console.log(child_li.length);
 }
 
 function changeLng() {
