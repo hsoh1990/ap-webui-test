@@ -20,7 +20,7 @@ i18next.init({
   }
 }, function(err, t) {
   // init set content
-  updateContent();
+  updateContent_nav();
 });
 
 function updateContent_nav() {
