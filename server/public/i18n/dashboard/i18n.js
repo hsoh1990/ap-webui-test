@@ -115,7 +115,7 @@ function updateContent_infor() {
   if(document.getElementById('btn_start') != null) {
     document.getElementById('btn_start').value = i18next.t('btn_start');
   }
-  document.getElementById('refreshbuttonid').innerHTML = i18next.t('refresh');
+  document.getElementById('refreshbuttonid').value = i18next.t('refresh');
   document.getElementById('dashboard_bottom').innerHTML = i18next.t('bottom_expla');
 }
 
