@@ -100,7 +100,7 @@ function updateContent_infor() {
   document.getElementById('TransferredPackets').innerHTML = i18next.t('trans_packet');
   document.getElementById('TransferredBytes').innerHTML = i18next.t('trans_bytes');
 
-  document.getElementById('wireless_infor').innerHTML = i18next.t('interface_statistics');
+  document.getElementById('wireless_infor').innerHTML = i18next.t('wireless_infor');
   document.getElementById('ConnectedTo').innerHTML = i18next.t('conn_to');
   document.getElementById('APMacAddress').innerHTML = i18next.t('ap_mac_add');
   document.getElementById('Bitrate').innerHTML = i18next.t('bitrate');
