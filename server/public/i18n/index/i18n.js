@@ -6,18 +6,18 @@ i18next.init({
   resources: {
     en: {
       translation: {
-        "ipenable": "IP 주소 보이기",
-        "macenable": "MAC 주소 보이기",
-        "hostnameenable": "장치 이름 보이기",
-        "ownerenable": "소유자 보이기"
-      }
-    },
-    ko: {
-      translation: {
         "ipenable": "IP Enable",
         "macenable": "MAC Enable",
         "hostnameenable": "Host name Enable",
         "ownerenable": "Owner Enable"
+      }
+    },
+    ko: {
+      translation: {
+        "ipenable": "IP 주소 보이기",
+        "macenable": "MAC 주소 보이기",
+        "hostnameenable": "장치 이름 보이기",
+        "ownerenable": "소유자 보이기"
       }
     }
   }
