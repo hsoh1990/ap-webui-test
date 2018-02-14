@@ -102,6 +102,8 @@ function updateContent_infor() {
   document.getElementById('TransmitPower').innerHTML = i18next.t('trans_power');
   document.getElementById('Frequency').innerHTML = i18next.t('frequency');
   document.getElementById('LinkQuality').innerHTML = i18next.t('link_quality');
+
+  document.getElementById('dashboard_bottom').innerHTML = i18next.t('bottom_expla');
 }
 
 function changeLng() {
