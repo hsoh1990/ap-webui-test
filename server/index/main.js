@@ -70,30 +70,32 @@ module.exports = function(app, fs, url) {
   console.log("read_data : " + read_data);
 
   function data_arp_broadcasting(result_data) {
-    for(var a = 0;a < sockets.length; a++) {
+    for (var a = 0; a < sockets.length; a++) {
       console.log("브로드캐스팅 보냄");
       sockets[a].emit('arp', result_data);
     }
   }
 
   function data_ap_broadcasting(result_data) {
-    for(var a = 0;a < sockets.length; a++) {
+    for (var a = 0; a < sockets.length; a++) {
       sockets[a].emit('apinfor', result_data);
     }
   }
+
   function data_wlan_broadcasting(result_data) {
-    for(var a = 0;a < sockets.length; a++) {
+    for (var a = 0; a < sockets.length; a++) {
       sockets[a].emit('wlaninfor', result_data);
     }
   }
+
   function data_disconn_owner_broadcasting(result_data) {
-    for(var a = 0;a < sockets.length; a++) {
+    for (var a = 0; a < sockets.length; a++) {
       sockets[a].emit('owner_disconn_result', result_data);
     }
   }
 
   function data_conn_owner_broadcasting(result_data) {
-    for(var a = 0;a < sockets.length; a++) {
+    for (var a = 0; a < sockets.length; a++) {
       sockets[a].emit('owner_conn_result', result_data);
     }
   }
@@ -114,8 +116,7 @@ module.exports = function(app, fs, url) {
     fs.writeFileSync(__dirname + "/data/" + "device_data.json",
       JSON.stringify(device_data, null, '\t'), "utf8",
       function(err, data) {})
-  }
-  ! function arp_repeat() {
+  }! function arp_repeat() {
     arp_count++;
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
     //반복하는 부분
@@ -126,12 +127,10 @@ module.exports = function(app, fs, url) {
     var data__ = router_socket.data_get();
     var data_key = Object.getOwnPropertyNames(data__);
     var tmp_ind = device_data.length;
-    for(var a = 0;a < tmp_ind; a++){
-      if(device_data[a]['length'] > Object.keys(data__).length) {
-        for(var b = 0;b < tmp_ind; b++){
-          device_data.pop();
-        }
-        break;
+    for (var a = 0; a < tmp_ind; a++) {
+      if (device_data[a]['length'] != Object.keys(data__).length) {
+        device_data.splice(a, 1);
+        a -= 1;
       }
     }
     for (var a = 0; a < Object.keys(data__).length; a++) {
@@ -148,13 +147,11 @@ module.exports = function(app, fs, url) {
           const data_check = router_socket.device_data_save(device_data, result);
           if (data_check['check'] == 1) {
 
-          }
-          else if (data_check['check'] == 2) {
+          } else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
             device_data_splice(data_check, result);
             data_arp_broadcasting(result);
-          }
-          else {
+          } else {
             console.log("데이터 저장 완료");
             device_data_push(data_check, result);
             data_arp_broadcasting(result);
@@ -166,13 +163,11 @@ module.exports = function(app, fs, url) {
           const data_check = router_socket.device_data_save(device_data, result);
           if (data_check['check'] == 1) {
 
-          }
-          else if (data_check['check'] == 2) {
+          } else if (data_check['check'] == 2) {
             console.log("데이터 수정 완료");
             device_data_splice(data_check, result);
             data_arp_broadcasting(result);
-          }
-          else {
+          } else {
             console.log("데이터 저장 완료");
             device_data_push(data_check, result);
             data_arp_broadcasting(result);
@@ -203,7 +198,7 @@ module.exports = function(app, fs, url) {
     socket.emit('exnetinfor', wlan_exnetinfor);
     socket.emit('apinfor', ap_infor);
     socket.emit('wlaninfor', wlan_infor);
-    for(var a = 0;a < device_data.length; a++) {
+    for (var a = 0; a < device_data.length; a++) {
       socket.emit('arp', device_data[a]);
     }
   }
@@ -213,8 +208,8 @@ module.exports = function(app, fs, url) {
 
     socket.on('disconnect', function() {
       connect_bool = false;
-      for(var a = 0;a < sockets.length; a++) {
-        if(sockets[a] == socket){
+      for (var a = 0; a < sockets.length; a++) {
+        if (sockets[a] == socket) {
           sockets.splice(a, 1);
         }
       }
@@ -242,8 +237,8 @@ module.exports = function(app, fs, url) {
     socket.on('owner__disconnect', function(data) {
       var stringify_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
       var parse_data = JSON.parse(stringify_data);
-      for (var a = 0;a < parse_data.length; a++) {
-        if(parse_data[a]['MAC Address'] == data['mac']) {
+      for (var a = 0; a < parse_data.length; a++) {
+        if (parse_data[a]['MAC Address'] == data['mac']) {
           parse_data[a]['owner'] = data['owner'];
           console.log("owner = " + data['owner']);
           break;
@@ -259,8 +254,8 @@ module.exports = function(app, fs, url) {
     socket.on('owner__connect', function(data) {
       var stringify_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
       var parse_data = JSON.parse(stringify_data);
-      for (var a = 0;a < parse_data.length; a++) {
-        if(parse_data[a]['MAC Address'] == data['mac']) {
+      for (var a = 0; a < parse_data.length; a++) {
+        if (parse_data[a]['MAC Address'] == data['mac']) {
           parse_data[a]['owner'] = data['owner'];
           console.log("owner = " + data['owner']);
           break;
