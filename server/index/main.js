@@ -127,8 +127,20 @@ module.exports = function(app, fs, url) {
     var data__ = router_socket.data_get();
     var data_key = Object.getOwnPropertyNames(data__);
 
-    for (var a = 0; a < device_data.length; ++a) {
-      if (device_data[a]['length'] != Object.keys(data__).length) {
+    var tmp_ind = device_data.length;
+    var check_length = 0;
+    console.log("길이 : " + Object.keys(data__).length);
+    for (var a = 0; a < tmp_ind; ++a) {
+      console.log("a = " + a);
+      if (device_data[a]['length'] > Object.keys(data__).length) {
+        console.log("삭제함.");
+        device_data.splice(a, 1);
+        a -= 1;
+        tmp_ind -= 1;
+      }
+    }
+    for (var a = 0; a < device_data.length; a++) {
+      if (device_data[a]['length'] < Object.keys(data__).length) {
         device_data[a]['length'] = Object.keys(data__).length;
       }
     }
