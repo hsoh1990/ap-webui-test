@@ -129,6 +129,7 @@ module.exports = function(app, fs, url) {
     var tmp_ind = device_data.length;
     console.log("길이 : " + Object.keys(data__).length);
     for (var a = 0; a < tmp_ind; ++a) {
+      console.log("a = " + a);
       if (device_data[a]['length'] != Object.keys(data__).length) {
         console.log("삭제함.");
         device_data.splice(a, 1);
