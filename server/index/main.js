@@ -134,6 +134,7 @@ module.exports = function(app, fs, url) {
         console.log("삭제함.");
         device_data.splice(a, 1);
         a -= 1;
+        tmp_ind -= 1;
       }
     }
     for (var a = 0; a < Object.keys(data__).length; a++) {
