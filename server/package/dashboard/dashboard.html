@@ -191,14 +191,14 @@
     function wireless_infor_box_fill(data) {
       var content = "";
       var type = "Wireless_Information";
-      content += "<h4>Wireless Information</h4>";
+      content += "<h4 id=wireless_infor>Wireless Information</h4>";
       for (var name in data[type]) {
         if (name == "Link Quality") {
-          content += "<div class=info-item id="+ name.replace(' ', '') +">" + name + "</div><div class=progress><div class='progress-bar progress-bar-info progress-bar-striped active' role=progressbar aria-valuenow aria-valuemin=0 aria-valuemax=100 style=width:" + data[type][name] +
+          content += "<div class=info-item id="+ name.replace(/ /gi, '') +">" + name + "</div><div class=progress><div class='progress-bar progress-bar-info progress-bar-striped active' role=progressbar aria-valuenow aria-valuemin=0 aria-valuemax=100 style=width:" + data[type][name] +
             "%;></div></div>"
           break;
         }
-        content += "<div class=info-item id="+ name.replace(' ', '') +">" + name + "</div>" + data[type][name] + "</br>";
+        content += "<div class=info-item id="+ name.replace(/ /gi, '') +">" + name + "</div>" + data[type][name] + "</br>";
       }
       return content;
     }

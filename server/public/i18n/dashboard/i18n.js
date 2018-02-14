@@ -94,7 +94,14 @@ function updateContent_infor() {
   document.getElementById('TransferredPackets').innerHTML = i18next.t('trans_packet');
   document.getElementById('TransferredBytes').innerHTML = i18next.t('trans_bytes');
 
-
+  document.getElementById('wireless_infor').innerHTML = i18next.t('interface_statistics');
+  document.getElementById('ConnectedTo').innerHTML = i18next.t('conn_to');
+  document.getElementById('APMacAddress').innerHTML = i18next.t('ap_mac_add');
+  document.getElementById('Bitrate').innerHTML = i18next.t('bitrate');
+  document.getElementById('SignalLevel').innerHTML = i18next.t('signal_level');
+  document.getElementById('TransmitPower').innerHTML = i18next.t('trans_power');
+  document.getElementById('Frequency').innerHTML = i18next.t('frequency');
+  document.getElementById('LinkQuality').innerHTML = i18next.t('link_quality');
 }
 
 function changeLng() {
