@@ -30,7 +30,7 @@ function updateContent_nav() {
   }
   var contentData = window.document.getElementsByClassName("nav");
   var child_li = contentData[0].getElementsByTagName("li");
-  console.log(child_li[0].getAttribute('id'));
+  child_li[0].innerHTML = i18next.t('name');
 }
 
 function changeLng() {
