@@ -30,7 +30,10 @@ function updateContent_nav() {
   }
   var contentData = window.document.getElementsByClassName("nav");
   var child_li = contentData[0].getElementsByTagName("li");
-  child_li[0].innerHTML = i18next.t('name');
+  for(var a = 0;a< child_li.length; a++) {
+    var child_a = child_li[a].getElementsByTagName("a");
+    child_a.innerHTML = i18next.t('name');
+  }
 }
 
 function changeLng() {
