@@ -25,15 +25,14 @@ i18next.init({
 
 function updateContent_nav() {
   document.getElementById('name_id').innerHTML = i18next.t('name');
-  if (document.getElementById("dashboard_navid") != null) {
-    document.getElementById('dashboard_navid').innerHTML = i18next.t('name');
-  }
+
+/*
   var contentData = window.document.getElementsByClassName("nav");
   var child_li = contentData[0].getElementsByTagName("li");
   for(var a = 0;a< child_li.length; a++) {
     var child_a = child_li[a].getElementsByTagName("a");
     child_a[0].innerHTML = i18next.t('name');
-  }
+  }*/
 }
 
 function changeLng() {
@@ -43,5 +42,5 @@ function changeLng() {
 }
 
 i18next.on('languageChanged', () => {
-  updateContent();
+  updateContent_nav();
 });
