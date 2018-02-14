@@ -19,7 +19,7 @@ i18next.init({
         "receive_packet": "Received Packets",
         "receive_bytes": "Received Bytes",
         "trans_packet": "Transferred Packets",
-        "trans_packet": "Transferred Bytes",
+        "trans_bytes": "Transferred Bytes",
         "wireless_infor": "Wireless Information",
         "conn_to": "Connected To",
         "ap_mac_add": "AP Mac Address",
@@ -45,7 +45,7 @@ i18next.init({
         "receive_packet": "수신된 패킷",
         "receive_bytes": "수신된 바이트 수",
         "trans_packet": "전송된 패킷",
-        "trans_packet": "전송된 바이트 수",
+        "trans_bytes": "전송된 바이트 수",
         "wireless_infor": "무선 정보",
         "conn_to": "연결 대상",
         "ap_mac_add": "AP Mac 주소",
@@ -87,6 +87,14 @@ function updateContent_infor() {
   document.getElementById('IPAddress').innerHTML = i18next.t('ip');
   document.getElementById('SubnetMask').innerHTML = i18next.t('sub_mask');
   document.getElementById('MacAddress').innerHTML = i18next.t('mac');
+
+  document.getElementById('interface_statis').innerHTML = i18next.t('interface_statistics');
+  document.getElementById('ReceivedPackets').innerHTML = i18next.t('receive_packet');
+  document.getElementById('ReceivedBytes').innerHTML = i18next.t('receive_bytes');
+  document.getElementById('TransferredPackets').innerHTML = i18next.t('trans_packet');
+  document.getElementById('TransferredBytes').innerHTML = i18next.t('trans_bytes');
+
+
 }
 
 function changeLng() {
