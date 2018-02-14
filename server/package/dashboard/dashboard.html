@@ -183,7 +183,7 @@
       type = "Interface_Statistics";
       content += "<h4>Interface Statistics</h4>";
       for (var name in data[type]) {
-        content += "<div class=info-item>" + name + "</div>" + data[type][name] + "</br>";
+        content += "<div class=info-item id="+ name.replace(' ', '') +">" + name + "</div>" + data[type][name] + "</br>";
       }
       return content;
     }
