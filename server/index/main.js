@@ -127,9 +127,7 @@ module.exports = function(app, fs, url) {
     var data__ = router_socket.data_get();
     var data_key = Object.getOwnPropertyNames(data__);
 
-    console.log("길이 : " + Object.keys(data__).length);
     for (var a = 0; a < device_data.length; ++a) {
-      console.log("a = " + a);
       if (device_data[a]['length'] != Object.keys(data__).length) {
         device_data[a]['length'] = Object.keys(data__).length;
       }
