@@ -76,6 +76,7 @@ function updateContent_nav() {
 }
 function updateContent_infor() {
   document.getElementById('name_id').innerHTML = i18next.t('name');
+  document.getElementById('interface_name').innerHTML = i18next.t('interface_name');
   document.getElementById('InterfaceName').innerHTML = i18next.t('interface_name');
   document.getElementById('IPAddress').innerHTML = i18next.t('ip');
   document.getElementById('SubnetMask').innerHTML = i18next.t('sub_mask');
