@@ -7,14 +7,53 @@ i18next.init({
     en: {
       translation: {
         "name": "Dashboard",
-        "auth_nav": "Auth"
-
+        "bottom_expla": "Information provided by ifconfig and iwconfig",
+        "interface_up": "Interface is up",
+        "interface_down": "Interface is down",
+        "interface_infor": "Interface Information",
+        "interface_name": "Interface Name",
+        "ip": "IP Address",
+        "sub_mask": "Subnet Mask",
+        "mac": "Mac Address",
+        "interface_statistics": "Interface Statistics",
+        "receive_packet": "Received Packets",
+        "receive_bytes": "Received Bytes",
+        "trans_packet": "Transferred Packets",
+        "trans_packet": "Transferred Bytes",
+        "wireless_infor": "Wireless Information",
+        "conn_to": "Connected To",
+        "ap_mac_add": "AP Mac Address",
+        "bitrate": "Bitrate",
+        "signal_level": "Signal Level",
+        "trans_power": "Transmit Power",
+        "frequency": "Frequency",
+        "link_quality": "Link Quality"
       }
     },
     ko: {
       translation: {
         "name": "대시보드",
-        "auth_nav": "암호 변경"
+        "bottom_expla": "ifconfig 및 iwconfig에서 제공하는 정보입니다.",
+        "interface_up": "인터페이스가 작동중입니다.",
+        "interface_down": "인터페이스가 멈췄습니다.",
+        "interface_infor": "인터페이스 정보",
+        "interface_name": "인터페이스 이름",
+        "ip": "IP 주소",
+        "sub_mask": "서브넷 마스크",
+        "mac": "Mac 주소",
+        "interface_statistics": "인터페이스 통계",
+        "receive_packet": "수신된 패킷",
+        "receive_bytes": "수신된 바이트 수",
+        "trans_packet": "전송된 패킷",
+        "trans_packet": "전송된 바이트 수",
+        "wireless_infor": "무선 정보",
+        "conn_to": "연결 대상",
+        "ap_mac_add": "AP Mac 주소",
+        "bitrate": "전송률",
+        "signal_level": "신호 레벨",
+        "trans_power": "송신 전력",
+        "frequency": "회수",
+        "link_quality": "링크 품질"
       }
     }
   }
