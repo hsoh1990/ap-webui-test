@@ -23,11 +23,15 @@ i18next.init({
   updateContent();
 });
 
-function updateContent() {
+function updateContent_nav() {
   document.getElementById('name_id').innerHTML = i18next.t('name');
-  if ( document.getElementById("dashboard_navid")  != null ) {
+  if (document.getElementById("dashboard_navid") != null) {
     document.getElementById('dashboard_navid').innerHTML = i18next.t('name');
   }
+  var contentData = window.document.getElementsByClassName("nav");
+  var nodes = contentData.childNodes;
+  alert("자식 노드 개수는? " + nodes.length);
+
 }
 
 function changeLng() {
