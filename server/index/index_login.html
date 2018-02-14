@@ -77,7 +77,7 @@
       <div style="float: right; padding: 5px 5px;">
         <select id="lang_select" class="form-control" onchange="changeLng()">
           <option value="en">english</option>
-          <option value="ko" selected="selected">한국어</option>
+          <option value="ko">한국어</option>
         </select>
         <!--
         <button onclick="i18next.changeLanguage('en')">
@@ -109,13 +109,21 @@
           </div>
         </div>
         <div>
+          <div style="display:inline" id="i18n_ip">
           IP Enable
+          </div>
           <input id=ipenable type=checkbox class='form-check-input' value=1 checked=checked onclick="ip_onoff()">
+          <div style="display:inline" id="i18n_mac">
            MAC Enable
+           </div>
           <input id=macenable type=checkbox class='form-check-input' value=1 checked=checked onclick="mac_onoff()">
+          <div style="display:inline" id="i18n_hostname">
            Host name Enable
+           </div>
           <input id=hostnameenable type=checkbox class='form-check-input' value=1 checked=checked onclick="hostname_onoff()">
+          <div style="display:inline" id="i18n_owner">
           Owner Enable
+          </div>
          <input id=ownerenable type=checkbox class='form-check-input' value=1 checked=checked onclick="owner_onoff()">
         </div>
       </div>
