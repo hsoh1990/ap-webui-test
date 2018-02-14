@@ -126,6 +126,7 @@ module.exports = function(app, fs, url) {
     console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
     var data__ = router_socket.data_get();
     var data_key = Object.getOwnPropertyNames(data__);
+    /*
     var tmp_ind = device_data.length;
     var check_length = 0;
     console.log("길이 : " + Object.keys(data__).length);
@@ -141,7 +142,7 @@ module.exports = function(app, fs, url) {
     }
     if (check_length == 1) {
 
-    }
+    }*/
     for (var a = 0; a < Object.keys(data__).length; a++) {
       var _promise = function(a, data__, data_key) {
         return new Promise(function(resolve, reject) {
