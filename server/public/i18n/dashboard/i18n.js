@@ -110,10 +110,10 @@ function updateContent_infor() {
   document.getElementById('LinkQuality').innerHTML = i18next.t('link_quality');
 
   if(document.getElementById('btn_stop') != null) {
-    document.getElementById('btn_stop').innerHTML = i18next.t('btn_stop');
+    document.getElementById('btn_stop').value = i18next.t('btn_stop');
   }
   if(document.getElementById('btn_start') != null) {
-    document.getElementById('btn_start').innerHTML = i18next.t('btn_start');
+    document.getElementById('btn_start').value = i18next.t('btn_start');
   }
   document.getElementById('refreshbuttonid').innerHTML = i18next.t('refresh');
   document.getElementById('dashboard_bottom').innerHTML = i18next.t('bottom_expla');
