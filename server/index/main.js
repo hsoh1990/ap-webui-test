@@ -125,6 +125,15 @@ module.exports = function(app, fs, url) {
     console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
     var data__ = router_socket.data_get();
     var data_key = Object.getOwnPropertyNames(data__);
+    var tmp_ind = device_data.length;
+    for(var a = 0;a < tmp_ind; a++){
+      if(device_data[a]['length'] > Object.keys(data__).length) {
+        for(var b = 0;b < tmp_ind; b++){
+          device_data.pop();
+        }
+        break;
+      }
+    }
     for (var a = 0; a < Object.keys(data__).length; a++) {
       var _promise = function(a, data__, data_key) {
         return new Promise(function(resolve, reject) {
