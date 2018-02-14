@@ -59,8 +59,8 @@ i18next.init({
   }
 }, function(err, t) {
   // init set content
-  updateContent_nav();
-  updateContent_infor();
+  /*updateContent_nav();
+  updateContent_infor();*/
 });
 
 function updateContent_nav() {
