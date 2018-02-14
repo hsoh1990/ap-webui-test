@@ -29,7 +29,7 @@ function updateContent_nav() {
     document.getElementById('dashboard_navid').innerHTML = i18next.t('name');
   }
   var contentData = window.document.getElementsByClassName("nav");
-  var child_li = contentData..getElementsByTagName("li");
+  var child_li = contentData.getElementsByTagName("li");
   alert("자식 노드 개수는? " + contentData.length);
 
 }
