@@ -88,7 +88,7 @@ function updateContent_infor() {
   if(document.getElementById('interface_down') != null) {
     document.getElementById('interface_down').innerHTML = i18next.t('interface_down');
   }
-  document.getElementById('interface_name').innerHTML = i18next.t('interface_name');
+  document.getElementById('interface_infor').innerHTML = i18next.t('interface_infor');
   document.getElementById('InterfaceName').innerHTML = i18next.t('interface_name');
   document.getElementById('IPAddress').innerHTML = i18next.t('ip');
   document.getElementById('SubnetMask').innerHTML = i18next.t('sub_mask');
