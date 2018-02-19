@@ -273,7 +273,24 @@
             }
 
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
-          } else {
+          } else if (data['length'] < (connect_count + disconnect_count)) {
+            var check = false;
+            for (var a = 0; a < disconnect_count; a++) {
+              if (data['MAC Address'] == disconnect_data[a]['MAC Address']) {
+                connect_count += 1;
+                disconnect_count -= 1;
+                disconnect_data.splice(a, 1);
+                connect_data.push(data);
+                check = true;
+                break;
+              }
+            }
+            if (check == false) {
+              connect_count += 1;
+              connect_data.push(data);
+            }
+          }
+          else {
             if (data['arp'] == 1) {
               connect_count += 1;
               connect_data.push(data);
