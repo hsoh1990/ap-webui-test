@@ -14,7 +14,10 @@ i18next.init({
         "revision": "Pi Revision",
         "uptime": "Uptime",
         "memused": "Memory Used",
-        "cpuload": "CPU Load"
+        "cpuload": "CPU Load",
+        "reboot": "Reboot",
+        "shutdown": "Shutdown",
+        "refresh": "Refresh"
       }
     },
     ko: {
@@ -27,7 +30,10 @@ i18next.init({
         "revision": "라즈베리파이 버전",
         "uptime": "실행시간",
         "memused": "메모리 사용량",
-        "cpuload": "CPU 사용량"
+        "cpuload": "CPU 사용량",
+        "reboot": "재시작",
+        "shutdown": "종료",
+        "refresh": "새로고침"
       }
     }
   }
@@ -53,13 +59,16 @@ function updateContent_infor() {
   document.getElementById('tab_system').innerHTML = i18next.t('tab_system');
   document.getElementById('tab_package').innerHTML = i18next.t('tab_package');
   document.getElementById('tab_install').innerHTML = i18next.t('tab_install');
-  /*
-  if(document.getElementById('btn_stop') != null) {
-    document.getElementById('btn_stop').value = i18next.t('btn_stop');
-  }
-  if(document.getElementById('btn_start') != null) {
-    document.getElementById('btn_start').value = i18next.t('btn_start');
-  }*/
+  document.getElementById('Hostname').innerHTML = i18next.t('hostname');
+  document.getElementById('PiRevision').innerHTML = i18next.t('revision');
+  document.getElementById('Uptime').innerHTML = i18next.t('uptime');
+  document.getElementById('MemoryUsed').innerHTML = i18next.t('memused');
+  document.getElementById('CPULoad').innerHTML = i18next.t('cpuload');
+
+  document.getElementById('reboot_id').value = i18next.t('reboot');
+  document.getElementById('shutdown_id').value = i18next.t('shutdown');
+  document.getElementById('refresh_id').value = i18next.t('refresh');
+
 }
 
 function changeLng() {
