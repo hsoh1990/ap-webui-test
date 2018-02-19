@@ -289,6 +289,7 @@
               connect_count += 1;
               connect_data.push(data);
             }
+            conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           }
           else {
             if (data['arp'] == 1) {
