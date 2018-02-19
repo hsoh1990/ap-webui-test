@@ -255,7 +255,7 @@
       socket.on('arp',
         function(data) {
           arp_data = data;
-          if (data['length'] == (connect_count + disconnect_count)) {
+          if (data['length'] == device_count) {
             for (var a = 0; a < connect_count; a++) {
               var i = arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
               if (i == true) {
