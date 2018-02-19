@@ -20,7 +20,9 @@ i18next.init({
         "refresh": "Refresh",
         "name": "Name",
         "version": "Version",
-        "downloads": "Downloads"
+        "downloads": "Downloads",
+        "install_btn": "Install",
+        "uninstall_btn": "Uninstall"
       }
     },
     ko: {
@@ -39,7 +41,9 @@ i18next.init({
         "refresh": "새로고침",
         "name": "이름",
         "version": "버전",
-        "downloads": "다운로드 수"
+        "downloads": "다운로드 수",
+        "install_btn": "설치",
+        "uninstall_btn": "삭제"
       }
     }
   }
@@ -83,6 +87,13 @@ function updateContent_infor() {
   document.getElementById('ins_name').innerHTML = i18next.t('name');
   document.getElementById('ins_version').innerHTML = i18next.t('version');
   document.getElementById('ins_downloads').innerHTML = i18next.t('downloads');
+
+  if (document.getElementById('install_id') != null){
+    document.getElementById('install_id').innerHTML = i18next.t('install_btn');
+  }
+  if (document.getElementById('uninstall_id') != null){
+    document.getElementById('uninstall_id').innerHTML = i18next.t('uninstall_btn');
+  }
 }
 
 function changeLng() {
