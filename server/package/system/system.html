@@ -10,6 +10,7 @@
 
   <title>Raspbian WiFi Configuration Portal</title>
 
+  <script src="https://unpkg.com/i18next/i18next.js"></script>
   <!-- Bootstrap Core CSS -->
   <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -82,7 +83,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="panel panel-primary">
-            <div class="panel-heading"><i class="fa fa-cube fa-fw"></i> System</div>
+            <div class="panel-heading"><i class="fa fa-cube fa-fw"></i><div style="display:inline" id="tab_system"> System</div></div>
             <div class="panel-body">
 
               <!--
@@ -94,9 +95,9 @@
                   <div class="panel panel-default">
                     <div class="panel-body">
                       <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active systemtab"><a href="#system" aria-controls="system" role="tab" data-toggle="tab">System</a></li>
-                        <li role="presentation" class="packagetab"><a href="#package" aria-controls="package" role="tab" data-toggle="tab" onclick="package_get()">package</a></li>
-                        <li role="presentation" class="installtab"><a href="#install" aria-controls="install" role="tab" data-toggle="tab" onclick="install_get()">install</a></li>
+                        <li role="presentation" class="active systemtab"><a id="tab_system" href="#system" aria-controls="system" role="tab" data-toggle="tab">System</a></li>
+                        <li role="presentation" class="packagetab"><a id="tab_package" href="#package" aria-controls="package" role="tab" data-toggle="tab" onclick="package_get()">package</a></li>
+                        <li role="presentation" class="installtab"><a id="tab_install" href="#install" aria-controls="install" role="tab" data-toggle="tab" onclick="install_get()">install</a></li>
                       </ul>
 
                       <div class="systemtabcontent tab-content">
@@ -104,28 +105,8 @@
                           <div class="row">
                             <div class="col-lg-6">
                               <div id="system_infor_div_id">
-                                <h4>System Information</h4>
-                                <div class="info-item">Hostname</div>
-                                </br>
-                                <div class="info-item">Pi Revision</div>
-                                </br>
-                                <div class="info-item">Uptime</div>
-                                </br>
-                                </br>
                               </div>
                               <div id="system_infor_bar_div_id">
-                                <div class="info-item">Memory Used</div>
-                                <div class="progress">
-                                  <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:10%;">
-
-                                  </div>
-                                </div>
-                                <div class="info-item">CPU Load</div>
-                                <div class="progress">
-                                  <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-
-                                  </div>
-                                </div>
                               </div>
                               <form action="?page=system_info" method="POST">
                                 <input type="button" class="btn btn-warning" name="system_reboot" value="Reboot" onclick="Reboot_button()" />
@@ -201,7 +182,8 @@
   <!-- Metis Menu Plugin JavaScript -->
   <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-  <!-- json data JavaScript -->
+  <!-- i18n JavaScript -->
+  <script src="i18n/system/i18n.js"></script>
 
   <!-- side menu JavaScript -->
   <script src="side_menu/functions.js"></script>
@@ -218,7 +200,7 @@
 
   <script>
     function system_infor_box_fill(data) {
-      var content = "<h4>System Information</h4>";
+      var content = "<h4 id=system_infor>System Information</h4>";
       var type = "system_Information";
       var index = 0;
 
@@ -227,7 +209,7 @@
         if (index > 3) {
           break;
         }
-        content += "<div class=info-item>" + name + "</div>" + data[type][name] + "</br>";
+        content += "<div class=info-item id="+ name.replace(/ /gi, '') +">" + name + "</div>" + data[type][name] + "</br>";
       }
       content += "<br>";
       return content;
@@ -240,7 +222,7 @@
       for (var name in data[type]) {
         index++;
         if (index > 3) {
-          content += "<div class=info-item>" + name + "</div><div class=progress>";
+          content += "<div class=info-item id="+ name.replace(/ /gi, '') +">" + name + "</div><div class=progress>";
           content += "<div class='progress-bar progress-bar-info progress-bar-striped active' role=progressbar aria-valuenow aria-valuemin=0 aria-valuemax=100 style=width:" + data[type][name] + "%;></div></div>"
         }
       }
