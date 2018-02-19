@@ -110,21 +110,21 @@
         </div>
         <div>
           <div style="display:inline" id="i18n_ip">
-          IP Enable
+            IP Enable
           </div>
           <input id=ipenable type=checkbox class='form-check-input' value=1 checked=checked onclick="ip_onoff()">
           <div style="display:inline" id="i18n_mac">
-           MAC Enable
-           </div>
+            MAC Enable
+          </div>
           <input id=macenable type=checkbox class='form-check-input' value=1 checked=checked onclick="mac_onoff()">
           <div style="display:inline" id="i18n_hostname">
-           Host name Enable
-           </div>
+            Host name Enable
+          </div>
           <input id=hostnameenable type=checkbox class='form-check-input' value=1 checked=checked onclick="hostname_onoff()">
           <div style="display:inline" id="i18n_owner">
-          Owner Enable
+            Owner Enable
           </div>
-         <input id=ownerenable type=checkbox class='form-check-input' value=1 checked=checked onclick="owner_onoff()">
+          <input id=ownerenable type=checkbox class='form-check-input' value=1 checked=checked onclick="owner_onoff()">
         </div>
       </div>
     </div>
@@ -199,6 +199,7 @@
       }
       conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
     }
+
     function owner_onoff() {
       var value = document.getElementById("ownerenable").value;
 
@@ -235,6 +236,7 @@
       //전역변수 선언
       connect_count = 0;
       disconnect_count = 0;
+      device_count = 0;
       connect_data = new Array();
       disconnect_data = new Array();
       ap_data = new Array();
@@ -273,7 +275,7 @@
             }
 
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
-          } else if (data['length'] < (connect_count + disconnect_count)) {
+          } else if (data['length'] < device_count) {
             var check = false;
             for (var a = 0; a < disconnect_count; a++) {
               if (data['MAC Address'] == disconnect_data[a]['MAC Address']) {
@@ -289,9 +291,9 @@
               connect_count += 1;
               connect_data.push(data);
             }
+            device_count += 1;
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
-          }
-          else {
+          } else {
             if (data['arp'] == 1) {
               connect_count += 1;
               connect_data.push(data);
@@ -299,6 +301,7 @@
               disconnect_count += 1;
               disconnect_data.push(data);
             }
+            device_count += 1;
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           }
 
@@ -308,6 +311,10 @@
           socket.emit('my other event', {
             my: 'data'
           });*/
+        });
+      socket.on('devide_count',
+        function(data) {
+          device_count = data;
         });
       socket.on('exnetinfor',
         function(data) {
@@ -349,7 +356,7 @@
         });
       socket.on('owner_conn_result',
         function(data) {
-          for (var e = 0;e < connect_data.length; e++) {
+          for (var e = 0; e < connect_data.length; e++) {
             if (connect_data[e]['MAC Address'] == data['MAC Address']) {
               connect_data[e]['owner'] = data['owner'];
               break;
@@ -359,7 +366,7 @@
         });
       socket.on('owner_disconn_result',
         function(data) {
-          for (var e = 0;e < disconnect_data.length; e++) {
+          for (var e = 0; e < disconnect_data.length; e++) {
             if (disconnect_data[e]['MAC Address'] == data['MAC Address']) {
               disconnect_data[e]['owner'] = data['owner'];
               break;
