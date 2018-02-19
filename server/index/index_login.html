@@ -276,6 +276,7 @@
 
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           } else if (data['length'] < device_count) {
+            alert("확인");
             var check = false;
             for (var a = 0; a < disconnect_count; a++) {
               if (data['MAC Address'] == disconnect_data[a]['MAC Address']) {
