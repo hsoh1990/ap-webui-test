@@ -292,7 +292,9 @@
               connect_count += 1;
               connect_data.push(data);
             }
-            device_count += 1;
+            if( device_count < (connect_count + disconnect_count)){
+              device_count += 1;
+            }
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           } else {
             if (data['arp'] == 1) {
@@ -302,7 +304,9 @@
               disconnect_count += 1;
               disconnect_data.push(data);
             }
-            device_count += 1;
+            if( device_count < (connect_count + disconnect_count)){
+              device_count += 1;
+            }
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           }
 
