@@ -237,7 +237,6 @@
       connect_count = 0;
       disconnect_count = 0;
       device_count = 0;
-      ccount = 0;
       connect_data = new Array();
       disconnect_data = new Array();
       ap_data = new Array();
@@ -311,12 +310,7 @@
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           }
           console.log("  " + connect_count + "    ,    " + disconnect_count);
-          //서버에 my other event 이벤트를 보낸다.
-          /*
-          socket.emit('my other event', {
-            my: 'data'
-          });*/
-          ccount += 1;
+
         });
       socket.on('device_count',
         function(data) {
