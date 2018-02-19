@@ -276,7 +276,7 @@
 
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           } else if (data['length'] < device_count) {
-            alert("확인");
+            console.log("count = " + device_count);
             var check = false;
             for (var a = 0; a < disconnect_count; a++) {
               if (data['MAC Address'] == disconnect_data[a]['MAC Address']) {
@@ -297,6 +297,7 @@
             }
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           } else {
+            console.log("count = " + device_count);
             if (data['arp'] == 1) {
               connect_count += 1;
               connect_data.push(data);
@@ -310,7 +311,7 @@
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           }
 
-          console.log("count = " + device_count + "  " + connect_count + "    ,    " + disconnect_count);
+          console.log("  " + connect_count + "    ,    " + disconnect_count);
           //서버에 my other event 이벤트를 보낸다.
           /*
           socket.emit('my other event', {
@@ -320,7 +321,6 @@
       socket.on('device_count',
         function(data) {
           device_count = data;
-          alert(device_count);
         });
       socket.on('exnetinfor',
         function(data) {
