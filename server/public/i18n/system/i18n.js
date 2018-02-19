@@ -17,7 +17,10 @@ i18next.init({
         "cpuload": "CPU Load",
         "reboot": "Reboot",
         "shutdown": "Shutdown",
-        "refresh": "Refresh"
+        "refresh": "Refresh",
+        "name": "Name",
+        "version": "Version",
+        "downloads": "Downloads"
       }
     },
     ko: {
@@ -33,7 +36,10 @@ i18next.init({
         "cpuload": "CPU 사용량",
         "reboot": "재시작",
         "shutdown": "종료",
-        "refresh": "새로고침"
+        "refresh": "새로고침",
+        "name": "이름",
+        "version": "버전",
+        "downloads": "다운로드 수"
       }
     }
   }
@@ -70,6 +76,13 @@ function updateContent_infor() {
   document.getElementById('shutdown_id').value = i18next.t('shutdown');
   document.getElementById('refresh_id').value = i18next.t('refresh');
 
+  document.getElementById('pac_name').value = i18next.t('name');
+  document.getElementById('pac_version').value = i18next.t('version');
+  document.getElementById('pac_downloads').value = i18next.t('downloads');
+
+  document.getElementById('ins_name').value = i18next.t('name');
+  document.getElementById('ins_version').value = i18next.t('version');
+  document.getElementById('ins_downloads').value = i18next.t('downloads');
 }
 
 function changeLng() {
