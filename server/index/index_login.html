@@ -255,7 +255,7 @@
       socket.on('arp',
         function(data) {
           arp_data = data;
-          if (data['length'] == device_count) {
+          if (data['length'] == device_count && device_count == (connect_count + disconnect_count)) {
             for (var a = 0; a < connect_count; a++) {
               var i = arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
               if (i == true) {
@@ -298,7 +298,6 @@
             }
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           } else {
-            console.log("count = " + device_count);
             if (data['arp'] == 1) {
               connect_count += 1;
               connect_data.push(data);
@@ -311,7 +310,6 @@
             }
             conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
           }
-          console.log("test = " + ccount);
           console.log("  " + connect_count + "    ,    " + disconnect_count);
           //서버에 my other event 이벤트를 보낸다.
           /*
