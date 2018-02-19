@@ -98,7 +98,7 @@ function updateContent_uninstallbtn() {
     var child_td = child_tr[a].getElementsByTagName("td");
     for (var b = 0; b < child_td.length; b++) {
       if (child_td[b].getElementsByTagName("a") != null) {
-        alert("확인" + child_td[b].getElementsByTagName("a"));
+        alert("확인" + child_td[b]);
         var btn__ = child_td[b].getElementsByTagName("a");
         btn__[0].innerHTML = i18next.t('uninstall_btn');
       }
