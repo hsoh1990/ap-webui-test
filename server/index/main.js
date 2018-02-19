@@ -192,10 +192,10 @@ module.exports = function(app, fs, url) {
     socket.emit('exnetinfor', wlan_exnetinfor);
     socket.emit('apinfor', ap_infor);
     socket.emit('wlaninfor', wlan_infor);
+    socket.emit('device_count', device_data.length);
     for (var a = 0; a < device_data.length; a++) {
       socket.emit('arp', device_data[a]);
     }
-    socket.emit('device_count', device_data.length);
   }
 
   io.sockets.on('connect', function(socket) {
