@@ -32,7 +32,7 @@ function package_output(package_data) {
     if (package_data_key[a] == "System" || package_data_key[a] == "Dashboard") {
 
     } else {
-      content += "<td><a type=button class='btn btn-danger' onclick='uninstall_button(" + a + ")' id=uninstall_id value='asd'></a></td>";
+      content += "<td><a type=button class='btn btn-danger' onclick='uninstall_button(" + a + ")' id=uninstall_id>wer</a></td>";
     }
     content += "</tr>";
   }
@@ -88,7 +88,7 @@ function install_output(install_data) {
     content += "<td>" + install_data[install_data_key[a]]['pack_name'] + "</td>";
     content += "<td> </td>";
     content += "<td> </td>";
-    content += "<td><a type=button class='btn btn-primary' onclick='install_button(" + a + ")' id=install_id value='qwe'></a></td>";
+    content += "<td><a type=button class='btn btn-primary' onclick='install_button(" + a + ")' id=install_id>dfg</a></td>";
     content += "</tr>";
   }
   document.getElementById("package_no_install").innerHTML = content;
