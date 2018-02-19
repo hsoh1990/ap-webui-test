@@ -76,13 +76,13 @@ function updateContent_infor() {
   document.getElementById('shutdown_id').value = i18next.t('shutdown');
   document.getElementById('refresh_id').value = i18next.t('refresh');
 
-  document.getElementById('pac_name').value = i18next.t('name');
-  document.getElementById('pac_version').value = i18next.t('version');
-  document.getElementById('pac_downloads').value = i18next.t('downloads');
+  document.getElementById('pac_name').innerHTML = i18next.t('name');
+  document.getElementById('pac_version').innerHTML = i18next.t('version');
+  document.getElementById('pac_downloads').innerHTML = i18next.t('downloads');
 
-  document.getElementById('ins_name').value = i18next.t('name');
-  document.getElementById('ins_version').value = i18next.t('version');
-  document.getElementById('ins_downloads').value = i18next.t('downloads');
+  document.getElementById('ins_name').innerHTML = i18next.t('name');
+  document.getElementById('ins_version').innerHTML = i18next.t('version');
+  document.getElementById('ins_downloads').innerHTML = i18next.t('downloads');
 }
 
 function changeLng() {
