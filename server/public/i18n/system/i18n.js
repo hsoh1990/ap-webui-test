@@ -59,6 +59,7 @@ function updateContent_infor() {
   document.getElementById('tab_system').innerHTML = i18next.t('tab_system');
   document.getElementById('tab_package').innerHTML = i18next.t('tab_package');
   document.getElementById('tab_install').innerHTML = i18next.t('tab_install');
+  document.getElementById('system_infor').innerHTML = i18next.t('system_infor');
   document.getElementById('Hostname').innerHTML = i18next.t('hostname');
   document.getElementById('PiRevision').innerHTML = i18next.t('revision');
   document.getElementById('Uptime').innerHTML = i18next.t('uptime');
