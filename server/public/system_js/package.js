@@ -9,6 +9,7 @@ function package_get() { //package 데이터를 받아옵니다
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
       package_output(this.response);
+      updateContent_infor();
     }
   };
   xhr.onerror = function() {
@@ -66,6 +67,7 @@ function install_get() { //install 데이터를 받아옵니다
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
       install_output(this.response);
+      updateContent_infor();
     }
   };
   xhr.onerror = function() {

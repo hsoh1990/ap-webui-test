@@ -193,6 +193,7 @@
 
   <!-- side menu JavaScript -->
   <script src="side_menu/functions.js"></script>
+  
   <script src="system_js/package.js"></script>
 
   <!-- Morris Charts JavaScript -->
@@ -238,6 +239,7 @@
     function refresh_button(data) {
       document.getElementById("system_infor_div_id").innerHTML = system_infor_box_fill(data);
       document.getElementById("system_infor_bar_div_id").innerHTML = system_infor_bar_box_fill(data);
+      updateContent_infor();
     }
 
     function connect_data_get() {
