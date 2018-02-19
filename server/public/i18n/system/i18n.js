@@ -49,6 +49,7 @@ function updateContent_nav() {
   }*/
 }
 function updateContent_infor() {
+  document.getElementById('panel_system').innerHTML = i18next.t('tab_system');
   document.getElementById('tab_system').innerHTML = i18next.t('tab_system');
   document.getElementById('tab_package').innerHTML = i18next.t('tab_package');
   document.getElementById('tab_install').innerHTML = i18next.t('tab_install');
