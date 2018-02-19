@@ -10,6 +10,7 @@ function package_get() { //package 데이터를 받아옵니다
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
       package_output(this.response);
       updateContent_infor();
+      updateContent_uninstallbtn();
     }
   };
   xhr.onerror = function() {
@@ -68,6 +69,7 @@ function install_get() { //install 데이터를 받아옵니다
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
       install_output(this.response);
       updateContent_infor();
+      updateContent_installbtn();
     }
   };
   xhr.onerror = function() {

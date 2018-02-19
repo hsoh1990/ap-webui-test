@@ -56,14 +56,15 @@ i18next.init({
 function updateContent_nav() {
 
 
-/*
-  var contentData = window.document.getElementsByClassName("nav");
-  var child_li = contentData[0].getElementsByTagName("li");
-  for(var a = 0;a< child_li.length; a++) {
-    var child_a = child_li[a].getElementsByTagName("a");
-    child_a[0].innerHTML = i18next.t('name');
-  }*/
+  /*
+    var contentData = window.document.getElementsByClassName("nav");
+    var child_li = contentData[0].getElementsByTagName("li");
+    for(var a = 0;a< child_li.length; a++) {
+      var child_a = child_li[a].getElementsByTagName("a");
+      child_a[0].innerHTML = i18next.t('name');
+    }*/
 }
+
 function updateContent_infor() {
   document.getElementById('panel_system').innerHTML = i18next.t('tab_system');
   document.getElementById('tab_system').innerHTML = i18next.t('tab_system');
@@ -88,11 +89,33 @@ function updateContent_infor() {
   document.getElementById('ins_version').innerHTML = i18next.t('version');
   document.getElementById('ins_downloads').innerHTML = i18next.t('downloads');
 
-  if (document.getElementById('install_id') != null){
-    document.getElementById('install_id').innerHTML = i18next.t('install_btn');
+}
+
+function updateContent_uninstallbtn() {
+  var contentData = window.document.getElementsByClassName("pac_installed_class");
+  var child_tr = contentData[0].getElementsByTagName("tr");
+  for (var a = 0; a < child_tr.length; a++) {
+    var child_td = child_tr[a].getElementsByTagName("td");
+    for (var b = 0; b < child_td.length; b++) {
+      if (child_td[b].getElementsByTagName("button") != null) {
+        var btn__ = child_td.getElementsByTagName("button");
+        btn__.innerHTML = i18next.t('uninstall_btn');
+      }
+    }
   }
-  if (document.getElementById('uninstall_id') != null){
-    document.getElementById('uninstall_id').innerHTML = i18next.t('uninstall_btn');
+}
+
+function updateContent_installbtn() {
+  var contentData = window.document.getElementsByClassName("pac_noinstall_class");
+  var child_tr = contentData[0].getElementsByTagName("tr");
+  for (var a = 0; a < child_tr.length; a++) {
+    var child_td = child_tr[a].getElementsByTagName("td");
+    for (var b = 0; b < child_td.length; b++) {
+      if (child_td[b].getElementsByTagName("button") != null) {
+        var btn__ = child_td.getElementsByTagName("button");
+        btn__.innerHTML = i18next.t('install_btn');
+      }
+    }
   }
 }
 
