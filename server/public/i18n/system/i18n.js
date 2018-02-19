@@ -98,8 +98,8 @@ function updateContent_uninstallbtn() {
     var child_td = child_tr[a].getElementsByTagName("td");
     for (var b = 0; b < child_td.length; b++) {
       if (child_td[b].getElementsByTagName("button") != null) {
-        var btn__ = child_td[b].getElementsByClassName("btn btn-danger");
-        btn__[0].innerHTML = i18next.t('uninstall_btn');
+        var btn__ = child_td[b].getElementsByTagName("button");
+        btn__[0].value = i18next.t('uninstall_btn');
       }
     }
   }
@@ -112,8 +112,8 @@ function updateContent_installbtn() {
     var child_td = child_tr[a].getElementsByTagName("td");
     for (var b = 0; b < child_td.length; b++) {
       if (child_td[b].getElementsByTagName("button") != null) {
-        var btn__ = child_td[b].getElementsByClassName("btn btn-primary");
-        btn__[0].innerHTML = i18next.t('install_btn');
+        var btn__ = child_td[b].getElementsByTagName("button");
+        btn__[0].value = i18next.t('install_btn');
       }
     }
   }
