@@ -10,6 +10,8 @@
 
   <title>Raspbian WiFi Configuration Portal</title>
 
+  <script src="https://unpkg.com/i18next/i18next.js"></script>
+
   <!-- Bootstrap Core CSS -->
   <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -66,6 +68,12 @@
         <!-- /.navbar-collapse -->
       </div>
       <!-- /.navbar-default -->
+      <div style="float: right; padding: 5px 5px;">
+        <select id="lang_select" class="form-control" onchange="changeLng()">
+          <option value="en">english</option>
+          <option value="ko">한국어</option>
+        </select>
+      </div>
     </nav>
 
     <div id="page-wrapper">
@@ -84,53 +92,32 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="panel panel-primary">
-            <div class="panel-heading"><i class="fa fa-signal fa-fw"></i> Configure client</div>
+            <div class="panel-heading"><i class="fa fa-signal fa-fw"></i>
+              <div style="display:inline" id="i18_confclient">
+              Configure client
+              </div>
+            </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
               <p>
               </p>
-              <h4>Client settings</h4>
+              <h4 id="i18_clientsetting">Client settings</h4>
               <div class="btn-group btn-block">
-                <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" value="Rescan" onclick="rescan_button()" />
-                <!--<a href="" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" id="update">Rescan</a>-->
+                <input type="button" style="padding:10px;float: right;display: block;position: relative;margin-top: -55px;" class="col-md-2 btn btn-info" id="i18_rescan" value="Rescan" onclick="rescan_button()" />
+
               </div>
               <form method="POST" action="?page=wpa_conf" name="wpa_conf_form">
                 <input type="hidden" name="client_settings" ?>
                 <table class="table table-responsive table-striped" id="client_information">
-                  <!--
-                  <tr>
-                    <th></th>
-                    <th>SSID</th>
-                    <th>Channel</th>
-                    <th>Security</th>
-                    <th>Passphrase</th>
-                    <th></th>
-                  </tr>
-                  <tr>
-                    <td>
-                    </td>
-                    <td>
 
-                    </td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
-
-                    <td>
-                    </td>
-                  </tr>
-                -->
                 </table>
               </form>
             </div>
             <!-- ./ Panel body -->
-            <div class="panel-footer"><strong>Note,</strong> WEP access points appear as 'Open'. RaspAP does not currently support connecting to WEP.</div>
+            <div class="panel-footer"><strong id="i18_note">Note,</strong>
+              <div style="display:inline" id="i18_wep_conn_infor">
+               WEP access points appear as 'Open'. RaspAP does not currently support connecting to WEP.
+             </div>
           </div>
           <!-- /.panel-primary -->
         </div>
@@ -143,6 +130,9 @@
     <!-- /#page-wrapper -->
   </div>
   <!-- /#wrapper -->
+
+  <!-- i18n JavaScript -->
+  <script src="i18n/wpaconfig/i18n.js"></script>
 
   <!-- RaspAP JavaScript -->
   <script src="dist/js/functions.js"></script>
@@ -171,7 +161,7 @@
       var content = "";
       var type = "example_";
 
-        content += "<tr><th></th><th>SSID</th><th>Channel</th><th>Security</th><th>Passphrase</th><th></th></tr>"
+        content += "<tr><th></th><th id=i18_ssid>SSID</th><th id=i18_channel>Channel</th><th id=i18_security>Security</th><th id=i18_passphrase>Passphrase</th><th></th></tr>"
         for(var i = 1;i < 5;i++){
           var a = String(i);
           type = "example_";
@@ -203,6 +193,7 @@
     }
     function wpa_infor(data){
       document.getElementById("client_information").innerHTML = clientsetting_data_fill(data);
+      updateContent_infor();
     }
   </script>
 </body>
