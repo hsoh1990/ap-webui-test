@@ -289,8 +289,13 @@
               }
             }
             if (check == false) {
-              connect_count += 1;
-              connect_data.push(data);
+              if (data['arp'] == 1) {
+                connect_count += 1;
+                connect_data.push(data);
+              } else if (data['arp'] == 0) {
+                disconnect_count += 1;
+                disconnect_data.push(data);
+              }
             }
             if( device_count < (connect_count + disconnect_count)){
               device_count += 1;

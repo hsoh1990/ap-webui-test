@@ -67,6 +67,29 @@ module.exports = function(app, fs, url) {
   var read_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
   var device_data = JSON.parse(read_data);
 
+  function device_data_arp_decide() {
+    var data__ = router_socket.data_get();
+    var data_key = Object.getOwnPropertyNames(data__);
+    for(var a = 0;a < device_data.length; a++) {
+      var count = 0;
+      for(b = 0;b < Object.keys(data__).length; b++) {
+        if (device_data[a]['MAC Address'] == data__[data_key[b]]['MAC Address']) {
+          count++;
+        }
+      }
+      if (count == 0){
+        if (device_data[a]['arp'] == 1) {
+          device_data[a]['arp'] = 0;
+        }
+      }
+    }
+    fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+      JSON.stringify(device_data, null, '\t'), "utf8",
+      function(err, data) {})
+
+  }
+
+  device_data_arp_decide();
 
   ! function arp_repeat() {
     arp_count++;
