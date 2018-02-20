@@ -22,55 +22,42 @@ i18next.init({
         "enabled": "Enabled",
         "disabled": "Disabled",
         "static_ip_option": "Static IP Options",
-        "enable_logging": "Enable Logging",
-        "log_notenable": "Logfile output not enabled",
-        "country_code": "Country Code",
-        "hostapd_infor_prov": "Information provided by hostapd",
-        "hostapd_dec_run": "HostAPD is running",
-        "hostapd_dec_stop": "HostAPD is not running",
-        "basic_savesetbtn": "Save settings",
-        "basic_hotspotstop": "Stop hotspot",
-        "basic_hotspotstart": "Start hotspot",
-        "security_savesetbtn": "Save settings",
-        "security_hotspotstop": "Stop hotspot",
-        "security_hotspotstart": "Start hotspot",
-        "advanced_savesetbtn": "Save settings",
-        "advanced_hotspotstop": "Stop hotspot",
-        "advanced_hotspotstart": "Start hotspot"
+        "ip": "IP Address",
+        "subnetmask": "Subnet Mask",
+        "default_gateway": "Default Gateway",
+        "dns_server": "DNS Server",
+        "alternate_dns": "Alternate DNS Server",
+        "savesetbtn": "Save settings",
+        "apply_setting": "Apply Settings",
+        "net_infor_prov": "Information provided by /sys/class/net"
       }
     },
     ko: {
       translation: {
-        "conf_hotspot": "Hotspot 설정",
-        "basic_tab": "기본",
-        "security_tab": "보안",
-        "advanced_tab": "고급",
-        "logfileoutput_tab": "로그 파일 출력",
-        "basic_setting": "기본 설정",
-        "interface": "인터페이스 목록",
-        "wireless_mode": "무선 모드",
-        "channel": "채널",
-        "security_setting": "보안 설정",
-        "secu_type": "보안 유형",
-        "enc_type": "암호화 유형",
-        "psk": "비밀번호",
-        "logfile_output": "로그 파일 출력",
-        "advanced_setting": "고급 설정",
-        "enable_logging": "로그 출력 사용 설정",
-        "log_notenable": "로그 파일 출력이 활성화되지 않았습니다.",
-        "country_code": "국가 코드",
-        "hostapd_infor_prov": "Hostapd에서 제공한 정보입니다.",
-        "hostapd_dec_run": "HostAPD가 실행중 입니다.",
-        "hostapd_dec_stop": "HostAPD가 정지되었습니다.",
-        "basic_savesetbtn": "설정 저장",
-        "basic_hotspotstop": "Hotspot 종료",
-        "basic_hotspotstart": "Hotspot 시작",
-        "security_savesetbtn": "설정 저장",
-        "security_hotspotstop": "Hotspot 종료",
-        "security_hotspotstart": "Hotspot 시작",
-        "advanced_savesetbtn": "설정 저장",
-        "advanced_hotspotstop": "Hotspot 종료",
-        "advanced_hotspotstart": "Hotspot 시작"
+        "conf_networking": "네트워킹 구성",
+        "summary_tab": "개요",
+        "eth0_tab": "eth0",
+        "wlan0_tab": "wlan0",
+        "cursetting": "현재 설정",
+        "eth0": "eth0",
+        "wlan0": "wlan0",
+        "refresh": "새로고침",
+
+        "adapt_ip_setting": "어댑터 IP 주소 설정",
+        "dhcp": "DHCP",
+        "ststic_ip": "고정 IP",
+        "enable_fallback": "정적 옵션으로 대체 사용",
+        "enabled": "사용",
+        "disabled": "비사용",
+        "static_ip_option": "정적 IP 설정",
+        "ip": "IP 주소",
+        "subnetmask": "서브넷 마스크",
+        "default_gateway": "기본 게이트웨이",
+        "dns_server": "DNS 서버",
+        "alternate_dns": "대체 DNS 서버",
+        "savesetbtn": "설정 저장",
+        "apply_setting": "설정 적용",
+        "net_infor_prov": "/sys/class/net에서 제공하는 정보입니다."
       }
     }
   }
@@ -86,64 +73,49 @@ function updateContent_nav() {
 }
 
 function updateContent_infor() {
-  document.getElementById('i18_confhotspot').innerHTML = i18next.t('conf_hotspot');
-  document.getElementById('i18_basictab').innerHTML = i18next.t('basic_tab');
-  document.getElementById('i18_securitytab').innerHTML = i18next.t('security_tab');
-  document.getElementById('i18_advancedtab').innerHTML = i18next.t('advanced_tab');
-  document.getElementById('i18_logfileputouttab').innerHTML = i18next.t('logfileoutput_tab');
-  document.getElementById('i18_basic_setting').innerHTML = i18next.t('basic_setting');
-  document.getElementById('i18_interface').innerHTML = i18next.t('interface');
-  document.getElementById('i18_wireless_mode').innerHTML = i18next.t('wireless_mode');
-  document.getElementById('i18_channel').innerHTML = i18next.t('channel');
-  document.getElementById('i18_security_setting').innerHTML = i18next.t('security_setting');
-  document.getElementById('i18_secu_type').innerHTML = i18next.t('secu_type');
-  document.getElementById('i18_enc_type').innerHTML = i18next.t('enc_type');
-  document.getElementById('i18_psk').innerHTML = i18next.t('psk');
-  document.getElementById('i18_advanced_setting').innerHTML = i18next.t('advanced_setting');
-  document.getElementById('i18_logfile_output').innerHTML = i18next.t('logfile_output');
-  document.getElementById('i18_enable_logging').innerHTML = i18next.t('enable_logging');
-  document.getElementById('i18_country_code').innerHTML = i18next.t('country_code');
-  document.getElementById('i18_hostapd_infor_prov').innerHTML = i18next.t('hostapd_infor_prov');
+  document.getElementById('i18_confnetworking').innerHTML = i18next.t('conf_networking');
+  document.getElementById('i18_summarytab').innerHTML = i18next.t('summary_tab');
+  document.getElementById('i18_eth0tab').innerHTML = i18next.t('eth0_tab');
+  document.getElementById('i18_wlan0tab').innerHTML = i18next.t('wlan0_tab');
+  document.getElementById('i18_cursetting').innerHTML = i18next.t('cursetting');
+  document.getElementById('i18_eth0').innerHTML = i18next.t('eth0');
+  document.getElementById('i18_wlan0').innerHTML = i18next.t('wlan0');
+  document.getElementById('i18_refresh').innerHTML = i18next.t('net_infor_prov');
+
+  document.getElementById('net_infor_prov').innerHTML = i18next.t('refresh');
 }
-function updateContent_not_logenable(){
-  if(document.getElementById('i18_log_notenable') != null) {
-    document.getElementById('i18_log_notenable').innerHTML = i18next.t('log_notenable');
-  }
+function updateContent_eth0() {
+  document.getElementById('i18_eth0adapt_ip_setting').innerHTML = i18next.t('adapt_ip_setting');
+  document.getElementById('i18_eth0dhcp').innerHTML = i18next.t('dhcp');
+  document.getElementById('i18_eth0ststic_ip').innerHTML = i18next.t('ststic_ip');
+  document.getElementById('i18_eth0enable_fallback').innerHTML = i18next.t('enable_fallback');
+  document.getElementById('i18_eth0enabled').innerHTML = i18next.t('enabled');
+  document.getElementById('i18_eth0disabled').innerHTML = i18next.t('disabled');
+  document.getElementById('i18_eth0static_ip_option').innerHTML = i18next.t('static_ip_option');
+  document.getElementById('i18_eth0ip').innerHTML = i18next.t('ip');
+  document.getElementById('i18_eth0subnetmask').innerHTML = i18next.t('subnetmask');
+  document.getElementById('i18_eth0default_gateway').innerHTML = i18next.t('default_gateway');
+  document.getElementById('i18_eth0dns_server').innerHTML = i18next.t('dns_server');
+  document.getElementById('i18_eth0alternate_dns').innerHTML = i18next.t('alternate_dns');
+  document.getElementById('i18_eth0savesetbtn').innerHTML = i18next.t('savesetbtn');
+  document.getElementById('i18_eth0apply_setting').innerHTML = i18next.t('apply_setting');
 }
-function updateContent_hostapd_startstop(){
-  if(document.getElementById('i18_hostapd_dec_run') != null) {
-    document.getElementById('i18_hostapd_dec_run').innerHTML = i18next.t('hostapd_dec_run');
-  }
-  if(document.getElementById('i18_hostapd_dec_stop') != null) {
-    document.getElementById('i18_hostapd_dec_stop').innerHTML = i18next.t('hostapd_dec_stop');
-  }
-}
-function updateContent_basic_btn(){
-  document.getElementById('i18_basic_savesetbtn').value = i18next.t('basic_savesetbtn');
-  if(document.getElementById('i18_basic_hotspotstop') != null) {
-    document.getElementById('i18_basic_hotspotstop').value = i18next.t('basic_hotspotstop');
-  }
-  if(document.getElementById('i18_basic_hotspotstart') != null) {
-    document.getElementById('i18_basic_hotspotstart').value = i18next.t('basic_hotspotstart');
-  }
-}
-function updateContent_security_btn(){
-  document.getElementById('i18_security_savesetbtn').value = i18next.t('security_savesetbtn');
-  if(document.getElementById('i18_security_hotspotstop') != null) {
-    document.getElementById('i18_security_hotspotstop').value = i18next.t('security_hotspotstop');
-  }
-  if(document.getElementById('i18_security_hotspotstart') != null) {
-    document.getElementById('i18_security_hotspotstart').value = i18next.t('security_hotspotstart');
-  }
-}
-function updateContent_advanced_btn(){
-  document.getElementById('i18_advanced_savesetbtn').value = i18next.t('advanced_savesetbtn');
-  if(document.getElementById('i18_advanced_hotspotstop') != null) {
-    document.getElementById('i18_advanced_hotspotstop').value = i18next.t('advanced_hotspotstop');
-  }
-  if(document.getElementById('i18_advanced_hotspotstart') != null) {
-    document.getElementById('i18_advanced_hotspotstart').value = i18next.t('advanced_hotspotstart');
-  }
+
+function updateContent_wlan0() {
+  document.getElementById('i18_wlan0adapt_ip_setting').innerHTML = i18next.t('adapt_ip_setting');
+  document.getElementById('i18_wlan0dhcp').innerHTML = i18next.t('dhcp');
+  document.getElementById('i18_wlan0ststic_ip').innerHTML = i18next.t('ststic_ip');
+  document.getElementById('i18_wlan0enable_fallback').innerHTML = i18next.t('enable_fallback');
+  document.getElementById('i18_wlan0enabled').innerHTML = i18next.t('enabled');
+  document.getElementById('i18_wlan0disabled').innerHTML = i18next.t('disabled');
+  document.getElementById('i18_wlan0static_ip_option').innerHTML = i18next.t('static_ip_option');
+  document.getElementById('i18_wlan0ip').innerHTML = i18next.t('ip');
+  document.getElementById('i18_wlan0subnetmask').innerHTML = i18next.t('subnetmask');
+  document.getElementById('i18_wlan0default_gateway').innerHTML = i18next.t('default_gateway');
+  document.getElementById('i18_wlan0dns_server').innerHTML = i18next.t('dns_server');
+  document.getElementById('i18_wlan0alternate_dns').innerHTML = i18next.t('alternate_dns');
+  document.getElementById('i18_wlan0savesetbtn').innerHTML = i18next.t('savesetbtn');
+  document.getElementById('i18_wlan0apply_setting').innerHTML = i18next.t('apply_setting');
 }
 
 function changeLng() {
@@ -154,9 +126,6 @@ function changeLng() {
 
 i18next.on('languageChanged', () => {
   updateContent_infor();
-  updateContent_hostapd_startstop();
-  updateContent_basic_btn();
-  updateContent_security_btn();
-  updateContent_advanced_btn();
-  updateContent_not_logenable();
+  updateContent_eth0();
+  updateContent_wlan0();
 });
