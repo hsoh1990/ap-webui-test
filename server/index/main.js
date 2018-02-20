@@ -213,7 +213,7 @@ module.exports = function(app, fs, url) {
     });
 
     socket.on('owner__ap', function(data) {
-      owner_ap_section();
+      owner_ap_section(data);
     });
 
     socket.on('owner__wlan', function(data) {
@@ -270,7 +270,7 @@ module.exports = function(app, fs, url) {
     console.log("소켓 접속 종료 : " + sockets.length);
   }
 
-  function owner_ap_section() {
+  function owner_ap_section(data) {
     ap_infor['MAC Address'] = data['mac'];
     ap_infor['owner'] = data['owner'];
     fs.writeFileSync(__dirname + "/data/" + "ap_data.json",
