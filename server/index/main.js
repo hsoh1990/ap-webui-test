@@ -80,6 +80,15 @@ module.exports = function(app, fs, url) {
     var data__ = router_socket.data_get();
     var data_key = Object.getOwnPropertyNames(data__);
 
+    arp_promise(data__, data_key);
+
+    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    setTimeout(function() {
+      arp_repeat();
+    }, 11000);
+  }()
+
+  function arp_promise(data__, data_key) {
     for (var a = 0; a < Object.keys(data__).length; a++) {
       var _promise = function(a, data__, data_key) {
         return new Promise(function(resolve, reject) {
@@ -122,15 +131,6 @@ module.exports = function(app, fs, url) {
         });
 
     }
-
-    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-    setTimeout(function() {
-      arp_repeat();
-    }, 11000);
-  }()
-
-  function arp_promise() {
-
   }
 
 
@@ -209,22 +209,11 @@ module.exports = function(app, fs, url) {
     socket_init(socket);
 
     socket.on('disconnect', function() {
-      connect_bool = false;
-      for (var a = 0; a < sockets.length; a++) {
-        if (sockets[a] == socket) {
-          sockets.splice(a, 1);
-        }
-      }
-      console.log("소켓 접속 종료 : " + sockets.length);
+      disconnect_section();
     });
 
     socket.on('owner__ap', function(data) {
-      ap_infor['MAC Address'] = data['mac'];
-      ap_infor['owner'] = data['owner'];
-      fs.writeFileSync(__dirname + "/data/" + "ap_data.json",
-        JSON.stringify(ap_infor, null, '\t'), "utf8",
-        function(err, data) {})
-      data_ap_broadcasting(ap_infor);
+      owner_ap_section();
     });
 
     socket.on('owner__wlan', function(data) {
@@ -271,4 +260,22 @@ module.exports = function(app, fs, url) {
     });
 
   });
+  function disconnect_section() {
+    connect_bool = false;
+    for (var a = 0; a < sockets.length; a++) {
+      if (sockets[a] == socket) {
+        sockets.splice(a, 1);
+      }
+    }
+    console.log("소켓 접속 종료 : " + sockets.length);
+  }
+
+  function owner_ap_section() {
+    ap_infor['MAC Address'] = data['mac'];
+    ap_infor['owner'] = data['owner'];
+    fs.writeFileSync(__dirname + "/data/" + "ap_data.json",
+      JSON.stringify(ap_infor, null, '\t'), "utf8",
+      function(err, data) {})
+    data_ap_broadcasting(ap_infor);
+  }
 }
