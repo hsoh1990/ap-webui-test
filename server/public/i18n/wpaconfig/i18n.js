@@ -50,7 +50,7 @@ function updateContent_infor() {
   document.getElementById('i18_wep_conn_infor').innerHTML = i18next.t('wep_conn_infor');
   document.getElementById('i18_ssid').innerHTML = i18next.t('ssid');
   document.getElementById('i18_channel').innerHTML = i18next.t('channel');
-  document.getElementById('i18_security').value = i18next.t('security');
+  document.getElementById('i18_security').innerHTML = i18next.t('security');
   document.getElementById('i18_passphrase').innerHTML = i18next.t('passphrase');
 }
 
