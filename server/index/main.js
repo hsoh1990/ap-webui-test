@@ -69,54 +69,7 @@ module.exports = function(app, fs, url) {
 
   console.log("read_data : " + read_data);
 
-  function data_arp_broadcasting(result_data) {
-    for (var a = 0; a < sockets.length; a++) {
-      console.log("브로드캐스팅 보냄");
-      sockets[a].emit('arp', result_data);
-    }
-  }
-
-  function data_ap_broadcasting(result_data) {
-    for (var a = 0; a < sockets.length; a++) {
-      sockets[a].emit('apinfor', result_data);
-    }
-  }
-
-  function data_wlan_broadcasting(result_data) {
-    for (var a = 0; a < sockets.length; a++) {
-      sockets[a].emit('wlaninfor', result_data);
-    }
-  }
-
-  function data_disconn_owner_broadcasting(result_data) {
-    for (var a = 0; a < sockets.length; a++) {
-      sockets[a].emit('owner_disconn_result', result_data);
-    }
-  }
-
-  function data_conn_owner_broadcasting(result_data) {
-    for (var a = 0; a < sockets.length; a++) {
-      sockets[a].emit('owner_conn_result', result_data);
-    }
-  }
-
-  function device_data_splice(data_check, result) {
-    device_data.splice(data_check['a'], 1, result);
-    delete device_data['check'];
-    delete device_data['a'];
-    fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-      JSON.stringify(device_data, null, '\t'), "utf8",
-      function(err, data) {})
-  }
-
-  function device_data_push(data_check, result) {
-    device_data.push(result);
-    delete device_data['check'];
-    delete device_data['a'];
-    fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-      JSON.stringify(device_data, null, '\t'), "utf8",
-      function(err, data) {})
-  }! function arp_repeat() {
+  ! function arp_repeat() {
     arp_count++;
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
     //반복하는 부분
@@ -175,6 +128,60 @@ module.exports = function(app, fs, url) {
       arp_repeat();
     }, 11000);
   }()
+
+  function arp_promise() {
+
+  }
+
+
+  function data_arp_broadcasting(result_data) {
+    for (var a = 0; a < sockets.length; a++) {
+      console.log("브로드캐스팅 보냄");
+      sockets[a].emit('arp', result_data);
+    }
+  }
+
+  function data_ap_broadcasting(result_data) {
+    for (var a = 0; a < sockets.length; a++) {
+      sockets[a].emit('apinfor', result_data);
+    }
+  }
+
+  function data_wlan_broadcasting(result_data) {
+    for (var a = 0; a < sockets.length; a++) {
+      sockets[a].emit('wlaninfor', result_data);
+    }
+  }
+
+  function data_disconn_owner_broadcasting(result_data) {
+    for (var a = 0; a < sockets.length; a++) {
+      sockets[a].emit('owner_disconn_result', result_data);
+    }
+  }
+
+  function data_conn_owner_broadcasting(result_data) {
+    for (var a = 0; a < sockets.length; a++) {
+      sockets[a].emit('owner_conn_result', result_data);
+    }
+  }
+
+  function device_data_splice(data_check, result) {
+    device_data.splice(data_check['a'], 1, result);
+    delete device_data['check'];
+    delete device_data['a'];
+    fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+      JSON.stringify(device_data, null, '\t'), "utf8",
+      function(err, data) {})
+  }
+
+  function device_data_push(data_check, result) {
+    device_data.push(result);
+    delete device_data['check'];
+    delete device_data['a'];
+    fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+      JSON.stringify(device_data, null, '\t'), "utf8",
+      function(err, data) {})
+  }
 
   function socket_init(socket) {
     connect_bool = true;
