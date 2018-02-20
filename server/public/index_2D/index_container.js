@@ -65,19 +65,19 @@ window.addEventListener('resize', fitStageIntoParentContainer);
 //레이어에 추가한것 제거부분, stage clear 부분
 function layer_removechildren() {
   var count = disconn_owner_layer_Array.length;
-  for (var a = 0;a < count; a++) {
+  for (var a = 0; a < count; a++) {
     disconn_owner_layer_Array.pop();
   }
   var count = disconn_owner_text.length;
-  for (var a = 0;a < count; a++) {
+  for (var a = 0; a < count; a++) {
     disconn_owner_text.pop();
   }
   var count = conn_owner_layer_Array.length;
-  for (var a = 0;a < count; a++) {
+  for (var a = 0; a < count; a++) {
     conn_owner_layer_Array.pop();
   }
   var count = conn_owner_text.length;
-  for (var a = 0;a < count; a++) {
+  for (var a = 0; a < count; a++) {
     conn_owner_text.pop();
   }
 
@@ -105,7 +105,7 @@ function layer_removechildren() {
   disconnect_text_Layer.removeChildren();
 }
 
-function textarea_on(owner_text, layer, data) {
+function textarea_on(owner_text, layer, data, index) {
   owner_text.on('dblclick', () => {
     // create textarea over canvas with absolute position
 
@@ -138,16 +138,21 @@ function textarea_on(owner_text, layer, data) {
         owner_text.text(textarea.value);
         layer.draw();
         document.body.removeChild(textarea);
-        socket.emit('owner__ap', owner_data(data[0]['MAC Address'], textarea.value));
+        if (index == 1) {
+          socket.emit('owner__ap', owner_data(data[0]['MAC Address'], textarea.value));
+        } else if (index == 2) {
+          socket.emit('owner__wlan', owner_data(data[0]['MAC Address'], textarea.value));
+        }
       }
     });
   })
 }
+
 function textarea_device_on(layer, text_layer_dex, data, index) {
   text_layer_dex.on('dblclick', function(evt) {
     // create textarea over canvas with absolute position
     var tmp_i = 0;
-    for( var b = 0;b < layer.length; b++) {
+    for (var b = 0; b < layer.length; b++) {
       if (layer[b]._id == evt.target._id) {
         tmp_i = b;
         break;
@@ -181,7 +186,7 @@ function textarea_device_on(layer, text_layer_dex, data, index) {
       if (e.keyCode === 13) {
         layer[tmp_i].text(textarea.value);
         document.body.removeChild(textarea);
-        if(index == 1) {
+        if (index == 1) {
           socket.emit('owner__disconnect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
         } else if (index == 2) {
           socket.emit('owner__connect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
@@ -190,6 +195,7 @@ function textarea_device_on(layer, text_layer_dex, data, index) {
     });
   })
 }
+
 function ap_draw(enable__, ap_data) {
   aplayer.removeChildren();
   ap_owner_layer.removeChildren();
@@ -280,13 +286,13 @@ function ap_draw(enable__, ap_data) {
   }
   stage.batchDraw();
 
-  textarea_on(owner_text, ap_owner_layer, ap_data);
+  textarea_on(owner_text, ap_owner_layer, ap_data ,1);
 }
 
-function owner_data (mac, text) {
+function owner_data(mac, text) {
   var result = {
-    'mac' : mac,
-    'owner' : text
+    'mac': mac,
+    'owner': text
   }
   return result;
 }
@@ -381,7 +387,7 @@ function wlan_draw(enable__, wlan_data) {
 
   stage.batchDraw();
 
-  textarea_on(owner_text, wlan_owner_layer, wlan_data);
+  textarea_on(owner_text, wlan_owner_layer, wlan_data, 2);
 }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 //반원 상에서 기기들 위치 계산 부분
@@ -702,11 +708,11 @@ function connect_draw(enable, res_count, conn_count) {
 
 
     var imageObj = new Image();
-    if (a == 0){
+    if (a == 0) {
       imageObj.src = androidphone_svgpath;
-    }else if (a == 1) {
+    } else if (a == 1) {
       imageObj.src = iphone_svgpath;
-    }else {
+    } else {
       imageObj.src = green_svgpath;
     }
 
