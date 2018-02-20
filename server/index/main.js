@@ -222,12 +222,12 @@ module.exports = function(app, fs, url) {
 
     socket.on('owner__disconnect', function(data) {
       const parse_data = owner_device_section(data);
-      data_disconn_owner_broadcasting(parse_data[a]);
+      data_disconn_owner_broadcasting(parse_data);
     });
 
     socket.on('owner__connect', function(data) {
       const parse_data = owner_device_section(data);
-      data_conn_owner_broadcasting(parse_data[a]);
+      data_conn_owner_broadcasting(parse_data);
     });
 
   });
@@ -296,6 +296,6 @@ module.exports = function(app, fs, url) {
     fs.writeFileSync(__dirname + "/data/" + "device_data.json",
       JSON.stringify(parse_data, null, '\t'), "utf8",
       function(err, data) {})
-    return parse_data;
+    return parse_data[a];
   }
 }
