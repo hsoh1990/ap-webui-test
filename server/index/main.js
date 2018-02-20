@@ -67,7 +67,6 @@ module.exports = function(app, fs, url) {
   var read_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
   var device_data = JSON.parse(read_data);
 
-  console.log("read_data : " + read_data);
 
   ! function arp_repeat() {
     arp_count++;
@@ -183,6 +182,33 @@ module.exports = function(app, fs, url) {
       function(err, data) {})
   }
 
+  io.sockets.on('connect', function(socket) {
+    socket_init(socket);
+
+    socket.on('disconnect', function() {
+      disconnect_section(socket);
+    });
+
+    socket.on('owner__ap', function(data) {
+      owner_ap_section(data);
+    });
+
+    socket.on('owner__wlan', function(data) {
+      owner_wlan_section(data);
+    });
+
+    socket.on('owner__disconnect', function(data) {
+      owner_device_section(data);
+      data_disconn_owner_broadcasting(parse_data[a]);
+    });
+
+    socket.on('owner__connect', function(data) {
+      owner_device_section(data);
+      data_conn_owner_broadcasting(parse_data[a]);
+    });
+
+  });
+
   function socket_init(socket) {
     connect_bool = true;
     sockets.push(socket);
@@ -205,61 +231,6 @@ module.exports = function(app, fs, url) {
     }
   }
 
-  io.sockets.on('connect', function(socket) {
-    socket_init(socket);
-
-    socket.on('disconnect', function() {
-      disconnect_section(socket);
-    });
-
-    socket.on('owner__ap', function(data) {
-      owner_ap_section(data);
-    });
-
-    socket.on('owner__wlan', function(data) {
-      wlan_infor['MAC Address'] = data['mac'];
-      wlan_infor['owner'] = data['owner'];
-      fs.writeFileSync(__dirname + "/data/" + "wlan_data.json",
-        JSON.stringify(wlan_infor, null, '\t'), "utf8",
-        function(err, data) {})
-      data_wlan_broadcasting(wlan_infor);
-    });
-
-    socket.on('owner__disconnect', function(data) {
-      var stringify_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
-      var parse_data = JSON.parse(stringify_data);
-      for (var a = 0; a < parse_data.length; a++) {
-        if (parse_data[a]['MAC Address'] == data['mac']) {
-          parse_data[a]['owner'] = data['owner'];
-          console.log("owner = " + data['owner']);
-          break;
-        }
-      }
-      device_data = parse_data;
-      fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-        JSON.stringify(parse_data, null, '\t'), "utf8",
-        function(err, data) {})
-      data_disconn_owner_broadcasting(parse_data[a]);
-    });
-
-    socket.on('owner__connect', function(data) {
-      var stringify_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
-      var parse_data = JSON.parse(stringify_data);
-      for (var a = 0; a < parse_data.length; a++) {
-        if (parse_data[a]['MAC Address'] == data['mac']) {
-          parse_data[a]['owner'] = data['owner'];
-          console.log("owner = " + data['owner']);
-          break;
-        }
-      }
-      device_data = parse_data;
-      fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-        JSON.stringify(parse_data, null, '\t'), "utf8",
-        function(err, data) {})
-      data_conn_owner_broadcasting(parse_data[a]);
-    });
-
-  });
   function disconnect_section(socket) {
     connect_bool = false;
     for (var a = 0; a < sockets.length; a++) {
@@ -278,4 +249,31 @@ module.exports = function(app, fs, url) {
       function(err, data) {})
     data_ap_broadcasting(ap_infor);
   }
+
+  function owner_wlan_section(data) {
+    wlan_infor['MAC Address'] = data['mac'];
+    wlan_infor['owner'] = data['owner'];
+    fs.writeFileSync(__dirname + "/data/" + "wlan_data.json",
+      JSON.stringify(wlan_infor, null, '\t'), "utf8",
+      function(err, data) {})
+    data_wlan_broadcasting(wlan_infor);
+  }
+
+  function owner_device_section(data) {
+    var stringify_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
+    var parse_data = JSON.parse(stringify_data);
+    for (var a = 0; a < parse_data.length; a++) {
+      if (parse_data[a]['MAC Address'] == data['mac']) {
+        parse_data[a]['owner'] = data['owner'];
+        console.log("owner = " + data['owner']);
+        break;
+      }
+    }
+    device_data = parse_data;
+    fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+      JSON.stringify(parse_data, null, '\t'), "utf8",
+      function(err, data) {})
+  }
+
+
 }
