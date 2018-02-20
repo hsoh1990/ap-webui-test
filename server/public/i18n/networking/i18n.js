@@ -80,7 +80,7 @@ function updateContent_infor() {
   document.getElementById('i18_cursetting').innerHTML = i18next.t('cursetting');
   document.getElementById('i18_eth0').innerHTML = i18next.t('eth0');
   document.getElementById('i18_wlan0').innerHTML = i18next.t('wlan0');
-  document.getElementById('i18_refresh').innerHTML = i18next.t('refresh');
+  document.getElementById('i18_refresh').value = i18next.t('refresh');
 
   document.getElementById('net_infor_prov').innerHTML = i18next.t('net_infor_prov');
 }
@@ -97,8 +97,8 @@ function updateContent_eth0() {
   document.getElementById('i18_eth0default_gateway').innerHTML = i18next.t('default_gateway');
   document.getElementById('i18_eth0dns_server').innerHTML = i18next.t('dns_server');
   document.getElementById('i18_eth0alternate_dns').innerHTML = i18next.t('alternate_dns');
-  document.getElementById('i18_eth0savesetbtn').innerHTML = i18next.t('savesetbtn');
-  document.getElementById('i18_eth0apply_setting').innerHTML = i18next.t('apply_setting');
+  document.getElementById('i18_eth0savesetbtn').value = i18next.t('savesetbtn');
+  document.getElementById('i18_eth0apply_setting').value = i18next.t('apply_setting');
 }
 
 function updateContent_wlan0() {
@@ -114,8 +114,8 @@ function updateContent_wlan0() {
   document.getElementById('i18_wlan0default_gateway').innerHTML = i18next.t('default_gateway');
   document.getElementById('i18_wlan0dns_server').innerHTML = i18next.t('dns_server');
   document.getElementById('i18_wlan0alternate_dns').innerHTML = i18next.t('alternate_dns');
-  document.getElementById('i18_wlan0savesetbtn').innerHTML = i18next.t('savesetbtn');
-  document.getElementById('i18_wlan0apply_setting').innerHTML = i18next.t('apply_setting');
+  document.getElementById('i18_wlan0savesetbtn').value = i18next.t('savesetbtn');
+  document.getElementById('i18_wlan0apply_setting').value = i18next.t('apply_setting');
 }
 
 function changeLng() {
