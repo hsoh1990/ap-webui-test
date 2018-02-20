@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Raspbian WiFi Configuration Portal</title>
+
+  <script src="https://unpkg.com/i18next/i18next.js"></script>
+  <!-- Bootstrap Core CSS -->
+  <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- MetisMenu CSS -->
+  <link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+  <!-- Timeline CSS -->
+  <link href="dist/css/timeline.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+
+  <!-- Morris Charts CSS -->
+  <link href="bower_components/morrisjs/morris.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Custom CSS -->
+  <link href="dist/css/custom.css" title="main" rel="stylesheet">
+
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body onload="sidemenu_get(),Load()">
+
+  <div id="wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="index_login">RaspAP Wifi Portal v1.3.0</a>
+      </div>
+      <!-- /.navbar-header -->
+
+      <!-- Navigation -->
+      <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+          <ul class="nav" id="side-menu">
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.navbar-default -->
+      <div style="float: right; padding: 5px 5px;">
+        <select id="lang_select" class="form-control" onchange="changeLng()">
+          <option value="en">english</option>
+          <option value="ko">한국어</option>
+        </select>
+      </div>
+    </nav>
+
+    <div id="page-wrapper">
+
+      <!-- Page Heading -->
+      <div class="row">
+        <div class="col-lg-12">
+          <h1 class="page-header">
+              <img class="logo" src="img/raspAP-logo.png" width="45" height="45">RaspAP
+            </h1>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <!-- body -->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-primary">
+            <div class="panel panel-heading">
+              <i class="fa fa-sitemap fa-fw"></i>
+              <div style="display:inline" id="i18_confnetworking">
+                Configure Networking
+              </div>
+            </div>
+            <div class="panel-body">
+              <div id="msgNetworking"></div>
+              <ul class="nav nav-tabs">
+                <li role="presentation" class="active">
+                  <a href="#summary" aria-controls="summary" role="tab" data-toggle="tab" id="i18_summarytab">Summary</a></li>
+                <li role="presentation">
+                  <a href="#eth0" aria-controls="eth0" role="tab" data-toggle="tab" id="i18_eth0tab">eth0</a></li>
+                <li role="presentation">
+                  <a href="#wlan0" aria-controls="wlan0" role="tab" data-toggle="tab" id="i18_wlan0tab">wlan0</a></li>
+              </ul>
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="summary">
+                  <h4 id="i18_cursetting">Current Settings</h4>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="panel panel-default">
+                        <div class="panel-heading" id="i18_eth0">eth0</div>
+                        <div class="panel-body" id="eth0-summary">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="panel panel-default">
+                        <div class="panel-heading" id="i18_wlan0">wlan0</div>
+                        <div class="panel-body" id="wlan0-summary">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.row -->
+                  <div class="col-lg-12">
+                    <div class="row">
+                      <input type="button" class="btn btn-outline btn-primary" value="Refresh" name="btnsummarybutton" onclick="Load()" />
+                      <i class="fa fa-refresh">
+                        </i>
+                      <div style="display:inline" id="i18_refresh">
+                        Refresh
+                      </div>
+                      </a>
+
+                    </div>
+                    <!-- /.row -->
+                  </div>
+                  <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.tab-pane -->
+                <div role="tabpanel" class="tab-pane fade in" id="eth0">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <form id="frm-eth0">
+                        <div class="form-group">
+                          <h4 id="i18_eth0adapt_ip_setting">Adapter IP Address Settings</h4>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                    <input type="radio" name="eth0-addresstype" id="eth0-dhcp" value="1" autocomplete="off">
+                                    <div style="display:inline" id="i18_eth0dhcp">
+                                    DHCP
+                                  </div>
+                                  </label>
+                            <label class="btn btn-primary">
+                                    <input type="radio" name="eth0-addresstype" id="eth0-static" value="2" autocomplete="off">
+                                    <div style="display:inline" id="i18_eth0ststic_ip">
+                                    Static IP
+                                  </div>
+                                  </label>
+                          </div>
+                          <!-- /.btn-group -->
+                          <h4 id="i18_eth0enable_fallback">Enable Fallback to Static Option</h4>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                    <input type="radio" name="eth0-dhcpfailover" id="eth0-failover" value="1" autocomplete="off">
+                                    <div style="display:inline" id="i18_eth0enabled">
+                                    Enabled
+                                  </div>
+                                  </label>
+                            <label class="btn btn-warning">
+                                    <input type="radio" name="eth0-dhcpfailover" id="eth0-nofailover" value="0" autocomplete="off">
+                                    <div style="display:inline" id="i18_eth0disabled">
+                                    Disabled
+                                  </div>
+                                  </label>
+                          </div>
+                          <!-- /.btn-group -->
+                        </div>
+                        <!-- /.form-group -->
+                        <hr />
+                        <h4 id="i18_eth0static_ip_option">Static IP Options</h4>
+                        <div class="form-group">
+                          <label for="eth0-ipaddress" id="i18_eth0ip">IP Address</label>
+                          <input type="text" class="form-control" id="eth0-ipaddress" placeholder="0.0.0.0">
+                        </div>
+                        <div class="form-group">
+                          <label for="eth0-netmask" id="i18_eth0subnetmask">Subnet Mask</label>
+                          <input type="text" class="form-control" id="eth0-netmask" placeholder="255.255.255.0">
+                        </div>
+                        <div class="form-group">
+                          <label for="eth0-gateway" id="i18_eth0default_gateway">Default Gateway</label>
+                          <input type="text" class="form-control" id="eth0-gateway" placeholder="0.0.0.0">
+                        </div>
+                        <div class="form-group">
+                          <label for="eth0-dnsssvr" id="i18_eth0dns_server">DNS Server</label>
+                          <input type="text" class="form-control" id="eth0-dnssvr" placeholder="0.0.0.0">
+                        </div>
+                        <div class="form-group">
+                          <label for="eth0-dnssvralt" id="i18_eth0alternate_dns">Alternate DNS Server</label>
+                          <input type="text" class="form-control" id="eth0-dnssvralt" placeholder="0.0.0.0">
+                        </div>
+                        <input type="button" class="btn btn-outline btn-primary" id="i18_eth0savesetbtn" value="Save settings" name="savedhcpdsettings" onclick="savesetting_button(0)" />
+                        <a href="#" class="btn btn-warning intapply" data-int="eth0" id="i18_eth0apply_setting">Apply Settings</a>
+                      </form>
+                    </div>
+                  </div>
+                  <!-- /.tab-panel -->
+                </div>
+                <div role="tabpanel" class="tab-pane fade in" id="wlan0">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <form id="frm-wlan0">
+                        <div class="form-group">
+                          <h4 id="i18_wlan0adapt_ip_setting">Adapter IP Address Settings</h4>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                  <input type="radio" name="wlan0-addresstype" id="wlan0-dhcp" value="1" autocomplete="off">
+                                  <div style="display:inline" id="i18_wlan0dhcp">
+                                  DHCP
+                                </div>
+                                </label>
+                            <label class="btn btn-primary">
+                                  <input type="radio" name="wlan0-addresstype" id="wlan0-static" value="2" autocomplete="off">
+                                  <div style="display:inline" id="i18_wlan0ststic_ip">
+                                  Static IP
+                                </div>
+                                </label>
+                          </div>
+                          <!-- /.btn-group -->
+                          <h4 id="i18_wlan0enable_fallback">Enable Fallback to Static Option</h4>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                  <input type="radio" name="wlan0-dhcpfailover" id="wlan0-failover" value="1" autocomplete="off">
+                                  <div style="display:inline" id="i18_wlan0enabled">
+                                  Enabled
+                                </div>
+                                </label>
+                            <label class="btn btn-warning">
+                                  <input type="radio" name="wlan0-dhcpfailover" id="wlan0-nofailover" value="0" autocomplete="off">
+                                  <div style="display:inline" id="i18_wlan0disabled">
+                                  Disabled
+                                </div>
+                                </label>
+                          </div>
+                          <!-- /.btn-group -->
+                        </div>
+                        <!-- /.form-group -->
+                        <hr />
+                        <h4 id="i18_wlan0static_ip_option">Static IP Options</h4>
+                        <div class="form-group">
+                          <label for="wlan0-ipaddress" id="i18_wlan0ip">IP Address</label>
+                          <input type="text" class="form-control" id="wlan0-ipaddress" placeholder="0.0.0.0">
+                        </div>
+                        <div class="form-group" >
+                          <label for="wlan0-netmask" id="i18_wlan0subnetmask">Subnet Mask</label>
+                          <input type="text" class="form-control" id="wlan0-netmask" placeholder="255.255.255.0">
+                        </div>
+                        <div class="form-group">
+                          <label for="wlan0-gateway" id="i18_wlan0default_gateway">Default Gateway</label>
+                          <input type="text" class="form-control" id="wlan0-gateway" placeholder="0.0.0.0">
+                        </div>
+                        <div class="form-group">
+                          <label for="wlan0-dnsssvr" id="i18_wlan0dns_server">DNS Server</label>
+                          <input type="text" class="form-control" id="wlan0-dnssvr" placeholder="0.0.0.0">
+                        </div>
+                        <div class="form-group">
+                          <label for="wlan0-dnssvralt" id="i18_wlan0alternate_dns">Alternate DNS Server</label>
+                          <input type="text" class="form-control" id="wlan0-dnssvralt" placeholder="0.0.0.0">
+                        </div>
+                        <input type="button" class="btn btn-outline btn-primary" id="i18_wlan0savesetbtn" value="Save settings" name="savedhcpdsettings" onclick="savesetting_button(1)" />
+                        <a href="#" class="btn btn-warning intapply" data-int="wlan0" id="i18_wlan0apply_setting">Apply Settings</a>
+                      </form>
+                    </div>
+                  </div>
+                  <!-- /.tab-panel -->
+                </div>
+              </div>
+              <!-- /.tab-content -->
+            </div>
+            <!-- /.panel-body -->
+            <div class="panel-footer" id="i18_net_infor_prov">Information provided by /sys/class/net</div>
+          </div>
+          <!-- /.panel-primary -->
+        </div>
+        <!-- /.col-lg-12 -->
+      </div>
+
+      <!-- body -->
+    </div>
+    <!-- /#page-wrapper -->
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- RaspAP JavaScript -->
+
+  <!-- i18n JavaScript -->
+  <script src="i18n/networking/i18n.js"></script>
+  <!-- jQuery -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+  <script src="side_menu/functions.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <!-- Metis Menu Plugin JavaScript -->
+  <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+  <!-- json data JavaScript -->
+
+  <!-- Morris Charts JavaScript -->
+  <!--script src="bower_components/raphael/raphael-min.js"></script-->
+  <!--script src="bower_components/morrisjs/morris.min.js"></script-->
+  <!--script src="js/morris-data.js"></script-->
+
+  <!-- Custom Theme JavaScript -->
+  <script src="dist/js/sb-admin-2.js"></script>
+  <script>
+    function savesetting_button(index) {
+      var select = "";
+      if (index == 0) { //adapt 결정하는 부분
+        select = "eth0";
+      } else if (index == 1) {
+        select = "wlan0";
+      }
+      var adapt_ip_address_select = document.getElementsByName(select + "-addresstype");
+
+      var fallback_select = document.getElementsByName(select + "-dhcpfailover");
+
+      var ip_address_data = document.getElementById(select + "-ipaddress").value;
+      var subnet_mask_data = document.getElementById(select + "-netmask").value;
+      var default_gateway_data = document.getElementById(select + "-gateway").value;
+      var dns_server_data = document.getElementById(select + "-dnssvr").value;
+      var alternate_dns_server_data = document.getElementById(select + "-dnssvralt").value;
+
+      var obj = new Object();
+
+      for (var i = 0; i < adapt_ip_address_select.length; i++) {
+        if (adapt_ip_address_select[i].checked == true) {
+          obj.adapt_ip_address_select = adapt_ip_address_select[i].value;
+        }
+        if (fallback_select[i].checked == true) {
+          obj.fallback_select = fallback_select[i].value;
+        }
+      }
+
+      obj.ip_address = ip_address_data;
+      obj.subnet_mask = subnet_mask_data;
+      obj.default_gateway = default_gateway_data;
+      obj.dns_server = dns_server_data;
+      obj.alternate_dns_server = alternate_dns_server_data;
+
+      var json_data = JSON.stringify(obj);
+      //alert(json_data);
+      savesetting_data_send(json_data, select);
+    }
+
+    function savesetting_data_send(json_data, select) {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.open("POST", "/api/networking?adaptname=" + select, true);
+      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+      xhr.responseType = 'json';
+
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.send(json_data);
+    }
+
+    function current_setting_eth0_fill(data) {
+      var content = "";
+      var type = "";
+
+      content += data['current_setting_eth0']['eth0'];
+      content += "<broadcast,multicast,up,lower_up></broadcast,multicast,up,lower_up>";
+      return content;
+    }
+
+    function current_setting_wlan0_fill(data) {
+      var content = "";
+      var type = "";
+
+      content += data['current_setting_wlan0']['wlan0'];
+      content += "<no-carrier,broadcast,multicast,up></no-carrier,broadcast,multicast,up>";
+      return content;
+    }
+
+    function refresh_button(data) {
+      document.getElementById("eth0-summary").innerHTML = current_setting_eth0_fill(data);
+      document.getElementById("wlan0-summary").innerHTML = current_setting_wlan0_fill(data);
+    }
+
+    function Load() {
+      const xhr = new XMLHttpRequest();
+      // by default async
+      xhr.onload = function() {
+        if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+          var data = this.response;
+          refresh_button(data);
+        }
+      };
+      xhr.onerror = function() {
+        console.log("confirm");
+      };
+      xhr.open("GET", "/api/networking");
+      xhr.responseType = 'json';
+      xhr.send();
+    }
+  </script>
+</body>
+
+</html>

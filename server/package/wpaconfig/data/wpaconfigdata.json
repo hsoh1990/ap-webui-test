@@ -1,0 +1,26 @@
+{
+  "example_1": {
+    "SSID": "1",
+    "Channel": "10",
+    "Security": "yes",
+    "Passpharse": "a"
+  },
+  "example_2": {
+    "SSID": "2",
+    "Channel": "20",
+    "Security": "no",
+    "Passpharse": "b"
+  },
+  "example_3": {
+    "SSID": "3",
+    "Channel": "30",
+    "Security": "yes",
+    "Passpharse": "c"
+  },
+  "example_4": {
+    "SSID": "4",
+    "Channel": "40",
+    "Security": "no",
+    "Passpharse": "d"
+  }
+}

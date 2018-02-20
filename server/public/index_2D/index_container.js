@@ -1,4 +1,3 @@
-
 var stageWidth = 1000;
 var stageHeight = 550;
 
