@@ -67,7 +67,7 @@ module.exports = function(app, fs, url) {
   var read_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
   var device_data = JSON.parse(read_data);
 
-  function device_data_arp_decide() {
+  function device_data_arp_decide() {//expire time이 지난 기기들 수정 로직 구현
     var data__ = router_socket.data_get();
     var data_key = Object.getOwnPropertyNames(data__);
     for(var a = 0;a < device_data.length; a++) {
@@ -221,12 +221,12 @@ module.exports = function(app, fs, url) {
     });
 
     socket.on('owner__disconnect', function(data) {
-      owner_device_section(data);
+      const parse_data = owner_device_section(data);
       data_disconn_owner_broadcasting(parse_data[a]);
     });
 
     socket.on('owner__connect', function(data) {
-      owner_device_section(data);
+      const parse_data = owner_device_section(data);
       data_conn_owner_broadcasting(parse_data[a]);
     });
 
@@ -297,6 +297,5 @@ module.exports = function(app, fs, url) {
       JSON.stringify(parse_data, null, '\t'), "utf8",
       function(err, data) {})
   }
-
-
+  return parse_data;
 }
