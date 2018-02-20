@@ -296,6 +296,6 @@ module.exports = function(app, fs, url) {
     fs.writeFileSync(__dirname + "/data/" + "device_data.json",
       JSON.stringify(parse_data, null, '\t'), "utf8",
       function(err, data) {})
+    return parse_data;
   }
-  return parse_data;
 }
