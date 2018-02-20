@@ -209,7 +209,7 @@ module.exports = function(app, fs, url) {
     socket_init(socket);
 
     socket.on('disconnect', function() {
-      disconnect_section();
+      disconnect_section(socket);
     });
 
     socket.on('owner__ap', function(data) {
@@ -260,7 +260,7 @@ module.exports = function(app, fs, url) {
     });
 
   });
-  function disconnect_section() {
+  function disconnect_section(socket) {
     connect_bool = false;
     for (var a = 0; a < sockets.length; a++) {
       if (sockets[a] == socket) {
