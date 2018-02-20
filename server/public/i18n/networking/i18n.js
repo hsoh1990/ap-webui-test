@@ -80,9 +80,9 @@ function updateContent_infor() {
   document.getElementById('i18_cursetting').innerHTML = i18next.t('cursetting');
   document.getElementById('i18_eth0').innerHTML = i18next.t('eth0');
   document.getElementById('i18_wlan0').innerHTML = i18next.t('wlan0');
-  document.getElementById('i18_refresh').innerHTML = i18next.t('net_infor_prov');
+  document.getElementById('i18_refresh').innerHTML = i18next.t('refresh');
 
-  document.getElementById('net_infor_prov').innerHTML = i18next.t('refresh');
+  document.getElementById('net_infor_prov').innerHTML = i18next.t('net_infor_prov');
 }
 function updateContent_eth0() {
   document.getElementById('i18_eth0adapt_ip_setting').innerHTML = i18next.t('adapt_ip_setting');
