@@ -344,7 +344,9 @@ exports.i18n_load = function(req, res) {
 }
 
 exports.i18n_save = function(req, res) {
-  console.log(req);
+  console.log(req.param);
+
+
   /*
   fs.writeFileSync(__dirname + "/../../public/i18n/config.js",
     JSON.stringify(dashboard_json, null, '\t'), "utf8",
