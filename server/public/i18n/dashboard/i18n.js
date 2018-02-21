@@ -64,7 +64,7 @@ i18next.init({
     }
   }
 }, function(err, t) {
-  i18n_load();
+
 });
 
 function updateContent_nav() {
