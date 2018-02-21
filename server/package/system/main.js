@@ -38,4 +38,7 @@ module.exports = function(app, fs, url){
       router_system.install_package(req, res, select);
     }
   });
+	app.get('/i18n_load', function(req, res) {
+    router_dashboard.i18n_load(req, res);
+  });
 };

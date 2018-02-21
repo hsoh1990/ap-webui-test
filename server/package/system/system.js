@@ -378,3 +378,9 @@ exports.install_package = function(req, res, select) {
     }
   }
 }
+
+exports.i18n_load = function(req, res) {
+  var data = JSON.parse(fs.readFileSync(__dirname + "/../../public/i18n/config.js", 'utf8'));
+  console.log(data);
+  res.send(data);
+}

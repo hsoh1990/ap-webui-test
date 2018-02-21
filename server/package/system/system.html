@@ -249,6 +249,7 @@
         if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
           var data = this.response;
           refresh_button(data);
+          i18n_load();
         }
       };
       xhr.onerror = function() {
