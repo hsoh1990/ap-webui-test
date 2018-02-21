@@ -4,7 +4,7 @@ const dashboard = require('../../package/dashboard/dashboard.js');
 describe('dashboard function test', () => {
   describe('On success', () => {
     it('바이트수가 1에서 100 사이인가?', function(done) {
-      var result = dashboard.i18n_load_bdd();
+      var result = dashboard.i18n_load();
       var string_ = JSON.stringify(result);
       var stringLength = string_.length;
       var stringByteLength = 0;
