@@ -48,7 +48,7 @@ i18next.init({
     }
   }
 }, function(err, t) {
-  
+
 });
 
 function updateContent_nav() {
@@ -143,6 +143,18 @@ function changeLng() {
   var langSelect = document.getElementById("lang_select");
   var selectValue = langSelect.options[langSelect.selectedIndex].value;
   i18next.changeLanguage(selectValue);
+  const xhr = new XMLHttpRequest();
+  // by default async
+  xhr.onload = function() {
+    if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+      console.log(this.response);
+    }
+  };
+  xhr.onerror = function() {
+    console.log("confirm");
+  };
+  xhr.open("GET", "/i18n_save?lang=" + selectValue);
+  xhr.send();
 }
 
 i18next.on('languageChanged', () => {

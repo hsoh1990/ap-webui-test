@@ -63,6 +63,10 @@ module.exports = function(app, fs, url) {
     router_index_login.i18n_load(req, res);
   });
 
+  app.get('/i18n_save', function(req, res) {
+    router_index_login.i18n_save(req, res);
+  });
+
   var sockets = new Array();
   var arp_count = 0;
   var read_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
