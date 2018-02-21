@@ -113,7 +113,20 @@ function changeLng() {
   var langSelect = document.getElementById("lang_select");
   var selectValue = langSelect.options[langSelect.selectedIndex].value;
   i18next.changeLanguage(selectValue);
+  const xhr = new XMLHttpRequest();
+  // by default async
+  xhr.onload = function() {
+    if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
 
+
+    }
+  };
+  xhr.onerror = function() {
+    console.log("confirm");
+  };
+  xhr.open("GET", "/i18n_save");
+  xhr.responseType = 'json';
+  xhr.send();
 }
 
 function i18n_load() {
