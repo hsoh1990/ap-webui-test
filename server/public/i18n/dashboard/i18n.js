@@ -107,6 +107,8 @@ function updateContent_infor() {
   }
   document.getElementById('refreshbuttonid').value = i18next.t('refresh');
   document.getElementById('dashboard_bottom').innerHTML = i18next.t('bottom_expla');
+
+  i18n_load();
 }
 
 function changeLng() {

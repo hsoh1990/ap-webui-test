@@ -10,6 +10,7 @@ function sidemenu_get() { //사이드 메뉴 데이터를 받아옵니다
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
       sidemenu_output(this.response);
       updateContent_nav();
+
     }
   };
   xhr.onerror = function() {
