@@ -353,6 +353,6 @@ exports.i18n_save = function(req, res) {
       result = {
         "success": 1
       };
-      res.send(result);
     })
+  res.send(language);
 }
