@@ -8,11 +8,11 @@ describe('add function Test', () => {
       var string_ = JSON.stringify(result);
       var stringLength = string_.length;
       var stringByteLength = 0;
-      console.log(stringLength);
       stringByteLength = (function(s, b, i, c) {
         for (b = i = 0; c = s.charCodeAt(i++); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
         return b
       })(string_);
+      console.log("byte = " + stringByteLength);
       stringByteLength.should.be.within(1, 100);
       done();
     });
