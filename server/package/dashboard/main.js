@@ -29,4 +29,8 @@ module.exports = function(app, fs, url){
     }
   });
 
+	app.get('/i18n_load', function(req, res) {
+    router_dashboard.i18n_load(req, res);
+  });
+
 };
