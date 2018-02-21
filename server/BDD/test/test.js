@@ -1,7 +1,7 @@
 const should = require('should');
 const dashboard = require('../../package/dashboard/dashboard.js');
 
-describe('add function Test', () => {
+describe('dashboard function test', () => {
   describe('On success', () => {
     it('바이트수가 1에서 100 사이인가?', function(done) {
       var result = dashboard.i18n_load_bdd();
