@@ -337,15 +337,9 @@ exports.wlan0_start = function(req, res) {
   });
 }
 
-exports.i18n_load = function(req, res) {
+exports.i18n_load = function() {
   var data = JSON.parse(fs.readFileSync(__dirname + "/../../public/i18n/config.js", 'utf8'));
   console.log(data);
-  res.send(data);
-  return data;
-}
-
-exports.i18n_load_bdd = function() {
-  var data = JSON.parse(fs.readFileSync(__dirname + "/../../public/i18n/config.js", 'utf8'));
   return data;
 }
 
