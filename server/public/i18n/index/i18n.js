@@ -22,9 +22,7 @@ i18next.init({
     }
   }
 }, function(err, t) {
-  // init set content
-  /*updateContent_nav();
-  updateContent_infor();*/
+  i18n_load();
 });
 
 function updateContent_nav() {
