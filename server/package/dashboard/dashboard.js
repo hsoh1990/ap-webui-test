@@ -344,7 +344,8 @@ exports.i18n_load = function(req, res) {
 }
 
 exports.i18n_save = function(req, res) {
-  console.log(req.param);
+  var language = req.query.lang;
+  console.log(language);
 
 
   /*

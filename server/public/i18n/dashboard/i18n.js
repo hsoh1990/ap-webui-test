@@ -124,8 +124,8 @@ function changeLng() {
   xhr.onerror = function() {
     console.log("confirm");
   };
-  xhr.open("GET", "/i18n_save");
-  xhr.send(selectValue);
+  xhr.open("GET", "/i18n_save?lang=" + selectValue);
+  xhr.send();
 }
 
 function i18n_load() {
