@@ -128,6 +128,10 @@ cd ap-webui-test-master/server/
 
 npm install
 
+echo "4. mocha 설치"
+
+npm install -g mocha
+
 echo "4. service 등록"
 
 cd
