@@ -123,6 +123,7 @@ function changeLng() {
   var langSelect = document.getElementById("lang_select");
   var selectValue = langSelect.options[langSelect.selectedIndex].value;
   i18next.changeLanguage(selectValue);
+  
 }
 
 i18next.on('languageChanged', () => {

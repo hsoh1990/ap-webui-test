@@ -22,7 +22,8 @@ exports.sidemenu_get = function(req, res) {
   res.send(sidemenus);
 }
 
-exports.arp_receive = function(req, res) {
-
-
+exports.i18n_load = function(req, res) {
+  var data = JSON.parse(fs.readFileSync(__dirname + "/../public/i18n/config.js", 'utf8'));
+  console.log(data);
+  res.send(data);
 }

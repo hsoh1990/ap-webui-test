@@ -34,10 +34,8 @@ module.exports = function(app, fs, url) {
       router_index_login.sidemenu_get(req, res);
     }
   });
-
   app.get('/login_check', function(req, res) {
-    var sess;
-    sess = req.session;
+    var sess = req.session;
     var id = req.query.id;
     var password = req.query.password;
     fs.readFile(__dirname + "/../userdata/" + "userdata.json", 'utf8', function(err, data) {
@@ -61,6 +59,9 @@ module.exports = function(app, fs, url) {
     })
   });
 
+  app.get('/i18n_load', function(req, res) {
+    router_index_login.i18n_load(req, res);
+  });
 
   var sockets = new Array();
   var arp_count = 0;

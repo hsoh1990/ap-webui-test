@@ -2,8 +2,7 @@ module.exports = function(app, fs, url){
 	var router_dashboard = require('./dashboard.js');
 
   app.get('/dashboard', function(req, res) {
-    var sess;
-    sess = req.session;
+    var sess = req.session;
     console.log('session : ' + sess.logincheck);
     if (sess.logincheck == "1") {
       res.render('dashboard.html');
