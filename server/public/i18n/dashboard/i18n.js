@@ -125,8 +125,7 @@ function changeLng() {
     console.log("confirm");
   };
   xhr.open("GET", "/i18n_save");
-  xhr.responseType = 'json';
-  xhr.send();
+  xhr.send(selectValue);
 }
 
 function i18n_load() {
