@@ -38,6 +38,7 @@ module.exports = function(app, fs, url) {
     var sess = req.session;
     var id = req.query.id;
     var password = req.query.password;
+    let check = new Object();
     let logincheck = router_index_login.login_check(id, password);
     if (logincheck == 1) {
       sess.logincheck = "1";
