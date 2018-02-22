@@ -191,12 +191,7 @@ exports.install_data_get = function() {
   return data;
 }
 
-exports.uninstall_package = function(req, res, select) {
-  result = {
-    'success': 1
-  }
-  res.send(result);
-
+exports.uninstall_package = function(select) {
   var files = fs.readdirSync(__dirname + '/../');
   for (var i = 0; i < files.length; i++) {
     if (select == i) {

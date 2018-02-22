@@ -38,7 +38,7 @@ module.exports = function(app, fs, url){
       data = router_system.install_data_get();
 			res.send(data);
     } else if (type == "uninstallbutton") {
-      router_system.uninstall_package(req, res, select);
+      router_system.uninstall_package(select);
     } else if (type == "installbutton") {
       router_system.install_package(req, res, select);
     }
