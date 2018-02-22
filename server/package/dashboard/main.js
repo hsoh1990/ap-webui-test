@@ -12,29 +12,33 @@ module.exports = function(app, fs, url){
   });
   app.get('/api/dashboard', function(req, res) {
     req.accepts('application/json');
-    // input message handling
     var type = req.query.id;
     var select = req.query.select;
-
+		let data;
     if (type == "refresh") {
-      router_dashboard.api_get(req, res);
+      data = router_dashboard.consolelog_serverdata();
+			res.send(data);
     } else if (type == "wlan0stopstart") {
       if (select == 0) { //stop 시키는 부분
-        router_dashboard.wlan0_stop(req, res);
+        data = router_dashboard.wlan0_stop();
+				res.send(data);
       } else if (select == 1) { //start 시키는 부분
-        router_dashboard.wlan0_start(req, res);
+        data = router_dashboard.wlan0_start();
+				res.send(data);
       } else {
-        router_dashboard.start_stopbutton(req, res);
+        data = router_dashboard.start_stopbutton();
+				res.send(data);
       }
     }
   });
 
 	app.get('/i18n_load', function(req, res) {
-    		let q = router_dashboard.i18n_load();
-		res.send(q);
+    let data = router_dashboard.i18n_load();
+		res.send(data);
 	});
-	
+
 	app.get('/i18n_save', function(req, res) {
-    router_dashboard.i18n_save(req, res);
+    let data = router_dashboard.i18n_save(req.query.lang);
+		res.send(data);
   });
 };

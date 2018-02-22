@@ -297,6 +297,23 @@
         }
       }
     }
+
+    function arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count) {
+      if (data['MAC Address'] == connect_data[a]['MAC Address']) {
+        if (data['arp'] != connect_data[a]['arp']) {
+          return true;
+        }
+      }
+    }
+
+    function arp_eval_false(data, connect_data, disconnect_data, a, connect_count, disconnect_count) {
+      if (data['MAC Address'] == disconnect_data[a]['MAC Address']) {
+        if (data['arp'] != disconnect_data[a]['arp']) {
+          return true;
+        }
+      }
+    }
+
     function elseif_datalength_small_devicecount(data) {
       var check = false;
       for (var a = 0; a < disconnect_count; a++) {
@@ -338,7 +355,7 @@
         device_count += 1;
       }
     }
-    
+
     function ip_onoff() {
       var value = document.getElementById("ipenable").value;
 
@@ -389,23 +406,6 @@
         enable__['owner'] = 1;
       }
       conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, arp_data, connect_data, disconnect_data, connect_count, disconnect_count);
-    }
-
-
-    function arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count) {
-      if (data['MAC Address'] == connect_data[a]['MAC Address']) {
-        if (data['arp'] != connect_data[a]['arp']) {
-          return true;
-        }
-      }
-    }
-
-    function arp_eval_false(data, connect_data, disconnect_data, a, connect_count, disconnect_count) {
-      if (data['MAC Address'] == disconnect_data[a]['MAC Address']) {
-        if (data['arp'] != disconnect_data[a]['arp']) {
-          return true;
-        }
-      }
     }
 
     function conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count) {

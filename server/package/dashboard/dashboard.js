@@ -2,98 +2,106 @@ var fs = require("fs");
 var exec = require('child_process').exec,
   child;
 
-exports.dashboard_get = function(req, res) {
-  var sess;
-  sess = req.session;
-  console.log('session : ' + sess.logincheck);
-  if (sess.logincheck == "1") {
-    res.render('index_login.html');
-  } else {
-    res.render('index.html');
-  }
-}
 
-exports.api_get = function(req, res) {
-  exports.consolelog_serverdata(req, res);
-}
-
-exports.consolelog_serverdata = function(req, res) {
+exports.consolelog_serverdata = function() {
   child = exec("ip a s wlan0", function(error, stdout1, stderr) {
     child = exec("iwconfig wlan0", function(error, stdout2, stderr) {
       child = exec("ifconfig wlan0", function(error, stdout3, stderr) {
-        var text = stdout1 + stdout2 + stdout3;
-
-        var interface_name = "wlan0";
-        var ip = exports.serverdata_get_ip(text);
-        var netmask = exports.serverdata_get_netmask(text);
-        var mac = exports.serverdata_get_mac(text);
-
-        var rx_packet = exports.serverdata_RX_packets(stdout3);
-        var rx_byte = exports.serverdata_RX_bytes(stdout3);
-        var tx_packet = exports.serverdata_TX_packets(stdout3);
-        var tx_byte = exports.serverdata_TX_bytes(stdout3);
-
-        var ssid = exports.serverdata_ssid(text);
-        var access_point = exports.serverdata_access_point(text);
-        var bitrate = exports.serverdata_Bit_Rate(text);
-        var signallevel = exports.serverdata_Signal_level(text);
-        var tx_power = exports.serverdata_Tx_Power(text);
-        var frequency = exports.serverdata_Frequency(text);
-        var link_quality = exports.serverdata_Link_Quality(text);
-        var interfaceis = exports.serverdata_get_interfaceis(stdout1);
         console.log('stderr: ' + stderr);
         if (error !== null) {
           console.log('exec error: ' + error);
         }
+        var text = stdout1 + stdout2 + stdout3;
+        let interface_infor = return_interface_infor(text);
+        let interface_statistics = return_interface_statistic(stdout3);
+        let wireless_infor = wireless_infor(text);
+        let alert_select = return_alert_select(stdout1);
 
-        // ADD TO DATA
-        var Interface_Information = {}; //오브젝트
-        Interface_Information["Interface Name"] = "wlan0";
-        Interface_Information["IP Address"] = ip;
-        Interface_Information["Subnet Mask"] = netmask;
-        Interface_Information["Mac Address"] = mac;
-
-        var Interface_Statistics = {}; //오브젝트
-        Interface_Statistics["Received Packets"] = rx_packet;
-        Interface_Statistics["Received Bytes"] = rx_byte;
-        Interface_Statistics["Transferred Packets"] = tx_packet;
-        Interface_Statistics["Transferred Bytes"] = tx_byte;
-
-        var Wireless_Information = {}; //오브젝트
-        Wireless_Information["Connected To"] = ssid;
-        Wireless_Information["AP Mac Address"] = access_point;
-        Wireless_Information["Bitrate"] = bitrate;
-        Wireless_Information["Signal Level"] = signallevel;
-        Wireless_Information["Transmit Power"] = tx_power;
-        Wireless_Information["Frequency"] = frequency;
-        Wireless_Information["Link Quality"] = link_quality;
-
-        var alert_select = {};
-        alert_select["Interface is"] = interfaceis;
-        var dashboard_json = {};
-        dashboard_json["Interface_Information"] = Interface_Information;
-        dashboard_json["Interface_Statistics"] = Interface_Statistics;
-        dashboard_json["Wireless_Information"] = Wireless_Information;
-        dashboard_json["alert_select"] = alert_select;
-
-        // SAVE DATA
-        fs.writeFileSync(__dirname + "/data/" + "dashboarddata.json",
-          JSON.stringify(dashboard_json, null, '\t'), "utf8",
-          function(err, data) {
-            result = {
-              "success": 1
-            };
-          })
+        dashboard_data_save(interface_infor, interface_statistics, wireless_infor, alert_select);
         var data = fs.readFileSync(__dirname + "/data/" + "dashboarddata.json", 'utf8');
         var dashboarddata = JSON.parse(data); //json text -> json object
         //console.log(dashboarddata);
-        res.send(dashboarddata);
-
-
-
+        return dashboarddata;
       });
     });
   });
+}
+exports.return_interface_infor = function (text) {
+  var interface_name = "wlan0";
+  var ip = exports.serverdata_get_ip(text);
+  var netmask = exports.serverdata_get_netmask(text);
+  var mac = exports.serverdata_get_mac(text);
+
+  var Interface_Information = {}; //오브젝트
+  Interface_Information["Interface Name"] = interface_name;
+  Interface_Information["IP Address"] = ip;
+  Interface_Information["Subnet Mask"] = netmask;
+  Interface_Information["Mac Address"] = mac;
+
+  return Interface_Information;
+}
+
+exports.return_interface_statistic = function (stdout3) {
+  var rx_packet = exports.serverdata_RX_packets(stdout3);
+  var rx_byte = exports.serverdata_RX_bytes(stdout3);
+  var tx_packet = exports.serverdata_TX_packets(stdout3);
+  var tx_byte = exports.serverdata_TX_bytes(stdout3);
+
+  var Interface_Statistics = {}; //오브젝트
+  Interface_Statistics["Received Packets"] = rx_packet;
+  Interface_Statistics["Received Bytes"] = rx_byte;
+  Interface_Statistics["Transferred Packets"] = tx_packet;
+  Interface_Statistics["Transferred Bytes"] = tx_byte;
+
+  return Interface_Statistics;
+}
+
+exports.return wireless_infor = function (text) {
+  var ssid = exports.serverdata_ssid(text);
+  var access_point = exports.serverdata_access_point(text);
+  var bitrate = exports.serverdata_Bit_Rate(text);
+  var signallevel = exports.serverdata_Signal_level(text);
+  var tx_power = exports.serverdata_Tx_Power(text);
+  var frequency = exports.serverdata_Frequency(text);
+  var link_quality = exports.serverdata_Link_Quality(text);
+
+  var Wireless_Information = {}; //오브젝트
+  Wireless_Information["Connected To"] = ssid;
+  Wireless_Information["AP Mac Address"] = access_point;
+  Wireless_Information["Bitrate"] = bitrate;
+  Wireless_Information["Signal Level"] = signallevel;
+  Wireless_Information["Transmit Power"] = tx_power;
+  Wireless_Information["Frequency"] = frequency;
+  Wireless_Information["Link Quality"] = link_quality;
+
+  return Wireless_Information;
+}
+exports.return_alert_select = function (stdout1) {
+  var interfaceis = exports.serverdata_get_interfaceis(stdout1);
+
+  var alert_select = {};
+  alert_select["Interface is"] = interfaceis;
+
+  return alert_select;
+}
+exports.dashboard_data_save = function (Interface_Information, Interface_Statistics, Wireless_Information, alert_select) {
+  // ADD TO DATA
+  var dashboard_json = {};
+  dashboard_json["Interface_Information"] = Interface_Information;
+  dashboard_json["Interface_Statistics"] = Interface_Statistics;
+  dashboard_json["Wireless_Information"] = Wireless_Information;
+  dashboard_json["alert_select"] = alert_select;
+
+  // SAVE DATA
+  fs.writeFileSync(__dirname + "/data/" + "dashboarddata.json",
+    JSON.stringify(dashboard_json, null, '\t'), "utf8",
+    function(err, data) {
+      result = {
+        "success": 1
+      };
+    })
+
+  return dashboard_json;
 }
 exports.serverdata_get_interfaceis = function(text) {
   var updown = text.match(/state ([A-Z]+)/i);
@@ -316,7 +324,7 @@ exports.serverdata_Link_Quality = function(text) {
 
 exports.start_stopbutton = function(req, res) {
   child = exec("ifconfig wlan0 | grep -i running | wc -l", function(error, stdout, stderr) {
-    res.send(stdout);
+    return stdout;
   });
 }
 
@@ -325,7 +333,7 @@ exports.wlan0_stop = function(req, res) {
     result = {
       "success": 0
     };
-    res.send(result);
+    return result;
   });
 }
 exports.wlan0_start = function(req, res) {
@@ -333,7 +341,7 @@ exports.wlan0_start = function(req, res) {
     result = {
       "success": 1
     };
-    res.send(result);
+    return result;
   });
 }
 
@@ -343,8 +351,7 @@ exports.i18n_load = function() {
   return data;
 }
 
-exports.i18n_save = function(req, res) {
-  var language = req.query.lang;
+exports.i18n_save = function(language) {
   var lang_json = {};
   lang_json.language = language;
   fs.writeFileSync(__dirname + "/../../public/i18n/config.js",
@@ -354,5 +361,5 @@ exports.i18n_save = function(req, res) {
         "success": 1
       };
     })
-  res.send(language);
+  return language;
 }
