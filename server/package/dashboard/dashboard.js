@@ -56,7 +56,7 @@ exports.return_interface_statistic = function (stdout3) {
   return Interface_Statistics;
 }
 
-exports.return wireless_infor = function (text) {
+exports wireless_infor = function (text) {
   var ssid = exports.serverdata_ssid(text);
   var access_point = exports.serverdata_access_point(text);
   var bitrate = exports.serverdata_Bit_Rate(text);
