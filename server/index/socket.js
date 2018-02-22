@@ -172,32 +172,30 @@ exports.wlan_exnet_data = function() {
 exports.device_data_save = function(device_data, data__) {
   var data__ = data__;
   var check = 0;
-  for(var a = 0;a < device_data.length; a++) {
-    if(device_data[a]['MAC Address'] == data__['MAC Address']){//연결 신규 추가
+  for (var a = 0; a < device_data.length; a++) {
+    if (device_data[a]['MAC Address'] == data__['MAC Address']) { //연결 신규 추가
       check = 1;
-      if (device_data[a]['arp'] != data__['arp']){
+      if (device_data[a]['arp'] != data__['arp']) {
         check = 2;
       }
       break;
     }
   }
-  if(check == 1) {
+  if (check == 1) {
     data__['check'] = 1;
     data__['a'] = a;
     data__['owner'] = device_data[a]['owner'];
     return data__;
-  }
-  else if(check == 2) {
+  } else if (check == 2) {
     data__['check'] = 2;
     data__['a'] = a;
     data__['owner'] = device_data[a]['owner'];
     return data__;
-  }
-  else {
+  } else {
     data__['check'] = 3;
     data__['a'] = 0;
     data__['owner'] = device_data[a]['owner'];
-    return  data__;
+    return data__;
   }
 }
 
@@ -245,48 +243,48 @@ device_data_arp_decide();
   }, 11000);
 }()
 
+function promise_arp_req(a, data__, data_key) {
+  return new Promise(function(resolve, reject) {
+    exports.arp_req(a, data__, data_key, resolve, reject)
+    .then(function(result) {
+      // 성공시/*
+      console.log(result['MAC Address'] + ',, ' + result['arp']);
+      //socket.emit('arp', result);
+      const data_check = exports.device_data_save(device_data, result);
+      if (data_check['check'] == 1) {
+
+      } else if (data_check['check'] == 2) {
+        console.log("데이터 수정 완료");
+        device_data_splice(data_check, result);
+        data_arp_broadcasting(result);
+      } else {
+        console.log("데이터 저장 완료");
+        device_data_push(data_check, result);
+        data_arp_broadcasting(result);
+      }
+    }, function(result) {
+      // 실패시
+      console.log(result['MAC Address'] + ',, ' + result['arp']);
+      //socket.emit('arp', result);
+      const data_check = exports.device_data_save(device_data, result);
+      if (data_check['check'] == 1) {
+
+      } else if (data_check['check'] == 2) {
+        console.log("데이터 수정 완료");
+        device_data_splice(data_check, result);
+        data_arp_broadcasting(result);
+      } else {
+        console.log("데이터 저장 완료");
+        device_data_push(data_check, result);
+        data_arp_broadcasting(result);
+      }
+    });
+  });
+}
+
 function arp_promise(data__, data_key) {
   for (var a = 0; a < Object.keys(data__).length; a++) {
-    var _promise = function(a, data__, data_key) {
-      return new Promise(function(resolve, reject) {
-        exports.arp_req(a, data__, data_key, resolve, reject);
-      });
-    };
-    _promise(a, data__, data_key)
-      .then(function(result) {
-        // 성공시/*
-        console.log(result['MAC Address'] + ',, ' + result['arp']);
-        //socket.emit('arp', result);
-        const data_check = exports.device_data_save(device_data, result);
-        if (data_check['check'] == 1) {
-
-        } else if (data_check['check'] == 2) {
-          console.log("데이터 수정 완료");
-          device_data_splice(data_check, result);
-          data_arp_broadcasting(result);
-        } else {
-          console.log("데이터 저장 완료");
-          device_data_push(data_check, result);
-          data_arp_broadcasting(result);
-        }
-      }, function(result) {
-        // 실패시
-        console.log(result['MAC Address'] + ',, ' + result['arp']);
-        //socket.emit('arp', result);
-        const data_check = exports.device_data_save(device_data, result);
-        if (data_check['check'] == 1) {
-
-        } else if (data_check['check'] == 2) {
-          console.log("데이터 수정 완료");
-          device_data_splice(data_check, result);
-          data_arp_broadcasting(result);
-        } else {
-          console.log("데이터 저장 완료");
-          device_data_push(data_check, result);
-          data_arp_broadcasting(result);
-        }
-      });
-
+    promise_arp_req(a, data__, data_key);
   }
 }
 
