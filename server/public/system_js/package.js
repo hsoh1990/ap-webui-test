@@ -43,6 +43,7 @@ function wait(msecs) {
   var cur = start;
   while (cur - start < msecs) {
     cur = new Date().getTime();
+    console.log(cur);
   }
 }
 function uninstall_button(select) {
