@@ -27,40 +27,36 @@ module.exports = function(app, fs, url) {
   });
   app.get('/api/index_login', function(req, res) {
     req.accepts('application/json');
-    // input message handling
     var type = req.query.type;
 
     if (type == "sidemenu") {
-      router_index_login.sidemenu_get(req, res);
+      let res_data = router_index_login.sidemenu_get();
+      res.send(sidemenus);
     }
   });
   app.get('/login_check', function(req, res) {
     var sess = req.session;
     var id = req.query.id;
     var password = req.query.password;
-    fs.readFile(__dirname + "/../userdata/" + "userdata.json", 'utf8', function(err, data) {
-      var userdata = JSON.parse(data); //json text -> json object
-      var check = {};
-      if (id == userdata['admin']['username'] && password == userdata['admin']['password']) {
-        sess.logincheck = "1";
-        res.cookie('string', 'cookie');
-        res.cookie('json', {
-          name: 'check',
-          property: 'delicious'
-        });
-      } else {
-        sess.logincheck = "0";
-
-      }
-      check['check'] = sess.logincheck;
-      console.log('session : ' + sess.logincheck);
-
-      res.send(check);
-    })
+    let logincheck = router_index_login.login_check(id, password);
+    if (logincheck == 1) {
+      sess.logincheck = "1";
+      res.cookie('string', 'cookie');
+      res.cookie('json', {
+        name: 'check',
+        property: 'delicious'
+      });
+    } else {
+      sess.logincheck = "0";
+    }
+    check['check'] = sess.logincheck;
+    console.log('session : ' + sess.logincheck);
+    res.send(check);
   });
 
   app.get('/i18n_load', function(req, res) {
-    router_index_login.i18n_load(req, res);
+    let data = router_index_login.i18n_load();
+    res.send(data);
   });
 
   app.get('/i18n_save', function(req, res) {
@@ -72,17 +68,17 @@ module.exports = function(app, fs, url) {
   var read_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
   var device_data = JSON.parse(read_data);
 
-  function device_data_arp_decide() {//expire time이 지난 기기들 수정 로직 구현
+  function device_data_arp_decide() { //expire time이 지난 기기들 수정 로직 구현
     var data__ = router_socket.data_get();
     var data_key = Object.getOwnPropertyNames(data__);
-    for(var a = 0;a < device_data.length; a++) {
+    for (var a = 0; a < device_data.length; a++) {
       var count = 0;
-      for(b = 0;b < Object.keys(data__).length; b++) {
+      for (b = 0; b < Object.keys(data__).length; b++) {
         if (device_data[a]['MAC Address'] == data__[data_key[b]]['MAC Address']) {
           count++;
         }
       }
-      if (count == 0){
+      if (count == 0) {
         if (device_data[a]['arp'] == 1) {
           device_data[a]['arp'] = 0;
         }

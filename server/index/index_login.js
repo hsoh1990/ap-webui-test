@@ -6,8 +6,7 @@ const {
 } = require('child_process');
 var arp = require('node-arp');
 
-
-exports.sidemenu_get = function(req, res) {
+exports.sidemenu_get = function() {
   var files = fs.readdirSync(__dirname + '/../package');
   console.log(files.length);
   var sidemenus = {};
@@ -19,14 +18,26 @@ exports.sidemenu_get = function(req, res) {
     sidemenus[dir_name] = sidemenu['side_name'];
   }
   console.log(sidemenus);
-  res.send(sidemenus);
+  return sidemenus;
 }
 
-exports.i18n_load = function(req, res) {
+exports.login_check = function(id, password) {
+  let data = fs.readFileSync(__dirname + "/../userdata/" + "userdata.json", 'utf8');
+  var userdata = JSON.parse(data); //json text -> json object
+  var check = {};
+  if (id == userdata['admin']['username'] && password == userdata['admin']['password']) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+exports.i18n_load = function() {
   var data = JSON.parse(fs.readFileSync(__dirname + "/../public/i18n/config.js", 'utf8'));
   console.log(data);
-  res.send(data);
+  return data;
 }
+
 exports.i18n_save = function(req, res) {
   var language = req.query.lang;
   var lang_json = {};
