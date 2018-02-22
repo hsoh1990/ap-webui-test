@@ -38,6 +38,13 @@ function package_output(package_data) {
   }
   document.getElementById("package_installed").innerHTML = content;
 }
+function wait(msecs) {
+  var start = new Date().getTime();
+  var cur = start;
+  while (cur - start < msecs) {
+    cur = new Date().getTime();
+  }
+}
 function uninstall_button(select) {
   const xhr = new XMLHttpRequest();
   // by default async
@@ -48,7 +55,8 @@ function uninstall_button(select) {
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
-      window.location.reload()
+      wait(5000);
+      window.location.reload();
     }
   };
   xhr.onerror = function() {
