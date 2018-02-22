@@ -331,16 +331,16 @@ exports.start_stopbutton = function() {
 }
 
 exports.wlan0_stop = function() {
-  const stdout = execSync("ip link set wlan0 down", {
+  execSync("ip link set wlan0 down", {
     encoding: 'utf8'
   });
-  return result;
+  return 0;
 }
 exports.wlan0_start = function() {
-  const stdout = execSync("ip link set wlan0 up", {
+  execSync("ip link set wlan0 up", {
     encoding: 'utf8'
   });
-  return result;
+  return 1;
 }
 
 exports.i18n_load = function() {
