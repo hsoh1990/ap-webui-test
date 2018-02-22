@@ -15,10 +15,6 @@ exports.consolelog_serverdata = function() {
   const stdout3 = execSync("ifconfig wlan0", {
     encoding: 'utf8'
   });
-  console.log('stderr: ' + stderr);
-  if (error !== null) {
-    console.log('exec error: ' + error);
-  }
   var text = stdout1 + stdout2 + stdout3;
   let interface_infor = exports.return_interface_infor(text);
   let interface_statistics = exports.return_interface_statistic(stdout3);
