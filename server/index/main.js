@@ -8,7 +8,6 @@ module.exports = function(app, fs, url) {
   const {
     execSync
   } = require('child_process');
-  var arp = require('node-arp');
   var io = require('socket.io').listen(8080);
 
 
@@ -16,7 +15,7 @@ module.exports = function(app, fs, url) {
     res.render('index.html');
   });
   app.get('/index_login', function(req, res) {
-    var sess;
+    let sess;
     sess = req.session;
     console.log('session : ' + sess.logincheck);
     if (sess.logincheck == "1") {
@@ -28,10 +27,9 @@ module.exports = function(app, fs, url) {
   app.get('/api/index_login', function(req, res) {
     req.accepts('application/json');
     var type = req.query.type;
-
     if (type == "sidemenu") {
       let res_data = router_index_login.sidemenu_get();
-      res.send(sidemenus);
+      res.send(res_data);
     }
   });
   app.get('/login_check', function(req, res) {
@@ -61,7 +59,9 @@ module.exports = function(app, fs, url) {
   });
 
   app.get('/i18n_save', function(req, res) {
-    router_index_login.i18n_save(req, res);
+    let language = req.query.lang;
+    let data = router_index_login.i18n_save(language);
+    res.send(data);
   });
 
   var sockets = new Array();

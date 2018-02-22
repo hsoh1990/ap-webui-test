@@ -38,9 +38,8 @@ exports.i18n_load = function() {
   return data;
 }
 
-exports.i18n_save = function(req, res) {
-  var language = req.query.lang;
-  var lang_json = {};
+exports.i18n_save = function(language) {
+  var lang_json = new Object();
   lang_json.language = language;
   fs.writeFileSync(__dirname + "/../public/i18n/config.js",
     JSON.stringify(lang_json, null, '\t'), "utf8",
@@ -49,5 +48,5 @@ exports.i18n_save = function(req, res) {
         "success": 1
       };
     })
-  res.send(language);
+  return language;
 }
