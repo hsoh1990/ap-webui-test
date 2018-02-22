@@ -14,7 +14,6 @@ exports.data_get = function() {
   const stdout = execSync('cat /var/lib/misc/dnsmasq.leases', {
     encoding: 'utf8'
   });
-
   var arr = []; //줄 단위로 배열 저장(마지막은 빈배열이 들어감.)
   arr = stdout.split("\n");
   var data__ = {};
@@ -30,7 +29,6 @@ exports.data_get = function() {
     tmp['Client ID'] = arr[i][4];
     data__[string_num] = tmp;
   }
-
   return data__;
 }
 
