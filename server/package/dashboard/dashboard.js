@@ -324,26 +324,23 @@ exports.serverdata_Link_Quality = function(text) {
 }
 
 exports.start_stopbutton = function() {
-  child = exec("ifconfig wlan0 | grep -i running | wc -l", function(error, stdout, stderr) {
-    return stdout;
+  const stdout = execSync("ifconfig wlan0 | grep -i running | wc -l", {
+    encoding: 'utf8'
   });
+  return stdout;
 }
 
 exports.wlan0_stop = function() {
-  child = exec("ip link set wlan0 down", function(error, stdout, stderr) {
-    result = {
-      "success": 0
-    };
-    return result;
+  const stdout = execSync("ip link set wlan0 down", {
+    encoding: 'utf8'
   });
+  return result;
 }
 exports.wlan0_start = function() {
-  child = exec("ip link set wlan0 up", function(error, stdout, stderr) {
-    result = {
-      "success": 1
-    };
-    return result;
+  const stdout = execSync("ip link set wlan0 up", {
+    encoding: 'utf8'
   });
+  return result;
 }
 
 exports.i18n_load = function() {
