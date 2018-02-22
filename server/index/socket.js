@@ -232,8 +232,6 @@ device_data_arp_decide();
   console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
   console.log("반복 시작 : " + arp_count + "번째");
   console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-  var data__ = exports.data_get();
-  var data_key = Object.getOwnPropertyNames(data__);
 
   arp_promise(data__, data_key);
 
@@ -249,42 +247,52 @@ function promise_arp_req(a, data__, data_key) {
   });
 }
 
-function arp_promise(data__, data_key) {
+function promise_resolve(result) {
+  console.log(result['MAC Address'] + ',, ' + result['arp']);
+  //socket.emit('arp', result);
+  const data_check = exports.device_data_save(device_data, result);
+  if (data_check['check'] == 1) {
+
+  } else if (data_check['check'] == 2) {
+    console.log("데이터 수정 완료");
+    device_data_splice(data_check, result);
+    data_arp_broadcasting(result);
+  } else {
+    console.log("데이터 저장 완료");
+    device_data_push(data_check, result);
+    data_arp_broadcasting(result);
+  }
+}
+
+function promise_reject(result) {
+  console.log(result['MAC Address'] + ',, ' + result['arp']);
+  //socket.emit('arp', result);
+  const data_check = exports.device_data_save(device_data, result);
+  if (data_check['check'] == 1) {
+
+  } else if (data_check['check'] == 2) {
+    console.log("데이터 수정 완료");
+    device_data_splice(data_check, result);
+    data_arp_broadcasting(result);
+  } else {
+    console.log("데이터 저장 완료");
+    device_data_push(data_check, result);
+    data_arp_broadcasting(result);
+  }
+}
+
+function arp_promise() {
+  var data__ = exports.data_get();
+  var data_key = Object.getOwnPropertyNames(data__);
   for (var a = 0; a < Object.keys(data__).length; a++) {
     promise_arp_req(a, data__, data_key)
-    .then(function(result) {
-      // 성공시/*
-      console.log(result['MAC Address'] + ',, ' + result['arp']);
-      //socket.emit('arp', result);
-      const data_check = exports.device_data_save(device_data, result);
-      if (data_check['check'] == 1) {
-
-      } else if (data_check['check'] == 2) {
-        console.log("데이터 수정 완료");
-        device_data_splice(data_check, result);
-        data_arp_broadcasting(result);
-      } else {
-        console.log("데이터 저장 완료");
-        device_data_push(data_check, result);
-        data_arp_broadcasting(result);
-      }
-    }, function(result) {
-      // 실패시
-      console.log(result['MAC Address'] + ',, ' + result['arp']);
-      //socket.emit('arp', result);
-      const data_check = exports.device_data_save(device_data, result);
-      if (data_check['check'] == 1) {
-
-      } else if (data_check['check'] == 2) {
-        console.log("데이터 수정 완료");
-        device_data_splice(data_check, result);
-        data_arp_broadcasting(result);
-      } else {
-        console.log("데이터 저장 완료");
-        device_data_push(data_check, result);
-        data_arp_broadcasting(result);
-      }
-    });
+      .then(function(result) {
+        // 성공시/*
+        promise_resolve(result);
+      }, function(result) {
+        // 실패시
+        promise_reject(result);
+      });
 
   }
 }
