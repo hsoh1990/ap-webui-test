@@ -57,6 +57,7 @@ function uninstall_button(select) {
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
       let content = "패키지를 제거하는 중 입니다..."
       document.getElementById("package_uninstall_wait").innerHTML = content;
+      wait(1);
       wait(5000);
       window.location.reload();
     }
