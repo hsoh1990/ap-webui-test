@@ -233,7 +233,7 @@ device_data_arp_decide();
   console.log("반복 시작 : " + arp_count + "번째");
   console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
 
-  arp_promise(data__, data_key);
+  arp_promise();
 
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   setTimeout(function() {
