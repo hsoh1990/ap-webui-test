@@ -12,12 +12,12 @@ exports.consolelog_serverdata = function() {
           console.log('exec error: ' + error);
         }
         var text = stdout1 + stdout2 + stdout3;
-        let interface_infor = return_interface_infor(text);
-        let interface_statistics = return_interface_statistic(stdout3);
-        let wireless_infor = wireless_infor(text);
-        let alert_select = return_alert_select(stdout1);
+        let interface_infor = exports.return_interface_infor(text);
+        let interface_statistics = exports.return_interface_statistic(stdout3);
+        let wireless_infor = exports.wireless_infor(text);
+        let alert_select = exports.return_alert_select(stdout1);
 
-        dashboard_data_save(interface_infor, interface_statistics, wireless_infor, alert_select);
+        exports.dashboard_data_save(interface_infor, interface_statistics, wireless_infor, alert_select);
         var data = fs.readFileSync(__dirname + "/data/" + "dashboarddata.json", 'utf8');
         var dashboarddata = JSON.parse(data); //json text -> json object
         //console.log(dashboarddata);
