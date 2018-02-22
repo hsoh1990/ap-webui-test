@@ -6,7 +6,7 @@ const {
 } = require('child_process');
 const md5File = require('md5-file');
 
-exports.api_get = function(req, res) {
+exports.api_get = function() {
 
   var hostname = exports.hostname_rec();
   var str_revi = exports.pirevision_rec();
@@ -14,6 +14,14 @@ exports.api_get = function(req, res) {
   var mem_usedper = exports.mem_used_rec();
   var cpuloadper = exports.cpuload_rec();
 
+  system_infor_save(hostname, str_revi, struptime, mem_usedper, cpuloadper);
+  fs.readFile(__dirname + "/data/" + "systeminfordata.json", 'utf8', function(err, data) {
+    var systeminfordata = JSON.parse(data); //json text -> json object
+    //console.log(systeminfordata);
+    return systeminfordata;
+  })
+}
+exports.system_infor_save = function(hostname, str_revi, struptime, mem_usedper, cpuloadper) {
   var data__ = {};
   var tmp = {};
   tmp['Hostname'] = hostname;
@@ -24,19 +32,10 @@ exports.api_get = function(req, res) {
   data__['system_Information'] = tmp;
   fs.writeFileSync(__dirname + "/data/" + "systeminfordata.json",
     JSON.stringify(data__, null, '\t'), "utf8",
-    function(err, data) {
-      result = {
-        "success": 1
-      };
-    })
+    function(err, data) {})
 
-  fs.readFile(__dirname + "/data/" + "systeminfordata.json", 'utf8', function(err, data) {
-    var systeminfordata = JSON.parse(data); //json text -> json object
-    //console.log(systeminfordata);
-    res.send(systeminfordata);
-  })
+  return data__;
 }
-
 exports.hostname_rec = function() {
   const std_hostname = execSync('hostname -f', {
     encoding: 'utf8'
@@ -133,18 +132,18 @@ exports.system_reboot = function(req, res) {
   result = {
     "success": 1
   };
-  res.send(result);
   child = exec("sudo /sbin/reboot", function(error, stdout, stderr) {});
+  return result;
 }
 exports.system_shutdown = function(req, res) {
   result = {
     "success": 2
   };
-  res.send(result);
   child = exec("sudo /sbin/shutdown -h now", function(error, stdout, stderr) {});
+  return result;
 }
 
-exports.package_data_get = function(req, res) {
+exports.package_data_get = function() {
   var files = fs.readdirSync(__dirname + '/../');
   console.log(files.length);
   var sidemenus = {};
@@ -155,10 +154,10 @@ exports.package_data_get = function(req, res) {
     console.log(sidemenu['side_name']);
     sidemenus[sidemenu['side_name']] = sidemenu;
   }
-  res.send(sidemenus);
+  return sidemenus;
 }
 
-exports.install_data_get = function(req, res) {
+exports.install_data_get = function() {
   execSync('cd hub_package_data && wget http://39.119.118.152/package', {
     encoding: 'utf8'
   });
@@ -189,8 +188,7 @@ exports.install_data_get = function(req, res) {
       }
     }
   }
-  res.send(data);
-  //res.send(sidemenus);
+  return data;
 }
 
 exports.uninstall_package = function(req, res, select) {

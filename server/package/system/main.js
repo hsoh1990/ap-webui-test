@@ -21,17 +21,22 @@ module.exports = function(app, fs, url){
     // input message handling
     var type = req.query.type;
 		var select = req.query.select;
-
+		let data;
     if (type == "refresh") {
-      router_system.api_get(req, res);
+      data = router_system.api_get();
+			res.send(data);
     } else if (type == "reboot") {
-      router_system.system_reboot(req, res);
+      data = router_system.system_reboot();
+			res.send(data);
     } else if (type == "shutdown") {
-      router_system.system_shutdown(req, res);
+      data = router_system.system_shutdown();
+			res.send(data);
     } else if (type == "package") {
-      router_system.package_data_get(req, res);
+      data = router_system.package_data_get();
+			res.send(data);
     } else if (type == "install") {
-      router_system.install_data_get(req, res);
+      data = router_system.install_data_get();
+			res.send(data);
     } else if (type == "uninstallbutton") {
       router_system.uninstall_package(req, res, select);
     } else if (type == "installbutton") {
