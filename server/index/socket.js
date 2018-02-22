@@ -241,6 +241,21 @@ device_data_arp_decide();
   }, 11000);
 }()
 
+function arp_promise() {
+  var data__ = exports.data_get();
+  var data_key = Object.getOwnPropertyNames(data__);
+  for (var a = 0; a < Object.keys(data__).length; a++) {
+    promise_arp_req(a, data__, data_key)
+      .then(function(result) {
+        // 성공시/*
+        promise_resolve(result);
+      }, function(result) {
+        // 실패시
+        promise_reject(result);
+      });
+  }
+}
+
 function promise_arp_req(a, data__, data_key) {
   return new Promise(function(resolve, reject) {
     exports.arp_req(a, data__, data_key, resolve, reject)
@@ -280,23 +295,6 @@ function promise_reject(result) {
     data_arp_broadcasting(result);
   }
 }
-
-function arp_promise() {
-  var data__ = exports.data_get();
-  var data_key = Object.getOwnPropertyNames(data__);
-  for (var a = 0; a < Object.keys(data__).length; a++) {
-    promise_arp_req(a, data__, data_key)
-      .then(function(result) {
-        // 성공시/*
-        promise_resolve(result);
-      }, function(result) {
-        // 실패시
-        promise_reject(result);
-      });
-
-  }
-}
-
 
 function data_arp_broadcasting(result_data) {
   for (var a = 0; a < sockets.length; a++) {
