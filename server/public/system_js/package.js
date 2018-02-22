@@ -56,7 +56,7 @@ function uninstall_button(select) {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
       let content = "패키지를 제거하는 중 입니다..."
-      document.getElementById("package_install_wait").innerHTML = content;
+      document.getElementById("package_uninstall_wait").innerHTML = content;
       wait(5000);
       window.location.reload();
     }
