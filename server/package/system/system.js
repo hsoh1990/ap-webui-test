@@ -213,11 +213,7 @@ exports.uninstall_package = function(select) {
   }
 }
 
-exports.install_package = function(req, res, select) {
-
-
-
-
+exports.find_installed_data = function() {
   execSync('cd hub_package_data && wget http://39.119.118.152/package', {
     encoding: 'utf8'
   });
@@ -254,20 +250,15 @@ exports.install_package = function(req, res, select) {
     }
   }
 
+  return data;
+}
+exports.hash_check = function(select) {
+  var data = exports.find_installed_data();
   install_data_key = Object.getOwnPropertyNames(data);
+
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
       var package_name = data[install_data_key[i]]['pack_name'];
-
-      //로그 요청 부분
-      execSync('curl \"http://39.119.118.152/savelog?username=admin\&type=1\&packagename=' + package_name + "\"", {
-        encoding: 'utf8'
-      });
-      /*var data = fs.readFileSync(__dirname + "/../../hub_package_data/" + package_name + ".txt", 'utf8');
-      data = JSON.parse(data);
-      console.log(data);*/
-
-      //install 부분
       const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.152/download?name=' + package_name, {
         encoding: 'utf8'
       });
@@ -283,9 +274,10 @@ exports.install_package = function(req, res, select) {
       if (hash_make == hash_installed) {
         console.log("해시값이 같습니다.");
         result = {
-          'success': 1
+          'success': 1,
+          'package_name': package_name
         }
-        res.send(result);
+        return result;
       } else if (hash_make != hash_installed) {
         console.log("해시값이 다릅니다.");
         result = {
@@ -297,77 +289,79 @@ exports.install_package = function(req, res, select) {
         execSync('rm -r package_tmp/' + package_name + '.md5', {
           encoding: 'utf8'
         });
-        res.send(result);
-        break;
+        return result;
       }
-
-      execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + '.zip -d ' + __dirname + '/../' + package_name, {
-        encoding: 'utf8'
-      });
-      execSync('cd public/i18n && mkdir ' + package_name, {
-        encoding: 'utf8'
-      });
-      execSync('mv package/' + package_name + '/i18n.js public/i18n/' + package_name, {
-        encoding: 'utf8'
-      });
-
-      const start_1 = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
-        encoding: 'utf8'
-      });
-      const start_2 = execSync('grep -n index/main package_set.js | cut -d: -f1 | head -1', {
-        encoding: 'utf8'
-      });
-      var line_number1 = Number(start_1) + 1;
-      var line_number2 = Number(start_2) + 1;
-      var serverjs_data = fs.readFileSync(__dirname + "/../../" + "server.js", 'utf8');
-      var packagesetjs_data = fs.readFileSync(__dirname + "/../../" + "package_set.js", 'utf8');
-
-      var data_split1 = serverjs_data.split("\n");
-      var data_split2 = packagesetjs_data.split("\n");
-      var insert_data1 = "    __dirname + \'/package/" + package_name + "\',";
-      var insert_data2 = "  require(\'./package/" + package_name + "/main.js\')(app, fs, url);";
-      data_split1.splice(line_number1, 0, insert_data1);
-      data_split2.splice(line_number2, 0, insert_data2);
-
-      for (var q = 0; q < data_split1.length; q++) {
-        data_split1[q] += "\n";
-      }
-      var result1 = "";
-      for (var q = 0; q < data_split1.length; q++) {
-        result1 += data_split1[q];
-      }
-
-      for (var q = 0; q < data_split2.length; q++) {
-        data_split2[q] += "\n";
-      }
-      var result2 = "";
-      for (var q = 0; q < data_split2.length; q++) {
-        result2 += data_split2[q];
-      }
-
-      fs.writeFileSync(__dirname + "/../../" + "server.js",
-        result1, "utf8",
-        function(err, data) {
-          result = {
-            "success": 1
-          };
-        })
-      fs.writeFileSync(__dirname + "/../../" + "package_set.js",
-        result2, "utf8",
-        function(err, data) {
-          result = {
-            "success": 1
-          };
-        })
-      execSync('rm -r package_tmp/' + package_name + '.zip', {
-        encoding: 'utf8'
-      });
-      execSync('rm -r package_tmp/' + package_name + '.md5', {
-        encoding: 'utf8'
-      });
-      break;
     }
   }
+}
+exports.install_package = function(result) {
+  var package_name = result['package_name'];
+  execSync('sudo unzip ' + __dirname + '/../../package_tmp/' + package_name + '.zip -d ' + __dirname + '/../' + package_name, {
+    encoding: 'utf8'
+  });
+  execSync('cd public/i18n && mkdir ' + package_name, {
+    encoding: 'utf8'
+  });
+  execSync('mv package/' + package_name + '/i18n.js public/i18n/' + package_name, {
+    encoding: 'utf8'
+  });
+
+  const start_1 = execSync('grep -n app.set server.js | cut -d: -f1 | head -1', {
+    encoding: 'utf8'
+  });
+  const start_2 = execSync('grep -n index/main package_set.js | cut -d: -f1 | head -1', {
+    encoding: 'utf8'
+  });
+  var line_number1 = Number(start_1) + 1;
+  var line_number2 = Number(start_2) + 1;
+  var serverjs_data = fs.readFileSync(__dirname + "/../../" + "server.js", 'utf8');
+  var packagesetjs_data = fs.readFileSync(__dirname + "/../../" + "package_set.js", 'utf8');
+
+  var data_split1 = serverjs_data.split("\n");
+  var data_split2 = packagesetjs_data.split("\n");
+  var insert_data1 = "    __dirname + \'/package/" + package_name + "\',";
+  var insert_data2 = "  require(\'./package/" + package_name + "/main.js\')(app, fs, url);";
+  data_split1.splice(line_number1, 0, insert_data1);
+  data_split2.splice(line_number2, 0, insert_data2);
+
+  for (var q = 0; q < data_split1.length; q++) {
+    data_split1[q] += "\n";
+  }
+  var result1 = "";
+  for (var q = 0; q < data_split1.length; q++) {
+    result1 += data_split1[q];
+  }
+
+  for (var q = 0; q < data_split2.length; q++) {
+    data_split2[q] += "\n";
+  }
+  var result2 = "";
+  for (var q = 0; q < data_split2.length; q++) {
+    result2 += data_split2[q];
+  }
+
+  fs.writeFileSync(__dirname + "/../../" + "server.js",
+    result1, "utf8",
+    function(err, data) {
+      result = {
+        "success": 1
+      };
+    })
+  fs.writeFileSync(__dirname + "/../../" + "package_set.js",
+    result2, "utf8",
+    function(err, data) {
+      result = {
+        "success": 1
+      };
+    })
+  execSync('rm -r package_tmp/' + package_name + '.zip', {
+    encoding: 'utf8'
+  });
+  execSync('rm -r package_tmp/' + package_name + '.md5', {
+    encoding: 'utf8'
+  });
+
+  return package_name;
 }
 
 exports.i18n_load = function(req, res) {
