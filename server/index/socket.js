@@ -246,6 +246,12 @@ device_data_arp_decide();
 function promise_arp_req(a, data__, data_key) {
   return new Promise(function(resolve, reject) {
     exports.arp_req(a, data__, data_key, resolve, reject)
+  });
+}
+
+function arp_promise(data__, data_key) {
+  for (var a = 0; a < Object.keys(data__).length; a++) {
+    promise_arp_req(a, data__, data_key);
     .then(function(result) {
       // 성공시/*
       console.log(result['MAC Address'] + ',, ' + result['arp']);
@@ -279,12 +285,7 @@ function promise_arp_req(a, data__, data_key) {
         data_arp_broadcasting(result);
       }
     });
-  });
-}
 
-function arp_promise(data__, data_key) {
-  for (var a = 0; a < Object.keys(data__).length; a++) {
-    promise_arp_req(a, data__, data_key);
   }
 }
 
