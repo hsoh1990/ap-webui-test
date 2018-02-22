@@ -229,8 +229,7 @@
         }
       }
     }
-
-    function socket_connect_draw() {
+    function init_() {
       socket = io.connect('http://172.16.171.181:8080');
       connection_text(10, 1);
       //전역변수 선언
@@ -249,73 +248,83 @@
         'owner': 1
       }
       arp_data = new Object();
+    }
+    function arp_event_conn_change_disconn(data) {
+      for (var a = 0; a < connect_count; a++) {
+        var i = arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
+        if (i == true) {
+          connect_count -= 1;
+          disconnect_count += 1;
+          connect_data.splice(a, 1);
+          disconnect_data.push(data);
+        }
+      }
+    }
+    function arp_event_disconn_change_conn(data) {
+      for (var a = 0; a < disconnect_count; a++) {
+        var i = arp_eval_false(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
+        if (i == true) {
+          connect_count += 1;
+          disconnect_count -= 1;
+          disconnect_data.splice(a, 1);
+          connect_data.push(data);
+        }
+      }
+    }
+    function socket_event_arp(data) {
+      arp_data = data;
+      if (data['length'] == device_count && device_count == (connect_count + disconnect_count)) {
+        arp_event_conn_change_disconn(data);
+        arp_event_disconn_change_conn(data);
+        conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
+      } else if (data['length'] < device_count) {
+        console.log("count = " + device_count);
+        var check = false;
+        for (var a = 0; a < disconnect_count; a++) {
+          if (data['MAC Address'] == disconnect_data[a]['MAC Address']) {
+            connect_count += 1;
+            disconnect_count -= 1;
+            disconnect_data.splice(a, 1);
+            connect_data.push(data);
+            check = true;
+            break;
+          }
+        }
+        if (check == false) {
+          if (data['arp'] == 1) {
+            connect_count += 1;
+            connect_data.push(data);
+          } else if (data['arp'] == 0) {
+            disconnect_count += 1;
+            disconnect_data.push(data);
+          }
+        }
+        if( device_count < (connect_count + disconnect_count)){
+          device_count += 1;
+        }
+        conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
+      } else {
+        if (data['arp'] == 1) {
+          connect_count += 1;
+          connect_data.push(data);
+        } else if (data['arp'] == 0) {
+          disconnect_count += 1;
+          disconnect_data.push(data);
+        }
+        if( device_count < (connect_count + disconnect_count)){
+          device_count += 1;
+        }
+        conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
+      }
+      console.log("  " + connect_count + "    ,    " + disconnect_count);
 
+    }
+    function socket_connect_draw() {
+      init_();
       // 서버에서 news 이벤트가 일어날 때 데이터를 받는다.
       socket.on('arp',
         function(data) {
-          arp_data = data;
-          if (data['length'] == device_count && device_count == (connect_count + disconnect_count)) {
-            for (var a = 0; a < connect_count; a++) {
-              var i = arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
-              if (i == true) {
-                connect_count -= 1;
-                disconnect_count += 1;
-                connect_data.splice(a, 1);
-                disconnect_data.push(data);
-              }
-            }
-            for (var a = 0; a < disconnect_count; a++) {
-              var i = arp_eval_false(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
-              if (i == true) {
-                connect_count += 1;
-                disconnect_count -= 1;
-                disconnect_data.splice(a, 1);
-                connect_data.push(data);
-              }
-            }
-
-            conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
-          } else if (data['length'] < device_count) {
-            console.log("count = " + device_count);
-            var check = false;
-            for (var a = 0; a < disconnect_count; a++) {
-              if (data['MAC Address'] == disconnect_data[a]['MAC Address']) {
-                connect_count += 1;
-                disconnect_count -= 1;
-                disconnect_data.splice(a, 1);
-                connect_data.push(data);
-                check = true;
-                break;
-              }
-            }
-            if (check == false) {
-              if (data['arp'] == 1) {
-                connect_count += 1;
-                connect_data.push(data);
-              } else if (data['arp'] == 0) {
-                disconnect_count += 1;
-                disconnect_data.push(data);
-              }
-            }
-            if( device_count < (connect_count + disconnect_count)){
-              device_count += 1;
-            }
-            conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
-          } else {
-            if (data['arp'] == 1) {
-              connect_count += 1;
-              connect_data.push(data);
-            } else if (data['arp'] == 0) {
-              disconnect_count += 1;
-              disconnect_data.push(data);
-            }
-            if( device_count < (connect_count + disconnect_count)){
-              device_count += 1;
-            }
-            conn_disconn_draw(enable__, exnet_data, wlan_data, ap_data, data, connect_data, disconnect_data, connect_count, disconnect_count);
-          }
-          console.log("  " + connect_count + "    ,    " + disconnect_count);
-
+          socket_event_arp(data);
         });
       socket.on('device_count',
         function(data) {
