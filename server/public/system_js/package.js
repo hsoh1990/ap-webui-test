@@ -55,6 +55,8 @@ function uninstall_button(select) {
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
+      let content = "패키지를 제거하는 중 입니다..."
+      document.getElementById("package_install_wait").innerHTML = content;
       wait(5000);
       window.location.reload();
     }
@@ -113,12 +115,14 @@ function install_button(select) {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
       if (this.response['success'] == 1) {
-        alert("해시값이 같습니다.");
+        let content = "해시값이 같습니다.<br>설치중 입니다..."
+        document.getElementById("package_install_wait").innerHTML = content;
+        wait(5000);
+        window.location.reload()
       }
       else if (this.response['success'] == 0) {
         alert("해시값이 다릅니다.");
       }
-      window.location.reload()
     }
   };
   xhr.onerror = function() {
