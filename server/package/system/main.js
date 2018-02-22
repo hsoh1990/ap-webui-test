@@ -22,6 +22,9 @@ module.exports = function(app, fs, url){
     var type = req.query.type;
 		var select = req.query.select;
 		let data;
+		let result = {
+			'success' : 1
+		}
     if (type == "refresh") {
       data = router_system.api_get();
 			res.send(data);
@@ -38,7 +41,7 @@ module.exports = function(app, fs, url){
       data = router_system.install_data_get();
 			res.send(data);
     } else if (type == "uninstallbutton") {
-			res.send(1);
+			res.send(result);
       router_system.uninstall_package(select);
     } else if (type == "installbutton") {
       router_system.install_package(req, res, select);
