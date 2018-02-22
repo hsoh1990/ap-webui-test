@@ -1,32 +1,37 @@
 var fs = require("fs");
 var exec = require('child_process').exec,
   child;
-
+const {
+  execSync
+} = require('child_process');
 
 exports.consolelog_serverdata = function() {
-  child = exec("ip a s wlan0", function(error, stdout1, stderr) {
-    child = exec("iwconfig wlan0", function(error, stdout2, stderr) {
-      child = exec("ifconfig wlan0", function(error, stdout3, stderr) {
-        console.log('stderr: ' + stderr);
-        if (error !== null) {
-          console.log('exec error: ' + error);
-        }
-        var text = stdout1 + stdout2 + stdout3;
-        let interface_infor = exports.return_interface_infor(text);
-        let interface_statistics = exports.return_interface_statistic(stdout3);
-        let wireless_infor = exports.wireless_infor(text);
-        let alert_select = exports.return_alert_select(stdout1);
-
-        exports.dashboard_data_save(interface_infor, interface_statistics, wireless_infor, alert_select);
-        var data = fs.readFileSync(__dirname + "/data/" + "dashboarddata.json", 'utf8');
-        var dashboarddata = JSON.parse(data); //json text -> json object
-        //console.log(dashboarddata);
-        return dashboarddata;
-      });
-    });
+  const stdout1 = execSync("ip a s wlan0", {
+    encoding: 'utf8'
   });
+  const stdout2 = execSync("iwconfig wlan0", {
+    encoding: 'utf8'
+  });
+  const stdout3 = execSync("ifconfig wlan0", {
+    encoding: 'utf8'
+  });
+  console.log('stderr: ' + stderr);
+  if (error !== null) {
+    console.log('exec error: ' + error);
+  }
+  var text = stdout1 + stdout2 + stdout3;
+  let interface_infor = exports.return_interface_infor(text);
+  let interface_statistics = exports.return_interface_statistic(stdout3);
+  let wireless_infor = exports.wireless_infor(text);
+  let alert_select = exports.return_alert_select(stdout1);
+
+  exports.dashboard_data_save(interface_infor, interface_statistics, wireless_infor, alert_select);
+  var data = fs.readFileSync(__dirname + "/data/" + "dashboarddata.json", 'utf8');
+  var dashboarddata = JSON.parse(data); //json text -> json object
+  //console.log(dashboarddata);
+  return dashboarddata;
 }
-exports.return_interface_infor = function (text) {
+exports.return_interface_infor = function(text) {
   var interface_name = "wlan0";
   var ip = exports.serverdata_get_ip(text);
   var netmask = exports.serverdata_get_netmask(text);
@@ -41,7 +46,7 @@ exports.return_interface_infor = function (text) {
   return Interface_Information;
 }
 
-exports.return_interface_statistic = function (stdout3) {
+exports.return_interface_statistic = function(stdout3) {
   var rx_packet = exports.serverdata_RX_packets(stdout3);
   var rx_byte = exports.serverdata_RX_bytes(stdout3);
   var tx_packet = exports.serverdata_TX_packets(stdout3);
@@ -56,7 +61,7 @@ exports.return_interface_statistic = function (stdout3) {
   return Interface_Statistics;
 }
 
-exports.wireless_infor = function (text) {
+exports.wireless_infor = function(text) {
   var ssid = exports.serverdata_ssid(text);
   var access_point = exports.serverdata_access_point(text);
   var bitrate = exports.serverdata_Bit_Rate(text);
@@ -76,7 +81,7 @@ exports.wireless_infor = function (text) {
 
   return Wireless_Information;
 }
-exports.return_alert_select = function (stdout1) {
+exports.return_alert_select = function(stdout1) {
   var interfaceis = exports.serverdata_get_interfaceis(stdout1);
 
   var alert_select = {};
@@ -84,7 +89,7 @@ exports.return_alert_select = function (stdout1) {
 
   return alert_select;
 }
-exports.dashboard_data_save = function (Interface_Information, Interface_Statistics, Wireless_Information, alert_select) {
+exports.dashboard_data_save = function(Interface_Information, Interface_Statistics, Wireless_Information, alert_select) {
   // ADD TO DATA
   var dashboard_json = {};
   dashboard_json["Interface_Information"] = Interface_Information;
