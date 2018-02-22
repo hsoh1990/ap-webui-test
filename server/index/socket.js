@@ -181,20 +181,18 @@ exports.device_data_save = function(device_data, data__) {
       break;
     }
   }
+  data__['owner'] = device_data[a]['owner'];
   if (check == 1) {
     data__['check'] = 1;
     data__['a'] = a;
-    data__['owner'] = device_data[a]['owner'];
     return data__;
   } else if (check == 2) {
     data__['check'] = 2;
     data__['a'] = a;
-    data__['owner'] = device_data[a]['owner'];
     return data__;
   } else {
     data__['check'] = 3;
     data__['a'] = 0;
-    data__['owner'] = device_data[a]['owner'];
     return data__;
   }
 }
