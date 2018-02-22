@@ -251,7 +251,7 @@ function promise_arp_req(a, data__, data_key) {
 
 function arp_promise(data__, data_key) {
   for (var a = 0; a < Object.keys(data__).length; a++) {
-    promise_arp_req(a, data__, data_key);
+    promise_arp_req(a, data__, data_key)
     .then(function(result) {
       // 성공시/*
       console.log(result['MAC Address'] + ',, ' + result['arp']);
