@@ -15,11 +15,10 @@ exports.api_get = function() {
   var cpuloadper = exports.cpuload_rec();
 
   exports.system_infor_save(hostname, str_revi, struptime, mem_usedper, cpuloadper);
-  fs.readFile(__dirname + "/data/" + "systeminfordata.json", 'utf8', function(err, data) {
-    var systeminfordata = JSON.parse(data); //json text -> json object
-    //console.log(systeminfordata);
-    return systeminfordata;
-  })
+  var data = fs.readFileSync(__dirname + "/data/" + "systeminfordata.json", 'utf8');
+  var systeminfordata = JSON.parse(data); //json text -> json object
+  //console.log(systeminfordata);
+  return systeminfordata;
 }
 exports.system_infor_save = function(hostname, str_revi, struptime, mem_usedper, cpuloadper) {
   var data__ = {};
@@ -179,7 +178,7 @@ exports.install_data_get = function() {
     for (var j = 0; j < tmp_arr.length; j++) {
       if (files[i] == tmp_arr[j]) {
         for (var k = 0; k < Object.keys(data).length; k++) {
-          if (data[install_data_key[k]]['pack_name'] == tmp_arr[j]){
+          if (data[install_data_key[k]]['pack_name'] == tmp_arr[j]) {
             delete data[install_data_key[k]];
             install_data_key.splice(k, 1);
             break;
@@ -245,7 +244,7 @@ exports.install_package = function(req, res, select) {
     for (var j = 0; j < tmp_arr.length; j++) {
       if (installed_files[i] == tmp_arr[j]) {
         for (var k = 0; k < Object.keys(data).length; k++) {
-          if (data[install_data_key[k]]['pack_name'] == tmp_arr[j]){
+          if (data[install_data_key[k]]['pack_name'] == tmp_arr[j]) {
             delete data[install_data_key[k]];
             install_data_key.splice(k, 1);
             break;
@@ -276,7 +275,7 @@ exports.install_package = function(req, res, select) {
         encoding: 'utf8'
       });
 
-      const hash_make = md5File.sync( __dirname + '/../../package_tmp/' + package_name + '.zip');
+      const hash_make = md5File.sync(__dirname + '/../../package_tmp/' + package_name + '.zip');
       var hash_installed = fs.readFileSync(__dirname + "/../../package_tmp/" + package_name + '.md5', 'utf8');
       console.log("installed md5 hash : " + hash_installed);
       console.log("download zip hash : " + hash_make);
@@ -287,8 +286,7 @@ exports.install_package = function(req, res, select) {
           'success': 1
         }
         res.send(result);
-      }
-      else if (hash_make != hash_installed) {
+      } else if (hash_make != hash_installed) {
         console.log("해시값이 다릅니다.");
         result = {
           'success': 0
