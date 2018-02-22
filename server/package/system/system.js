@@ -364,13 +364,12 @@ exports.install_package = function(result) {
   return package_name;
 }
 
-exports.i18n_load = function(req, res) {
+exports.i18n_load = function() {
   var data = JSON.parse(fs.readFileSync(__dirname + "/../../public/i18n/config.js", 'utf8'));
   console.log(data);
-  res.send(data);
+  return data;
 }
-exports.i18n_save = function(req, res) {
-  var language = req.query.lang;
+exports.i18n_save = function(language) {
   var lang_json = {};
   lang_json.language = language;
   fs.writeFileSync(__dirname + "/../../public/i18n/config.js",
@@ -380,5 +379,5 @@ exports.i18n_save = function(req, res) {
         "success": 1
       };
     })
-  res.send(language);
+  return language;
 }
