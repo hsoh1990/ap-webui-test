@@ -14,7 +14,7 @@ exports.api_get = function() {
   var mem_usedper = exports.mem_used_rec();
   var cpuloadper = exports.cpuload_rec();
 
-  system_infor_save(hostname, str_revi, struptime, mem_usedper, cpuloadper);
+  exports.system_infor_save(hostname, str_revi, struptime, mem_usedper, cpuloadper);
   fs.readFile(__dirname + "/data/" + "systeminfordata.json", 'utf8', function(err, data) {
     var systeminfordata = JSON.parse(data); //json text -> json object
     //console.log(systeminfordata);
