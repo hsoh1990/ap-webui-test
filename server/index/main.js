@@ -1,4 +1,4 @@
-module.exports = function(app, fs, url) {
+module.exports = function(app, fs, url, isAuthenticated) {
   var router_index_login = require('./index_login.js');
 
 
@@ -13,6 +13,16 @@ module.exports = function(app, fs, url) {
   app.get('/', function(req, res) {
     res.render('index.html');
   });
+
+  app.get('/api/index_login', function(req, res) {
+    req.accepts('application/json');
+    var type = req.query.type;
+    if (type == "sidemenu") {
+      let res_data = router_index_login.sidemenu_get();
+      res.send(res_data);
+    }
+  });
+  /*
   app.get('/index_login', function(req, res) {
     let sess;
     sess = req.session;
@@ -21,14 +31,6 @@ module.exports = function(app, fs, url) {
       res.render('index_login.html');
     } else {
       res.render('index.html');
-    }
-  });
-  app.get('/api/index_login', function(req, res) {
-    req.accepts('application/json');
-    var type = req.query.type;
-    if (type == "sidemenu") {
-      let res_data = router_index_login.sidemenu_get();
-      res.send(res_data);
     }
   });
   app.post('/login_check', function(req, res) {
@@ -52,6 +54,14 @@ module.exports = function(app, fs, url) {
     check['check'] = sess.logincheck;
     console.log('session : ' + sess.logincheck);
     res.send(check);
+  });*/
+  app.get('/index_login', isAuthenticated, function(req, res) {
+    res.render('index_login.html');
+  });
+
+  app.post('/login_check', passport.authenticate('local', {failureRedirect: '/', failureFlash: true}), // 인증 실패 시 401 리턴, {} -> 인증 스트레티지
+  function (req, res) {
+    res.redirect('/index_login');
   });
 
   app.get('/i18n_load', function(req, res) {

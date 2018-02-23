@@ -190,6 +190,7 @@
 </head>
 
 <body>
+  <!--
   <form class="form-1">
     <p class="field">
       <input type="text" name="login" id="id" placeholder="Username or email">
@@ -201,7 +202,18 @@
     </p>
       <input type="button" class="btn btn-outline btn-primary" name="SaveHostAPDSettings" value="Login" onclick="session_check()">
   </form>
-
+-->
+<form class="form-1" action="/login_check" method="post" name="frm_login" id="frm_login">
+  <p class="field">
+    <input type="text" name="id" />
+    <i class="icon-user icon-large"></i>
+  </p>
+  <p class="field">
+    <input type="password" name="password" />
+    <i class="icon-lock icon-large"></i>
+  </p>
+    <input type="submit" value="Login" />
+</form>
   <script src="/js/index.js"></script>
 </body>
 

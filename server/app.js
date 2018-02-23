@@ -10,6 +10,7 @@ var exec = require('child_process').exec,
   child;
 var path = require('path');
 var cookie = require('cookie-parser');
+var passport = require('passport');
 
 require('./server.js')(app, fs, url);
 
@@ -34,5 +35,43 @@ app.use(session({
   saveUninitialized: true,
   resave: false
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-require('./package_set.js')(app, fs, url);
+passport.serializeUser(function(user, done) {
+  console.log('serializeUser() 호출됨.');
+  console.dir(user);
+
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  console.log('deserializeUser() 호출됨.');
+  console.dir(user);
+
+  done(null, user);
+});
+
+var LocalStrategy = require('passport-local').Strategy;
+
+passport.use('local-login', new LocalStrategy({
+  usernameField: 'id',
+  passwordField: 'password',
+  passReqToCallback: true
+}, function(req, id, password, done) {
+  if (id === 'admin' && password === '12341234') {
+    return done(null, {
+      'user_id': id,
+    });
+  } else {
+    return done(false, null)
+  }
+}))
+
+var isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+  res.redirect('/');
+};
+
+require('./package_set.js')(app, fs, url, isAuthenticated);
