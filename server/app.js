@@ -23,7 +23,7 @@ var server = app.listen(80, function() {
 app.use(cookie());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/js', express.static(__dirname + "/js"));
+app.use('/js', express.static(__dirname + "/index/js"));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
