@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var oauthserver = require('oauth2-server');
 var session = require('express-session');
 var fs = require("fs");
 var http = require('http');
@@ -11,7 +10,6 @@ var exec = require('child_process').exec,
   child;
 var path = require('path');
 var cookie = require('cookie-parser');
-
 
 require('./server.js')(app, fs, url);
 
@@ -36,32 +34,5 @@ app.use(session({
   saveUninitialized: true,
   resave: false
 }));
-app.oauth = oauthserver({
-  model: {
-    getAccessToken: function() {
-      return new Promise('works!');
-    },
-
-    // Or, calling a Node-style callback.
-    getAuthorizationCode: function(done) {
-      done(null, 'works!');
-    },
-
-    // Or, using generators.
-    getClient: function*() {
-      yield somethingAsync();
-      return 'works!';
-    },
-
-    // Or, async/wait (using Babel).
-    getUser: async function() {
-      await somethingAsync();
-      return 'works!';
-    }
-  }, // See below for specification
-  grants: ['password'],
-  debug: true
-});
-app.all('/oauth/token', app.oauth.grant());
 
 require('./package_set.js')(app, fs, url);
