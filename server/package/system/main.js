@@ -1,23 +1,11 @@
-module.exports = function(app, fs, url) {
+module.exports = function(app, fs, url, isAuthenticated, passport) {
   var router_system = require('./system.js');
   var qwe = 123;
-  app.get('/system', function(req, res) {
-    var sess;
-    sess = req.session;
-    if(req.cookies['json']['name'] != null) {
-      console.log('session : ' + sess.logincheck);
-      console.log('cookie.name : ' + req.cookies['json']['name']);
-      if (req.cookies['json']['name'] == "check") {
-        sess.logincheck = "1";
-        res.render('system.html');
-      } else {
-        sess.logincheck = "0";
-        res.render('index.html');
-      }
-    }
+  app.get('/system', isAuthenticated, function(req, res) {
+    res.render('system.html');
   });
 
-  app.get('/api/system', function(req, res) {
+  app.get('/api/system', isAuthenticated, function(req, res) {
     req.accepts('application/json');
     // input message handling
     var type = req.query.type;
@@ -52,12 +40,12 @@ module.exports = function(app, fs, url) {
       } else if (result['success'] == 0) {}
     }
   });
-  app.get('/i18n_load', function(req, res) {
+  app.get('/i18n_load', isAuthenticated, function(req, res) {
     let data = router_system.i18n_load();
-		res.send(data);
+    res.send(data);
   });
-  app.get('/i18n_save', function(req, res) {
+  app.get('/i18n_save', isAuthenticated, function(req, res) {
     let data = router_system.i18n_save(req.query.lang);
-		res.send(data);
-	});
+    res.send(data);
+  });
 };

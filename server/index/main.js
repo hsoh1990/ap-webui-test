@@ -14,7 +14,7 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
     res.render('index.html');
   });
 
-  app.get('/api/index_login', function(req, res) {
+  app.get('/api/index_login', isAuthenticated, function(req, res) {
     req.accepts('application/json');
     var type = req.query.type;
     if (type == "sidemenu") {
@@ -67,12 +67,12 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
       res.redirect('/index_login');
     });
 
-  app.get('/i18n_load', function(req, res) {
+  app.get('/i18n_load', isAuthenticated, function(req, res) {
     let data = router_index_login.i18n_load();
     res.send(data);
   });
 
-  app.get('/i18n_save', function(req, res) {
+  app.get('/i18n_save', isAuthenticated, function(req, res) {
     let language = req.query.lang;
     let data = router_index_login.i18n_save(language);
     res.send(data);

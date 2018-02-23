@@ -11,6 +11,8 @@ var exec = require('child_process').exec,
 var path = require('path');
 var cookie = require('cookie-parser');
 var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 
 require('./server.js')(app, fs, url);
 
@@ -52,9 +54,7 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-var LocalStrategy = require('passport-local').Strategy;
-
-passport.use('local-login',new LocalStrategy({
+passport.use('local-login', new LocalStrategy({
   usernameField: 'id',
   passwordField: 'password',
   passReqToCallback: true

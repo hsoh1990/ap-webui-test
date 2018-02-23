@@ -5,7 +5,7 @@ function session_check() {
     "id" : id,
     "password" : password
   }
-  
+
   data = JSON.stringify(data);
   const xhr = new XMLHttpRequest();
 
