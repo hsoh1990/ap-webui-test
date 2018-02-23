@@ -31,10 +31,10 @@ module.exports = function(app, fs, url) {
       res.send(res_data);
     }
   });
-  app.get('/login_check', function(req, res) {
+  app.post('/login_check', function(req, res) {
     var sess = req.session;
-    var id = req.query.id;
-    var password = req.query.password;
+    var id = req.body.id;
+    var password = req.body.password;
     let check = new Object();
     let logincheck = router_index_login.login_check(id, password);
     if (logincheck == 1) {

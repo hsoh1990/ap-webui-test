@@ -1,7 +1,10 @@
 function session_check() {
   var id = document.getElementById("id").value;
   var password = document.getElementById("pwd").value;
-
+  var data = {
+    "id" : id,
+    "password" : password
+  }
   const xhr = new XMLHttpRequest();
   // by default async
   xhr.onload = function() {
@@ -19,7 +22,7 @@ function session_check() {
   xhr.onerror = function() {
     console.log("confirm");
   };
-  xhr.open("GET", "/login_check?id=" + id + "&password=" + password);
+  xhr.open("post", "/login_check");
   xhr.responseType = 'json';
-  xhr.send();
+  xhr.send(data);
 }
