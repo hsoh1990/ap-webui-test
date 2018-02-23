@@ -32,6 +32,7 @@ module.exports = function(app, fs, url) {
     }
   });
   app.post('/login_check', function(req, res) {
+    req.accepts('application/json');
     var sess = req.session;
     var id = req.body.id;
     var password = req.body.password;

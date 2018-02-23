@@ -22,7 +22,8 @@ function session_check() {
   xhr.onerror = function() {
     console.log("confirm");
   };
-  xhr.open("post", "/login_check");
+  xhr.open("post", "/login_check", true);
+  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
   xhr.responseType = 'json';
   xhr.send(data);
 }
