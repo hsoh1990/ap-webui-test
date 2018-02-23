@@ -5,7 +5,13 @@ function session_check() {
     "id" : id,
     "password" : password
   }
+  
+  data = JSON.stringify(data);
   const xhr = new XMLHttpRequest();
+
+  xhr.open("POST", "/login_check", true);
+  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  xhr.responseType = 'json';
   // by default async
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
@@ -22,8 +28,5 @@ function session_check() {
   xhr.onerror = function() {
     console.log("confirm");
   };
-  xhr.open("post", "/login_check", true);
-  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-  xhr.responseType = 'json';
   xhr.send(data);
 }
