@@ -54,7 +54,7 @@ passport.deserializeUser(function(user, done) {
 
 var LocalStrategy = require('passport-local').Strategy;
 
-passport.use(new LocalStrategy({
+passport.use('local-login',new LocalStrategy({
   usernameField: 'id',
   passwordField: 'password',
   passReqToCallback: true
