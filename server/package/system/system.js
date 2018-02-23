@@ -330,7 +330,7 @@ exports.install_package = function(result) {
   var data_split3 = appjs_data.split("\n");
   var insert_data1 = "    __dirname + \'/package/" + package_name + "\',";
   var insert_data2 = "  require(\'./package/" + package_name + "/main.js\')(app, fs, url);";
-  var insert_data2 = "app.use(\'/js\', express.static(__dirname + \"/" + package_name + "/js\"));";
+  var insert_data3 = "app.use(\'/js\', express.static(__dirname + \"/package/" + package_name + "/js\"));";
   data_split1.splice(line_number1, 0, insert_data1);
   data_split2.splice(line_number2, 0, insert_data2);
   data_split2.splice(line_number3, 0, insert_data3);
