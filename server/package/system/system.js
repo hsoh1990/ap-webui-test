@@ -333,7 +333,7 @@ exports.install_package = function(result) {
   var insert_data3 = "app.use(\'/js\', express.static(__dirname + \"/package/" + package_name + "/js\"));";
   data_split1.splice(line_number1, 0, insert_data1);
   data_split2.splice(line_number2, 0, insert_data2);
-  data_split2.splice(line_number3, 0, insert_data3);
+  data_split3.splice(line_number3, 0, insert_data3);
 
   for (var q = 0; q < data_split1.length; q++) {
     data_split1[q] += "\n";
