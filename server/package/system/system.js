@@ -208,6 +208,9 @@ exports.uninstall_package = function(select) {
       execSync('sed -i /' + package_name + '/d ./package_set.js', {
         encoding: 'utf8'
       });
+      execSync('sed -i /' + package_name + '/d ./app.js', {
+        encoding: 'utf8'
+      });
       break;
     }
   }
@@ -312,17 +315,25 @@ exports.install_package = function(result) {
   const start_2 = execSync('grep -n index/main package_set.js | cut -d: -f1 | head -1', {
     encoding: 'utf8'
   });
+  const start_3 = execSync('grep -n /system/js app.js | cut -d: -f1 | head -1', {
+    encoding: 'utf8'
+  });
   var line_number1 = Number(start_1) + 1;
   var line_number2 = Number(start_2) + 1;
+  var line_number3 = Number(start_3) + 1;
   var serverjs_data = fs.readFileSync(__dirname + "/../../" + "server.js", 'utf8');
   var packagesetjs_data = fs.readFileSync(__dirname + "/../../" + "package_set.js", 'utf8');
+  var appjs_data = fs.readFileSync(__dirname + "/../../" + "app.js", 'utf8');
 
   var data_split1 = serverjs_data.split("\n");
   var data_split2 = packagesetjs_data.split("\n");
+  var data_split3 = appjs_data.split("\n");
   var insert_data1 = "    __dirname + \'/package/" + package_name + "\',";
   var insert_data2 = "  require(\'./package/" + package_name + "/main.js\')(app, fs, url);";
+  var insert_data2 = "app.use(\'/js\', express.static(__dirname + \"/" + package_name + "/js\"));";
   data_split1.splice(line_number1, 0, insert_data1);
   data_split2.splice(line_number2, 0, insert_data2);
+  data_split2.splice(line_number3, 0, insert_data3);
 
   for (var q = 0; q < data_split1.length; q++) {
     data_split1[q] += "\n";
@@ -339,6 +350,20 @@ exports.install_package = function(result) {
   for (var q = 0; q < data_split2.length; q++) {
     result2 += data_split2[q];
   }
+  for (var q = 0; q < data_split3.length; q++) {
+    data_split3[q] += "\n";
+  }
+  var result3 = "";
+  for (var q = 0; q < data_split3.length; q++) {
+    result3 += data_split3[q];
+  }
+
+  execSync('rm -r package_tmp/' + package_name + '.zip', {
+    encoding: 'utf8'
+  });
+  execSync('rm -r package_tmp/' + package_name + '.md5', {
+    encoding: 'utf8'
+  });
 
   fs.writeFileSync(__dirname + "/../../" + "server.js",
     result1, "utf8",
@@ -354,12 +379,13 @@ exports.install_package = function(result) {
         "success": 1
       };
     })
-  execSync('rm -r package_tmp/' + package_name + '.zip', {
-    encoding: 'utf8'
-  });
-  execSync('rm -r package_tmp/' + package_name + '.md5', {
-    encoding: 'utf8'
-  });
+  fs.writeFileSync(__dirname + "/../../" + "app.js",
+    result3, "utf8",
+    function(err, data) {
+      result = {
+        "success": 1
+      };
+    })
 
   return package_name;
 }

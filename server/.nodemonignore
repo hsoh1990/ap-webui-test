@@ -2,8 +2,9 @@
 ./package_tmp/*
 ./hub_package_data/*
 ./package/*/*
-./server.js
 ./public/*
 ./index/data/*
 ./userdata/*
 ./BDD/*
+./server.js
+./package_set.js
