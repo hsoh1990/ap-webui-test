@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var oauthserver = require('oauth2-server');
 var session = require('express-session');
 var fs = require("fs");
 var http = require('http');
@@ -35,5 +36,11 @@ app.use(session({
   saveUninitialized: true,
   resave: false
 }));
+app.oauth = oauthserver({
+  model: {}, // See below for specification
+  grants: ['password'],
+  debug: true
+});
+app.all('/oauth/token', app.oauth.grant());
 
 require('./package_set.js')(app, fs, url);

@@ -10,7 +10,7 @@ module.exports = function(app, fs, url) {
   } = require('child_process');
 
 
-  app.get('/', function(req, res) {
+  app.get('/', app.oauth.authorise(), function(req, res) {
     res.render('index.html');
   });
   app.get('/index_login', function(req, res) {
