@@ -59,10 +59,13 @@ module.exports = function(app, fs, url, isAuthenticated) {
     res.render('index_login.html');
   });
 
-  app.post('/login_check', passport.authenticate('local', {failureRedirect: '/', failureFlash: true}), // 인증 실패 시 401 리턴, {} -> 인증 스트레티지
-  function (req, res) {
-    res.redirect('/index_login');
-  });
+  app.post('/login_check', passport.authenticate('local', {
+      failureRedirect: '/',
+      failureFlash: true
+    }),
+    function(req, res) {
+      res.redirect('/index_login');
+    });
 
   app.get('/i18n_load', function(req, res) {
     let data = router_index_login.i18n_load();
