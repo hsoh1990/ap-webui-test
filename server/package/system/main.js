@@ -4,14 +4,16 @@ module.exports = function(app, fs, url) {
   app.get('/system', function(req, res) {
     var sess;
     sess = req.session;
-    console.log('session : ' + sess.logincheck);
-    console.log('cookie.name : ' + req.cookies['json']['name']);
-    if (req.cookies['json']['name'] == "check") {
-      sess.logincheck = "1";
-      res.render('system.html');
-    } else {
-      sess.logincheck = "0";
-      res.render('index.html');
+    if(req.cookies['json']['name'] != null) {
+      console.log('session : ' + sess.logincheck);
+      console.log('cookie.name : ' + req.cookies['json']['name']);
+      if (req.cookies['json']['name'] == "check") {
+        sess.logincheck = "1";
+        res.render('system.html');
+      } else {
+        sess.logincheck = "0";
+        res.render('index.html');
+      }
     }
   });
 
