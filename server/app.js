@@ -74,4 +74,4 @@ var isAuthenticated = function (req, res, next) {
   res.redirect('/');
 };
 
-require('./package_set.js')(app, fs, url, isAuthenticated);
+require('./package_set.js')(app, fs, url, isAuthenticated, passport);
