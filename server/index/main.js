@@ -59,7 +59,7 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
     res.render('index_login.html');
   });
 
-  app.post('/login_check', passport.authenticate('local-login', {
+  app.post('/login_check', passport.authenticate('local', {
       failureRedirect: '/',
       failureFlash: true
     }),
