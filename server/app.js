@@ -24,8 +24,8 @@ app.use(cookie());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(__dirname + "/index/js"));
-app.use('/js', express.static(__dirname + "/system/js"));
-app.use('/js', express.static(__dirname + "/dashboard/js"));
+app.use('/js', express.static(__dirname + "/package/system/js"));
+app.use('/js', express.static(__dirname + "/package/dashboard/js"));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
