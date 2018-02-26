@@ -13,7 +13,6 @@ var cookie = require('cookie-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-
 require('./server.js')(app, fs, url);
 
 app.engine('html', require('ejs').renderFile);

@@ -175,13 +175,13 @@ exports.device_data_save = function(device_data, data__) {
   for (var a = 0; a < device_data.length; a++) {
     if (device_data[a]['MAC Address'] == data__['MAC Address']) { //연결 신규 추가
       check = 1;
+      data__['owner'] = device_data[a]['owner'];
       if (device_data[a]['arp'] != data__['arp']) {
         check = 2;
       }
       break;
     }
   }
-  data__['owner'] = device_data[a]['owner'];
   if (check == 1) {
     data__['check'] = 1;
     data__['a'] = a;
@@ -191,6 +191,7 @@ exports.device_data_save = function(device_data, data__) {
     data__['a'] = a;
     return data__;
   } else {
+    data__['owner'] = "default";
     data__['check'] = 3;
     data__['a'] = 0;
     return data__;
