@@ -88,7 +88,8 @@ function updateContent_infor() {
   document.getElementById('ins_name').innerHTML = i18next.t('name');
   document.getElementById('ins_version').innerHTML = i18next.t('version');
   document.getElementById('ins_downloads').innerHTML = i18next.t('downloads');
-
+  document.getElementById('logout').innerHTML = i18next.t('logout');
+  
 }
 
 function updateContent_uninstallbtn() {
