@@ -35,7 +35,7 @@ app.use(session({
   secret: 'LeeJinWoo',
   saveUninitialized: true,
   resave: false,
-  cookie: { maxAge: 60000 }
+  cookie: { maxAge: 600000 }//600000 = 10분
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -73,5 +73,10 @@ var isAuthenticated = function (req, res, next) {
     return next();
   res.redirect('/');
 };
+
+app.get('/logout', isAuthenticated, function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
 
 require('./package_set.js')(app, fs, url, isAuthenticated, passport);
