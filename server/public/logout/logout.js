@@ -3,7 +3,7 @@ function logout_button() {
   // by default async
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
-
+      window.location.reload();
     }
   };
   xhr.onerror = function() {
