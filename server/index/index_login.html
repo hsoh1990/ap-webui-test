@@ -75,6 +75,9 @@
       </div>
       <!-- /.navbar-default -->
       <div style="float: right; padding: 5px 5px;">
+        <button id="logout" type="button" class="btn btn-outline-secondary" onclick="logout_button()">Logout</button>
+      </div>
+      <div style="float: right; padding: 5px 5px;">
         <select id="lang_select" class="form-control" onchange="changeLng()">
           <option value="en">english</option>
           <option value="ko">한국어</option>
@@ -150,6 +153,8 @@
   <script src="i18n/index/i18n.js"></script>
   <!-- side menu JavaScript -->
   <script src="side_menu/functions.js"></script>
+
+  <script src="logout/logout.js"></script>
   <!-- json data JavaScript -->
   <!-- Morris Charts JavaScript -->
   <!--script src="bower_components/raphael/raphael-min.js"></script-->
