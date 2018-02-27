@@ -32,9 +32,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(session({
-  secret: '@#@$MYSIGN#@$#$',
+  secret: 'LeeJinWoo',
   saveUninitialized: true,
-  resave: false
+  resave: false,
+  cookie: { maxAge: 60000 }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
