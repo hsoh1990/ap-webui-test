@@ -74,6 +74,7 @@ exports.ssid_rec = function() {
   });
   var hostname = std_hostname.split("\n");
   var ssid = hostname[2].split("=");
+  console.log("---------------" +ssid[1]+ "----------------")
   return ssid[1];
 }
 
