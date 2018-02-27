@@ -221,8 +221,8 @@ function ap_draw(enable__, ap_data) {
     ap_text += ap_data[0]['MAC Address'];
     ap_text += "\n";
   }
-  if (enable__['hostname'] == 1) {
-    ap_text += ap_data[0]['Host name'];
+  if (enable__['SSID'] == 1) {
+    ap_text += ap_data[0]['SSID'];
   }
 
   var aptext = new Konva.Text({

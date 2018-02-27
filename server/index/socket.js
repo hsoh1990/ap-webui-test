@@ -68,13 +68,13 @@ exports.wait = function(msecs) {
   }
 }
 
-exports.hostname_rec = function() {
-  const std_hostname = execSync('hostname -f', {
+exports.ssid_rec = function() {
+  const std_hostname = execSync('cat /etc/hostapd/hostapd.conf', {
     encoding: 'utf8'
   });
   var hostname = std_hostname.split("\n");
-
-  return hostname[0];
+  var ssid = hostname[2].split("=");
+  return ssid[1];
 }
 
 exports.eth0_ip_rec = function() {
@@ -109,13 +109,13 @@ exports.eth0_mac_rec = function() {
   }
 }
 
-exports.ap_data_save = function(ip, mac, hostname) {
+exports.ap_data_save = function(ip, mac, ssid) {
   var read_data = fs.readFileSync(__dirname + "/data/ap_data.json", 'utf8');
   var data_readed = JSON.parse(read_data);
   var data_ = {};
   data_['IP Address'] = ip;
   data_['MAC Address'] = mac;
-  data_['Host name'] = hostname;
+  data_['SSID'] = ssid;
   data_['owner'] = data_readed['owner'];
   fs.writeFileSync(__dirname + "/data/" + "ap_data.json",
     JSON.stringify(data_, null, '\t'), "utf8",
@@ -378,11 +378,11 @@ function socket_init(socket) {
 
   ap_ip = exports.eth0_ip_rec();
   ap_mac = exports.eth0_mac_rec();
-  ap_hostname = exports.hostname_rec();
+  ap_ssid = exports.ssid_rec();
   wlan_infor = exports.wlan_whois();
   wlan_exnetinfor = exports.wlan_exnet_data();
 
-  ap_infor = exports.ap_data_save(ap_ip, ap_mac, ap_hostname);
+  ap_infor = exports.ap_data_save(ap_ip, ap_mac, ap_ssid);
 
   socket.emit('exnetinfor', wlan_exnetinfor);
   socket.emit('apinfor', ap_infor);
