@@ -30,7 +30,8 @@ i18next.init({
         "link_quality": "Link Quality",
         "btn_stop": "Stop wlan0",
         "btn_start": "Start wlan0",
-        "refresh": "Refresh"
+        "refresh": "Refresh",
+        "logout": "Logout"
       }
     },
     ko: {
@@ -59,7 +60,8 @@ i18next.init({
         "link_quality": "링크 품질",
         "btn_stop": "wlan0 정지",
         "btn_start": "wlan0 시작",
-        "refresh": "새로고침"
+        "refresh": "새로고침",
+        "logout": "로그아웃"
       }
     }
   }
@@ -98,6 +100,7 @@ function updateContent_infor() {
   document.getElementById('TransmitPower').innerHTML = i18next.t('trans_power');
   document.getElementById('Frequency').innerHTML = i18next.t('frequency');
   document.getElementById('LinkQuality').innerHTML = i18next.t('link_quality');
+  document.getElementById('logout').innerHTML = i18next.t('logout');
 
   if(document.getElementById('btn_stop') != null) {
     document.getElementById('btn_stop').value = i18next.t('btn_stop');
