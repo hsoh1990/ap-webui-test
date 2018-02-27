@@ -157,7 +157,7 @@ exports.package_data_get = function() {
 }
 
 exports.install_data_get = function() {
-  execSync('cd hub_package_data && wget http://39.119.118.152/package', {
+  execSync('cd hub_package_data && wget http://39.119.118.152:3000/api/package', {
     encoding: 'utf8'
   });
   var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
@@ -217,7 +217,7 @@ exports.uninstall_package = function(select) {
 }
 
 exports.find_installed_data = function() {
-  execSync('cd hub_package_data && wget http://39.119.118.152/package', {
+  execSync('cd hub_package_data && wget http://39.119.118.152:3000/api/package', {
     encoding: 'utf8'
   });
   var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
@@ -262,10 +262,10 @@ exports.hash_check = function(select) {
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
       var package_name = data[install_data_key[i]]['pack_name'];
-      const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.152/download?name=' + package_name, {
+      const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.152:3000/api/download?name=' + package_name, {
         encoding: 'utf8'
       });
-      const download_hash = execSync('cd package_tmp/ && wget -O ' + package_name + '.md5 http://39.119.118.152/hash?name=' + package_name, {
+      const download_hash = execSync('cd package_tmp/ && wget -O ' + package_name + '.md5 http://39.119.118.152:3000/api/hash?name=' + package_name, {
         encoding: 'utf8'
       });
 
