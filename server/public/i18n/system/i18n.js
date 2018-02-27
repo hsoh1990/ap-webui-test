@@ -22,7 +22,8 @@ i18next.init({
         "version": "Version",
         "downloads": "Downloads",
         "install_btn": "Install",
-        "uninstall_btn": "Uninstall"
+        "uninstall_btn": "Uninstall",
+        "logout": "Logout"
       }
     },
     ko: {
@@ -43,7 +44,8 @@ i18next.init({
         "version": "버전",
         "downloads": "다운로드 수",
         "install_btn": "설치",
-        "uninstall_btn": "삭제"
+        "uninstall_btn": "삭제",
+        "logout": "로그아웃"
       }
     }
   }

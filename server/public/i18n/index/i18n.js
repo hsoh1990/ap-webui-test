@@ -9,7 +9,8 @@ i18next.init({
         "ipenable": "IP Enable",
         "macenable": "MAC Enable",
         "hostnameenable": "Host name Enable",
-        "ownerenable": "Owner Enable"
+        "ownerenable": "Owner Enable",
+        "logout": "Logout"
       }
     },
     ko: {
@@ -17,7 +18,8 @@ i18next.init({
         "ipenable": "IP 주소 보이기",
         "macenable": "MAC 주소 보이기",
         "hostnameenable": "장치 이름 보이기",
-        "ownerenable": "소유자 보이기"
+        "ownerenable": "소유자 보이기",
+        "logout": "로그아웃"
       }
     }
   }
@@ -41,6 +43,7 @@ function updateContent_infor() {
   document.getElementById('i18n_mac').innerHTML = i18next.t('macenable');
   document.getElementById('i18n_hostname').innerHTML = i18next.t('hostnameenable');
   document.getElementById('i18n_owner').innerHTML = i18next.t('ownerenable');
+  document.getElementById('logout').innerHTML = i18next.t('logout');
 
 }
 
