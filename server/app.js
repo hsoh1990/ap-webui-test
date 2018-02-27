@@ -75,6 +75,7 @@ var isAuthenticated = function (req, res, next) {
 };
 
 app.get('/logout', isAuthenticated, function(req, res) {
+  console.log("로그아웃 확인");
   req.logout();
   res.redirect('/');
 });
