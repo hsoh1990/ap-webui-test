@@ -6,10 +6,10 @@
 		"Mac Address": "b8:27:eb:e7:07:74"
 	},
 	"Interface_Statistics": {
-		"Received Packets": "21081",
-		"Received Bytes": "2970082 (2.8 MiB)",
-		"Transferred Packets": "30762",
-		"Transferred Bytes": "21856681 (20.8 MiB)"
+		"Received Packets": "615",
+		"Received Bytes": "78839 (76.9 KiB)",
+		"Transferred Packets": "646",
+		"Transferred Bytes": "212421 (207.4 KiB)"
 	},
 	"Wireless_Information": {
 		"Connected To": "Not connected",
