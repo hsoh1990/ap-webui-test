@@ -12,6 +12,7 @@ var path = require('path');
 var cookie = require('cookie-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var GoogleStrategy = require( 'passport-google-oauth20' ).Strategy;
 
 require('./server.js')(app, fs, url);
 
@@ -67,6 +68,18 @@ passport.use('local-login', new LocalStrategy({
     return done(false, null)
   }
 }))
+
+passport.use(new GoogleStrategy({
+        clientID: '93407170622-6aj2r2k85m4td8hk2jf250h96tv0asac.apps.googleusercontent.com',
+        clientSecret: 'jayLRcvfHCrirMwbpuGrnDs4',
+        callbackURL: 'http://172.16.171.181/auth/google/callback'
+    }, function(accessToken, refreshToken, profile, done) {
+        process.nextTick(function() {
+            user = profile;
+            return done(null, user);
+        });
+    }
+));
 
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())

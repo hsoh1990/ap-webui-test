@@ -67,6 +67,17 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
       res.redirect('/index_login');
     });
 
+  app.get('/auth/google', passport.authenticate('google', {
+    scope: ['profile']
+  }));
+
+  app.get('/auth/google/callback', passport.authenticate('google', {
+      failureRedirect: '/login'
+    }),
+    function(req, res) {
+      res.redirect('/');
+    });
+
   app.get('/i18n_load', isAuthenticated, function(req, res) {
     let data = router_index_login.i18n_load();
     res.send(data);
