@@ -38,7 +38,7 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
 
   // 구글 로그인 시작
   app.get('/google', passport.authenticate('google', {
-    scope: ['https://www.googleapis.com/auth/plus.login']
+    scope: ['profile']
   }));
 
   // 구글 로그인 결과 콜백

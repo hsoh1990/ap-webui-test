@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const GithubStrategy = require('passport-github').Strategy;
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GoogleStrategy = require('passport-google-oauth20').OAuth2Strategy;
 
 module.exports = (passport) => {
   passport.serializeUser((user, done) => {
@@ -56,8 +56,8 @@ module.exports = (passport) => {
   }));*/
 
   passport.use(new GoogleStrategy({
-    clientID: '93407170622-6aj2r2k85m4td8hk2jf250h96tv0asac.apps.googleusercontent.com',
-    clientSecret: 'jayLRcvfHCrirMwbpuGrnDs4',
+    clientID: '453032720086-b9u2mqngtc3drsdf82t858tts38orf9a.apps.googleusercontent.com',
+    clientSecret: 'pPARlB0EPucZvbxuZBlIznEk',
     callbackURL: '/google/callback'
   }, function(accessToken, refreshToken, profile, done) {
     /*const socialId = profile.id;
