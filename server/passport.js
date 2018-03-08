@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const GithubStrategy = require('passport-github').Strategy;
-const GoogleStrategy = require('passport-google-oauth20').OAuth2Strategy;
+const GoogleStrategy = require('passport-google-oauth20');
 
 module.exports = (passport) => {
   passport.serializeUser((user, done) => {
