@@ -36,16 +36,12 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
       res.redirect('/index_login');
     });
 
-  /*
+
     // 구글 로그인 시작
     app.get('/google', passport.authenticate('google', {
       scope: ['profile']
     }));
-  */
 
-  app.get('/google', (req, res) => {
-    res.send('good');
-  });
 
   // 구글 로그인 결과 콜백
   app.get('/google/callback', passport.authenticate('google', {
