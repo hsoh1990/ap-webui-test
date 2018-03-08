@@ -26,6 +26,7 @@ module.exports = (passport) => {
     }
   }))
 
+  /*
   passport.use(new FacebookStrategy({
       clientID: "",
       clientSecret: "",
@@ -52,7 +53,7 @@ module.exports = (passport) => {
     const profileImageUrl = profile.photos[0].value;
 
     onLoginSuccess('Github', socialId, nickname, profileImageUrl, done);
-  }));
+  }));*/
 
   passport.use(new GoogleStrategy({
     clientID: "93407170622-6aj2r2k85m4td8hk2jf250h96tv0asac.apps.googleusercontent.com",
