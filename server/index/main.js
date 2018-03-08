@@ -37,20 +37,17 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
     });
 
   // 구글 로그인 시작
-  app.get('/google', passport.authenticate('google'));
+  app.get('/google', passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/plus.login']
+  }));
 
   // 구글 로그인 결과 콜백
   app.get('/google/callback', passport.authenticate('google', {
     failureRedirect: '/'
-  }), (req, res) => {
-    loginSuccessHandler(req, res);
+  }), function(req, res) {
+    res.redirect('/');
   });
 
-  // 로그인 성공시 처리
-  function loginSuccessHandler(req, res) {
-
-    return res.redirect('/index_login');
-  }
 
   app.get('/i18n_load', isAuthenticated, function(req, res) {
     let data = router_index_login.i18n_load();
