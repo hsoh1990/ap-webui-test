@@ -11,8 +11,6 @@ var exec = require('child_process').exec,
 var path = require('path');
 var cookie = require('cookie-parser');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var GoogleStrategy = require( 'passport-google-oauth20' ).Strategy;
 
 require('./server.js')(app, fs, url);
 
@@ -38,48 +36,12 @@ app.use(session({
   resave: false,
   cookie: { maxAge: 600000 }//600000 = 10분
 }));
+
+require('./passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function(user, done) {
-  console.log('serializeUser() 호출됨.');
-  console.dir(user);
 
-  done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-  console.log('deserializeUser() 호출됨.');
-  console.dir(user);
-
-  done(null, user);
-});
-
-passport.use('local-login', new LocalStrategy({
-  usernameField: 'id',
-  passwordField: 'password',
-  passReqToCallback: true
-}, function(req, id, password, done) {
-  if (id === 'admin' && password === '12341234') {
-    return done(null, {
-      'user_id': id,
-    });
-  } else {
-    return done(false, null)
-  }
-}))
-
-passport.use(new GoogleStrategy({
-        clientID: '93407170622-6aj2r2k85m4td8hk2jf250h96tv0asac.apps.googleusercontent.com',
-        clientSecret: 'jayLRcvfHCrirMwbpuGrnDs4',
-        callbackURL: 'http://172.16.171.181/auth/google/callback'
-    }, function(accessToken, refreshToken, profile, done) {
-        process.nextTick(function() {
-            user = profile;
-            return done(null, user);
-        });
-    }
-));
 
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())

@@ -22,43 +22,12 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
       res.send(res_data);
     }
   });
-  /*
-  app.get('/index_login', function(req, res) {
-    let sess;
-    sess = req.session;
-    console.log('session : ' + sess.logincheck);
-    if (sess.logincheck == "1") {
-      res.render('index_login.html');
-    } else {
-      res.render('index.html');
-    }
-  });
-  app.post('/login_check', function(req, res) {
-    req.accepts('application/json');
-    var sess = req.session;
-    var id = req.body.id;
-    var password = req.body.password;
-    console.log(JSON.stringify(req.body) + ", ");
-    let check = new Object();
-    let logincheck = router_index_login.login_check(id, password);
-    if (logincheck == 1) {
-      sess.logincheck = "1";
-      res.cookie('string', 'cookie');
-      res.cookie('json', {
-        name: 'check',
-        property: 'delicious'
-      });
-    } else {
-      sess.logincheck = "0";
-    }
-    check['check'] = sess.logincheck;
-    console.log('session : ' + sess.logincheck);
-    res.send(check);
-  });*/
+
   app.get('/index_login', isAuthenticated, function(req, res) {
     res.render('index_login.html');
   });
 
+  //로컬 로그인 시작
   app.post('/login_check', passport.authenticate('local-login', {
       failureRedirect: '/',
       failureFlash: true
@@ -67,16 +36,21 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
       res.redirect('/index_login');
     });
 
-  app.get('/auth/google', passport.authenticate('google', {
-    scope: ['profile']
-  }));
+  // 구글 로그인 시작
+  app.get('/google', passport.authenticate('google'));
 
-  app.get('/auth/google/callback', passport.authenticate('google', {
-      failureRedirect: '/login'
-    }),
-    function(req, res) {
-      res.redirect('/');
-    });
+  // 구글 로그인 결과 콜백
+  app.get('/google/callback', passport.authenticate('google', {
+    failureRedirect: '/'
+  }), (req, res) => {
+    loginSuccessHandler(req, res);
+  });
+
+  // 로그인 성공시 처리
+  function loginSuccessHandler(req, res) {
+
+    return res.redirect('/index_login');
+  }
 
   app.get('/i18n_load', isAuthenticated, function(req, res) {
     let data = router_index_login.i18n_load();
