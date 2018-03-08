@@ -11,7 +11,8 @@ var exec = require('child_process').exec,
 var path = require('path');
 var cookie = require('cookie-parser');
 var passport = require('passport');
-
+var cors = require('cors');
+app.use(cors());
 require('./server.js')(app, fs, url);
 
 app.engine('html', require('ejs').renderFile);
