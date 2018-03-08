@@ -56,13 +56,10 @@ module.exports = (passport) => {
   }));*/
 
   passport.use(new GoogleStrategy({
+    callbackURL: '/google/callback',
     clientID: '453032720086-b9u2mqngtc3drsdf82t858tts38orf9a.apps.googleusercontent.com',
-    clientSecret: 'pPARlB0EPucZvbxuZBlIznEk',
-    callbackURL: '/google/callback'
-  }, function(accessToken, refreshToken, profile, done) {
-    /*const socialId = profile.id;
-    const nickname = profile.displayName;
-    const profileImageUrl = profile.photos[0].value;*/
-    done(null, profile);
-  }));
-};
+    clientSecret: 'pPARlB0EPucZvbxuZBlIznEk'
+  }, () => {
+
+  }))
+}
