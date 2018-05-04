@@ -35,7 +35,6 @@ user=`echo $username | cut -d' ' -f2`
 echo "User is $user"
 sleep 2s
 
-:<<'END'
 echo "update 시작"
 
 apt-get update
@@ -200,5 +199,3 @@ chmod +x /etc/systemd/system/nodeserver.service
 systemctl enable nodeserver
 
 reboot
-
-END
