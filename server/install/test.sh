@@ -13,15 +13,18 @@ echo "update 시작"
 echo "DHCP Interface is $interface"
 sleep 2s
 
+qwe=$(ifconfig $interface)
+
+# IP=`ifconfig -a | grep "inet " | awk '{print $2}'
+
+echo "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
+echo "$qwe"
+echo "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
+
 username=`awk -F ':' '{if($3>=500)print $1}' /etc/passwd`
 
 user=`echo $username | cut -d' ' -f2`
 
-IP = `ifconfig -a | grep "inet " | awk '{print $2}'
-
-echo "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
-echo "$IP"
-echo "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
 echo "User is $user"
 
 sleep 2s
