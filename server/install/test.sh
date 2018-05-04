@@ -1,5 +1,9 @@
 echo "실행하기 전에 , 메인포트에 인터넷 연결이 되어있어야 합니다..."
-sleep 2s
+echo "인터넷 연결이 되어있습니까? [y : 예, 이외의 다른문자 : 아니오] : \c"
+read YN
+if [ $YN -ne y ];then
+  exit 0
+fi
 
 echo "ap 설치 시작..."
 sleep 2s
@@ -17,10 +21,10 @@ IPa=`hostname -I | cut -d' ' -f1 | cut -d'.' -f1`
 IPb=`hostname -I | cut -d' ' -f1 | cut -d'.' -f2`
 IPc=`hostname -I | cut -d' ' -f1 | cut -d'.' -f3`
 
-IPP=$IPa'.'$IPb'.'$IPc'.'
+IPRouter=$IPa'.'$IPb'.'$IPc'.1'
 echo "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
-echo "$IP"
-echo "$IPP"
+echo "ip = $IP"
+echo "router = $IPRouter"
 echo "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
 sleep 2s
 
@@ -59,12 +63,33 @@ echo "dnsmasq disable 설정"
 systemctl disable dnsmasq
 
 echo "static ip 설정"
-# 여기서 필요한 ip에 맞게 바꿔주어야함
-perl -p -i -e '$.==1 and print "static routers=172.16.171.1\n"' /etc/dhcpcd.conf
+mv /etc/dhcpcd.conf /etc/dhcpcd.conf.orig
 
-perl -p -i -e '$.==1 and print "static ip_address=172.16.171.182/24\n"' /etc/dhcpcd.conf
+cat > /etc/dhcpcd.conf <<-EOF
+interface $interface
+static ip_address=$IP/24
+static routers=$IPRouter
 
-perl -p -i -e '$.==1 and print "interface eth0\n"' /etc/dhcpcd.conf
+hostname_onoff
+
+clientid
+
+persistent
+
+option rapid_commit
+
+option domain_name_servers, domain_name, domain_search, host_name
+option classless_static_routes
+
+option ntp_servers
+
+option interface_mtu
+
+require dhcp_server_identifier
+
+slaac private
+EOF
+
 
 echo "hostapd 설정"
 
