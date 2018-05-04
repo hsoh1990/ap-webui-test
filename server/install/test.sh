@@ -13,9 +13,9 @@ sleep 2s
 
 IP=`hostname -I | cut -d' ' -f1`
 
-IPa=`hostname -I | cut -d' ' -f1 | cut -d' ' -f1`
-IPb=`hostname -I | cut -d' ' -f1 | cut -d' ' -f2`
-IPc=`hostname -I | cut -d' ' -f1 | cut -d' ' -f3`
+IPa=`hostname -I | cut -d' ' -f1 | cut -d'.' -f1`
+IPb=`hostname -I | cut -d' ' -f1 | cut -d'.' -f2`
+IPc=`hostname -I | cut -d' ' -f1 | cut -d'.' -f3`
 
 IPP=$IPa'.'$IPb'.'$IPc'.'
 echo "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
