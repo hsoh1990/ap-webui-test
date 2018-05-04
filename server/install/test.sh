@@ -15,10 +15,10 @@ sleep 2s
 
 qwe=$(ifconfig $interface)
 
-# IP=`ifconfig -a | grep "inet " | awk '{print $2}'
+IP=`$qwe -a | grep "inet " | awk '{print $2}'`
 
 echo "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
-echo "$qwe"
+echo "$IP"
 echo "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
 
 username=`awk -F ':' '{if($3>=500)print $1}' /etc/passwd`
