@@ -1,6 +1,27 @@
+echo "실행하기 전에 , 메인포트에 인터넷 연결이 되어있어야 합니다..."
+
+sleep 2s
+
 echo "ap 설치"
 
+ifconfig=$(ifconfig)
+
+interface=`echo $ifconfig | cut -d':' -f1`
+
 echo "update 시작"
+
+echo "DHCP Interface is $interface"
+sleep 2s
+
+username=`awk -F ':' '{if($3>=500)print $1}' /etc/passwd`
+
+user=`echo $username | cut -d' ' -f2`
+
+echo "User is $user"
+
+sleep 2s
+
+:<<'END'
 
 apt-get update
 
@@ -27,7 +48,7 @@ echo "dnsmasq disable 설정"
 systemctl disable dnsmasq
 
 echo "static ip 설정"
-
+# 여기서 필요한 ip에 맞게 바꿔주어야함
 perl -p -i -e '$.==1 and print "static routers=172.16.171.1\n"' /etc/dhcpcd.conf
 
 perl -p -i -e '$.==1 and print "static ip_address=172.16.171.182/24\n"' /etc/dhcpcd.conf
@@ -37,7 +58,7 @@ perl -p -i -e '$.==1 and print "interface eth0\n"' /etc/dhcpcd.conf
 echo "hostapd 설정"
 
 touch /etc/hostapd/hostapd.conf
-
+# 입맛대로 설정
 echo "interface=wlan0" | sudo tee -a /etc/hostapd/hostapd.conf
 echo "driver=nl80211" | sudo tee -a /etc/hostapd/hostapd.conf
 echo "ssid=testAP182" | sudo tee -a /etc/hostapd/hostapd.conf
@@ -61,7 +82,7 @@ echo "dnsmasq 설정"
 mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
 
 touch /etc/dnsmasq.conf
-
+# dhcp ip 입맛대로 설정
 echo "interface=wlan0" | sudo tee -a /etc/dnsmasq.conf
 echo "listen-address=192.168.10.1" | sudo tee -a /etc/dnsmasq.conf
 echo "bind-interfaces" | sudo tee -a /etc/dnsmasq.conf
@@ -143,3 +164,5 @@ chmod +x /etc/systemd/system/nodeserver.service
 systemctl enable nodeserver
 
 reboot
+
+END

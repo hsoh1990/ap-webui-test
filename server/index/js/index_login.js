@@ -3,7 +3,7 @@ console.log("conn | disconn");
 
 function socket_connect_draw() {
   init_();
-  // 서버에서 news 이벤트가 일어날 때 데이터를 받는다.
+
   socket.on('arp',
     function(data) {
       socket_event_arp(data);
@@ -94,6 +94,11 @@ function socket_event_arp(data) {
 
 }
 
+/**
+ * [init_ 소켓 관련 전역변수 선언]
+ * @return {[type]} [없음]
+ *
+ */
 function init_() {
   socket = io.connect('http://172.16.171.181:8080');
   connection_text(10, 1);
@@ -114,6 +119,12 @@ function init_() {
   }
   arp_data = new Object();
 }
+
+/**
+ * [arp_event_conn_change_disconn 연결된 기기가 연결해제할때]
+ * @param  {[type]} data [해당 기기의 data]
+ * @return {[type]}      [없음]
+ */
 function arp_event_conn_change_disconn(data) {
   for (var a = 0; a < connect_count; a++) {
     var i = arp_eval_true(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
@@ -125,6 +136,12 @@ function arp_event_conn_change_disconn(data) {
     }
   }
 }
+
+/**
+ * [arp_event_disconn_change_conn 연결 안된 기기가 연결할때]
+ * @param  {[type]} data [해당 기기의 data]
+ * @return {[type]}      [없음]
+ */
 function arp_event_disconn_change_conn(data) {
   for (var a = 0; a < disconnect_count; a++) {
     var i = arp_eval_false(data, connect_data, disconnect_data, a, connect_count, disconnect_count);
