@@ -13,7 +13,7 @@ echo "update 시작"
 echo "DHCP Interface is $interface"
 sleep 2s
 
-qwe=$(ifconfig $interface)
+qwe=`echo ifconfig $interface`
 
 IP=`$qwe -a | grep "inet " | awk '{print $2}'`
 
