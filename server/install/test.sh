@@ -1,34 +1,38 @@
 echo "실행하기 전에 , 메인포트에 인터넷 연결이 되어있어야 합니다..."
-
 sleep 2s
 
-echo "ap 설치"
+echo "ap 설치 시작..."
+sleep 2s
 
 ifconfig=$(ifconfig)
 
 interface=`echo $ifconfig | cut -d':' -f1`
-
-echo "update 시작"
 
 echo "DHCP Interface is $interface"
 sleep 2s
 
 IP=`hostname -I | cut -d' ' -f1`
 
+IPa=`hostname -I | cut -d' ' -f1 | cut -d' ' -f1`
+IPb=`hostname -I | cut -d' ' -f1 | cut -d' ' -f2`
+IPc=`hostname -I | cut -d' ' -f1 | cut -d' ' -f3`
+
+IPP=$IPa'.'$IPb'.'$IPc'.'
 echo "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
 echo "$IP"
+echo "$IPP"
 echo "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
+sleep 2s
 
 username=`awk -F ':' '{if($3>=500)print $1}' /etc/passwd`
 
 user=`echo $username | cut -d' ' -f2`
 
 echo "User is $user"
-
 sleep 2s
 
-
 :<<'END'
+echo "update 시작"
 
 apt-get update
 
