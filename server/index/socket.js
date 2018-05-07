@@ -5,15 +5,12 @@ const {
 var arp = require('node-arp');
 var io = require('socket.io').listen(8080);
 
-var arpScanner = require('arpscan');
 
-var options = "-i wlan0";
-arpScanner(onResult, options);
+var arpListener = require('arp-listener')
 
-function onResult(err, data){
-    if(err) throw err;
-    console.log(data);
-}
+arpListener('wlan0', function(arpData) {
+  console.log(arpData)
+})
 
 /**
  * 전역변수 선언 부분
