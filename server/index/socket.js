@@ -5,6 +5,16 @@ const {
 var arp = require('node-arp');
 var io = require('socket.io').listen(8080);
 
+var pcap = require('pcap2');
+
+var pcapSession = new pcap.Session('wlan0');
+
+pcapSession.on('packet', function(raw_packet) {
+
+  var packet = pcap.decode.packet(raw_packet);
+  console.log(pcap.print.packet(packet));
+});
+
 /**
  * 전역변수 선언 부분
  * @type {Array} 접속한 모든 사용자의 소켓들
@@ -23,8 +33,8 @@ io.sockets.on('connect', function(socket) {
   socket_init(socket);
 
   socket.on('disconnect', function() {
-      disconnect_section(socket);
-    });
+    disconnect_section(socket);
+  });
 
 
 });
