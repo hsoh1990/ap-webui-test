@@ -60,11 +60,12 @@ imageObj.onload = function() {
   });
 
   Aplayer.add(ap);
+
+  stage.add(Aplayer);
 }
 
 imageObj.src = ap_svgpath;
 
-stage.add(Aplayer);
-stage.add(layer);
-
 addStar(layer, stage);
+
+stage.add(layer);
