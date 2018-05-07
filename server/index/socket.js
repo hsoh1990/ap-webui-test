@@ -5,23 +5,13 @@ const {
 var arp = require('node-arp');
 var io = require('socket.io').listen(8080);
 
-var arpScanner = require('arpscan/promise');
+var arpScanner = require('arpscan');
 
-var options = "-i wlan0";
-arpScanner(options)
-  .then(function(result) {
-    onResult(result);
-  }, function(err) {
-    onError(err);
-  });
+arpScanner(onResult, options);
 
-
-function onResult(data) {
-  console.log(data);
-}
-
-function onError(err) {
-  throw err;
+function onResult(err, data){
+    if(err) throw err;
+    console.log(data);
 }
 
 /**
