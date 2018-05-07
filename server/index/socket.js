@@ -12,7 +12,7 @@ var pcapSession = new pcap.Session('wlan0');
 pcapSession.on('packet', function(raw_packet) {
 
   var packet = pcap.decode.packet(raw_packet);
-  console.log(packet);
+  console.log(packet.payload.EthernetPacket.payload.IPv4);
 });
 
 /**
