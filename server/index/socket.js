@@ -5,14 +5,22 @@ const {
 var arp = require('node-arp');
 var io = require('socket.io').listen(8080);
 
-var pcap = require('pcap2');
+var pcap = require('pcap2'),
+    tcpTracker = new pcap.TCPTracker(),
+    pcapSession = new pcap.Session('wlan0', {
+        filter: 'ip proto \\tcp'
+    });
 
-var pcapSession = new pcap.Session('wlan0');
+tcpTracker.on('session', function (session) {
+  console.log('Start of session between ' + session.src_name + ' and ' + session.dst_name);
+  session.on('end', function (session) {
+      console.log('End of TCP session between ' + session.src_name + ' and ' + session.dst_name);
+  });
+});
 
-pcapSession.on('packet', function(raw_packet) {
-
-  var packet = pcap.decode.packet(raw_packet);
-  console.log(packet.payload.EthernetPacket.payload.IPv4);
+pcapSession.on('packet', function (rawPacket) {
+    var packet = pcap.decode.packet(rawPacket);
+    tcpTracker.track_packet(packet);
 });
 
 /**
