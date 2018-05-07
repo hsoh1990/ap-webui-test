@@ -19,6 +19,7 @@ const ap_svgpath = '/svg/No_Hope_Wireless_Access_Point_clip_art.svg';
 
 function removeShape() {
   Aplayer.destroyChildren();
+  stage.add(Aplayer);
 }
 
 function addStar(layer, stage) {
