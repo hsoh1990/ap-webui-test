@@ -47,25 +47,26 @@ function addStar(layer, stage) {
   layer.add(star);
 }
 
+function addAp(Aplayer, stage) {
+  var imageObj = new Image();
+  imageObj.onload = function() {
 
-var imageObj = new Image();
-imageObj.onload = function() {
+    var ap = new Konva.Image({
+      x: stage.getWidth() / 2 - 35,
+      y: stage.getHeight() / 2 - 55,
+      image: imageObj,
+      width: 70,
+      height: 85
+    });
 
-  var ap = new Konva.Image({
-    x: stage.getWidth() / 2 - 35,
-    y: stage.getHeight() / 2 - 55,
-    image: imageObj,
-    width: 70,
-    height: 85
-  });
+    Aplayer.add(ap);
 
-  Aplayer.add(ap);
-
-  stage.add(Aplayer);
+    stage.add(Aplayer);
+  }
+  imageObj.src = ap_svgpath;
 }
 
-imageObj.src = ap_svgpath;
-
+addAp(Aplayer, stage);
 addStar(layer, stage);
 
 stage.add(layer);
