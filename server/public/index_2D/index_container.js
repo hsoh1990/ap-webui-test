@@ -200,15 +200,16 @@ function ap_draw(enable__, ap_data) {
   aplayer.removeChildren();
   ap_owner_layer.removeChildren();
 
+  var ap = new Konva.Image({
+    x: stage.getWidth() / 2 - 35,
+    y: stage.getHeight() / 2 - 55,
+    image: imageObj,
+    width: 70,
+    height: 85
+  });
+
   var imageObj = new Image();
   imageObj.onload = function() {
-    var ap = new Konva.Image({
-      x: stage.getWidth() / 2 - 35,
-      y: stage.getHeight() / 2 - 55,
-      image: imageObj,
-      width: 70,
-      height: 85
-    });
     aplayer.add(ap);
     stage.add(aplayer);
   }
@@ -280,14 +281,14 @@ function ap_draw(enable__, ap_data) {
   //aplayer.add(AP_Rect);
   aplayer.add(aptextbox);
   aplayer.add(aptext);
-  aplayer.draw();
+  //aplayer.draw();
   if (enable__['owner'] == 1) {
     ap_owner_layer.add(owner_text);
     ap_owner_layer.draw();
   }
   stage.add(aplayer);
   stage.add(ap_owner_layer);
-  stage.batchDraw();
+  //stage.batchDraw();
 
   textarea_on(owner_text, ap_owner_layer, ap_data ,1);
 }
