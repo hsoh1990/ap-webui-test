@@ -7,6 +7,7 @@ var io = require('socket.io').listen(8080);
 
 var arpScanner = require('arpscan');
 
+var options = "-i wlan0";
 arpScanner(onResult, options);
 
 function onResult(err, data){
