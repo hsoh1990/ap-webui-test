@@ -101,7 +101,7 @@ function socket_event_arp(data) {
  */
 function init_() {
   socket = io.connect('http://172.16.171.181:8080');
-  //connection_text(10, 1);
+  connection_text(10, 1);
   //전역변수 선언
   connect_count = 0;
   disconnect_count = 0;
