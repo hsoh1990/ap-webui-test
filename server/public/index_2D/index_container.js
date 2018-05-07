@@ -64,7 +64,7 @@ imageObj.onload = function() {
 
 imageObj.src = ap_svgpath;
 
-addStar(layer, stage);
-
 stage.add(Aplayer);
 stage.add(layer);
+
+addStar(layer, stage);
