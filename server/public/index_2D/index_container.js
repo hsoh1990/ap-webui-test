@@ -51,7 +51,7 @@ function addStar(layer, stage) {
   layer.add(star);
 }
 
-function addAp(Aplayer, stage) {
+function addAp() {
   var imageObj = new Image();
   imageObj.onload = function() {
     var ap = new Konva.Image({
@@ -69,7 +69,7 @@ function addAp(Aplayer, stage) {
   imageObj.src = ap_svgpath;
 }
 
-addAp(Aplayer, stage);
+addAp();
 addStar(layer, stage);
 
 stage.add(layer);
