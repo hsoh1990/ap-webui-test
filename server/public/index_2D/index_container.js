@@ -522,9 +522,12 @@ function wlan_ex_net_draw(enable, res_count, conn_count) {
       width: 55,
       height: 55
     });
-
+    imageObj.onload = function() {
+      wlan_exnet_Layer.add(exnet);
+      stage.add(wlan_exnet_Layer);
+    }
     // add the shape to the layer
-    wlan_exnet_Layer.add(exnet);
+
 
     // add the layer to the stage
     var exnet_text = "";
@@ -613,9 +616,12 @@ function disconnect_draw(enable, res_count, conn_count) {
       width: 55,
       height: 55
     });
-
+    imageObj.onload = function() {
+      disconnect_device_Layer.add(device);
+      stage.add(disconnect_device_Layer);
+    }
     // add the shape to the layer
-    disconnect_device_Layer.add(device);
+
 
     // add the layer to the stage
     var device_text = "";
@@ -727,9 +733,11 @@ function connect_draw(enable, res_count, conn_count) {
       width: 55,
       height: 120
     });
-
+    imageObj.onload = function() {
+      connect_device_Layer.add(device);
+      stage.add(connect_device_Layer);
+    }
     // add the shape to the layer
-    connect_device_Layer.add(device);
 
     // add the layer to the stage
     var device_text = "";
@@ -859,7 +867,7 @@ var scaleBy = 1.15;
 window.addEventListener('wheel', (e) => {
   e.preventDefault();
   var oldScale = stage.scaleX();
-
+  console.log("X = " + stage.scaleX() + ", Y = " + stage.scaleY());
   var mousePointTo = {
     x: stage.getPointerPosition().x / oldScale - stage.x() / oldScale,
     y: stage.getPointerPosition().y / oldScale - stage.y() / oldScale,
