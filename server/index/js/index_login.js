@@ -3,6 +3,10 @@ function socket_connect_draw() {
 
 }
 
+/**
+ * 소켓 접속 부분 - 전역변수 선언
+ * @return {[type]} 없음
+ */
 function init_() {
   socket = io.connect('http://172.16.171.181:8080');
   //connection_text(10, 1);
