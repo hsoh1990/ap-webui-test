@@ -287,6 +287,7 @@ function ap_draw(enable__, ap_data) {
   }
   stage.add(aplayer);
   stage.add(ap_owner_layer);
+  stage.batchDraw();
 
   textarea_on(owner_text, ap_owner_layer, ap_data ,1);
 }
