@@ -200,6 +200,8 @@ function ap_draw(enable__, ap_data) {
   aplayer.removeChildren();
   ap_owner_layer.removeChildren();
 
+  var imageObj = new Image();
+  imageObj.src = ap_svgpath;
   var ap = new Konva.Image({
     x: stage.getWidth() / 2 - 35,
     y: stage.getHeight() / 2 - 55,
@@ -208,12 +210,10 @@ function ap_draw(enable__, ap_data) {
     height: 85
   });
 
-  var imageObj = new Image();
   imageObj.onload = function() {
     aplayer.add(ap);
     stage.add(aplayer);
   }
-  imageObj.src = ap_svgpath;
 
   var ap_text = "";
   if (enable__['ip'] == 1) {
