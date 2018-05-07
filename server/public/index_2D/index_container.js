@@ -610,18 +610,19 @@ function disconnect_draw(enable, res_count, conn_count) {
 
 
     var imageObj = new Image();
-    imageObj.src = red_svgpath;
-    var device = new Konva.Image({
-      x: x,
-      y: y - 11,
-      image: imageObj,
-      width: 55,
-      height: 55
-    });
     imageObj.onload = function() {
+      var device = new Konva.Image({
+        x: x,
+        y: y - 11,
+        image: imageObj,
+        width: 55,
+        height: 55
+      });
+
       disconnect_device_Layer.add(device);
       stage.add(disconnect_device_Layer);
     }
+    imageObj.src = red_svgpath;
     // add the shape to the layer
 
 
