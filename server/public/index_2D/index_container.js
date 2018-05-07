@@ -70,6 +70,6 @@ function addAp() {
 }
 
 addAp();
-addStar(layer, stage);
+//addStar(layer, stage);
 
-stage.add(layer);
+//stage.add(layer);
