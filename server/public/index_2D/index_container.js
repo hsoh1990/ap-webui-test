@@ -9,7 +9,7 @@ var stage = new Konva.Stage({
   container: 'container', // id of container <div>
   width: stageWidth,
   height: stageHeight,
-  draggable: true
+  //draggable: true
 });
 
 var layer = new Konva.Layer();
