@@ -280,7 +280,7 @@ function ap_draw(enable__, ap_data) {
   //aplayer.add(AP_Rect);
   aplayer.add(aptextbox);
   aplayer.add(aptext);
-  //aplayer.draw();
+  aplayer.draw();
   if (enable__['owner'] == 1) {
     ap_owner_layer.add(owner_text);
     ap_owner_layer.draw();
