@@ -13,6 +13,9 @@ var stage = new Konva.Stage({
 });
 
 var layer = new Konva.Layer();
+var Aplayer = new Konva.Layer();
+
+const ap_svgpath = '/svg/No_Hope_Wireless_Access_Point_clip_art.svg';
 
 function addStar(layer, stage) {
   var scale = Math.random();
@@ -44,6 +47,22 @@ function addStar(layer, stage) {
   layer.add(star);
 }
 
+function addApShape(Aplayer, stage) {
+
+  var imageObj = new Image();
+  imageObj.src = ap_svgpath;
+  var ap = new Konva.Image({
+    x: stage.getWidth() / 2 - 35,
+    y: stage.getHeight() / 2 - 55,
+    image: imageObj,
+    width: 70,
+    height: 85
+  });
+
+  Aplayer.add(ap);
+}
+
+addApShape(Aplayer, stage);
 addStar(layer, stage);
 
-stage.add(layer);
+stage.add(Aplayer);
