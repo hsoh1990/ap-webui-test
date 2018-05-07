@@ -9,7 +9,7 @@ var stage = new Konva.Stage({
   container: 'container', // id of container <div>
   width: stageWidth,
   height: stageHeight,
-  //draggable: true
+  draggable: true
 });
 
 var layer = new Konva.Layer();
@@ -47,10 +47,10 @@ function addStar(layer, stage) {
   layer.add(star);
 }
 
-function addApShape(Aplayer, stage) {
 
-  var imageObj = new Image();
-  imageObj.src = ap_svgpath;
+var imageObj = new Image();
+imageObj.onload = function() {
+
   var ap = new Konva.Image({
     x: stage.getWidth() / 2 - 35,
     y: stage.getHeight() / 2 - 55,
@@ -62,7 +62,9 @@ function addApShape(Aplayer, stage) {
   Aplayer.add(ap);
 }
 
-addApShape(Aplayer, stage);
+imageObj.src = ap_svgpath;
+
 addStar(layer, stage);
 
 stage.add(Aplayer);
+stage.add(layer);
