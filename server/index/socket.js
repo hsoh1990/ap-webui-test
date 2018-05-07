@@ -9,15 +9,19 @@ var arpScanner = require('arpscan/promise');
 
 var options = "-i wlan0";
 arpScanner(options)
-    .then(onResult)
-    .catch(onError);
+  .then(function(result) {
+    onResult(result);
+  }, function(err) {
+    onError(err);
+  });
+
 
 function onResult(data) {
-    console.log(data);
+  console.log(data);
 }
 
 function onError(err) {
-    throw err;
+  throw err;
 }
 
 /**
