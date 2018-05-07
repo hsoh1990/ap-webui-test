@@ -5,6 +5,8 @@ var stage = new Konva.Stage({
   container: 'container', // id of container <div>
   width: stageWidth,
   height: stageHeight,
+  scaleX: 0.57
+  scaleY: 0.57
   draggable: true
 });
 
