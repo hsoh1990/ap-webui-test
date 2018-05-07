@@ -5,23 +5,19 @@ const {
 var arp = require('node-arp');
 var io = require('socket.io').listen(8080);
 
-var pcap = require('pcap2'),
-    tcpTracker = new pcap.TCPTracker(),
-    pcapSession = new pcap.Session('wlan0', {
-        filter: 'ip proto \\tcp'
-    });
+var arpScanner = require('arpscan/promise');
 
-tcpTracker.on('session', function (session) {
-  console.log('Start of session between ' + session.src_name + ' and ' + session.dst_name);
-  session.on('end', function (session) {
-      console.log('End of TCP session between ' + session.src_name + ' and ' + session.dst_name);
-  });
-});
+arpScanner(options)
+    .then(onResult)
+    .catch(onError);
 
-pcapSession.on('packet', function (rawPacket) {
-    var packet = pcap.decode.packet(rawPacket);
-    tcpTracker.track_packet(packet);
-});
+function onResult(data) {
+    console.log(data);
+}
+
+function onError(err) {
+    throw err;
+}
 
 /**
  * 전역변수 선언 부분
