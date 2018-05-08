@@ -216,7 +216,7 @@ function disconnect_section(socket) {
   console.log("반복 시작 : " + arp_count + "번째");
   console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
 
-  exports.arp_req2();
+  arp_req2();
 
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   setTimeout(function() {
@@ -295,7 +295,7 @@ exports.arp_req = function(a, data__, data_key, resolve, reject) {
   });
 
 }
-exports.arp_req2 = function() {
+function arp_req2() {
   exec('arp -n ' + data__[data_key[a]]['IP Address'] + ' | awk NR==2 | awk \'{print $2}\'', (error, stdout, stderr) => {
    if (error) {
 
