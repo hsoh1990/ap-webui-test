@@ -296,7 +296,7 @@ exports.arp_req = function(a, data__, data_key, resolve, reject) {
 
 }
 function arp_req2() {
-  exec('arp -n ' + data__[data_key[a]]['IP Address'] + ' | awk NR==2 | awk \'{print $2}\'', (error, stdout, stderr) => {
+  exec('arp -n 192.168.0.158 | awk NR==2 | awk \'{print $2}\'', (error, stdout, stderr) => {
    if (error) {
 
      return;
