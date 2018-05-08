@@ -43,6 +43,16 @@ function removeShape() {
   stage.add(Aplayer);
 }
 
+function removeChapes() {
+  Aplayer.destroyChildren();
+  disconnect_device_Layer.destroyChildren();
+  disconnect_line_Layer.destroyChildren();
+  disconnect_text_Layer.destroyChildren();
+  wlan_line_Layer.destroyChildren();
+  wlan_text_Layer.destroyChildren();
+  wlan_device_Layer.destroyChildren();
+  wlanlayer.destroyChildren();
+}
 
 function addAp(enable__, ap_data) {
   var imageObj = new Image();

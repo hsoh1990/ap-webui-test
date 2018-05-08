@@ -36,7 +36,7 @@ function socket_connect_draw() {
     function(data) {
       console.log("device_data = " + JSON.stringify(data));
       if (devices_data == null) {
-        socket_event_device_data(data);
+        socket_event_device_data(data, "first");
       }
     });
   socket.on('exnetinfor',
@@ -54,10 +54,25 @@ function socket_connect_draw() {
       console.log("apinfor = " + JSON.stringify(data));
       ap_data = data;
     });
-
+  socket.on('arp',
+    function(data) {
+      console.log("deviceinfor = " + JSON.stringify(data));
+      devices_data = data;
+      socket_event_device_data(data, "second")
+    });
 }
 
-function socket_event_device_data(data) {
+/**
+ * 첫 소켓 접속 후 device_data 받아온 후 Konva.js 출력 부분
+ * @param  {[type]} data device data
+ * @return {[type]}      [description]
+ */
+function socket_event_device_data(data, type) {
+  if(type == "second") {
+    removeChapes();
+    connect_data.splice(0,connect_data.length);//배열을 비운다.
+    disconnect_data.splice(0,disconnect_data.length);//배열을 비운다.
+  }
   devices_data = data;
   device_count = devices_data.length;
   for (let a = 0; a < devices_data.length; a++) {

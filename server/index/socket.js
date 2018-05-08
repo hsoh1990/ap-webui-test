@@ -187,6 +187,7 @@ exports.wlan_exnet_data = function() {
     {
       'IP Address': '110.120.130.140',
       'MAC Address': 'dd.dd.dd.dd.dd.dd',
+
       'Host name': 'test4'
     }
   ]
@@ -206,4 +207,163 @@ function disconnect_section(socket) {
     }
   }
   console.log("소켓 접속 종료 : " + sockets.length);
+}
+
+/**
+ * 12초에 1번씩 arp를 요청하기 위한 자기실행함수 부분
+ * @return {[type]} 없음
+ */
+! function arp_repeat() {
+  arp_count++;
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  //반복하는 부분
+  exports.wait(1000);
+  console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+  console.log("반복 시작 : " + arp_count + "번째");
+  console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+
+  arp_promise();
+
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  setTimeout(function() {
+    arp_repeat();
+  }, 11000);
+}()
+
+function arp_promise() {
+  var data__ = exports.data_get();
+  var data_key = Object.getOwnPropertyNames(data__);
+  for (var a = 0; a < Object.keys(data__).length; a++) {
+    promise_arp_req(a, data__, data_key)
+      .then(function(result) {
+        // 성공시/*
+        promise_resolve(result);
+      }, function(result) {
+        // 실패시
+        promise_reject(result);
+      });
+  }
+}
+
+function promise_arp_req(a, data__, data_key) {
+  return new Promise(function(resolve, reject) {
+    exports.arp_req(a, data__, data_key, resolve, reject)
+  });
+}
+
+exports.arp_req = function(a, data__, data_key, resolve, reject) {
+  arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
+    if (!err) {
+      console.log("mac : " + mac);
+      if (mac == "(incomplete)") {
+        result = {
+          'MAC Address': data__[data_key[a]]['MAC Address'],
+          'IP Address': data__[data_key[a]]['IP Address'],
+          'Host name': data__[data_key[a]]['Host name'],
+          'arp': 0,
+          'length': Object.keys(data__).length
+        }
+        resolve(result);
+      } else {
+        result = {
+          'MAC Address': data__[data_key[a]]['MAC Address'],
+          'IP Address': data__[data_key[a]]['IP Address'],
+          'Host name': data__[data_key[a]]['Host name'],
+          'arp': 1,
+          'length': Object.keys(data__).length
+        }
+        reject(result);
+      }
+
+    } else {}
+  });
+}
+
+function promise_resolve(result) {
+  console.log(result['MAC Address'] + ',, ' + result['arp']);
+  //socket.emit('arp', result);
+  const data_check = exports.device_data_save(device_data, result);
+  if(data_check['change'] == null) {
+    device_data = data_check;
+    data_arp_broadcasting(device_data);
+  }
+}
+
+function promise_reject(result) {
+  console.log(result['MAC Address'] + ',, ' + result['arp']);
+  //socket.emit('arp', result);
+  const data_check = exports.device_data_save(device_data, result);
+  if(data_check['change'] == null) {
+    device_data = data_check;
+    data_arp_broadcasting(device_data);
+  }
+}
+
+function device_data_save(device_data, resultData) {
+  for(var a = 0;a < device_data.length; a++) {
+    if(device_data[a]['MAC Address'] == resultData['MAC Address']) {
+      if(device_data[a]['arp'] != resultData['arp']) {
+        device_data[a]['arp'] = resultData['arp']
+        fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+          JSON.stringify(device_data, null, '\t'), "utf8",
+          function(err, data) {})
+        return device_data;
+      }
+      else {
+        return Changefailed = {
+          'change' : 'fail'
+        };
+      }
+    }
+  }
+  return Changefailed = {
+    'change' : 'fail'
+  };
+}
+/*
+function device_data_splice(data_check, result) {
+  device_data.splice(data_check['a'], 1, result);
+  delete device_data['check'];
+  delete device_data['a'];
+  fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+    JSON.stringify(device_data, null, '\t'), "utf8",
+    function(err, data) {})
+}
+
+function device_data_push(data_check, result) {
+  device_data.push(result);
+  delete device_data['check'];
+  delete device_data['a'];
+  fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+    JSON.stringify(device_data, null, '\t'), "utf8",
+    function(err, data) {})
+}
+*/
+function data_arp_broadcasting(result_data) {
+  for (var a = 0; a < sockets.length; a++) {
+    console.log("브로드캐스팅 보냄");
+    sockets[a].emit('arp', result_data);
+  }
+}
+
+exports.data_get = function() {
+  const stdout = execSync('cat /var/lib/misc/dnsmasq.leases', {
+    encoding: 'utf8'
+  });
+  var arr = []; //줄 단위로 배열 저장(마지막은 빈배열이 들어감.)
+  arr = stdout.split("\n");
+  var data__ = {};
+  for (var i = 0; i < arr.length - 1; i++) { //2차원 배열에 data 저장
+    arr[i] = arr[i].split(" ");
+    var tmp = {};
+    var string_num = "client_list_";
+    string_num += String(i + 1);
+    tmp['Expire time'] = arr[i][0];
+    tmp['MAC Address'] = arr[i][1];
+    tmp['IP Address'] = arr[i][2];
+    tmp['Host name'] = arr[i][3];
+    tmp['Client ID'] = arr[i][4];
+    data__[string_num] = tmp;
+  }
+  return data__;
 }
