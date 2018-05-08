@@ -20,6 +20,7 @@ var disconnect_text_Layer = new Konva.Layer();
 
 var disconnect_radius = 550;
 
+const red_svgpath = '/svg/button-red_benji_park_01.svg';
 const ap_svgpath = '/svg/No_Hope_Wireless_Access_Point_clip_art.svg';
 
 /**
