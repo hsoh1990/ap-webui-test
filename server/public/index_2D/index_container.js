@@ -53,7 +53,7 @@ function addAp(enable__, ap_data) {
     stage.add(Aplayer);
   }
 
-  console.log("ttttttttttttttt" + JSON.stringify(ap_data));
+  console.log("ttttttttttttttt" + JSON.stringify(enable__));
   var ap_text = "";
   if (enable__['ip'] == 1) {
     ap_text += ap_data['IP Address'];
