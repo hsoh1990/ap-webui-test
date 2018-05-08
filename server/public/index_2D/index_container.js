@@ -21,6 +21,7 @@ var Aplayer = new Konva.Layer();
 var disconnect_device_Layer = new Konva.Layer();
 var disconnect_line_Layer = new Konva.Layer();
 var disconnect_text_Layer = new Konva.Layer();
+var wlanlayer = new Konva.Layer();
 
 var disconnect_radius = 550;
 
@@ -53,6 +54,97 @@ function addAp() {
     stage.add(Aplayer);
   }
   imageObj.src = ap_svgpath;
+}
+
+
+function wlan_draw(enable__, wlan_data) {
+
+  var wlan_x = stage.getWidth() / 2 - 40 - 300;
+  var wlan_y = stage.getHeight() / 2 - 15;
+
+  var wlan_box = new Konva.Rect({
+    x: wlan_x,
+    y: wlan_y,
+    width: 40,
+    height: 30,
+    fill: 'blue',
+    stroke: 'black',
+    strokeWidth: 3
+  });
+
+  var wlan_line = new Konva.Line({
+    points: [stage.getWidth() / 2, stage.getHeight() / 2, wlan_x + 20, wlan_y + 15],
+    stroke: 'blue',
+    strokeWidth: 3,
+    lineCap: 'round',
+    lineJoin: 'round'
+  });
+
+  var wlan_text = "";
+  if (enable__['ip'] == 1) {
+    wlan_text += wlan_data[0]['IP Address'] + "\n";
+  }
+  if (enable__['mac'] == 1) {
+    wlan_text += wlan_data[0]['MAC Address'] + "\n";
+  }
+  if (enable__['hostname'] == 1) {
+    wlan_text += wlan_data[0]['orgName'];
+  }
+
+  var wlantext = new Konva.Text({
+    x: wlan_x - 100 - wlan_box.getWidth(),
+    y: wlan_y + 25,
+    text: wlan_text,
+    fontSize: 18,
+    fontFamily: 'Calibri',
+    fill: '#555',
+    width: 320,
+    padding: 20,
+    align: 'center'
+  });
+  var wlantextbox = new Konva.Rect({
+    x: wlan_x - 60,
+    y: wlan_y + 35,
+    stroke: '#555',
+    strokeWidth: 5,
+    fill: '#ddd',
+    width: 160,
+    height: wlantext.getHeight() - 20,
+    shadowColor: 'black',
+    shadowBlur: 10,
+    shadowOffset: [10, 10],
+    shadowOpacity: 0.2,
+    cornerRadius: 10
+  });
+
+  var owner_text = new Konva.Text({
+    x: stage.getWidth() / 2 - 160 - wlantext.getWidth(),
+    y: stage.getHeight() / 2 - 70,
+    text: wlan_data[0]['owner'],
+    fontSize: 18,
+    fontFamily: 'Calibri',
+    fill: '#555',
+    width: 320,
+    padding: 20,
+    align: 'center'
+  });
+
+  wlanlayer.add(wlan_line);
+  wlanlayer.add(wlan_box);
+  wlanlayer.add(wlantextbox);
+  wlanlayer.add(wlantext);
+
+  stage.add(wlanlayer);
+  /*
+  wlanlayer.draw();
+  if (enable__['owner'] == 1) {
+    wlan_owner_layer.add(owner_text);
+    wlan_owner_layer.draw();
+  }
+
+  stage.batchDraw();
+*/
+  //textarea_on(owner_text, wlan_owner_layer, wlan_data, 2);
 }
 
 function semicircle_calcul(resultxy, device_count, radius) {
