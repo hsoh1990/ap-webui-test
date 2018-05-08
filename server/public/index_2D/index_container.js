@@ -343,6 +343,13 @@ function semicircle_calcul_wlan(resultxy, device_count, radius) {
 
 function wlan_ex_net_draw(enable, res_count, conn_count) {
 
+  if(conn_count == 0) {
+    stage.add(disconnect_device_Layer);
+    stage.add(disconnect_text_Layer);
+    stage.add(disconnect_line_Layer);
+    return;
+  }
+
   var device_count = conn_count;
   var radius = connect_radius;
   var resultxy = [];
@@ -499,6 +506,13 @@ function AddImage(a, x, y, type, resolve, reject) {
  */
 function disconnect_draw(enable, res_count, conn_count) {
 
+  if(conn_count == 0) {
+    stage.add(disconnect_device_Layer);
+    stage.add(disconnect_text_Layer);
+    stage.add(disconnect_line_Layer);
+    return;
+  }
+
   var device_count = conn_count;
   var radius = disconnect_radius;
   var resultxy = [];
@@ -620,14 +634,16 @@ function disconnect_draw(enable, res_count, conn_count) {
  */
 function connect_draw(enable, res_count, conn_count) {
 
+  if(conn_count == 0) {
+    stage.add(connect_device_Layer);
+    stage.add(connect_text_Layer);
+    stage.add(connect_line_Layer);
+    return;
+  }
+
   var device_count = conn_count;
   var radius = connect_radius;
   var resultxy = [];
-  console.log("디바이스 개수 : " + conn_count);
-  if(device_count == 0) {
-    stage.add(connect_device_Layer);
-    return;
-  }
   semicircle_calcul(resultxy, device_count, radius);
 
   for (var a = 0; a < device_count; a++) {
