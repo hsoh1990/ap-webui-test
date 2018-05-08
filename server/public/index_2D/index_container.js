@@ -97,7 +97,7 @@ function semicircle_calcul(resultxy, device_count, radius) {
   }
 }
 
-function disconnect_draw(enable, res_count, conn_count) {
+async function disconnect_draw(enable, res_count, conn_count) {
 
   var device_count = conn_count;
   var radius = disconnect_radius;
@@ -131,7 +131,7 @@ function disconnect_draw(enable, res_count, conn_count) {
 
 
     var imageObj = new Image();
-    imageObj.onload = function() {
+    await imageObj.onload = function() {
       var device = new Konva.Image({
         x: x,
         y: y - 11,
@@ -141,9 +141,7 @@ function disconnect_draw(enable, res_count, conn_count) {
       });
 
       console.log("ㅡㅡㅡㅡㅡ" + a + ", " + x + ", " + y + "ㅡㅡㅡㅡㅡ");
-      if(a == 3) {
-        return;
-      }
+
       disconnect_device_Layer.add(device);
       stage.add(disconnect_device_Layer);
     }
