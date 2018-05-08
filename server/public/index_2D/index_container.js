@@ -7,6 +7,8 @@ var stage = new Konva.Stage({
   height: stageHeight,
   scaleX: 0.57,
   scaleY: 0.57,
+  offsetX: 500,
+  offsetY: 500,
   draggable: true
 });
 
