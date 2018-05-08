@@ -38,7 +38,7 @@ function removeShape() {
 }
 
 
-function addAp() {
+function addAp(enable__, ap_data) {
   var imageObj = new Image();
   imageObj.src = ap_svgpath;
   var ap = new Konva.Image({
