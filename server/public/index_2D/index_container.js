@@ -151,10 +151,9 @@ function disconnect_draw(enable, res_count, conn_count) {
 
         disconnect_device_Layer.add(device);
         stage.add(disconnect_device_Layer);
-        if(device != null) {
+        if (device != null) {
           resolve('1');
-        }
-        else {
+        } else {
           reject('0');
         }
       }
@@ -164,13 +163,13 @@ function disconnect_draw(enable, res_count, conn_count) {
      * promise 시작
      * @param {[type]} then 없음
      */
-    Ret_AddImage(
+    Ret_AddImage()
       .then(function(result) {
         console.log("비연결 image 성공 = " + result);
       }, function(result) {
         console.log("비연결 image 실패 = " + result);
       });
-    )
+
     // add the shape to the layer
 
 
