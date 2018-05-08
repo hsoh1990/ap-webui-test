@@ -68,7 +68,6 @@ function addAp(enable__, ap_data) {
     ap_text += ap_data['SSID'];
   }
 
-  console.log(ap_text);
   var aptext = new Konva.Text({
     x: stage.getWidth() / 2 - 90 - ap.getWidth(),
     y: stage.getHeight() / 2 - 30 + 60,
@@ -414,6 +413,12 @@ function Ret_AddImage(a, x, y, type) {
 
 function AddImage(a, x, y, type, resolve, reject) {
   var imageObj = new Image();
+  if(type == "disconnect") {
+    imageObj.src = red_svgpath;
+  }
+  else if(type == "wlanExternal") {
+    imageObj.src = blue_svgpath;
+  }
   imageObj.onload = function() {
     var device = new Konva.Image({
       x: x,
@@ -425,12 +430,10 @@ function AddImage(a, x, y, type, resolve, reject) {
 
     //console.log("ㅡㅡㅡㅡㅡ" + a + ", " + x + ", " + y + "ㅡㅡㅡㅡㅡ");
     if(type == "disconnect") {
-      imageObj.src = red_svgpath;
       disconnect_device_Layer.add(device);
       stage.add(disconnect_device_Layer);
     }
     else if (type == "wlanExternal") {
-      imageObj.src = blue_svgpath;
       wlan_device_Layer.add(device);
       stage.add(wlan_device_Layer);
     }
