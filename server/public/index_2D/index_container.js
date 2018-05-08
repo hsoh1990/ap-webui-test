@@ -619,6 +619,7 @@ function disconnect_draw(enable, res_count, conn_count) {
         height: 55
       });
 
+      console.log("ㅡㅡㅡㅡㅡ" + x + ", " + y + "ㅡㅡㅡㅡㅡ");
       disconnect_device_Layer.add(device);
       stage.add(disconnect_device_Layer);
     }
