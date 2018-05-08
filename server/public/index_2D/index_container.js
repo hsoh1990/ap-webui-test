@@ -40,20 +40,84 @@ function removeShape() {
 
 function addAp() {
   var imageObj = new Image();
+  imageObj.src = ap_svgpath;
+  var ap = new Konva.Image({
+    x: stage.getWidth() / 2 - 35,
+    y: stage.getHeight() / 2 - 55,
+    image: imageObj,
+    width: 70,
+    height: 85
+  });
   imageObj.onload = function() {
-    var ap = new Konva.Image({
-      x: stage.getWidth() / 2 - 35,
-      y: stage.getHeight() / 2 - 55,
-      image: imageObj,
-      width: 70,
-      height: 85
-    });
-
     Aplayer.add(ap);
-
     stage.add(Aplayer);
   }
-  imageObj.src = ap_svgpath;
+
+  var ap_text = "";
+  if (enable__['ip'] == 1) {
+    ap_text += ap_data['IP Address'];
+    ap_text += "\n";
+  }
+  if (enable__['mac'] == 1) {
+    ap_text += ap_data['MAC Address'];
+    ap_text += "\n";
+  }
+  if (enable__['hostname'] == 1) {
+    ap_text += ap_data['SSID'];
+  }
+
+  var aptext = new Konva.Text({
+    x: stage.getWidth() / 2 - 90 - ap.getWidth(),
+    y: stage.getHeight() / 2 - 30 + 60,
+    text: ap_text,
+    fontSize: 18,
+    fontFamily: 'Calibri',
+    fill: '#555',
+    width: 320,
+    padding: 20,
+    align: 'center'
+  });
+  var aptextbox = new Konva.Rect({
+    x: stage.getWidth() / 2 - 75,
+    y: stage.getHeight() / 2 + 40,
+    stroke: '#555',
+    strokeWidth: 5,
+    fill: '#ddd',
+    width: 150,
+    height: aptext.getHeight() - 20,
+    shadowColor: 'black',
+    shadowBlur: 10,
+    shadowOffset: [10, 10],
+    shadowOpacity: 0.2,
+    cornerRadius: 10
+  });
+
+  var Line_Rect_position_x = stage.getWidth() / 2 - 40;
+  var Line_Rect_position_y = stage.getHeight() / 2 - 30;
+
+
+  ap.on('mouseenter', function() {
+    stage.container().style.cursor = 'pointer';
+  });
+
+  ap.on('mouseleave', function() {
+    stage.container().style.cursor = 'default';
+  });
+
+  var owner_text = new Konva.Text({
+    x: stage.getWidth() / 2 - 90 - ap.getWidth(),
+    y: stage.getHeight() / 2 - 100,
+    text: ap_data['owner'],
+    fontSize: 18,
+    fontFamily: 'Calibri',
+    fill: '#555',
+    width: 320,
+    padding: 20,
+    align: 'center'
+  });
+  Aplayer.add(aptext);
+  Aplayer.add(aptextbox);
+
 }
 
 

@@ -11,9 +11,9 @@ function init_() {
   device_count = 0;
   connect_data = new Array();
   disconnect_data = new Array();
-  ap_data = new Array();
-  wlan_data = new Array();
-  exnet_data = new Array();
+  ap_data = new Object();
+  wlan_data = new Object();
+  exnet_data = new Object();
   enable__ = {
     'ip': 1,
     'mac': 1,
@@ -42,15 +42,17 @@ function socket_connect_draw() {
   socket.on('exnetinfor',
     function(data) {
       console.log("exnetinfor = " + JSON.stringify(data));
-      exnet_data.push(data);
+      exnet_data = data;
     });
   socket.on('wlaninfor',
     function(data) {
       console.log("wlaninfor = " + JSON.stringify(data));
+      wlan_data = data;
     });
   socket.on('apinfor',
     function(data) {
       console.log("apinfor = " + JSON.stringify(data));
+      ap_data = data;
     });
 
 }
