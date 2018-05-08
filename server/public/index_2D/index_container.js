@@ -455,7 +455,7 @@ function AddImage(a, x, y, type, resolve, reject) {
         y: y - 50,
         image: imageObj,
         width: 55,
-        height: 120
+        height: 110
       });
     } else {
       device = new Konva.Image({
@@ -663,7 +663,7 @@ function connect_draw(enable, res_count, conn_count) {
     }
     var devicetext = new Konva.Text({
       x: x - 135,
-      y: y + 35,
+      y: y + 35 + 20,
       text: device_text,
       fontSize: 18,
       fontFamily: 'Calibri',
@@ -674,7 +674,7 @@ function connect_draw(enable, res_count, conn_count) {
     });
     var devicetextbox = new Konva.Rect({
       x: x - 50,
-      y: y + 45,
+      y: y + 45 + 20,
       stroke: '#555',
       strokeWidth: 5,
       fill: '#ddd',
