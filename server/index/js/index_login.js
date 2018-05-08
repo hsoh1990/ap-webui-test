@@ -34,7 +34,9 @@ function socket_connect_draw() {
   socket.on('device_data',
     function(data) {
       console.log("device_data = " + JSON.stringify(data));
-      socket_event_device_data(data);
+      if (devices_data == null) {
+        socket_event_device_data(data);
+      }
     });
   socket.on('exnetinfor',
     function(data) {
@@ -55,11 +57,10 @@ function socket_connect_draw() {
 function socket_event_device_data(data) {
   devices_data = data;
   device_count = devices_data.length;
-  for(let a = 0;a < devices_data.length; a++) {
-    if(devices_data[a]['arp'] == 1) {
+  for (let a = 0; a < devices_data.length; a++) {
+    if (devices_data[a]['arp'] == 1) {
       connect_data.push(devices_data[a]);
-    }
-    else {
+    } else {
       disconnect_data.push(devices_data[a]);
     }
   }
