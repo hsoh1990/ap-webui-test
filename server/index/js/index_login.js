@@ -64,4 +64,5 @@ function socket_event_device_data(data) {
     }
   }
 
+  disconnect_draw(enable__, disconnect_data, disconnect_data.length);
 }
