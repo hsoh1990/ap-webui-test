@@ -11,7 +11,7 @@ function init_() {
   device_count = 0;
   connect_data = new Array();
   disconnect_data = new Array();
-  ap_data = new Object();
+  ap_data = new Array();
   wlan_data = new Object();
   exnet_data = new Object();
   enable__ = {
@@ -69,6 +69,7 @@ function socket_event_device_data(data) {
   }
 
   disconnect_draw(enable__, disconnect_data, disconnect_data.length);
+  wlan_ex_net_draw(enable, wlan_data, wlan_data.length)
   wlan_draw(enable__, wlan_data);
   addAp(enable__, ap_data);
 }
