@@ -16,6 +16,8 @@ var stage = new Konva.Stage({
   draggable: true
 });
 
+var scaleBy = 1.15;
+
 var Aplayer = new Konva.Layer();
 var disconnect_device_Layer = new Konva.Layer();
 var disconnect_line_Layer = new Konva.Layer();
@@ -621,3 +623,30 @@ function textarea_device_on(layer, text_layer_dex, data, index) {
 */
 
 //stage.add(layer);
+
+/**
+ * 휠로 줌 인, 줌 아웃 구현 부분
+ * @type {[type]} 이벤트 리스너
+ */
+window.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  var oldScale = stage.scaleX();
+  console.log("X = " + stage.scaleX() + ", Y = " + stage.scaleY());
+  var mousePointTo = {
+    x: stage.getPointerPosition().x / oldScale - stage.x() / oldScale,
+    y: stage.getPointerPosition().y / oldScale - stage.y() / oldScale,
+  };
+
+  var newScale = e.deltaY > 0 ? oldScale * scaleBy : oldScale / scaleBy;
+  stage.scale({
+    x: newScale,
+    y: newScale
+  });
+
+  var newPos = {
+    x: -(mousePointTo.x - stage.getPointerPosition().x / newScale) * newScale,
+    y: -(mousePointTo.y - stage.getPointerPosition().y / newScale) * newScale
+  };
+  stage.position(newPos);
+  stage.batchDraw();
+});
