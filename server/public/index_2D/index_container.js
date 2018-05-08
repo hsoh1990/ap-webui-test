@@ -52,6 +52,7 @@ function addAp(enable__, ap_data) {
     stage.add(Aplayer);
   }
 
+  console.log(enable__['ip']);
   var ap_text = "";
   if (enable__['ip'] == 1) {
     ap_text += ap_data['IP Address'] + "\n";
