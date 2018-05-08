@@ -275,7 +275,7 @@ exports.arp_req = function(a, data__, data_key, resolve, reject) {
 function promise_resolve(result) {
   console.log(result['MAC Address'] + ',, ' + result['arp']);
   //socket.emit('arp', result);
-  const data_check = exports.device_data_save(device_data, result);
+  const data_check = device_data_save(device_data, result);
   if(data_check['change'] == null) {
     device_data = data_check;
     data_arp_broadcasting(device_data);
@@ -285,7 +285,7 @@ function promise_resolve(result) {
 function promise_reject(result) {
   console.log(result['MAC Address'] + ',, ' + result['arp']);
   //socket.emit('arp', result);
-  const data_check = exports.device_data_save(device_data, result);
+  const data_check = device_data_save(device_data, result);
   if(data_check['change'] == null) {
     device_data = data_check;
     data_arp_broadcasting(device_data);
