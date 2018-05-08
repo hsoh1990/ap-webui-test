@@ -290,6 +290,5 @@ function textarea_device_on(layer, text_layer_dex, data, index) {
   })
 }
 */
-addAp();
 
 //stage.add(layer);
