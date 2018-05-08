@@ -25,6 +25,7 @@ var wlan_text_Layer = new Konva.Layer();
 var wlan_device_Layer = new Konva.Layer();
 var wlanlayer = new Konva.Layer();
 
+var connect_radius = 380;
 var disconnect_radius = 550;
 
 const blue_svgpath = '/svg/button-blue_benji_park_01.svg';
@@ -344,7 +345,7 @@ function wlan_ex_net_draw(enable, res_count, conn_count) {
 
     /**
      * image promise 시작
-     * @param {[type]} then 없음
+     * @param {[type]} then .then
      */
     Ret_AddImage(a, x, y, "wlanExternal")
       .then(function(result) {
