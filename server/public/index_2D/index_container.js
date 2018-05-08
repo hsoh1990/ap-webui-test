@@ -19,6 +19,9 @@ var stage = new Konva.Stage({
 var scaleBy = 1.15;
 
 var Aplayer = new Konva.Layer();
+var connect_device_Layer = new Konva.Layer();
+var connect_line_Layer = new Konva.Layer();
+var connect_text_Layer = new Konva.Layer();
 var disconnect_device_Layer = new Konva.Layer();
 var disconnect_line_Layer = new Konva.Layer();
 var disconnect_text_Layer = new Konva.Layer();
@@ -45,6 +48,9 @@ function removeShape() {
 
 function removeChapes() {
   Aplayer.destroyChildren();
+  connect_device_Layer.destroyChildren();
+  connect_line_Layer.destroyChildren();
+  connect_text_Layer.destroyChildren();
   disconnect_device_Layer.destroyChildren();
   disconnect_line_Layer.destroyChildren();
   disconnect_text_Layer.destroyChildren();
@@ -431,15 +437,34 @@ function AddImage(a, x, y, type, resolve, reject) {
   else if(type == "wlanExternal") {
     imageObj.src = blue_svgpath;
   }
+  else if(type == "connect") {
+    if (a == 0) {
+      imageObj.src = androidphone_svgpath;
+    } else if (a == 1) {
+      imageObj.src = iphone_svgpath;
+    } else {
+      imageObj.src = green_svgpath;
+    }
+  }
   imageObj.onload = function() {
-    var device = new Konva.Image({
-      x: x,
-      y: y - 11,
-      image: imageObj,
-      width: 55,
-      height: 55
-    });
-
+    var device;
+    if(type == "connect") {
+      device = new Konva.Image({
+        x: x - 5,
+        y: y - 50,
+        image: imageObj,
+        width: 55,
+        height: 120
+      });
+    }else {
+      device = new Konva.Image({
+        x: x,
+        y: y - 11,
+        image: imageObj,
+        width: 55,
+        height: 55
+      });
+    }
     //console.log("ㅡㅡㅡㅡㅡ" + a + ", " + x + ", " + y + "ㅡㅡㅡㅡㅡ");
     if(type == "disconnect") {
       disconnect_device_Layer.add(device);
@@ -448,6 +473,10 @@ function AddImage(a, x, y, type, resolve, reject) {
     else if (type == "wlanExternal") {
       wlan_device_Layer.add(device);
       stage.add(wlan_device_Layer);
+    }
+    else if(type == "connect") {
+      connect_device_Layer.add(device);
+      stage.add(connect_device_Layer);
     }
     if (device != null) {
       resolve(a);
@@ -580,6 +609,98 @@ function disconnect_draw(enable, res_count, conn_count) {
     stage.batchDraw();*/
 
     //textarea_device_on(disconn_owner_text, disconn_owner_text[a], res_count, 1);
+  }
+}
+
+/**
+ * 연결된 기기들 stage addAp
+ * @param  {[type]} enable     ip,mac,hostname,Owner 표시 유무
+ * @param  {[type]} res_count  기기 JSON 정보
+ * @param  {[type]} conn_count 기기 수
+ * @return {[type]}            없음
+ */
+function connect_draw(enable, res_count, conn_count) {
+
+  var device_count = conn_count;
+  var radius = connect_radius;
+  var resultxy = [];
+
+  semicircle_calcul(resultxy, device_count, radius);
+
+  for (var a = 0; a < device_count; a++) {
+
+    var x = stage.getWidth() / 2 - 40 + resultxy[a][0];
+    var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
+
+    var Line = new Konva.Line({
+      points: [stage.getWidth() / 2, stage.getHeight() / 2, x + 20, y + 15],
+      stroke: 'blue',
+      strokeWidth: 3,
+      lineCap: 'round',
+      lineJoin: 'round'
+    });
+
+    connect_line_Layer.add(Line);
+
+    // add the shape to the layer
+
+    // add the layer to the stage
+    var device_text = "";
+    if (enable['ip'] == 1) {
+      device_text += res_count[a]['IP Address'] + "\n";
+    }
+    if (enable['mac'] == 1) {
+      device_text += res_count[a]['MAC Address'] + "\n";
+    }
+    if (enable['hostname'] == 1) {
+      device_text += res_count[a]['Host name'];
+    }
+    var devicetext = new Konva.Text({
+      x: x - 135,
+      y: y + 35,
+      text: device_text,
+      fontSize: 18,
+      fontFamily: 'Calibri',
+      fill: '#555',
+      width: 320,
+      padding: 20,
+      align: 'center'
+    });
+    var devicetextbox = new Konva.Rect({
+      x: x - 50,
+      y: y + 45,
+      stroke: '#555',
+      strokeWidth: 5,
+      fill: '#ddd',
+      width: 150,
+      height: devicetext.getHeight() - 20,
+      shadowColor: 'black',
+      shadowBlur: 10,
+      shadowOffset: [10, 10],
+      shadowOpacity: 0.2,
+      cornerRadius: 10
+    });
+
+    var owner_text = new Konva.Text({
+      x: x - 138,
+      y: y - 93,
+      text: res_count[a]['owner'],
+      fontSize: 18,
+      fontFamily: 'Calibri',
+      fill: '#555',
+      width: 320,
+      padding: 20,
+      align: 'center'
+    });
+    //conn_owner_text.push(owner_text);
+
+    connect_text_Layer.add(devicetextbox);
+    connect_text_Layer.add(devicetext);
+
+    stage.add(connect_line_Layer);
+    stage.add(connect_text_Layer);
+
+    //textarea_device_on(conn_owner_text, conn_owner_text[a], res_count, 2);
   }
 }
 /*

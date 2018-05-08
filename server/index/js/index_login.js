@@ -56,7 +56,7 @@ function socket_connect_draw() {
     });
   socket.on('arp',
     function(data) {
-      console.log("deviceinfor = " + JSON.stringify(data));
+      console.log("ARP - infor = " + JSON.stringify(data));
       devices_data = data;
       socket_event_device_data(data, "second")
     });
@@ -84,6 +84,7 @@ function socket_event_device_data(data, type) {
   }
 
   disconnect_draw(enable__, disconnect_data, disconnect_data.length);
+  connect_draw(enable__, connect_data, connect_data.length)
   wlan_ex_net_draw(enable__, exnet_data, exnet_data.length)
   wlan_draw(enable__, wlan_data);
   addAp(enable__, ap_data);
