@@ -20,7 +20,7 @@ function init_() {
     'hostname': 1,
     'owner': 1
   }
-  arp_data = new Object();
+  devices_data = new Object();
 }
 
 /**
@@ -33,30 +33,39 @@ function socket_connect_draw() {
 
   socket.on('device_data',
     function(data) {
-      console.log("device_data = " + data);
-      socket_event_arp(data);
+      console.log("device_data = " + JSON.stringify(data));
+      socket_event_device_data(data);
     });
   socket.on('device_count',
     function(data) {
-      console.log("device_count = " + data);
+      console.log("device_count = " + JSON.stringify(data));
       device_count = data;
     });
   socket.on('exnetinfor',
     function(data) {
-      console.log("exnetinfor = " + data);
+      console.log("exnetinfor = " + JSON.stringify(data));
       exnet_data.push(data);
     });
   socket.on('wlaninfor',
     function(data) {
-      console.log("wlaninfor = " + data);
+      console.log("wlaninfor = " + JSON.stringify(data));
     });
   socket.on('apinfor',
     function(data) {
-      console.log("apinfor = " + data);
+      console.log("apinfor = " + JSON.stringify(data));
     });
 
 }
 
-function socket_event_arp(data) {
-  arp_data = data;
+function socket_event_device_data(data) {
+  devices_data = data;
+  for(let a = 0;a < devices_data.length; a++) {
+    if(devices_data[a]['arp'] == 1) {
+      connect_data.push(devices_data[a]);
+    }
+    else {
+      disconnect_data.push(devices_data[a]);
+    }
+  }
+
 }
