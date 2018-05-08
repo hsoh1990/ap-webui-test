@@ -28,13 +28,13 @@ function init_() {
  * init_에서 전역변수 설정
  * @return {[type]} [description]
  */
-async function socket_connect_draw() {
+function socket_connect_draw() {
   init_();
 
   socket.on('device_data',
     function(data) {
       console.log("device_data = " + JSON.stringify(data));
-      await socket_event_device_data(data);
+      socket_event_device_data(data);
     });
   socket.on('exnetinfor',
     function(data) {
@@ -52,7 +52,7 @@ async function socket_connect_draw() {
 
 }
 
-async function socket_event_device_data(data) {
+function socket_event_device_data(data) {
   devices_data = data;
   device_count = devices_data.length;
   for(let a = 0;a < devices_data.length; a++) {
@@ -64,5 +64,5 @@ async function socket_event_device_data(data) {
     }
   }
 
-  await disconnect_draw(enable__, disconnect_data, disconnect_data.length);
+  disconnect_draw(enable__, disconnect_data, disconnect_data.length);
 }

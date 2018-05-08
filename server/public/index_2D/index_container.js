@@ -97,7 +97,7 @@ function semicircle_calcul(resultxy, device_count, radius) {
   }
 }
 
-async function disconnect_draw(enable, res_count, conn_count) {
+function disconnect_draw(enable, res_count, conn_count) {
 
   var device_count = conn_count;
   var radius = disconnect_radius;
@@ -129,23 +129,48 @@ async function disconnect_draw(enable, res_count, conn_count) {
     disconnect_line_Layer.add(Line);
 
 
-
-    var imageObj = new Image();
-    await imageObj.onload = function() {
-      var device = new Konva.Image({
-        x: x,
-        y: y - 11,
-        image: imageObj,
-        width: 55,
-        height: 55
-      });
-
-      console.log("ㅡㅡㅡㅡㅡ" + a + ", " + x + ", " + y + "ㅡㅡㅡㅡㅡ");
-
-      disconnect_device_Layer.add(device);
-      stage.add(disconnect_device_Layer);
+    function Ret_AddImage() {
+      return new Promise(function(resolve, reject) {
+        AddImage(resolve, reject)
+      })
     }
-    imageObj.src = red_svgpath;
+
+    function AddImage(resolve, reject) {
+      var imageObj = new Image();
+      imageObj.src = red_svgpath;
+      imageObj.onload = function() {
+        var device = new Konva.Image({
+          x: x,
+          y: y - 11,
+          image: imageObj,
+          width: 55,
+          height: 55
+        });
+
+        console.log("ㅡㅡㅡㅡㅡ" + a + ", " + x + ", " + y + "ㅡㅡㅡㅡㅡ");
+
+        disconnect_device_Layer.add(device);
+        stage.add(disconnect_device_Layer);
+        if(device != null) {
+          resolve('1');
+        }
+        else {
+          reject('0');
+        }
+      }
+    }
+
+    /**
+     * promise 시작
+     * @param {[type]} then 없음
+     */
+    Ret_AddImage(
+      .then(function(result) {
+        console.log("비연결 image 성공 = " + result);
+      }, function(result) {
+        console.log("비연결 image 실패 = " + result);
+      });
+    )
     // add the shape to the layer
 
 
