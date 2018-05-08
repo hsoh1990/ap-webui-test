@@ -113,8 +113,8 @@ function addAp(enable__, ap_data) {
     padding: 20,
     align: 'center'
   });
-  Aplayer.add(aptext);
   Aplayer.add(aptextbox);
+  Aplayer.add(aptext);
   stage.add(Aplayer);
 }
 
