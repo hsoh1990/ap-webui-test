@@ -5,13 +5,6 @@ const {
 var arp = require('node-arp');
 var io = require('socket.io').listen(8080);
 
-
-var arpListener = require('arp-listener')
-
-arpListener('wlan0', function(arpData) {
-  console.log(arpData)
-})
-
 /**
  * 전역변수 선언 부분
  * @type {Array} 접속한 모든 사용자의 소켓들
