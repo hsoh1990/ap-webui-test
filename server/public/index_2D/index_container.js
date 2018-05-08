@@ -396,8 +396,8 @@ function wlan_ex_net_draw(enable, res_count, conn_count) {
     wlan_text_Layer.add(exnettextbox);
     wlan_text_Layer.add(exnettext);
 
-    stage.add(wlan_text_Layer);
     stage.add(wlan_line_Layer);
+    stage.add(wlan_text_Layer);
   }
 }
 
