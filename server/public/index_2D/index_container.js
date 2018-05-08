@@ -623,6 +623,7 @@ function connect_draw(enable, res_count, conn_count) {
   var device_count = conn_count;
   var radius = connect_radius;
   var resultxy = [];
+  console.log("디바이스 개수 : " + conn_count);
   if(device_count == 0) {
     stage.add(connect_device_Layer);
     return;
