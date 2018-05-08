@@ -9,6 +9,8 @@ var stage = new Konva.Stage({
   container: 'container', // id of container <div>
   width: stageWidth,
   height: stageHeight,
+  scaleX: 0.57,
+  scaleY: 0.57,
   draggable: true
 });
 
@@ -121,9 +123,9 @@ function AddImage(a, x, y, resolve, reject) {
     disconnect_device_Layer.add(device);
     stage.add(disconnect_device_Layer);
     if (device != null) {
-      resolve('1');
+      resolve(a);
     } else {
-      reject('0');
+      reject(a);
     }
   }
 }
