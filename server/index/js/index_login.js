@@ -21,6 +21,7 @@ function init_() {
     'owner': 1
   }
   devices_data = new Object();
+  devices_data = null;
 }
 
 /**
