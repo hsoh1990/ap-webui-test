@@ -52,7 +52,6 @@ function addAp(enable__, ap_data) {
     stage.add(Aplayer);
   }
 
-  console.log(enable__['ip']);
   var ap_text = "";
   if (enable__['ip'] == 1) {
     ap_text += ap_data['IP Address'] + "\n";
@@ -64,6 +63,7 @@ function addAp(enable__, ap_data) {
     ap_text += ap_data['SSID'];
   }
 
+  console.log(ap_text);
   var aptext = new Konva.Text({
     x: stage.getWidth() / 2 - 90 - ap.getWidth(),
     y: stage.getHeight() / 2 - 30 + 60,
