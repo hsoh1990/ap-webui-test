@@ -41,8 +41,8 @@ function addAp() {
   var imageObj = new Image();
   imageObj.onload = function() {
     var ap = new Konva.Image({
-      x: stage.getWidth() / 2,
-      y: stage.getHeight() / 2,
+      x: stage.getWidth() / 2 - 35,
+      y: stage.getHeight() / 2 - 55,
       image: imageObj,
       width: 70,
       height: 85
@@ -101,7 +101,10 @@ function semicircle_calcul(resultxy, device_count, radius) {
   }
 }
 
-
+/**
+ * ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+ * disconnect image promise 부분
+ */
 function Ret_AddImage(a, x, y) {
   return new Promise(function(resolve, reject) {
     AddImage(a, x, y, resolve, reject)
@@ -132,6 +135,18 @@ function AddImage(a, x, y, resolve, reject) {
   }
 }
 
+/**
+ * ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+ * disconnect image promise 부분
+ */
+
+/**
+ * 연결되지 않은 기기들 stage addAp
+ * @param  {[type]} enable     ip,mac,hostname,Owner 표시 유무
+ * @param  {[type]} res_count  기기 JSON 정보
+ * @param  {[type]} conn_count 기기 수
+ * @return {[type]}            없음
+ */
 function disconnect_draw(enable, res_count, conn_count) {
 
   var device_count = conn_count;
@@ -164,7 +179,7 @@ function disconnect_draw(enable, res_count, conn_count) {
     disconnect_line_Layer.add(Line);
 
     /**
-     * promise 시작
+     * image promise 시작
      * @param {[type]} then 없음
      */
     Ret_AddImage(a, x, y)
