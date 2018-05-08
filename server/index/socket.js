@@ -62,7 +62,7 @@ function socket_init(socket) {
     socket.emit('arp', device_data[a]);
   }
   */
-  socket.emit('device_data', device_data[a]);
+  socket.emit('device_data', device_data);
 }
 
 /**
