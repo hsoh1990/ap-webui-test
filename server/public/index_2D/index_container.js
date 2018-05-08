@@ -623,7 +623,10 @@ function connect_draw(enable, res_count, conn_count) {
   var device_count = conn_count;
   var radius = connect_radius;
   var resultxy = [];
-
+  if(device_count == 0) {
+    stage.add(connect_device_Layer);
+    return;
+  }
   semicircle_calcul(resultxy, device_count, radius);
 
   for (var a = 0; a < device_count; a++) {
