@@ -33,9 +33,12 @@ var wlanlayer = new Konva.Layer();
 var connect_radius = 380;
 var disconnect_radius = 550;
 
-const blue_svgpath = '/svg/button-blue_benji_park_01.svg';
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
+const green_svgpath = '/svg/button-green_benji_park_01.svg';
 const ap_svgpath = '/svg/No_Hope_Wireless_Access_Point_clip_art.svg';
+const blue_svgpath = '/svg/button-blue_benji_park_01.svg';
+const androidphone_svgpath = '/svg/android-phone.svg';
+const iphone_svgpath = '/svg/iphone.svg';
 
 /**
  * 해당 layer를 삭제
