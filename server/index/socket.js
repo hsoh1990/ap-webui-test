@@ -2,6 +2,7 @@ var fs = require("fs");
 const {
   execSync
 } = require('child_process');
+const { exec } = require('child_process');
 var arp = require('node-arp');
 var io = require('socket.io').listen(8080);
 
@@ -210,6 +211,28 @@ function disconnect_section(socket) {
   arp_count++;
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   //반복하는 부분
+  exports.wait(500);
+  console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+  console.log("반복 시작 : " + arp_count + "번째");
+  console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+
+  exports.arp_req2();
+
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  setTimeout(function() {
+    arp_repeat();
+  }, 500);
+}()
+
+/**
+ * 12초에 1번씩 arp를 요청하기 위한 자기실행함수 부분
+ * @return {[type]} 없음
+ */
+/*
+! function arp_repeat() {
+  arp_count++;
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  //반복하는 부분
   exports.wait(1000);
   console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
   console.log("반복 시작 : " + arp_count + "번째");
@@ -220,9 +243,9 @@ function disconnect_section(socket) {
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   setTimeout(function() {
     arp_repeat();
-  }, 11000);
+  }, 1000);
 }()
-
+*/
 function arp_promise() {
   var data__ = data_get();
   var data_key = Object.getOwnPropertyNames(data__);
@@ -270,7 +293,20 @@ exports.arp_req = function(a, data__, data_key, resolve, reject) {
 
     } else {}
   });
+
 }
+exports.arp_req2 = function() {
+  exec('arp -n ' + data__[data_key[a]]['IP Address'] + ' | awk NR==2 | awk \'{print $2}\'', (error, stdout, stderr) => {
+   if (error) {
+
+     return;
+   }
+   console.log(data__[data_key[a]]['IP Address'] + " : " + stdout);
+ });
+
+
+}
+
 
 function promise_resolve(result) {
   console.log(result['MAC Address'] + ',, ' + result['arp']);
