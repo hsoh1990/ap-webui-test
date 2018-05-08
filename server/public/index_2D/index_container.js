@@ -16,7 +16,6 @@ var stage = new Konva.Stage({
   draggable: true
 });
 
-var layer = new Konva.Layer();
 var Aplayer = new Konva.Layer();
 var disconnect_device_Layer = new Konva.Layer();
 var disconnect_line_Layer = new Konva.Layer();
@@ -53,15 +52,12 @@ function addAp(enable__, ap_data) {
     stage.add(Aplayer);
   }
 
-  console.log("ttttttttttttttt" + JSON.stringify(enable__));
   var ap_text = "";
   if (enable__['ip'] == 1) {
-    ap_text += ap_data['IP Address'];
-    ap_text += "\n";
+    ap_text += ap_data['IP Address'] + "\n";
   }
   if (enable__['mac'] == 1) {
-    ap_text += ap_data['MAC Address'];
-    ap_text += "\n";
+    ap_text += ap_data['MAC Address'] + "\n";
   }
   if (enable__['hostname'] == 1) {
     ap_text += ap_data['SSID'];
