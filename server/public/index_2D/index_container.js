@@ -359,13 +359,13 @@ function wlan_ex_net_draw(enable, res_count, conn_count) {
     // add the layer to the stage
     var exnet_text = "";
     if (enable['ip'] == 1) {
-      exnet_text += res_count[0][a]['IP Address'] + "\n";
+      exnet_text += res_count[a]['IP Address'] + "\n";
     }
     if (enable['mac'] == 1) {
-      exnet_text += res_count[0][a]['MAC Address'] + "\n";
+      exnet_text += res_count[a]['MAC Address'] + "\n";
     }
     if (enable['hostname'] == 1) {
-      exnet_text += res_count[0][a]['Host name'];
+      exnet_text += res_count[a]['Host name'];
     }
     var exnettext = new Konva.Text({
       x: x - 135,
