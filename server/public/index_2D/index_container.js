@@ -622,6 +622,9 @@ function disconnect_draw(enable, res_count, conn_count) {
       });
 
       console.log("ㅡㅡㅡㅡㅡ" + a + ", " + x + ", " + y + "ㅡㅡㅡㅡㅡ");
+      if(a == 3) {
+        return;
+      }
       disconnect_device_Layer.add(device);
       stage.add(disconnect_device_Layer);
     }
