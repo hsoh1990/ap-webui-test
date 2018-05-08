@@ -231,7 +231,7 @@ function disconnect_section(socket) {
 }()
 
 function arp_promise() {
-  var data__ = exports.data_get();
+  var data__ = data_get();
   var data_key = Object.getOwnPropertyNames(data__);
   for (var a = 0; a < Object.keys(data__).length; a++) {
     promise_arp_req(a, data__, data_key)
@@ -346,7 +346,7 @@ function data_arp_broadcasting(result_data) {
   }
 }
 
-exports.data_get = function() {
+function data_get() {
   const stdout = execSync('cat /var/lib/misc/dnsmasq.leases', {
     encoding: 'utf8'
   });
