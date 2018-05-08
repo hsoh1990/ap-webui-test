@@ -117,7 +117,7 @@ function addAp() {
   });
   Aplayer.add(aptext);
   Aplayer.add(aptextbox);
-
+  stage.add(Aplayer);
 }
 
 
