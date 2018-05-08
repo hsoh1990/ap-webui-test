@@ -20,10 +20,14 @@ var Aplayer = new Konva.Layer();
 var disconnect_device_Layer = new Konva.Layer();
 var disconnect_line_Layer = new Konva.Layer();
 var disconnect_text_Layer = new Konva.Layer();
+var wlan_line_Layer = new Konva.Layer();
+var wlan_text_Layer = new Konva.Layer();
+var wlan_device_Layer = new Konva.Layer();
 var wlanlayer = new Konva.Layer();
 
 var disconnect_radius = 550;
 
+const blue_svgpath = '/svg/button-blue_benji_park_01.svg';
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
 const ap_svgpath = '/svg/No_Hope_Wireless_Access_Point_clip_art.svg';
 
@@ -209,6 +213,13 @@ function wlan_draw(enable__, wlan_data) {
   //textarea_on(owner_text, wlan_owner_layer, wlan_data, 2);
 }
 
+/**
+ * 기기의 수에따라 반원에 배치할 기기 위치 x, y 알고리즘
+ * @param  {[type]} resultxy     x, y 좌표 결과값
+ * @param  {[type]} device_count 기기 수
+ * @param  {[type]} radius       반지름
+ * @return {[type]}
+ */
 function semicircle_calcul(resultxy, device_count, radius) {
   if (device_count == 1) { //디바이스가 1개일 경우
     var xy = [];
@@ -256,18 +267,152 @@ function semicircle_calcul(resultxy, device_count, radius) {
 }
 
 /**
- * ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
- * disconnect image promise 부분
+ * wlan에 붙은 ip 수에따라 반원에 배치할 기기 위치 x, y 알고리즘
+ * @param  {[type]} resultxy     x, y 좌표 결과값
+ * @param  {[type]} device_count 기기 수
+ * @param  {[type]} radius       반지름
+ * @return {[type]}
  */
-function Ret_AddImage(a, x, y) {
+function semicircle_calcul_wlan(resultxy, device_count, radius) {
+  if (device_count == 1) { //디바이스가 1개일 경우
+    var xy = [];
+    xy.push(radius);
+    xy.push(0);
+    resultxy.push(xy);
+  } else if (device_count > 1 && device_count % 2 == 0) { //짝수일 경우
+    var angle = 180 / (device_count + 1);
+    var half_angle = angle / 2;
+    for (var a = 0; a < device_count / 2; a++) {
+      var xy = [];
+      var x = radius * Math.cos(half_angle * Math.PI / 180) * -1;
+      var y = radius * Math.sin(half_angle * Math.PI / 180);
+      xy.push(x);
+      xy.push(y);
+      resultxy.push(xy);
+      var x_y = [];
+      x_y.push(x);
+      x_y.push(y * -1);
+      resultxy.push(x_y);
+      half_angle += angle;
+    }
+  } else if (device_count > 1 && device_count % 2 == 1) { //홀수일 경우
+    var xy = [];
+    xy.push(radius);
+    xy.push(0);
+    resultxy.push(xy);
+
+    var angle = 180 / (device_count + 1);
+    var angle__ = angle;
+    for (var a = 0; a < Math.floor(device_count / 2); a++) {
+      var xy = [];
+      var x = radius * Math.cos(angle__ * Math.PI / 180) * -1;
+      var y = radius * Math.sin(angle__ * Math.PI / 180);
+      xy.push(x);
+      xy.push(y);
+      resultxy.push(xy);
+      var x_y = [];
+      x_y.push(x);
+      x_y.push(y * -1);
+      resultxy.push(x_y);
+      angle__ += angle;
+    }
+  }
+}
+
+
+function wlan_ex_net_draw(enable, res_count, conn_count) {
+
+  var device_count = conn_count;
+  var radius = connect_radius;
+  var resultxy = [];
+
+  semicircle_calcul_wlan(resultxy, device_count, radius);
+
+  for (var a = 0; a < device_count; a++) {
+    var x = stage.getWidth() / 2 - 40 + resultxy[a][0] - 300;
+    var y = stage.getHeight() / 2 - 15 + resultxy[a][1];
+
+    var Line = new Konva.Line({
+      points: [stage.getWidth() / 2 - 320, stage.getHeight() / 2, x + 20, y + 15],
+      stroke: 'blue',
+      strokeWidth: 3,
+      lineCap: 'round',
+      lineJoin: 'round'
+    });
+
+    wlan_line_Layer.add(Line);
+
+    /**
+     * image promise 시작
+     * @param {[type]} then 없음
+     */
+    Ret_AddImage(a, x, y, "wlanExternal")
+      .then(function(result) {
+        console.log("비연결 image 성공 = " + result);
+      }, function(result) {
+        console.log("비연결 image 실패 = " + result);
+      });
+
+    // add the shape to the layer
+
+
+    // add the layer to the stage
+    var exnet_text = "";
+    if (enable['ip'] == 1) {
+      exnet_text += res_count[0][a]['IP Address'] + "\n";
+    }
+    if (enable['mac'] == 1) {
+      exnet_text += res_count[0][a]['MAC Address'] + "\n";
+    }
+    if (enable['hostname'] == 1) {
+      exnet_text += res_count[0][a]['Host name'];
+    }
+    var exnettext = new Konva.Text({
+      x: x - 135,
+      y: y + 35,
+      text: exnet_text,
+      fontSize: 18,
+      fontFamily: 'Calibri',
+      fill: '#555',
+      width: 320,
+      padding: 20,
+      align: 'center'
+    });
+    var exnettextbox = new Konva.Rect({
+      x: x - 50,
+      y: y + 45,
+      stroke: '#555',
+      strokeWidth: 5,
+      fill: '#ddd',
+      width: 150,
+      height: exnettext.getHeight() - 20,
+      shadowColor: 'black',
+      shadowBlur: 10,
+      shadowOffset: [10, 10],
+      shadowOpacity: 0.2,
+      cornerRadius: 10
+    });
+
+    wlan_text_Layer.add(exnettextbox);
+    wlan_text_Layer.add(exnettext);
+
+    stage.add(wlan_text_Layer);
+    stage.add(wlan_line_Layer);
+  }
+}
+
+/**
+ * ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+ * image promise 부분
+ */
+function Ret_AddImage(a, x, y, type) {
   return new Promise(function(resolve, reject) {
-    AddImage(a, x, y, resolve, reject)
+    AddImage(a, x, y, type, resolve, reject)
   })
 }
 
-function AddImage(a, x, y, resolve, reject) {
+function AddImage(a, x, y, type, resolve, reject) {
   var imageObj = new Image();
-  imageObj.src = red_svgpath;
   imageObj.onload = function() {
     var device = new Konva.Image({
       x: x,
@@ -277,10 +422,17 @@ function AddImage(a, x, y, resolve, reject) {
       height: 55
     });
 
-    console.log("ㅡㅡㅡㅡㅡ" + a + ", " + x + ", " + y + "ㅡㅡㅡㅡㅡ");
-
-    disconnect_device_Layer.add(device);
-    stage.add(disconnect_device_Layer);
+    //console.log("ㅡㅡㅡㅡㅡ" + a + ", " + x + ", " + y + "ㅡㅡㅡㅡㅡ");
+    if(type == "disconnect") {
+      imageObj.src = red_svgpath;
+      disconnect_device_Layer.add(device);
+      stage.add(disconnect_device_Layer);
+    }
+    else if (type == "wlanExternal") {
+      imageObj.src = blue_svgpath;
+      wlan_device_Layer.add(device);
+      stage.add(wlan_device_Layer);
+    }
     if (device != null) {
       resolve(a);
     } else {
@@ -291,7 +443,7 @@ function AddImage(a, x, y, resolve, reject) {
 
 /**
  * ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
- * disconnect image promise 부분
+ * image promise 부분
  */
 
 /**
@@ -336,7 +488,7 @@ function disconnect_draw(enable, res_count, conn_count) {
      * image promise 시작
      * @param {[type]} then 없음
      */
-    Ret_AddImage(a, x, y)
+    Ret_AddImage(a, x, y, "disconnect")
       .then(function(result) {
         console.log("비연결 image 성공 = " + result);
       }, function(result) {
