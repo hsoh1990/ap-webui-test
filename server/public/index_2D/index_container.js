@@ -82,13 +82,13 @@ function wlan_draw(enable__, wlan_data) {
 
   var wlan_text = "";
   if (enable__['ip'] == 1) {
-    wlan_text += wlan_data[0]['IP Address'] + "\n";
+    wlan_text += wlan_data['IP Address'] + "\n";
   }
   if (enable__['mac'] == 1) {
-    wlan_text += wlan_data[0]['MAC Address'] + "\n";
+    wlan_text += wlan_data['MAC Address'] + "\n";
   }
   if (enable__['hostname'] == 1) {
-    wlan_text += wlan_data[0]['orgName'];
+    wlan_text += wlan_data['orgName'];
   }
 
   var wlantext = new Konva.Text({
@@ -120,7 +120,7 @@ function wlan_draw(enable__, wlan_data) {
   var owner_text = new Konva.Text({
     x: stage.getWidth() / 2 - 160 - wlantext.getWidth(),
     y: stage.getHeight() / 2 - 70,
-    text: wlan_data[0]['owner'],
+    text: wlan_data['owner'],
     fontSize: 18,
     fontFamily: 'Calibri',
     fill: '#555',
