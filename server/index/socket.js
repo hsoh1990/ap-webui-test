@@ -301,7 +301,7 @@ function arp_req2() {
 
      return;
    }
-   console.log(data__[data_key[a]]['IP Address'] + " : " + stdout);
+   console.log("192.168.0.158 : " + stdout);
  });
 
 
