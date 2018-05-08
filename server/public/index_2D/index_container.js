@@ -366,9 +366,9 @@ function wlan_ex_net_draw(enable, res_count, conn_count) {
      */
     Ret_AddImage(a, x, y, "wlanExternal")
       .then(function(result) {
-        console.log("비연결 image 성공 = " + result);
+        console.log("wlanExternal image 성공 = " + result);
       }, function(result) {
-        console.log("비연결 image 실패 = " + result);
+        console.log("wlanExternal image 실패 = " + result);
       });
 
     // add the shape to the layer
@@ -431,13 +431,11 @@ function Ret_AddImage(a, x, y, type) {
 
 function AddImage(a, x, y, type, resolve, reject) {
   var imageObj = new Image();
-  if(type == "disconnect") {
+  if (type == "disconnect") {
     imageObj.src = red_svgpath;
-  }
-  else if(type == "wlanExternal") {
+  } else if (type == "wlanExternal") {
     imageObj.src = blue_svgpath;
-  }
-  else if(type == "connect") {
+  } else if (type == "connect") {
     if (a == 0) {
       imageObj.src = androidphone_svgpath;
     } else if (a == 1) {
@@ -448,7 +446,7 @@ function AddImage(a, x, y, type, resolve, reject) {
   }
   imageObj.onload = function() {
     var device;
-    if(type == "connect") {
+    if (type == "connect") {
       device = new Konva.Image({
         x: x - 5,
         y: y - 50,
@@ -456,7 +454,7 @@ function AddImage(a, x, y, type, resolve, reject) {
         width: 55,
         height: 120
       });
-    }else {
+    } else {
       device = new Konva.Image({
         x: x,
         y: y - 11,
@@ -466,15 +464,13 @@ function AddImage(a, x, y, type, resolve, reject) {
       });
     }
     //console.log("ㅡㅡㅡㅡㅡ" + a + ", " + x + ", " + y + "ㅡㅡㅡㅡㅡ");
-    if(type == "disconnect") {
+    if (type == "disconnect") {
       disconnect_device_Layer.add(device);
       stage.add(disconnect_device_Layer);
-    }
-    else if (type == "wlanExternal") {
+    } else if (type == "wlanExternal") {
       wlan_device_Layer.add(device);
       stage.add(wlan_device_Layer);
-    }
-    else if(type == "connect") {
+    } else if (type == "connect") {
       connect_device_Layer.add(device);
       stage.add(connect_device_Layer);
     }
@@ -535,9 +531,9 @@ function disconnect_draw(enable, res_count, conn_count) {
      */
     Ret_AddImage(a, x, y, "disconnect")
       .then(function(result) {
-        console.log("비연결 image 성공 = " + result);
+        console.log("disconnect image 성공 = " + result);
       }, function(result) {
-        console.log("비연결 image 실패 = " + result);
+        console.log("disconnect image 실패 = " + result);
       });
 
     // add the shape to the layer
@@ -641,6 +637,13 @@ function connect_draw(enable, res_count, conn_count) {
     });
 
     connect_line_Layer.add(Line);
+
+    Ret_AddImage(a, x, y, "connect")
+      .then(function(result) {
+        console.log("connect image 성공 = " + result);
+      }, function(result) {
+        console.log("connect image 실패 = " + result);
+      });
 
     // add the shape to the layer
 
