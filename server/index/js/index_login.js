@@ -70,5 +70,5 @@ function socket_event_device_data(data) {
 
   disconnect_draw(enable__, disconnect_data, disconnect_data.length);
   wlan_draw(enable__, wlan_data);
-  addAp();
+  addAp(enable__, ap_data);
 }
