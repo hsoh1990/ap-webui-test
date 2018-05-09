@@ -65,6 +65,11 @@ function socket_connect_draw() {
       ap_data = data;
       addApOwnerText(enable__, ap_data);
     });
+  socket.on('Wlantextchange',
+    function(data) {
+      wlan_data = data;
+      addApOwnerText(enable__, wlan_data);
+    });
 }
 
 /**

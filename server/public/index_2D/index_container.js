@@ -317,9 +317,22 @@ function wlan_draw(enable__, wlan_data) {
     cornerRadius: 10
   });
 
+  wlanlayer.add(wlan_line);
+  wlanlayer.add(wlan_box);
+  wlanlayer.add(wlantextbox);
+  wlanlayer.add(wlantext);
+
+  stage.add(wlanlayer);
+
+  addWlanOwnerText(enable__, wlan_data);
+}
+
+function addWlanOwnerText(enable__, wlan_data) {
+  wlan_owner_layer.destroyChildren();
+
   var owner_text = new Konva.Text({
-    x: stage.getWidth() / 2 - 160 - wlantext.getWidth(),
-    y: stage.getHeight() / 2 - 70,
+    x: stage.getWidth() / 2 - 160,
+    y: stage.getHeight() / 2 - 100,
     text: wlan_data['owner'],
     fontSize: 18,
     fontFamily: 'Calibri',
@@ -329,22 +342,12 @@ function wlan_draw(enable__, wlan_data) {
     align: 'center'
   });
 
-  wlanlayer.add(wlan_line);
-  wlanlayer.add(wlan_box);
-  wlanlayer.add(wlantextbox);
-  wlanlayer.add(wlantext);
-
-  stage.add(wlanlayer);
-  /*
-  wlanlayer.draw();
   if (enable__['owner'] == 1) {
     wlan_owner_layer.add(owner_text);
-    wlan_owner_layer.draw();
+    stage.add(wlan_owner_layer);
   }
 
-  stage.batchDraw();
-*/
-  //textarea_on(owner_text, wlan_owner_layer, wlan_data, 2);
+  ApWlanTextareaOn(owner_text, wlan_owner_layer, wlan_data, 2);
 }
 
 /**

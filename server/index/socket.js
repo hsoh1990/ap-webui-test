@@ -33,6 +33,9 @@ io.sockets.on('connect', function(socket) {
     owner_ap_section(data);
   });
 
+  socket.on('owner__wlan', function(data) {
+    owner_wlan_section(data);
+  });
 
 });
 
@@ -52,6 +55,21 @@ function data_ap_broadcasting(result_data) {
   }
 }
 
+function owner_wlan_section(data) {
+  wlan_infor['MAC Address'] = data['mac'];
+  wlan_infor['owner'] = data['owner'];
+  fs.writeFileSync(__dirname + "/data/" + "wlan_data.json",
+    JSON.stringify(wlan_infor, null, '\t'), "utf8",
+    function(err, data) {})
+  data_wlan_broadcasting(wlan_infor);
+}
+
+function data_wlan_broadcasting(result_data) {
+  console.log("Wlan 소유자 이름 변경 - broadcasting");
+  for (var a = 0; a < sockets.length; a++) {
+    sockets[a].emit('Wlantextchange', result_data);
+  }
+}
 
 
 /**
@@ -66,7 +84,7 @@ function socket_init(socket) {
   let ap_ip = exports.eth0_ip_rec();
   let ap_mac = exports.eth0_mac_rec();
   let ap_ssid = exports.ssid_rec();
-  let wlan_infor = exports.wlan_whois();
+  wlan_infor = exports.wlan_whois();
   let wlan_exnetinfor = exports.wlan_exnet_data();
 
   ap_infor = exports.ap_data_save(ap_ip, ap_mac, ap_ssid);
