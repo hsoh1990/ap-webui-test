@@ -338,6 +338,9 @@ exports.arp_req = function(a, data__, data_key, resolve, reject) {
       if (stdout.match(/5/g).length == 1) {
         console.log("MAC 주소를 찾음.");
       }
+
+    }else {
+      console.log("MAC 주소를 못찾음.");
     }
   });
 }
