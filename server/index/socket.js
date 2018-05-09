@@ -68,7 +68,7 @@ function socket_init(socket) {
   let wlan_infor = exports.wlan_whois();
   let wlan_exnetinfor = exports.wlan_exnet_data();
 
-  let ap_infor = exports.ap_data_save(ap_ip, ap_mac, ap_ssid);
+  ap_infor = exports.ap_data_save(ap_ip, ap_mac, ap_ssid);
 
   socket.emit('apinfor', ap_infor);
   socket.emit('wlaninfor', wlan_infor);
