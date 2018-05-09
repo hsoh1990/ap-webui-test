@@ -2,7 +2,9 @@ var fs = require("fs");
 const {
   execSync
 } = require('child_process');
-const { exec } = require('child_process');
+const {
+  exec
+} = require('child_process');
 var arp = require('node-arp');
 var io = require('socket.io').listen(8080);
 
@@ -327,37 +329,38 @@ function promise_arp_req(a, data__, data_key) {
 
 exports.arp_req = function(a, data__, data_key, resolve, reject) {
   exec('arp -n ' + data__[data_key[a]]['IP Address'] + ' | awk NR==2 | awk \'{print $3}\' | grep -o : | wc -l', (error, stdout, stderr) => {
-   if (error) {
-     console.log("ARP exec Error 발생");
-     return;
-   }
-   console.log(data__[data_key[a]]['IP Address'] + " : " + stdout);
-   if(stdout == '5\n') {
-     console.log("MAC 주소를 찾음.");
-   }
+    if (error) {
+      console.log("ARP exec Error 발생");
+      return;
+    }
+    console.log(data__[data_key[a]]['IP Address'] + " : " + stdout);
+    if (stdout.match(/5/g) != null) {
+      if (stdout.match(/:/g).length == 1) {
+        console.log("MAC 주소를 찾음.");
+      }
+    }
   });
 }
 
 
 function device_data_save(device_data, resultData) {
-  for(var a = 0;a < device_data.length; a++) {
-    if(device_data[a]['MAC Address'] == resultData['MAC Address']) {
-      if(device_data[a]['arp'] != resultData['arp']) {
+  for (var a = 0; a < device_data.length; a++) {
+    if (device_data[a]['MAC Address'] == resultData['MAC Address']) {
+      if (device_data[a]['arp'] != resultData['arp']) {
         device_data[a]['arp'] = resultData['arp']
         fs.writeFileSync(__dirname + "/data/" + "device_data.json",
           JSON.stringify(device_data, null, '\t'), "utf8",
           function(err, data) {})
         return device_data;
-      }
-      else {
+      } else {
         return Changefailed = {
-          'change' : 'fail'
+          'change': 'fail'
         };
       }
     }
   }
   return Changefailed = {
-    'change' : 'fail'
+    'change': 'fail'
   };
 }
 /*
