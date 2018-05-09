@@ -332,7 +332,7 @@ exports.arp_req = function(a, data__, data_key, resolve, reject) {
      return;
    }
    console.log(data__[data_key[a]]['IP Address'] + " : " + stdout);
-   if(stdout == '5') {
+   if(stdout == '5\n') {
      console.log("MAC 주소를 찾음.");
    }
   });
