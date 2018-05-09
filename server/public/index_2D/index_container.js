@@ -35,6 +35,7 @@ var wlan_owner_layer = new Konva.Layer();
 
 var connect_radius = 350;
 var disconnect_radius = 550;
+var device_NotFive_Check = 0;
 var device_Five_Check = 0;
 var connect_Standard = 0;
 
@@ -739,16 +740,20 @@ function disconnect_draw(enable, res_count, conn_count) {
 
 function ConnentDeviceCheck(conn_count) {
   if (connect_Standard != 0 && connect_Standard > conn_count) {
-    connect_radius -= 80;
-    disconnect_radius -= 80;
-    device_Five_Check = 0;
-    return;
+    if(device_NotFive_Check == 0) {
+      connect_radius -= 80;
+      disconnect_radius -= 80;
+      device_Five_Check = 0;
+      device_NotFive_Check = 1;
+      return;
+    }
   }
   if (conn_count % 5 == 0 && conn_count != 0) {
     if (device_Five_Check == 0) {
       connect_radius += 80;
       disconnect_radius += 80;
       device_Five_Check = 1;
+      device_NotFive_Check = 0;
       connect_Standard = conn_count;
       return;
     }
