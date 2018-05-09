@@ -33,10 +33,7 @@ var wlanlayer = new Konva.Layer();
 var ap_owner_layer = new Konva.Layer();
 var wlan_owner_layer = new Konva.Layer();
 var disconn_owner_Layer = new Konva.Layer();
-//var disconn_owner_Layers = new Array();
-var disconn_owner_Shapes = new Array();
-var conn_owner_Layers = new Array();
-var conn_owner_Shapes = new Array();
+var conn_owner_Layer = new Konva.Layer();
 
 var connect_radius = 350;
 var disconnect_radius = 550;
@@ -219,6 +216,10 @@ function removeChapes() {
   wlan_text_Layer.destroyChildren();
   wlan_device_Layer.destroyChildren();
   wlanlayer.destroyChildren();
+  ap_owner_layer.destroyChildren();
+  wlan_owner_layer.destroyChildren();
+  disconn_owner_Layer.destroyChildren();
+  conn_owner_Layer.destroyChildren();
 }
 
 function addAp(enable__, ap_data) {
