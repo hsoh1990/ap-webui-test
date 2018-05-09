@@ -371,7 +371,7 @@ function device_data_save(device_data, resultData) {
       }
     }
   }
-  Newdevice_data_push(resultData);//새로운 기기 추가
+  return Newdevice_data_push(resultData);//새로운 기기 추가
 }
 
 function Newdevice_data_push(deviceData) {
