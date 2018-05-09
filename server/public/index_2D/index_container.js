@@ -815,7 +815,10 @@ function addDisconnOwnerText(x, y, enable__, res_count, index) {
 
   //ApWlanTextareaOn(owner_text, wlan_owner_layer, wlan_data, 2);
 }
-
+function test123() {
+  let text = disconn_owner_Layer.findOne('#94:8b:c1:5d:df:18');
+  console.log(text);
+}
 
 function ConnentDeviceCheck(conn_count) {
   if (connect_Standard != 0 && connect_Standard > conn_count) {
