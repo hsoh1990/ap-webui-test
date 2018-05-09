@@ -253,14 +253,14 @@ function arp_promise() {
     promise_arp_req(a, data__, data_key)
       .then(function(result) {
         // 성공시/*
-        promise_resolve(result);
+        //promise_resolve(result);
       }, function(result) {
         // 실패시
-        promise_reject(result);
+        //promise_reject(result);
       });
   }
 }
-
+/*
 function promise_arp_req(a, data__, data_key) {
   return new Promise(function(resolve, reject) {
     exports.arp_req(a, data__, data_key, resolve, reject)
@@ -295,17 +295,6 @@ exports.arp_req = function(a, data__, data_key, resolve, reject) {
   });
 
 }
-function arp_req2() {
-  exec('arp -n 192.168.0.158 | awk NR==2 | awk \'{print $2}\'', (error, stdout, stderr) => {
-   if (error) {
-
-     return;
-   }
-   console.log("192.168.0.158 : " + stdout);
- });
-
-
-}
 
 
 function promise_resolve(result) {
@@ -327,6 +316,28 @@ function promise_reject(result) {
     data_arp_broadcasting(device_data);
   }
 }
+*/
+
+function promise_arp_req(a, data__, data_key) {
+  return new Promise(function(resolve, reject) {
+    exports.arp_req(a, data__, data_key, resolve, reject)
+  });
+}
+
+
+exports.arp_req = function(a, data__, data_key, resolve, reject) {
+  exec('arp -n ' + data__[data_key[a]]['IP Address'] + ' | awk NR==2 | awk \'{print $3}\' | grep -o : | wc -l', (error, stdout, stderr) => {
+   if (error) {
+     console.log("ARP exec Error 발생");
+     return;
+   }
+   console.log(data__[data_key[a]]['IP Address'] + " : " + stdout);
+   if(stdout == '5') {
+     console.log("MAC 주소를 찾음.");
+   }
+  });
+}
+
 
 function device_data_save(device_data, resultData) {
   for(var a = 0;a < device_data.length; a++) {
