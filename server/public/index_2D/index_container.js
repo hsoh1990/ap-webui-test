@@ -153,18 +153,13 @@ function ApWlanTextareaOn(owner_text, layer, data, index) {
  * @param  {[type]} index      ap인지 wlan 인지 결정
  * @return {[type]}            없음
  */
-function textarea_device_on(layer, text_layer_dex, data, index) {
+function textarea_device_on(text_layer_dex, data) {
   text_layer_dex.on('dblclick', function(evt) {
     // create textarea over canvas with absolute position
-    var tmp_i = 0;
-    for (var b = 0; b < layer.length; b++) {
-      if (layer[b]._id == evt.target._id) {
-        tmp_i = b;
-        break;
-      }
-    }
+
     // first we need to find its positon
-    var textPosition = layer[tmp_i].getAbsolutePosition();
+    console.log(data['MAC Address']);
+    var textPosition = text_layer_dex.getAbsolutePosition();
     var stageBox = stage.getContainer().getBoundingClientRect();
 
     var areaPosition = {
@@ -177,11 +172,11 @@ function textarea_device_on(layer, text_layer_dex, data, index) {
     var textarea = document.createElement('textarea');
     document.body.appendChild(textarea);
 
-    textarea.value = layer[tmp_i].text();
+    textarea.value = text_layer_dex.text();
     textarea.style.position = 'absolute';
     textarea.style.top = areaPosition.y + 'px';
     textarea.style.left = areaPosition.x + 'px';
-    textarea.style.width = layer[tmp_i].width();
+    textarea.style.width = text_layer_dex.width();
 
     textarea.focus();
 
@@ -189,13 +184,15 @@ function textarea_device_on(layer, text_layer_dex, data, index) {
     textarea.addEventListener('keydown', function(e) {
       // hide on enter
       if (e.keyCode === 13) {
-        layer[tmp_i].text(textarea.value);
+        text_layer_dex.text(textarea.value);
         document.body.removeChild(textarea);
+        /*
         if (index == 1) {
           socket.emit('owner__disconnect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
         } else if (index == 2) {
           socket.emit('owner__connect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
         }
+        */
       }
     });
   })
@@ -812,6 +809,8 @@ function addDisconnOwnerText(x, y, enable__, res_count, index) {
     disconn_owner_Layer.add(owner_text);
     stage.add(disconn_owner_Layer);
   }
+
+  textarea_device_on(owner_text, res_count[index])
 
   //ApWlanTextareaOn(owner_text, wlan_owner_layer, wlan_data, 2);
 }
