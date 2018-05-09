@@ -46,6 +46,7 @@ function owner_ap_section(data) {
 }
 
 function data_ap_broadcasting(result_data) {
+  console.log("AP 소유자 이름 변경 - broadcasting");
   for (var a = 0; a < sockets.length; a++) {
     sockets[a].emit('APtextchange', result_data);
   }
