@@ -80,13 +80,13 @@ window.addEventListener('resize', fitStageIntoParentContainer);
  * @param  {[type]} text [description]
  * @return {[type]}      [description]
  */
- function owner_data(mac, text) {
-   var result = {
-     'mac': mac,
-     'owner': text
-   }
-   return result;
- }
+function owner_data(mac, text) {
+  var result = {
+    'mac': mac,
+    'owner': text
+  }
+  return result;
+}
 
 /**
  * 각각 기기의 이름을 정해줄 수 있는 textarea on 기능
@@ -253,7 +253,7 @@ addApOwnerText(enable__, ap_data) {
     stage.add(ap_owner_layer);
   }
 
-  ApWlanTextareaOn(owner_text, ap_owner_layer, ap_data ,1);
+  ApWlanTextareaOn(owner_text, ap_owner_layer, ap_data, 1);
 }
 
 function wlan_draw(enable__, wlan_data) {
