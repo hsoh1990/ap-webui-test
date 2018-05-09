@@ -339,7 +339,6 @@ function arp_req(a, data__, data_key, resolve, reject) {
 }
 
 function promise_resolve(result) {
-  //socket.emit('arp', result);
   const data_check = device_data_save(device_data, result);
   if(data_check['change'] == null) {
     device_data = data_check;
@@ -348,7 +347,6 @@ function promise_resolve(result) {
 }
 
 function promise_reject(result) {
-  //socket.emit('arp', result);
   const data_check = device_data_save(device_data, result);
   if(data_check['change'] == null) {
     device_data = data_check;
@@ -358,7 +356,7 @@ function promise_reject(result) {
 
 function device_data_save(device_data, resultData) {
   for (var a = 0; a < device_data.length; a++) {
-    if (device_data[a]['MAC Address'] == resultData['MAC Address']) {
+    if (device_data[a]['MAC Address'] == resultData['MAC Address']) {//전에 연결했었던 기기
       if (device_data[a]['arp'] != resultData['arp']) {
         device_data[a]['arp'] = resultData['arp']
         console.log("연결 상태 변경");
@@ -373,10 +371,18 @@ function device_data_save(device_data, resultData) {
       }
     }
   }
-  return Changefailed = {
-    'change': 'fail'
-  };
+  Newdevice_data_push(resultData);//새로운 기기 추가
 }
+
+function Newdevice_data_push(deviceData) {
+  deviceData['owner'] = '';
+  device_data.push(deviceData);
+  fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+    JSON.stringify(device_data, null, '\t'), "utf8",
+    function(err, data) {})
+  return device_data;
+}
+
 /*
 function device_data_splice(data_check, result) {
   device_data.splice(data_check['a'], 1, result);
