@@ -216,7 +216,7 @@ function disconnect_section(socket) {
   console.log("반복 시작 : " + arp_count + "번째");
   console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
 
-  arp_req2();
+  arp_promise();
 
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   setTimeout(function() {
