@@ -237,7 +237,7 @@ function addApOwnerText(enable__, ap_data) {
   ap_owner_layer.destroyChildren();
 
   var owner_text = new Konva.Text({
-    x: stage.getWidth() / 2 - 90 - ap.getWidth(),
+    x: stage.getWidth() / 2 - 160,
     y: stage.getHeight() / 2 - 100,
     text: ap_data['owner'],
     fontSize: 18,
