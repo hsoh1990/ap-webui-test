@@ -213,7 +213,6 @@ function disconnect_section(socket) {
   arp_count++;
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   //반복하는 부분
-  exports.wait(500);
   console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
   console.log("반복 시작 : " + arp_count + "번째");
   console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
@@ -223,7 +222,7 @@ function disconnect_section(socket) {
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   setTimeout(function() {
     arp_repeat();
-  }, 500);
+  }, 1000);
 }()
 
 /**
@@ -254,11 +253,11 @@ function arp_promise() {
   for (var a = 0; a < Object.keys(data__).length; a++) {
     promise_arp_req(a, data__, data_key)
       .then(function(result) {
-        // 성공시/*
-        //promise_resolve(result);
+        // 성공시
+        promise_resolve(result);
       }, function(result) {
         // 실패시
-        //promise_reject(result);
+        promise_reject(result);
       });
   }
 }
@@ -297,7 +296,48 @@ exports.arp_req = function(a, data__, data_key, resolve, reject) {
   });
 
 }
+*/
 
+function promise_arp_req(a, data__, data_key) {
+  return new Promise(function(resolve, reject) {
+    arp_req(a, data__, data_key, resolve, reject)
+  });
+}
+
+
+function arp_req(a, data__, data_key, resolve, reject) {
+  exec('arp -n ' + data__[data_key[a]]['IP Address'] + ' | awk NR==2 | awk \'{print $3}\'', (error, stdout, stderr) => {
+    if (error) {
+      console.log("ARP exec Error 발생");
+      return;
+    }
+    if (stdout.match(/:/g) != null) {
+      if (stdout.match(/:/g).length == 5) {
+        let MAC = stdout.replace('\n', '');
+        console.log(data__[data_key[a]]['IP Address'] + " : " + MAC);
+        result = {
+          'MAC Address': data__[data_key[a]]['MAC Address'],
+          'IP Address': data__[data_key[a]]['IP Address'],
+          'Host name': data__[data_key[a]]['Host name'],
+          'arp': 0,
+          'length': Object.keys(data__).length
+        }
+        resolve(result);
+      }
+
+    } else {
+      console.log("MAC 주소를 못찾음.");
+      result = {
+        'MAC Address': data__[data_key[a]]['MAC Address'],
+        'IP Address': data__[data_key[a]]['IP Address'],
+        'Host name': data__[data_key[a]]['Host name'],
+        'arp': 1,
+        'length': Object.keys(data__).length
+      }
+      reject(result);
+    }
+  });
+}
 
 function promise_resolve(result) {
   console.log(result['MAC Address'] + ',, ' + result['arp']);
@@ -318,33 +358,6 @@ function promise_reject(result) {
     data_arp_broadcasting(device_data);
   }
 }
-*/
-
-function promise_arp_req(a, data__, data_key) {
-  return new Promise(function(resolve, reject) {
-    exports.arp_req(a, data__, data_key, resolve, reject)
-  });
-}
-
-
-exports.arp_req = function(a, data__, data_key, resolve, reject) {
-  exec('arp -n ' + data__[data_key[a]]['IP Address'] + ' | awk NR==2 | awk \'{print $3}\' | grep -o : | wc -l', (error, stdout, stderr) => {
-    if (error) {
-      console.log("ARP exec Error 발생");
-      return;
-    }
-    console.log(data__[data_key[a]]['IP Address'] + " : " + stdout);
-    if (stdout.match(/5/g) != null) {
-      if (stdout.match(/5/g).length == 1) {
-        console.log("MAC 주소를 찾음.");
-      }
-
-    }else {
-      console.log("MAC 주소를 못찾음.");
-    }
-  });
-}
-
 
 function device_data_save(device_data, resultData) {
   for (var a = 0; a < device_data.length; a++) {
