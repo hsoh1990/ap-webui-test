@@ -297,7 +297,6 @@ exports.arp_req = function(a, data__, data_key, resolve, reject) {
 
 }
 */
-// qweqwewrwer
 function promise_arp_req(a, data__, data_key) {
   return new Promise(function(resolve, reject) {
     arp_req(a, data__, data_key, resolve, reject)
@@ -326,7 +325,7 @@ function arp_req(a, data__, data_key, resolve, reject) {
       }
 
     } else {
-      console.log("MAC 주소를 못찾음.");
+      console.log(data__[data_key[a]]['IP Address'] + " : MAC 주소를 못찾음.");
       result = {
         'MAC Address': data__[data_key[a]]['MAC Address'],
         'IP Address': data__[data_key[a]]['IP Address'],
@@ -340,7 +339,6 @@ function arp_req(a, data__, data_key, resolve, reject) {
 }
 
 function promise_resolve(result) {
-  console.log(result['MAC Address'] + ',, ' + result['arp']);
   //socket.emit('arp', result);
   const data_check = device_data_save(device_data, result);
   if(data_check['change'] == null) {
@@ -350,7 +348,6 @@ function promise_resolve(result) {
 }
 
 function promise_reject(result) {
-  console.log(result['MAC Address'] + ',, ' + result['arp']);
   //socket.emit('arp', result);
   const data_check = device_data_save(device_data, result);
   if(data_check['change'] == null) {
@@ -364,6 +361,7 @@ function device_data_save(device_data, resultData) {
     if (device_data[a]['MAC Address'] == resultData['MAC Address']) {
       if (device_data[a]['arp'] != resultData['arp']) {
         device_data[a]['arp'] = resultData['arp']
+        console.log("연결 상태 변경");
         fs.writeFileSync(__dirname + "/data/" + "device_data.json",
           JSON.stringify(device_data, null, '\t'), "utf8",
           function(err, data) {})
