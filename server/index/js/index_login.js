@@ -83,6 +83,7 @@ function socket_event_device_data(data, type) {
     }
   }
 
+  ConnentDeviceCheck(connect_data.length);
   disconnect_draw(enable__, disconnect_data, disconnect_data.length);
   connect_draw(enable__, connect_data, connect_data.length)
   wlan_ex_net_draw(enable__, exnet_data, exnet_data.length)

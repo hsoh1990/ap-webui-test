@@ -30,9 +30,10 @@ var wlan_text_Layer = new Konva.Layer();
 var wlan_device_Layer = new Konva.Layer();
 var wlanlayer = new Konva.Layer();
 
-var connect_radius = 380;
+var connect_radius = 350;
 var disconnect_radius = 550;
-
+var device_Five_Check = 0;
+var connect_Standard = 0;
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
 const green_svgpath = '/svg/button-green_benji_park_01.svg';
 const ap_svgpath = '/svg/No_Hope_Wireless_Access_Point_clip_art.svg';
@@ -624,7 +625,26 @@ function disconnect_draw(enable, res_count, conn_count) {
     //textarea_device_on(disconn_owner_text, disconn_owner_text[a], res_count, 1);
   }
 }
-
+function ConnentDeviceCheck(conn_count) {
+  if(connect_Standard != 0 && connect_Standard > conn_count) {
+    connect_radius -= 80;
+    disconnect_radius -= 80;
+    device_Five_Check = 0;
+    return;
+  }
+  if(conn_count % 5 == 0 && conn_count != 0) {
+    if(device_Five_Check == 0) {
+      connect_radius += 80;
+      disconnect_radius += 80;
+      device_Five_Check = 1;
+      connect_Standard = conn_count;
+      return;
+    }
+  }
+  if(device_Five_Check == 1 && conn_count % 5 != 0) {
+    device_Five_Check = 0;
+  }
+}
 /**
  * 연결된 기기들 stage addAp
  * @param  {[type]} enable     ip,mac,hostname,Owner 표시 유무

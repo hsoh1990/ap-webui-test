@@ -5,7 +5,7 @@ const {
 const {
   exec
 } = require('child_process');
-var arp = require('node-arp');
+
 var io = require('socket.io').listen(8080);
 
 /**
@@ -225,28 +225,6 @@ function disconnect_section(socket) {
   }, 1000);
 }()
 
-/**
- * 12초에 1번씩 arp를 요청하기 위한 자기실행함수 부분
- * @return {[type]} 없음
- */
-/*
-! function arp_repeat() {
-  arp_count++;
-  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-  //반복하는 부분
-  exports.wait(1000);
-  console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-  console.log("반복 시작 : " + arp_count + "번째");
-  console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-
-  arp_promise();
-
-  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-  setTimeout(function() {
-    arp_repeat();
-  }, 1000);
-}()
-*/
 function arp_promise() {
   var data__ = data_get();
   var data_key = Object.getOwnPropertyNames(data__);
@@ -261,42 +239,7 @@ function arp_promise() {
       });
   }
 }
-/*
-function promise_arp_req(a, data__, data_key) {
-  return new Promise(function(resolve, reject) {
-    exports.arp_req(a, data__, data_key, resolve, reject)
-  });
-}
 
-exports.arp_req = function(a, data__, data_key, resolve, reject) {
-  arp.getMAC(data__[data_key[a]]['IP Address'], function(err, mac) {
-    if (!err) {
-      console.log("mac : " + mac);
-      if (mac == "(incomplete)") {
-        result = {
-          'MAC Address': data__[data_key[a]]['MAC Address'],
-          'IP Address': data__[data_key[a]]['IP Address'],
-          'Host name': data__[data_key[a]]['Host name'],
-          'arp': 0,
-          'length': Object.keys(data__).length
-        }
-        resolve(result);
-      } else {
-        result = {
-          'MAC Address': data__[data_key[a]]['MAC Address'],
-          'IP Address': data__[data_key[a]]['IP Address'],
-          'Host name': data__[data_key[a]]['Host name'],
-          'arp': 1,
-          'length': Object.keys(data__).length
-        }
-        reject(result);
-      }
-
-    } else {}
-  });
-
-}
-*/
 function promise_arp_req(a, data__, data_key) {
   return new Promise(function(resolve, reject) {
     arp_req(a, data__, data_key, resolve, reject)
@@ -383,25 +326,6 @@ function Newdevice_data_push(deviceData) {
   return device_data;
 }
 
-/*
-function device_data_splice(data_check, result) {
-  device_data.splice(data_check['a'], 1, result);
-  delete device_data['check'];
-  delete device_data['a'];
-  fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-    JSON.stringify(device_data, null, '\t'), "utf8",
-    function(err, data) {})
-}
-
-function device_data_push(data_check, result) {
-  device_data.push(result);
-  delete device_data['check'];
-  delete device_data['a'];
-  fs.writeFileSync(__dirname + "/data/" + "device_data.json",
-    JSON.stringify(device_data, null, '\t'), "utf8",
-    function(err, data) {})
-}
-*/
 function data_arp_broadcasting(result_data) {
   console.log(sockets.length + "명에게 브로드캐스팅 보냄");
   for (var a = 0; a < sockets.length; a++) {
