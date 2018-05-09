@@ -63,7 +63,7 @@ function socket_connect_draw() {
   socket.on('APtextchange',
     function(data) {
       ap_data = data;
-      //addApOwnerText(enable__, ap_data);
+      addApOwnerText(enable__, ap_data);
     });
 }
 
