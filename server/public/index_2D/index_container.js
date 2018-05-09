@@ -818,6 +818,9 @@ function addDisconnOwnerText(x, y, enable__, res_count, index) {
 function test123() {
   let text = disconn_owner_Layer.findOne('#94:8b:c1:5d:df:18');
   console.log(text);
+  text.text('test1234');
+  disconn_owner_Layer.add(text);
+  stage.add(disconn_owner_Layer);
 }
 
 function ConnentDeviceCheck(conn_count) {
