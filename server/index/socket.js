@@ -358,7 +358,7 @@ function device_data_save(device_data, resultData) {
 }
 
 function Newdevice_data_push(deviceData) {
-  deviceData['owner'] = '';
+  deviceData['owner'] = 'default';
   device_data.push(deviceData);
   fs.writeFileSync(__dirname + "/data/" + "device_data.json",
     JSON.stringify(device_data, null, '\t'), "utf8",

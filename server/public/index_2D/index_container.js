@@ -32,6 +32,11 @@ var wlanlayer = new Konva.Layer();
 
 var ap_owner_layer = new Konva.Layer();
 var wlan_owner_layer = new Konva.Layer();
+var disconn_owner_Layer = new Konva.Layer();
+//var disconn_owner_Layers = new Array();
+var disconn_owner_Shapes = new Array();
+var conn_owner_Layers = new Array();
+var conn_owner_Shapes = new Array();
 
 var connect_radius = 350;
 var disconnect_radius = 550;
@@ -139,6 +144,63 @@ function ApWlanTextareaOn(owner_text, layer, data, index) {
     });
   })
 }
+
+/**
+ * 각각 기기의 이름을 정해줄 수 있는 textarea on 기능
+ * @param  {[type]} owner_text 해당 text
+ * @param  {[type]} layer      레이어
+ * @param  {[type]} data       text의 기기 정보
+ * @param  {[type]} index      ap인지 wlan 인지 결정
+ * @return {[type]}            없음
+ */
+function textarea_device_on(layer, text_layer_dex, data, index) {
+  text_layer_dex.on('dblclick', function(evt) {
+    // create textarea over canvas with absolute position
+    var tmp_i = 0;
+    for (var b = 0; b < layer.length; b++) {
+      if (layer[b]._id == evt.target._id) {
+        tmp_i = b;
+        break;
+      }
+    }
+    // first we need to find its positon
+    var textPosition = layer[tmp_i].getAbsolutePosition();
+    var stageBox = stage.getContainer().getBoundingClientRect();
+
+    var areaPosition = {
+      x: textPosition.x + stageBox.left,
+      y: textPosition.y + stageBox.top
+    };
+
+
+    // create textarea and style it
+    var textarea = document.createElement('textarea');
+    document.body.appendChild(textarea);
+
+    textarea.value = layer[tmp_i].text();
+    textarea.style.position = 'absolute';
+    textarea.style.top = areaPosition.y + 'px';
+    textarea.style.left = areaPosition.x + 'px';
+    textarea.style.width = layer[tmp_i].width();
+
+    textarea.focus();
+
+
+    textarea.addEventListener('keydown', function(e) {
+      // hide on enter
+      if (e.keyCode === 13) {
+        layer[tmp_i].text(textarea.value);
+        document.body.removeChild(textarea);
+        if (index == 1) {
+          socket.emit('owner__disconnect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
+        } else if (index == 2) {
+          socket.emit('owner__connect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
+        }
+      }
+    });
+  })
+}
+
 /**
  * 해당 layer를 삭제
  * @return {[type]} [description]
@@ -726,20 +788,35 @@ function disconnect_draw(enable, res_count, conn_count) {
     disconnect_text_Layer.add(devicetext);
     stage.add(disconnect_line_Layer);
     stage.add(disconnect_text_Layer);
-    /*disconnect_line_Layer.draw();
-    disconnect_device_Layer.draw();
-    disconnect_text_Layer.draw();
 
-    if (enable__['owner'] == 1) {
-      disconn_owner_layer_Array[a].add(disconn_owner_text[a]);
-      disconn_owner_layer_Array[a].draw();
-    }
+    addDisconnOwnerText(x, y, enable__, res_count, a);
 
-    stage.batchDraw();*/
-
-    //textarea_device_on(disconn_owner_text, disconn_owner_text[a], res_count, 1);
   }
 }
+
+function addDisconnOwnerText(x, y, enable__, res_count, index) {
+
+  var owner_text = new Konva.Text({
+    x: x - 138,
+    y: y - 93,
+    text: res_count[index]['owner'],
+    fontSize: 18,
+    fontFamily: 'Calibri',
+    fill: '#555',
+    width: 320,
+    padding: 20,
+    align: 'center',
+    id: res_count[index]['MAC Address']
+  });
+
+  if (enable__['owner'] == 1) {
+    disconn_owner_Layer.add(owner_text);
+    stage.add(disconn_owner_Layer);
+  }
+
+  //ApWlanTextareaOn(owner_text, wlan_owner_layer, wlan_data, 2);
+}
+
 
 function ConnentDeviceCheck(conn_count) {
   if (connect_Standard != 0 && connect_Standard > conn_count) {
@@ -869,57 +946,6 @@ function connect_draw(enable, res_count, conn_count) {
     //textarea_device_on(conn_owner_text, conn_owner_text[a], res_count, 2);
   }
 }
-/*
-function textarea_device_on(layer, text_layer_dex, data, index) {
-  text_layer_dex.on('dblclick', function(evt) {
-    // create textarea over canvas with absolute position
-    var tmp_i = 0;
-    for (var b = 0; b < layer.length; b++) {
-      if (layer[b]._id == evt.target._id) {
-        tmp_i = b;
-        break;
-      }
-    }
-    // first we need to find its positon
-    var textPosition = layer[tmp_i].getAbsolutePosition();
-    var stageBox = stage.getContainer().getBoundingClientRect();
-
-    var areaPosition = {
-      x: textPosition.x + stageBox.left,
-      y: textPosition.y + stageBox.top
-    };
-
-
-    // create textarea and style it
-    var textarea = document.createElement('textarea');
-    document.body.appendChild(textarea);
-
-    textarea.value = layer[tmp_i].text();
-    textarea.style.position = 'absolute';
-    textarea.style.top = areaPosition.y + 'px';
-    textarea.style.left = areaPosition.x + 'px';
-    textarea.style.width = layer[tmp_i].width();
-
-    textarea.focus();
-
-
-    textarea.addEventListener('keydown', function(e) {
-      // hide on enter
-      if (e.keyCode === 13) {
-        layer[tmp_i].text(textarea.value);
-        document.body.removeChild(textarea);
-        if (index == 1) {
-          socket.emit('owner__disconnect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
-        } else if (index == 2) {
-          socket.emit('owner__connect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
-        }
-      }
-    });
-  })
-}
-*/
-
-//stage.add(layer);
 
 /**
  * 휠로 줌 인, 줌 아웃 구현 부분
