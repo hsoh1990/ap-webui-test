@@ -68,7 +68,7 @@ function socket_connect_draw() {
   socket.on('Wlantextchange',
     function(data) {
       wlan_data = data;
-      addApOwnerText(enable__, wlan_data);
+      addWlanOwnerText(enable__, wlan_data);
     });
 }
 
