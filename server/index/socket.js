@@ -334,13 +334,11 @@ exports.arp_req = function(a, data__, data_key, resolve, reject) {
       return;
     }
     console.log(data__[data_key[a]]['IP Address'] + " : " + stdout);
-    /*
     if (stdout.match(/5/g) != null) {
       if (stdout.match(/5/g).length == 1) {
         console.log("MAC 주소를 찾음.");
       }
     }
-    */
   });
 }
 
