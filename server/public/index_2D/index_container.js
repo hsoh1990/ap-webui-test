@@ -331,8 +331,8 @@ function addWlanOwnerText(enable__, wlan_data) {
   wlan_owner_layer.destroyChildren();
 
   var owner_text = new Konva.Text({
-    x: stage.getWidth() / 2 - 160,
-    y: stage.getHeight() / 2 - 100,
+    x: stage.getWidth() / 2 - 160 - 320,
+    y: stage.getHeight() / 2 - 70,
     text: wlan_data['owner'],
     fontSize: 18,
     fontFamily: 'Calibri',
