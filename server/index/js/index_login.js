@@ -81,6 +81,7 @@ function ChangeDisconnOwner(data) {
     if (disconnect_data[e]['MAC Address'] == data['MAC Address']) {
       disconnect_data[e]['owner'] = data['owner'];
       DisconnOwnerChange(disconnect_data[e]['MAC Address'], disconnect_data[e]['owner']);
+      ////
       break;
     }
   }
