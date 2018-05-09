@@ -790,7 +790,7 @@ function disconnect_draw(enable, res_count, conn_count) {
     stage.add(disconnect_text_Layer);
 
     addDisconnOwnerText(x, y, enable__, res_count, a);
-
+    stage.add(disconn_owner_Layer);
   }
 }
 
@@ -811,7 +811,6 @@ function addDisconnOwnerText(x, y, enable__, res_count, index) {
 
   if (enable__['owner'] == 1) {
     disconn_owner_Layer.add(owner_text);
-    stage.add(disconn_owner_Layer);
   }
 
   //ApWlanTextareaOn(owner_text, wlan_owner_layer, wlan_data, 2);
