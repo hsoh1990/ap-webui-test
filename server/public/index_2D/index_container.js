@@ -230,9 +230,9 @@ function addAp(enable__, ap_data) {
 
   stage.add(Aplayer);
 
-  addApOwnerText(enable__, ap_data);
+  //addApOwnerText(enable__, ap_data);
 }
-
+/*
 addApOwnerText(enable__, ap_data) {
   ap_owner_layer.destroyChildren();
 
@@ -255,6 +255,7 @@ addApOwnerText(enable__, ap_data) {
 
   ApWlanTextareaOn(owner_text, ap_owner_layer, ap_data, 1);
 }
+*/
 
 function wlan_draw(enable__, wlan_data) {
 
