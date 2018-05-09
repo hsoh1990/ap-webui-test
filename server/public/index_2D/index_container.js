@@ -150,7 +150,7 @@ function ApWlanTextareaOn(owner_text, layer, data, index) {
  * @param  {[type]} index      ap인지 wlan 인지 결정
  * @return {[type]}            없음
  */
-function textarea_device_on(text_layer_dex, data) {
+function textarea_device_on(text_layer_dex, data, index) {
   text_layer_dex.on('dblclick', function(evt) {
     // create textarea over canvas with absolute position
 
@@ -183,13 +183,11 @@ function textarea_device_on(text_layer_dex, data) {
       if (e.keyCode === 13) {
         text_layer_dex.text(textarea.value);
         document.body.removeChild(textarea);
-        /*
         if (index == 1) {
-          socket.emit('owner__disconnect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
+          socket.emit('owner__disconnect', owner_data(data['MAC Address'], textarea.value));
         } else if (index == 2) {
-          socket.emit('owner__connect', owner_data(data[tmp_i]['MAC Address'], textarea.value));
+          socket.emit('owner__connect', owner_data(data['MAC Address'], textarea.value));
         }
-        */
       }
     });
   })
@@ -811,15 +809,14 @@ function addDisconnOwnerText(x, y, enable__, res_count, index) {
     stage.add(disconn_owner_Layer);
   }
 
-  textarea_device_on(owner_text, res_count[index])
+  textarea_device_on(owner_text, res_count[index], 1)
 
   //ApWlanTextareaOn(owner_text, wlan_owner_layer, wlan_data, 2);
 }
-function test123() {
-  let text = disconn_owner_Layer.findOne('#94:8b:c1:5d:df:18');
-  console.log(text);
-  text.text('test1234');
-  disconn_owner_Layer.add(text);
+function DisconnOwnerChange(macAddr, text) {
+  let tmpText = disconn_owner_Layer.findOne('#' + macAddr);
+  tmpText.text(text);
+  disconn_owner_Layer.add(tmpText);
   stage.add(disconn_owner_Layer);
 }
 

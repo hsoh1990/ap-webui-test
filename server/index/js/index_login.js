@@ -70,8 +70,21 @@ function socket_connect_draw() {
       wlan_data = data;
       addWlanOwnerText(enable__, wlan_data);
     });
+  socket.on('Disconntextchange',
+    function(data) {
+      ChangeDisconnOwner(data);
+    });
 }
 
+function ChangeDisconnOwner(data) {
+  for (var e = 0; e < disconnect_data.length; e++) {
+    if (disconnect_data[e]['MAC Address'] == data['MAC Address']) {
+      disconnect_data[e]['owner'] = data['owner'];
+      DisconnOwnerChange(disconnect_data[e]['MAC Address'], disconnect_data[e]['owner']);
+      break;
+    }
+  }
+}
 /**
  * 첫 소켓 접속 후 device_data 받아온 후 Konva.js 출력 부분
  * @param  {[type]} data device data

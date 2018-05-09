@@ -37,6 +37,11 @@ io.sockets.on('connect', function(socket) {
     owner_wlan_section(data);
   });
 
+  socket.on('owner__disconnect', function(data) {
+    const parse_data = owner_device_section(data);
+    data_disconn_owner_broadcasting(parse_data);
+  });
+
 });
 
 function owner_ap_section(data) {
@@ -71,6 +76,28 @@ function data_wlan_broadcasting(result_data) {
   }
 }
 
+function owner_device_section(data) {
+  var stringify_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
+  var parse_data = JSON.parse(stringify_data);
+  for (var a = 0; a < parse_data.length; a++) {
+    if (parse_data[a]['MAC Address'] == data['mac']) {
+      parse_data[a]['owner'] = data['owner'];
+      break;
+    }
+  }
+  device_data = parse_data;
+  fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+    JSON.stringify(parse_data, null, '\t'), "utf8",
+    function(err, data) {})
+  return parse_data[a];
+}
+
+function data_disconn_owner_broadcasting(result_data) {
+  console.log("Disconnect 소유자 이름 변경 - broadcasting");
+  for (var a = 0; a < sockets.length; a++) {
+    sockets[a].emit('Disconntextchange', result_data);
+  }
+}
 
 /**
  * 소켓 연결 후 해당 사용자의 소켓 저장, 확인
