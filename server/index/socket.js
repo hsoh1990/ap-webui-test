@@ -29,8 +29,29 @@ io.sockets.on('connect', function(socket) {
     disconnect_section(socket);
   });
 
+  socket.on('owner__ap', function(data) {
+    owner_ap_section(data);
+  });
+
 
 });
+
+function owner_ap_section(data) {
+  ap_infor['MAC Address'] = data['mac'];
+  ap_infor['owner'] = data['owner'];
+  fs.writeFileSync(__dirname + "/data/" + "ap_data.json",
+    JSON.stringify(ap_infor, null, '\t'), "utf8",
+    function(err, data) {})
+  data_ap_broadcasting(ap_infor);
+}
+
+function data_ap_broadcasting(result_data) {
+  for (var a = 0; a < sockets.length; a++) {
+    sockets[a].emit('APtextchange', result_data);
+  }
+}
+
+
 
 /**
  * 소켓 연결 후 해당 사용자의 소켓 저장, 확인

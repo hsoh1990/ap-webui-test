@@ -60,6 +60,11 @@ function socket_connect_draw() {
       devices_data = data;
       socket_event_device_data(data, "second")
     });
+  socket.on('APtextchange',
+    function(data) {
+      ap_data = data;
+      addApOwnerText(enable__, ap_data);
+    });
 }
 
 /**
@@ -68,10 +73,10 @@ function socket_connect_draw() {
  * @return {[type]}      [description]
  */
 function socket_event_device_data(data, type) {
-  if(type == "second") {
+  if (type == "second") {
     removeChapes();
-    connect_data.splice(0,connect_data.length);//배열을 비운다.
-    disconnect_data.splice(0,disconnect_data.length);//배열을 비운다.
+    connect_data.splice(0, connect_data.length); //배열을 비운다.
+    disconnect_data.splice(0, disconnect_data.length); //배열을 비운다.
   }
   devices_data = data;
   device_count = devices_data.length;

@@ -30,10 +30,14 @@ var wlan_text_Layer = new Konva.Layer();
 var wlan_device_Layer = new Konva.Layer();
 var wlanlayer = new Konva.Layer();
 
+var ap_owner_layer = new Konva.Layer();
+var wlan_owner_layer = new Konva.Layer();
+
 var connect_radius = 350;
 var disconnect_radius = 550;
 var device_Five_Check = 0;
 var connect_Standard = 0;
+
 const red_svgpath = '/svg/button-red_benji_park_01.svg';
 const green_svgpath = '/svg/button-green_benji_park_01.svg';
 const ap_svgpath = '/svg/No_Hope_Wireless_Access_Point_clip_art.svg';
@@ -41,6 +45,99 @@ const blue_svgpath = '/svg/button-blue_benji_park_01.svg';
 const androidphone_svgpath = '/svg/android-phone.svg';
 const iphone_svgpath = '/svg/iphone.svg';
 
+
+/**
+ * ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+ * stage의 width 크기 - 브라우서 크기에 따라 자동 설정 부분
+ * @return {[type]} 없음
+ */
+function fitStageIntoParentContainer() {
+  var container = document.querySelector('#stage-parent');
+
+  // now we need to fit stage into parent
+  var containerWidth = container.offsetWidth;
+  // to do this we need to scale the stage
+  var scale = containerWidth / stageWidth;
+
+
+  stage.width(stageWidth * scale);
+
+  stage.draw();
+}
+
+fitStageIntoParentContainer();
+// adapt the stage on any window resize
+window.addEventListener('resize', fitStageIntoParentContainer);
+/**
+ * stage의 width 크기 - 브라우서 크기에 따라 자동 설정 부분
+ * @return {[type]} 없음
+ * ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+ */
+
+/**
+ * 기기 이름 data JSON return 부분
+ * @param  {[type]} mac  [description]
+ * @param  {[type]} text [description]
+ * @return {[type]}      [description]
+ */
+ function owner_data(mac, text) {
+   var result = {
+     'mac': mac,
+     'owner': text
+   }
+   return result;
+ }
+
+/**
+ * 각각 기기의 이름을 정해줄 수 있는 textarea on 기능
+ * @param  {[type]} owner_text 해당 text
+ * @param  {[type]} layer      레이어
+ * @param  {[type]} data       text의 기기 정보
+ * @param  {[type]} index      ap인지 wlan 인지 결정
+ * @return {[type]}            없음
+ */
+function ApWlanTextareaOn(owner_text, layer, data, index) {
+  owner_text.on('dblclick', () => {
+    // create textarea over canvas with absolute position
+
+    // first we need to find its positon
+    var textPosition = owner_text.getAbsolutePosition();
+    var stageBox = stage.getContainer().getBoundingClientRect();
+
+    var areaPosition = {
+      x: textPosition.x + stageBox.left,
+      y: textPosition.y + stageBox.top
+    };
+
+
+    // create textarea and style it
+    var textarea = document.createElement('textarea');
+    document.body.appendChild(textarea);
+
+    textarea.value = owner_text.text();
+    textarea.style.position = 'absolute';
+    textarea.style.top = areaPosition.y + 'px';
+    textarea.style.left = areaPosition.x + 'px';
+    textarea.style.width = owner_text.width();
+
+    textarea.focus();
+
+
+    textarea.addEventListener('keydown', function(e) {
+      // hide on enter
+      if (e.keyCode === 13) {
+        owner_text.text(textarea.value);
+        layer.draw();
+        document.body.removeChild(textarea);
+        if (index == 1) {
+          socket.emit('owner__ap', owner_data(data['MAC Address'], textarea.value));
+        } else if (index == 2) {
+          socket.emit('owner__wlan', owner_data(data['MAC Address'], textarea.value));
+        }
+      }
+    });
+  })
+}
 /**
  * 해당 layer를 삭제
  * @return {[type]} [description]
@@ -128,6 +225,17 @@ function addAp(enable__, ap_data) {
     stage.container().style.cursor = 'default';
   });
 
+  Aplayer.add(aptextbox);
+  Aplayer.add(aptext);
+
+  stage.add(Aplayer);
+
+  addApOwnerText(enable__, ap_data);
+}
+
+addApOwnerText(enable__, ap_data) {
+  ap_owner_layer.destroyChildren();
+
   var owner_text = new Konva.Text({
     x: stage.getWidth() / 2 - 90 - ap.getWidth(),
     y: stage.getHeight() / 2 - 100,
@@ -139,11 +247,14 @@ function addAp(enable__, ap_data) {
     padding: 20,
     align: 'center'
   });
-  Aplayer.add(aptextbox);
-  Aplayer.add(aptext);
-  stage.add(Aplayer);
-}
 
+  if (enable__['owner'] == 1) {
+    ap_owner_layer.add(owner_text);
+    stage.add(ap_owner_layer);
+  }
+
+  ApWlanTextareaOn(owner_text, ap_owner_layer, ap_data ,1);
+}
 
 function wlan_draw(enable__, wlan_data) {
 
@@ -344,7 +455,7 @@ function semicircle_calcul_wlan(resultxy, device_count, radius) {
 
 function wlan_ex_net_draw(enable, res_count, conn_count) {
 
-  if(conn_count == 0) {
+  if (conn_count == 0) {
     stage.add(disconnect_device_Layer);
     stage.add(disconnect_text_Layer);
     stage.add(disconnect_line_Layer);
@@ -507,7 +618,7 @@ function AddImage(a, x, y, type, resolve, reject) {
  */
 function disconnect_draw(enable, res_count, conn_count) {
 
-  if(conn_count == 0) {
+  if (conn_count == 0) {
     stage.add(disconnect_device_Layer);
     stage.add(disconnect_text_Layer);
     stage.add(disconnect_line_Layer);
@@ -625,15 +736,16 @@ function disconnect_draw(enable, res_count, conn_count) {
     //textarea_device_on(disconn_owner_text, disconn_owner_text[a], res_count, 1);
   }
 }
+
 function ConnentDeviceCheck(conn_count) {
-  if(connect_Standard != 0 && connect_Standard > conn_count) {
+  if (connect_Standard != 0 && connect_Standard > conn_count) {
     connect_radius -= 80;
     disconnect_radius -= 80;
     device_Five_Check = 0;
     return;
   }
-  if(conn_count % 5 == 0 && conn_count != 0) {
-    if(device_Five_Check == 0) {
+  if (conn_count % 5 == 0 && conn_count != 0) {
+    if (device_Five_Check == 0) {
       connect_radius += 80;
       disconnect_radius += 80;
       device_Five_Check = 1;
@@ -641,7 +753,7 @@ function ConnentDeviceCheck(conn_count) {
       return;
     }
   }
-  if(device_Five_Check == 1 && conn_count % 5 != 0) {
+  if (device_Five_Check == 1 && conn_count % 5 != 0) {
     device_Five_Check = 0;
   }
 }
@@ -654,7 +766,7 @@ function ConnentDeviceCheck(conn_count) {
  */
 function connect_draw(enable, res_count, conn_count) {
 
-  if(conn_count == 0) {
+  if (conn_count == 0) {
     stage.add(connect_device_Layer);
     stage.add(connect_text_Layer);
     stage.add(connect_line_Layer);
