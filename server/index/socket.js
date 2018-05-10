@@ -301,6 +301,7 @@ function disconnect_section(socket) {
 
 function deviceDataConnDecide() {
   console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+  console.log("device_data 검사 시작");
   for(let a = 0;a < device_data.length; a++) {
     const result = execSync('arp -n ' + device_data[a]['IP Address'] + ' | awk NR==2 | awk \'{print $3}\'', {
       encoding: 'utf8'
