@@ -74,6 +74,10 @@ function socket_connect_draw() {
     function(data) {
       ChangeDisconnOwner(data);
     });
+  socket.on('Conntextchange',
+    function(data) {
+      ChangeDisconnOwner(data);
+    });
 }
 
 function ChangeDisconnOwner(data) {
@@ -81,6 +85,17 @@ function ChangeDisconnOwner(data) {
     if (disconnect_data[e]['MAC Address'] == data['MAC Address']) {
       disconnect_data[e]['owner'] = data['owner'];
       DisconnOwnerChange(disconnect_data[e]['MAC Address'], disconnect_data[e]['owner']);
+      ////
+      break;
+    }
+  }
+}
+
+function ChangeConnOwner(data) {
+  for (var e = 0; e < connect_data.length; e++) {
+    if (connect_data[e]['MAC Address'] == data['MAC Address']) {
+      connect_data[e]['owner'] = data['owner'];
+      ConnOwnerChange(connect_data[e]['MAC Address'], connect_data[e]['owner']);
       ////
       break;
     }

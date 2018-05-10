@@ -812,6 +812,13 @@ function DisconnOwnerChange(macAddr, text) {
   stage.add(disconn_owner_Layer);
 }
 
+function ConnOwnerChange(macAddr, text) {
+  let tmpText = conn_owner_Layer.findOne('#' + macAddr);
+  tmpText.text(text);
+  conn_owner_Layer.add(tmpText);
+  stage.add(conn_owner_Layer);
+}
+
 function ConnentDeviceCheck(conn_count) {
   if (connect_Standard != 0 && connect_Standard > conn_count) {
     if(device_NotFive_Check == 0) {

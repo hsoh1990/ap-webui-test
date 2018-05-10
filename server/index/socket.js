@@ -45,9 +45,13 @@ io.sockets.on('connect', function(socket) {
 
   socket.on('owner__disconnect', function(data) {
     const parse_data = owner_device_section(data);
-    data_disconn_owner_broadcasting(parse_data);
+    data_Disconn_owner_broadcasting(parse_data);
   });
 
+  socket.on('owner__connect', function(data) {
+    const parse_data = owner_device_section(data);
+    data_Conn_owner_broadcasting(parse_data);
+  });
 });
 
 function owner_ap_section(data) {
@@ -98,10 +102,17 @@ function owner_device_section(data) {
   return parse_data[a];
 }
 
-function data_disconn_owner_broadcasting(result_data) {
+function data_Disconn_owner_broadcasting(result_data) {
   console.log("Disconnect 소유자 이름 변경 - broadcasting");
   for (var a = 0; a < sockets.length; a++) {
     sockets[a].emit('Disconntextchange', result_data);
+  }
+}
+
+function data_Conn_owner_broadcasting(result_data) {
+  console.log("Connect 소유자 이름 변경 - broadcasting");
+  for (var a = 0; a < sockets.length; a++) {
+    sockets[a].emit('Conntextchange', result_data);
   }
 }
 
@@ -302,7 +313,7 @@ function disconnect_section(socket) {
 function deviceDataConnDecide() {
   console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
   console.log("device_data 검사 시작");
-  for(let a = 0;a < device_data.length; a++) {
+  for (let a = 0; a < device_data.length; a++) {
     const result = execSync('arp -n ' + device_data[a]['IP Address'] + ' | awk NR==2 | awk \'{print $3}\'', {
       encoding: 'utf8'
     });
@@ -381,7 +392,7 @@ function arp_req(a, data__, data_key, resolve, reject) {
 
 function promise_resolve(result) {
   const data_check = device_data_save(device_data, result);
-  if(data_check['change'] == null) {
+  if (data_check['change'] == null) {
     device_data = data_check;
     data_arp_broadcasting(device_data);
   }
@@ -389,7 +400,7 @@ function promise_resolve(result) {
 
 function promise_reject(result) {
   const data_check = device_data_save(device_data, result);
-  if(data_check['change'] == null) {
+  if (data_check['change'] == null) {
     device_data = data_check;
     data_arp_broadcasting(device_data);
   }
@@ -397,7 +408,7 @@ function promise_reject(result) {
 
 function device_data_save(device_data, resultData) {
   for (var a = 0; a < device_data.length; a++) {
-    if (device_data[a]['MAC Address'] == resultData['MAC Address']) {//전에 연결했었던 기기
+    if (device_data[a]['MAC Address'] == resultData['MAC Address']) { //전에 연결했었던 기기
       if (device_data[a]['arp'] != resultData['arp']) {
         device_data[a]['arp'] = resultData['arp']
         console.log("연결 상태 변경");
@@ -412,7 +423,7 @@ function device_data_save(device_data, resultData) {
       }
     }
   }
-  return Newdevice_data_push(resultData);//새로운 기기 추가
+  return Newdevice_data_push(resultData); //새로운 기기 추가
 }
 
 function Newdevice_data_push(deviceData) {
