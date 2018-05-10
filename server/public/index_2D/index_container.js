@@ -308,8 +308,8 @@ function addApOwnerText(enable__, ap_data) {
 
   if (enable__['owner'] == 1) {
     ap_owner_layer.add(owner_text);
-    stage.add(ap_owner_layer);
   }
+  stage.add(ap_owner_layer);
 
   ApWlanTextareaOn(owner_text, ap_owner_layer, ap_data, 1);
 }
@@ -401,8 +401,8 @@ function addWlanOwnerText(enable__, wlan_data) {
 
   if (enable__['owner'] == 1) {
     wlan_owner_layer.add(owner_text);
-    stage.add(wlan_owner_layer);
   }
+  stage.add(wlan_owner_layer);
 
   ApWlanTextareaOn(owner_text, wlan_owner_layer, wlan_data, 2);
 }
@@ -776,6 +776,17 @@ function disconnect_draw(enable, res_count, conn_count) {
 }
 
 function addDisConnOwnerText(x, y, enable__, res_count, index, type) {
+  if(type == 1) {
+    if(enable__['owner'] == 0) {
+      stage.add(disconn_owner_Layer);
+      return;
+    }
+  } else if(type == 2) {
+    if(enable__['owner'] == 0) {
+      stage.add(conn_owner_Layer);
+      return;
+    }
+  }
   var owner_text = new Konva.Text({
     x: x - 138,
     text: res_count[index]['owner'],
