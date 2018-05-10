@@ -767,29 +767,16 @@ function disconnect_draw(enable, res_count, conn_count) {
       cornerRadius: 10
     });
 
-    var owner_text = new Konva.Text({
-      x: x - 138,
-      y: y - 93,
-      text: res_count[a]['owner'],
-      fontSize: 18,
-      fontFamily: 'Calibri',
-      fill: '#555',
-      width: 320,
-      padding: 20,
-      align: 'center'
-    });
-    //disconn_owner_text.push(owner_text);
-
     disconnect_text_Layer.add(devicetextbox);
     disconnect_text_Layer.add(devicetext);
     stage.add(disconnect_line_Layer);
     stage.add(disconnect_text_Layer);
 
-    addDisConnOwnerText(x, y, enable__, res_count, a);
+    addDisConnOwnerText(x, y, enable__, res_count, a, 1);
   }
 }
 
-function addDisConnOwnerText(x, y, enable__, res_count, index) {
+function addDisConnOwnerText(x, y, enable__, res_count, index, type) {
   var owner_text = new Konva.Text({
     x: x - 138,
     text: res_count[index]['owner'],
@@ -801,21 +788,22 @@ function addDisConnOwnerText(x, y, enable__, res_count, index) {
     align: 'center',
     id: res_count[index]['MAC Address']
   });
-  if(index == 1) {
+  if(type == 1) {
     owner_text.y(y - 78);
-  } else if (index == 2) {
-    console.log("y === " + y);
-    owner_text.y(y - 93);
-  }
 
-  if (enable__['owner'] == 1) {
     disconn_owner_Layer.add(owner_text);
     stage.add(disconn_owner_Layer);
+
+    textarea_device_on(owner_text, res_count[index], 1);
+  } else if (type == 2) {
+    owner_text.y(y - 93);
+
+    conn_owner_Layer.add(owner_text);
+    stage.add(conn_owner_Layer);
+
+    textarea_device_on(owner_text, res_count[index], 2);
   }
 
-  textarea_device_on(owner_text, res_count[index], 1)
-
-  //ApWlanTextareaOn(owner_text, wlan_owner_layer, wlan_data, 2);
 }
 function DisconnOwnerChange(macAddr, text) {
   let tmpText = disconn_owner_Layer.findOne('#' + macAddr);
@@ -930,18 +918,6 @@ function connect_draw(enable, res_count, conn_count) {
       cornerRadius: 10
     });
 
-    var owner_text = new Konva.Text({
-      x: x - 138,
-      y: y - 93,
-      text: res_count[a]['owner'],
-      fontSize: 18,
-      fontFamily: 'Calibri',
-      fill: '#555',
-      width: 320,
-      padding: 20,
-      align: 'center'
-    });
-    //conn_owner_text.push(owner_text);
 
     connect_text_Layer.add(devicetextbox);
     connect_text_Layer.add(devicetext);
@@ -949,7 +925,7 @@ function connect_draw(enable, res_count, conn_count) {
     stage.add(connect_line_Layer);
     stage.add(connect_text_Layer);
 
-    //textarea_device_on(conn_owner_text, conn_owner_text[a], res_count, 2);
+    addDisConnOwnerText(x, y, enable__, res_count, a, 2);
   }
 }
 
