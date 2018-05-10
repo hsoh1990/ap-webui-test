@@ -792,7 +792,6 @@ function disconnect_draw(enable, res_count, conn_count) {
 function addDisConnOwnerText(x, y, enable__, res_count, index) {
   var owner_text = new Konva.Text({
     x: x - 138,
-    y: y - 78,
     text: res_count[index]['owner'],
     fontSize: 18,
     fontFamily: 'Calibri',
@@ -802,6 +801,11 @@ function addDisConnOwnerText(x, y, enable__, res_count, index) {
     align: 'center',
     id: res_count[index]['MAC Address']
   });
+  if(index == 1) {
+    owner_text.y(y - 78);
+  } else if (index == 2) {
+    owner_text.y(y - 93);
+  }
 
   if (enable__['owner'] == 1) {
     disconn_owner_Layer.add(owner_text);
