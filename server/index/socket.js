@@ -18,6 +18,12 @@ var read_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
 var device_data = JSON.parse(read_data);
 
 /**
+ * 소켓이 접속되기전, arp함수가 실행되기 전에 device_data의 ip들에 대한
+ * ARP 값을 얻어보고, 반영한다.
+ * @return {[type]}    없음
+ */
+deviceDataConnDecide();
+/**
  * 소켓 접속 부분
  * @param  {[type]} socket 해당 사용자의 접속 소켓
  * @return {[type]}
@@ -277,7 +283,6 @@ function disconnect_section(socket) {
  * ARP 함수 실행 전에,  device_data 값에대한 ARP를 던져서 반영한다.
  * @return {[type]} 없음
  */
-deviceDataConnDecide();
 ! function arp_repeat() {
   arp_count++;
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
