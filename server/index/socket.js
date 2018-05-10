@@ -277,7 +277,7 @@ function disconnect_section(socket) {
  * ARP 함수 실행 전에,  device_data 값에대한 ARP를 던져서 반영한다.
  * @return {[type]} 없음
  */
-
+deviceDataConnDecide();
 ! function arp_repeat() {
   arp_count++;
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
