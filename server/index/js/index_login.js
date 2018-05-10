@@ -140,7 +140,7 @@ function ipOnoff() {
   if (document.getElementById("ipenable").value == 1) {
     document.getElementById("ipenable").value = 0;
     enable__['ip'] = 0;
-  } else if (value == 0) {
+  } else if (document.getElementById("ipenable").value == 0) {
     document.getElementById("ipenable").value = 1;
     enable__['ip'] = 1;
   }
