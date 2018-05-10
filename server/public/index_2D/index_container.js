@@ -785,31 +785,47 @@ function disconnect_draw(enable, res_count, conn_count) {
     stage.add(disconnect_line_Layer);
     stage.add(disconnect_text_Layer);
 
-    addDisconnOwnerText(x, y, enable__, res_count, a);
+    addDisConnOwnerText(x, y, enable__, res_count, a);
   }
 }
 
-function addDisconnOwnerText(x, y, enable__, res_count, index) {
-
-  var owner_text = new Konva.Text({
-    x: x - 138,
-    y: y - 93,
-    text: res_count[index]['owner'],
-    fontSize: 18,
-    fontFamily: 'Calibri',
-    fill: '#555',
-    width: 320,
-    padding: 20,
-    align: 'center',
-    id: res_count[index]['MAC Address']
-  });
+function addDisConnOwnerText(x, y, enable__, res_count, index) {
+  var owner_text;
+  if(index == 1) {
+    owner_text = new Konva.Text({
+      x: x - 138,
+      y: y - 78,
+      text: res_count[index]['owner'],
+      fontSize: 18,
+      fontFamily: 'Calibri',
+      fill: '#555',
+      width: 320,
+      padding: 20,
+      align: 'center',
+      id: res_count[index]['MAC Address']
+    });
+    textarea_device_on(owner_text, res_count[index], 1)
+  }
+  else if (index == 2) {
+    owner_text = new Konva.Text({
+      x: x - 138,
+      y: y - 93,
+      text: res_count[index]['owner'],
+      fontSize: 18,
+      fontFamily: 'Calibri',
+      fill: '#555',
+      width: 320,
+      padding: 20,
+      align: 'center',
+      id: res_count[index]['MAC Address']
+    });
+    textarea_device_on(owner_text, res_count[index], 1)
+  }
 
   if (enable__['owner'] == 1) {
     disconn_owner_Layer.add(owner_text);
     stage.add(disconn_owner_Layer);
   }
-
-  textarea_device_on(owner_text, res_count[index], 1)
 
   //ApWlanTextareaOn(owner_text, wlan_owner_layer, wlan_data, 2);
 }

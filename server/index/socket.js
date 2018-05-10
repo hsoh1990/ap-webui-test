@@ -322,6 +322,7 @@ function deviceDataConnDecide() {
     function(err, data) {})
   console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
 }
+
 function arp_promise() {
   var data__ = data_get();
   var data_key = Object.getOwnPropertyNames(data__);
