@@ -76,7 +76,7 @@ function socket_connect_draw() {
     });
   socket.on('Conntextchange',
     function(data) {
-      ChangeDisconnOwner(data);
+      ChangeConnOwner(data);
     });
 }
 
