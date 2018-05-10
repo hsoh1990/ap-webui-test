@@ -805,7 +805,6 @@ function addDisConnOwnerText(x, y, enable__, res_count, index, type) {
 
 }
 function DisconnOwnerChange(macAddr, text) {
-  console.log("진입1");
   let tmpText = disconn_owner_Layer.findOne('#' + macAddr);
   tmpText.text(text);
   disconn_owner_Layer.add(tmpText);
@@ -813,7 +812,6 @@ function DisconnOwnerChange(macAddr, text) {
 }
 
 function ConnOwnerChange(macAddr, text) {
-  console.log("진입2");
   let tmpText = conn_owner_Layer.findOne('#' + macAddr);
   tmpText.text(text);
   conn_owner_Layer.add(tmpText);
