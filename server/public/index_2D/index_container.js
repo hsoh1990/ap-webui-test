@@ -804,6 +804,7 @@ function addDisConnOwnerText(x, y, enable__, res_count, index) {
   if(index == 1) {
     owner_text.y(y - 78);
   } else if (index == 2) {
+    console.log("y === " + y);
     owner_text.y(y - 93);
   }
 
