@@ -273,9 +273,11 @@ function disconnect_section(socket) {
 }
 
 /**
- * 12초에 1번씩 arp를 요청하기 위한 자기실행함수 부분
+ * 12초에 1번씩 arp를 요청하기 위한 자기실행함수 부분,
+ * ARP 함수 실행 전에,  device_data 값에대한 ARP를 던져서 반영한다.
  * @return {[type]} 없음
  */
+
 ! function arp_repeat() {
   arp_count++;
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -292,6 +294,28 @@ function disconnect_section(socket) {
   }, 1000);
 }()
 
+function deviceDataConnDecide() {
+  console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+  for(let a = 0;a < device_data.length; a++) {
+    const result = execSync('arp -n ' + device_data[a]['IP Address'] + ' | awk NR==2 | awk \'{print $3}\'', {
+      encoding: 'utf8'
+    });
+    if (result.match(/:/g) != null) {
+      if (result.match(/:/g).length == 5) {
+        device_data[a]['arp'] = 1;
+
+      }
+
+    } else {
+      console.log(device_data[a]['IP Address'] + " : MAC 주소를 못찾음.");
+      device_data[a]['arp'] = 0;
+    }
+  }
+  fs.writeFileSync(__dirname + "/data/" + "device_data.json",
+    JSON.stringify(device_data, null, '\t'), "utf8",
+    function(err, data) {})
+  console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+}
 function arp_promise() {
   var data__ = data_get();
   var data_key = Object.getOwnPropertyNames(data__);
