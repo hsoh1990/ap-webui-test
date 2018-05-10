@@ -122,10 +122,57 @@ function socket_event_device_data(data, type) {
     }
   }
 
+  ReDraw();
+}
+
+function ReDraw() {
+  removeChapes();
   ConnentDeviceCheck(connect_data.length);
   disconnect_draw(enable__, disconnect_data, disconnect_data.length);
   connect_draw(enable__, connect_data, connect_data.length)
   wlan_ex_net_draw(enable__, exnet_data, exnet_data.length)
   wlan_draw(enable__, wlan_data);
   addAp(enable__, ap_data);
+}
+
+function ipOnoff() {
+
+  if (document.getElementById("ipenable").value == 1) {
+    document.getElementById("ipenable").value = 0;
+    enable__['ip'] = 0;
+  } else if (value == 0) {
+    document.getElementById("ipenable").value = 1;
+    enable__['ip'] = 1;
+  }
+  ReDraw();
+}
+function macOnoff() {
+  if (document.getElementById("macenable").value == 1) {
+    document.getElementById("macenable").value = 0;
+    enable__['mac'] = 0;
+  } else if (document.getElementById("macenable").value == 0) {
+    document.getElementById("macenable").value = 1;
+    enable__['mac'] = 1;
+  }
+  ReDraw();
+}
+function hostnameOnoff() {
+  if (document.getElementById("hostnameenable").value == 1) {
+    document.getElementById("hostnameenable").value = 0;
+    enable__['hostname'] = 0;
+  } else if (document.getElementById("hostnameenable").value == 0) {
+    document.getElementById("hostnameenable").value = 1;
+    enable__['hostname'] = 1;
+  }
+  ReDraw();
+}
+function ownerOnoff() {
+  if (document.getElementById("ownerenable").value == 1) {
+    document.getElementById("ownerenable").value = 0;
+    enable__['owner'] = 0;
+  } else if (document.getElementById("ownerenable").value == 0) {
+    document.getElementById("ownerenable").value = 1;
+    enable__['owner'] = 1;
+  }
+  ReDraw();
 }
