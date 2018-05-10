@@ -804,7 +804,6 @@ function addDisConnOwnerText(x, y, enable__, res_count, index) {
       align: 'center',
       id: res_count[index]['MAC Address']
     });
-    textarea_device_on(owner_text, res_count[index], 1)
   }
   else if (index == 2) {
     owner_text = new Konva.Text({
@@ -819,13 +818,15 @@ function addDisConnOwnerText(x, y, enable__, res_count, index) {
       align: 'center',
       id: res_count[index]['MAC Address']
     });
-    textarea_device_on(owner_text, res_count[index], 1)
   }
 
   if (enable__['owner'] == 1) {
     disconn_owner_Layer.add(owner_text);
     stage.add(disconn_owner_Layer);
   }
+
+  if(index == 1) {textarea_device_on(owner_text, res_count[index], index)}
+  else if (index == 2) {textarea_device_on(owner_text, res_count[index], index)}
 
   //ApWlanTextareaOn(owner_text, wlan_owner_layer, wlan_data, 2);
 }
