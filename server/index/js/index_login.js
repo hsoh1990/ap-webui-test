@@ -1,3 +1,4 @@
+var isConnect = 0;
 /**
  * 소켓 접속 부분 - 전역변수 선언
  * @return {[type]} 없음
@@ -6,7 +7,6 @@ function init_() {
   socket = io.connect('http://172.16.171.181:8080');
   //connection_text(10, 1);
   //전역변수 선언
-  isConnect = 0;
   connect_data = new Array();
   disconnect_data = new Array();
   ap_data = new Array();
