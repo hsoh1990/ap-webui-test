@@ -165,7 +165,7 @@ exports.install_data_get = function() {
     encoding: 'utf8'
   });
   var data = fs.readFileSync(__dirname + "/../../hub_package_data/file", 'utf8');
-  console.log("data = " + data);
+  console.log("data = " + data + ", " + data[0]);
   fs.unlink(__dirname + "/../../hub_package_data/file", function(err) {
     if (err) throw err;
     console.log('임시 패키지 전체 목록 파일 삭제 완료');
