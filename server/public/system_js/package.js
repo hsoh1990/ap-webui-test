@@ -48,7 +48,7 @@ function wait(msecs) {
 }
 
 function uninstall_button(select) {
-  let content = "패키지를 제거하는 중 입니다..."
+  let content = "패키지를 제거하는 중 입니다...<br>제거 후 재시작 됩니다."
   document.getElementById("package_uninstall_wait").innerHTML = content;
   const xhr = new XMLHttpRequest();
   // by default async
@@ -109,7 +109,7 @@ function install_output(install_data) {
 }
 
 function install_button(select) {
-  let content = "해시값이 같습니다.<br>설치중 입니다..."
+  let content = "설치중 입니다...<br>설치 후 재시작 됩니다."
   document.getElementById("package_install_wait").innerHTML = content;
   const xhr = new XMLHttpRequest();
   // by default async
