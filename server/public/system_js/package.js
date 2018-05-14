@@ -60,8 +60,9 @@ function uninstall_button(select) {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
       setTimeout(function() {
+          wait(4500);
           window.location.reload();
-        }, 5000);
+        }, 500);
     }
   };
   xhr.onerror = function() {
@@ -121,8 +122,9 @@ function install_button(select) {
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
       if (this.response['success'] == 1) {
         setTimeout(function() {
+            wait(4500);
             window.location.reload();
-          }, 5000);
+          }, 500);
       } else if (this.response['success'] == 0) {
         alert("해시값이 다릅니다.");
       }
