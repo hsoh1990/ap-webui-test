@@ -245,10 +245,10 @@ exports.hash_check = function(select) {
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
       var package_name = data[install_data_key[i]]['pack_name'];
-      const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.242:9010/download?type=package\\&name=' + package_name, {
+      const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.242:9010/download?type=package' + '\&' + 'name=' + package_name, {
         encoding: 'utf8'
       });
-      const download_hash = execSync('cd package_tmp/ && wget -O ' + package_name + '.md5 http://39.119.118.242:9010/download?type=hash\\&name=' + package_name, {
+      const download_hash = execSync('cd package_tmp/ && wget -O ' + package_name + '.md5 http://39.119.118.242:9010/download?type=hash' + '\&' + 'name=' + package_name, {
         encoding: 'utf8'
       });
 
