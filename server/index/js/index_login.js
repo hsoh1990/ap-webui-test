@@ -54,12 +54,10 @@ function socket_connect_draw() {
   socket.on('isConnect',
     function(data) {
       isConnect = data;
-      }
     });
   socket.on('isDisconnect',
     function(data) {
       isConnect = data;
-      }
     });
   socket.on('device_data',
     function(data) {
