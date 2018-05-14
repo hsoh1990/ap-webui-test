@@ -164,7 +164,8 @@ exports.install_data_get = function() {
   execSync('cd hub_package_data && wget http://39.119.118.242:9010/file', {
     encoding: 'utf8'
   });
-  var data = fs.readFileSync(__dirname + "/../../hub_package_data/file", 'utf8');
+  var data = new Array();
+  data = fs.readFileSync(__dirname + "/../../hub_package_data/file", 'utf8');
   console.log("data = " + data + ", " + data[0]);
   fs.unlink(__dirname + "/../../hub_package_data/file", function(err) {
     if (err) throw err;
