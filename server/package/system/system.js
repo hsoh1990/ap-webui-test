@@ -166,7 +166,7 @@ exports.install_data_get = function() {
   });
   var data = fs.readFileSync(__dirname + "/../../hub_package_data/file", 'utf8');
 
-  fs.unlink(__dirname + "/../../hub_package_data/package", function(err) {
+  fs.unlink(__dirname + "/../../hub_package_data/file", function(err) {
     if (err) throw err;
     console.log('successfully deleted package');
   });
