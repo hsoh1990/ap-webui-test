@@ -166,7 +166,7 @@ exports.install_data_get = function() {
   });
   var data = new Array();
   var dataString = fs.readFileSync(__dirname + "/../../hub_package_data/file", 'utf8');
-  console.log("data = " + data + ", " + data[0]);
+  console.log("dataString = " + dataString);
   data = dataString.split(',');
   fs.unlink(__dirname + "/../../hub_package_data/file", function(err) {
     if (err) throw err;
@@ -233,62 +233,22 @@ exports.uninstall_package = function(select) {
   }
 }
 
-exports.find_installed_data = function() {
-  execSync('cd hub_package_data && wget http://39.119.118.242:3000/file', {
-    encoding: 'utf8'
-  });
-  var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
-  var installed_files = fs.readdirSync(__dirname + '/../');
-
-  data = JSON.parse(data);
-
-  var install_data_key = Object.getOwnPropertyNames(data);
-
-  fs.unlink(__dirname + "/../../hub_package_data/package", function(err) {
-    if (err) throw err;
-    console.log('successfully deleted package');
-  });
-
-  // 같은것은 삭제하는 부분
-  var tmp_arr = [];
-
-  for (var j = 0; j < Object.keys(data).length; j++) {
-    tmp_arr[j] = data[install_data_key[j]]['pack_name'];
-  }
-
-  for (var i = 0; i < installed_files.length; i++) {
-    for (var j = 0; j < tmp_arr.length; j++) {
-      if (installed_files[i] == tmp_arr[j]) {
-        for (var k = 0; k < Object.keys(data).length; k++) {
-          if (data[install_data_key[k]]['pack_name'] == tmp_arr[j]) {
-            delete data[install_data_key[k]];
-            install_data_key.splice(k, 1);
-            break;
-          }
-        }
-      }
-    }
-  }
-
-  return data;
-}
-
 /**
  * 해시값 체크하는 부분
  * @param  {[type]} select [description]
  * @return {[type]}        [description]
  */
 exports.hash_check = function(select) {
-  var data = exports.find_installed_data();
+  var data = exports.install_data_get();
   install_data_key = Object.getOwnPropertyNames(data);
 
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
       var package_name = data[install_data_key[i]]['pack_name'];
-      const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.152:3000/api/download?name=' + package_name, {
+      const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.152:3000/api/download?type=download&name=' + package_name, {
         encoding: 'utf8'
       });
-      const download_hash = execSync('cd package_tmp/ && wget -O ' + package_name + '.md5 http://39.119.118.152:3000/api/hash?name=' + package_name, {
+      const download_hash = execSync('cd package_tmp/ && wget -O ' + package_name + '.md5 http://39.119.118.152:3000/api/hash?type=hash&name=' + package_name, {
         encoding: 'utf8'
       });
 
