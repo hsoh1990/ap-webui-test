@@ -173,7 +173,7 @@ exports.install_data_get = function() {
 
   var files = fs.readdirSync(__dirname + '/../');
   var sidemenus = {};
-  for(let a = 0;a < data.length; a++) {
+  for(var a = 0;a < data.length; a++) {
     let dd = "package _" + String(i + 1);
     let sidemenu = {};
     if (data[a].indexOf(".zip") != -1) {
