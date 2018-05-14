@@ -168,15 +168,15 @@ exports.install_data_get = function() {
 
   fs.unlink(__dirname + "/../../hub_package_data/file", function(err) {
     if (err) throw err;
-    console.log('successfully deleted package');
+    console.log('임시 패키지 전체 목록 파일 삭제 완료');
   });
 
   var files = fs.readdirSync(__dirname + '/../');
   var sidemenus = {};
   for(let a = 0;a < data.length; a++) {
-    var dd = "package _" + String(i + 1);
-    var sidemenu = {};
-    if (dir_name.indexOf(".zip") != -1) {
+    let dd = "package _" + String(i + 1);
+    let sidemenu = {};
+    if (data[a].indexOf(".zip") != -1) {
       sidemenu['pack_name'] = data[a].replace('.zip', '');
       sidemenus[dd] = sidemenu;
     }
