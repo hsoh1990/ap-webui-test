@@ -46,6 +46,8 @@ function wait(msecs) {
   }
 }
 function uninstall_button(select) {
+  let content = "패키지를 제거하는 중 입니다..."
+  document.getElementById("package_uninstall_wait").innerHTML = content;
   const xhr = new XMLHttpRequest();
   // by default async
   xhr.open("GET", "/api/system?type=uninstallbutton&select=" + select, true);
@@ -55,9 +57,6 @@ function uninstall_button(select) {
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       //alert("전송 결과 메시지 : " + JSON.stringify(this.response));
-      let content = "패키지를 제거하는 중 입니다..."
-      document.getElementById("package_uninstall_wait").innerHTML = content;
-      wait(5000);
       window.location.reload();
     }
   };
@@ -65,6 +64,7 @@ function uninstall_button(select) {
     console.log("confirm");
   };
   xhr.send();
+  wait(5000);
 }
 
 function install_get() { //install 데이터를 받아옵니다
