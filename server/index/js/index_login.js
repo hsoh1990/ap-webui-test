@@ -6,6 +6,7 @@ function init_() {
   socket = io.connect('http://172.16.171.181:8080');
   //connection_text(10, 1);
   //전역변수 선언
+  isConnect = 0;
   connect_data = new Array();
   disconnect_data = new Array();
   ap_data = new Array();
@@ -21,6 +22,27 @@ function init_() {
   devices_data = null;
 }
 
+! function Connect_repeat() {
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  //반복하는 부분
+  IsConnect();
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  setTimeout(function() {
+    Connect_repeat();
+  }, 400);
+}()
+
+function IsConnect() {
+  let content = "";
+  if (isConnect == 0) {
+    content += "연결을 확인하는 중입니다...";
+    document.getElementById("connent_text").innerHTML = content;
+  } else if (isConnect == 1) {
+    content += "연결 확인이 완료되었습니다.";
+    document.getElementById("connent_text").innerHTML = content;
+  }
+}
+
 /**
  * 최초 토폴로지 사이트 접속시 onload되는 함수
  * init_에서 전역변수 설정
@@ -29,6 +51,16 @@ function init_() {
 function socket_connect_draw() {
   init_();
 
+  socket.on('isConnect',
+    function(data) {
+      isConnect = data;
+      }
+    });
+  socket.on('isDisconnect',
+    function(data) {
+      isConnect = data;
+      }
+    });
   socket.on('device_data',
     function(data) {
       console.log("device_data = " + JSON.stringify(data));

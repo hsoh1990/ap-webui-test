@@ -31,7 +31,10 @@ deviceDataConnDecide();
 io.sockets.on('connect', function(socket) {
   socket_init(socket);
 
+  socket.emit('isConnect', 1);
+
   socket.on('disconnect', function() {
+    socket.emit('isDisconnect', 0);
     disconnect_section(socket);
   });
 
@@ -411,6 +414,7 @@ function device_data_save(device_data, resultData) {
     if (device_data[a]['MAC Address'] == resultData['MAC Address']) { //전에 연결했었던 기기
       if (device_data[a]['arp'] != resultData['arp']) {
         device_data[a]['arp'] = resultData['arp']
+        device_data[a]['IP Address'] = resultData['IP Address'];
         console.log("연결 상태 변경");
         fs.writeFileSync(__dirname + "/data/" + "device_data.json",
           JSON.stringify(device_data, null, '\t'), "utf8",
