@@ -156,15 +156,21 @@ exports.package_data_get = function() {
   return sidemenus;
 }
 
+/**
+ * 패키지 관리 사이트에 저장된 모든 패키지 리스트 불러오기
+ * @return {[type]} [description]
+ */
 exports.install_data_get = function() {
-  execSync('cd hub_package_data && wget http://39.119.118.152:3000/api/package', {
+  execSync('cd hub_package_data && wget http://39.119.118.242:9010/file', {
     encoding: 'utf8'
   });
   var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
+  console.log(data);
   fs.unlink(__dirname + "/../../hub_package_data/package", function(err) {
     if (err) throw err;
     console.log('successfully deleted package');
   });
+
   var files = fs.readdirSync(__dirname + '/../');
   data = JSON.parse(data);
   var install_data_key = Object.getOwnPropertyNames(data);
@@ -217,7 +223,7 @@ exports.uninstall_package = function(select) {
 }
 
 exports.find_installed_data = function() {
-  execSync('cd hub_package_data && wget http://39.119.118.152:3000/api/package', {
+  execSync('cd hub_package_data && wget http://39.119.118.242:3000/file', {
     encoding: 'utf8'
   });
   var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
@@ -255,6 +261,12 @@ exports.find_installed_data = function() {
 
   return data;
 }
+
+/**
+ * 해시값 체크하는 부분
+ * @param  {[type]} select [description]
+ * @return {[type]}        [description]
+ */
 exports.hash_check = function(select) {
   var data = exports.find_installed_data();
   install_data_key = Object.getOwnPropertyNames(data);
