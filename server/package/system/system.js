@@ -182,6 +182,7 @@ exports.install_data_get = function() {
     }
   }
   data = sidemenus;
+  console.log(data);
   var install_data_key = Object.getOwnPropertyNames(data);
   var tmp_arr = [];
 
