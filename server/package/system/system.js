@@ -164,14 +164,24 @@ exports.install_data_get = function() {
   execSync('cd hub_package_data && wget http://39.119.118.242:9010/file', {
     encoding: 'utf8'
   });
-  var data = fs.readFileSync(__dirname + "/../../hub_package_data/package", 'utf8');
-  console.log(data);
+  var data = fs.readFileSync(__dirname + "/../../hub_package_data/file", 'utf8');
+
   fs.unlink(__dirname + "/../../hub_package_data/package", function(err) {
     if (err) throw err;
     console.log('successfully deleted package');
   });
 
   var files = fs.readdirSync(__dirname + '/../');
+  var sidemenus = {};
+  for(let a = 0;a < data.length; a++) {
+    var dd = "package _" + String(i + 1);
+    var sidemenu = {};
+    if (dir_name.indexOf(".zip") != -1) {
+      sidemenu['pack_name'] = data[a].replace('.zip', '');
+      sidemenus[dd] = sidemenu;
+    }
+  }
+  data = sidemenus;
   data = JSON.parse(data);
   var install_data_key = Object.getOwnPropertyNames(data);
   var tmp_arr = [];
