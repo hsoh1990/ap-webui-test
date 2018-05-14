@@ -254,7 +254,7 @@ exports.hash_check = function(select) {
 
       const hash_make = md5File.sync(__dirname + '/../../package_tmp/' + package_name + '.zip');
       var hash_installed = fs.readFileSync(__dirname + "/../../package_tmp/" + package_name + '.md5', 'utf8');
-      hash_installed.replace(/\n/g, "");
+      hash_installed.replace(/\r/g, "");
       console.log("installed md5 hash : " + hash_installed);
       console.log("download zip hash : " + hash_make);
 
