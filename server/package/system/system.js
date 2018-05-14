@@ -170,11 +170,11 @@ exports.install_data_get = function() {
     if (err) throw err;
     console.log('임시 패키지 전체 목록 파일 삭제 완료');
   });
-
+  console.log(data);
   var files = fs.readdirSync(__dirname + '/../');
   var sidemenus = {};
   for(var a = 0;a < data.length; a++) {
-    let dd = "package _" + String(i + 1);
+    let dd = "package _" + String(a + 1);
     let sidemenu = {};
     if (data[a].indexOf(".zip") != -1) {
       sidemenu['pack_name'] = data[a].replace('.zip', '');
