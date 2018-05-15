@@ -191,17 +191,20 @@
 </head>
 
 <body>
-  <form class="form-1" action="/login_check" method="post" name="frm_login" id="frm_login">
-    <p class="field">
-      <input type="text" name="id" />
-      <i class="icon-user icon-large"></i>
-    </p>
-    <p class="field">
-      <input type="password" name="password" />
-      <i class="icon-lock icon-large"></i>
-    </p>
-    <input class="button" type="submit" value="Login" />
-  </form>
+  <div class="login-form">
+    <form action="/login_check" method="post" name="frm_login" id="frm_login">
+      <h2 class="text-center">Log in</h2>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="id" name="id" required="required">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="password" name="password" required="required">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+      </div>
+    </form>
+  </div>
 
   <script src="/js/index.js"></script>
 </body>
