@@ -22,7 +22,7 @@ module.exports = (passport) => {
         'user_id': id,
       });
     } else {
-      return done(null, false, { message: 'Fail to login.' });
+      return done(false, null)
     }
   }))
 
