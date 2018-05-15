@@ -12,17 +12,17 @@ module.exports = (passport) => {
     done(null, user);
   });
 
-  passport.use('local-login', new LocalStrategy({
+  passport.use(new LocalStrategy({
     usernameField: 'id',
     passwordField: 'password',
     passReqToCallback: true
-  }, function(req, id, password, done) {
+  }, function(id, password, done) {
     if (id === 'admin' && password === '12341234') {
       return done(null, {
         'user_id': id,
       });
     } else {
-      return done(false, null)
+      return done(null, false, { message: 'Fail to login.' });
     }
   }))
 
