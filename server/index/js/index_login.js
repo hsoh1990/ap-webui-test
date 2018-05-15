@@ -30,7 +30,7 @@ function init_() {
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   setTimeout(function() {
     Connect_repeat();
-  }, 400);
+  }, 500);
 }()
 
 function IsConnect() {
