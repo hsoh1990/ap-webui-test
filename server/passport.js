@@ -16,7 +16,7 @@ module.exports = (passport) => {
     usernameField: 'id',
     passwordField: 'password',
     passReqToCallback: true
-  }, function(id, password, done) {
+  }, function(req, id, password, done) {
     if (id === 'admin' && password === '12341234') {
       return done(null, {
         'user_id': id,
