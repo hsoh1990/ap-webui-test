@@ -31,7 +31,7 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
   app.post('/login_check', function(req, res, next) {
 
     //  패스포트 모듈로 인증 시도
-    passport.authenticate('local', function(err, user, info) {
+    passport.authenticate('local-login', function(err, user, info) {
       var error = err || info;
       if (error) return res.json(401, error);
       if (!user) return res.json(404, {
@@ -39,7 +39,7 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
       });
 
       // 인증된 유저 정보로 응답
-      res.json(data = {
+      res.json({
         'check' : '1'
       });
     })(req, res, next);
