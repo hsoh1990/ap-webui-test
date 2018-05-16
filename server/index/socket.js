@@ -14,8 +14,7 @@ var io = require('socket.io').listen(8080);
  */
 var sockets = new Array();
 var arp_count = 0;
-var read_data = fs.readFileSync(__dirname + "/data/device_data.json", 'utf8');
-var device_data = JSON.parse(read_data);
+var device_data = JSON.parse(fs.readFileSync(__dirname + "/data/device_data.json", 'utf8'));
 
 /**
  * 소켓이 접속되기전, arp함수가 실행되기 전에 device_data의 ip들에 대한
@@ -209,8 +208,7 @@ exports.eth0_mac_rec = function() {
 }
 
 exports.ap_data_save = function(ip, mac, ssid) {
-  var read_data = fs.readFileSync(__dirname + "/data/ap_data.json", 'utf8');
-  var data_readed = JSON.parse(read_data);
+  var data_readed = JSON.parse(fs.readFileSync(__dirname + "/data/ap_data.json", 'utf8'));
   var data_ = {};
   data_['IP Address'] = ip;
   data_['MAC Address'] = mac;
@@ -223,8 +221,7 @@ exports.ap_data_save = function(ip, mac, ssid) {
   return data_;
 }
 exports.wlan_whois = function() {
-  var read_data = fs.readFileSync(__dirname + "/data/wlan_data.json", 'utf8');
-  var data_readed = JSON.parse(read_data);
+  var data_readed = JSON.parse(fs.readFileSync(__dirname + "/data/wlan_data.json", 'utf8'));
   var text = execSync('curl \"http://whois.kisa.or.kr/openapi/whois.jsp?query=39.119.118.152\&key=2018020617475141381350\&answer=json\"', {
     encoding: 'utf8'
   });
