@@ -15,8 +15,8 @@ module.exports = (passport) => {
   passport.use('local-login', new LocalStrategy({
     usernameField: 'id',
     passwordField: 'password',
-    passReqToCallback: true
-  }, function(req, id, password, done) {
+    passReqToCallback: false
+  }, function(id, password, done) {
     if (id === 'admin' && password === '12341234') {
       return done(null, {
         'user_id': id,
