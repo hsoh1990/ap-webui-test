@@ -36,28 +36,35 @@ echo "User is $user"
 sleep 2s
 
 echo "update 시작"
+sleep 2s
 
 apt-get update
 
 echo "upgrade 시작"
+sleep 2s
 
 apt-get upgrade -y
 
 echo "AP서버 다운로드, 압축 해제"
+sleep 2s
 
 echo "hostapd 설치 시작"
+sleep 2s
 
 apt-get install hostapd -y
 
 echo "dnsmasq 설치 시작"
+sleep 2s
 
 apt-get install dnsmasq -y
 
 echo "hostapd disable 설정"
+sleep 2s
 
 systemctl disable hostapd
 
 echo "dnsmasq disable 설정"
+sleep 2s
 
 systemctl disable dnsmasq
 
@@ -92,6 +99,7 @@ EOF
 END
 
 echo "hostapd 설정"
+sleep 2s
 
 touch /etc/hostapd/hostapd.conf
 # 입맛대로 설정
@@ -115,6 +123,7 @@ mv /etc/default/hostapd /etc/default/hostapd.orig
 mv ap-webui-test-master/server/install/hostapd.orig /etc/default/hostapd
 
 echo "dnsmasq 설정"
+sleep 2s
 
 mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
 
@@ -129,6 +138,7 @@ echo "no-resolv" | sudo tee -a /etc/dnsmasq.conf
 echo "dhcp-range=192.168.10.12, 192.168.10.200, 12h" | sudo tee -a /etc/dnsmasq.conf
 
 echo "interfaces 설정"
+sleep 2s
 
 mv /etc/network/interfaces /etc/network/interfaces.orig
 
@@ -140,7 +150,19 @@ echo "allow-hotplug wlan0" | sudo tee -a /etc/network/interfaces
 echo "iface wlan0 inet manual" | sudo tee -a /etc/network/interfaces
 echo "#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf" | sudo tee -a /etc/network/interfaces
 
+echo "rc.local 설정"
+sleep 2s
+
+mv /etc/rc.local /etc/rc.local.orig
+
+mv ap-webui-test-master/server/install/rc.local /etc/rc.local
+
+chmod +x /etc/rc.local
+
+echo "rc.local 설정 완료"
+
 echo "ipv4.ip_forward 설정"
+sleep 2s
 
 mv /etc/sysctl.conf /etc/sysctl.conf.orig
 
@@ -158,18 +180,8 @@ iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
 
 sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
-echo "rc.local 설정"
-
-mv /etc/rc.local /etc/rc.local.orig
-
-mv ap-webui-test-master/server/install/rc.local /etc/rc.local
-
-chmod +x /etc/rc.local
-
-echo "rc.local 설정 완료"
-
-echo "hostapd, dnsmasq 서비스 시작"
-
+# echo "hostapd, dnsmasq 서비스 시작"
+#
 # systemctl enable hostapd
 #
 # systemctl start hostapd
