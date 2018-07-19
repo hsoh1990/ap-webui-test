@@ -16,7 +16,6 @@ _IP=$(hostname -I) || true
 if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
-iptables-restore < /etc/iptables.ipv4.nat
 #Wifi config - if no prefered Wifi generate a hotspot
 #RPi Network Conf Bootstrapper
 
@@ -24,7 +23,7 @@ createAdHocNetwork()
 {
     echo "Creating RPI Hotspot network"
     ifconfig wlan0 down
-    ifconfig wlan0 192.168.10.1 netmask 255.255.255.0 up
+    ifconfig wlan0 192.168.10.15 netmask 255.255.255.0 up
     service dnsmasq start
     service hostapd start
     echo " "
@@ -67,5 +66,7 @@ done
 if ! $connected; then
 createAdHocNetwork
 fi
+
+iptables-restore < /etc/iptables.ipv4.nat
 
 exit 0
