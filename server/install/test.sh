@@ -61,6 +61,7 @@ echo "dnsmasq disable 설정"
 
 systemctl disable dnsmasq
 
+:<<'END'
 echo "static ip 설정"
 mv /etc/dhcpcd.conf /etc/dhcpcd.conf.orig
 
@@ -88,7 +89,7 @@ require dhcp_server_identifier
 
 slaac private
 EOF
-
+END
 
 echo "hostapd 설정"
 

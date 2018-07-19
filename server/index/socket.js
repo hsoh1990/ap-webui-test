@@ -409,7 +409,7 @@ function promise_reject(result) {
 function device_data_save(device_data, resultData) {
   for (var a = 0; a < device_data.length; a++) {
     if (device_data[a]['MAC Address'] == resultData['MAC Address']) { //전에 연결했었던 기기
-      if (device_data[a]['arp'] != resultData['arp']) {
+      if (device_data[a]['arp'] != resultData['arp'] || device_data[a]['IP Address'] != resultData['IP Address']) {
         device_data[a]['arp'] = resultData['arp']
         device_data[a]['IP Address'] = resultData['IP Address'];
         console.log("연결 상태 변경");

@@ -6,6 +6,8 @@ const {
 } = require('child_process');
 const md5File = require('md5-file');
 
+const URL = 'http://39.119.118.242:9010';
+
 exports.api_get = function() {
 
   var hostname = exports.hostname_rec();
@@ -161,7 +163,7 @@ exports.package_data_get = function() {
  * @return {[type]} [description]
  */
 exports.install_data_get = function() {
-  execSync('cd hub_package_data && wget http://39.119.118.242:9010/file', {
+  execSync('cd hub_package_data && wget ' + URL + '/file', {
     encoding: 'utf8'
   });
   var data = new Array();
@@ -245,10 +247,10 @@ exports.hash_check = function(select) {
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
       var package_name = data[install_data_key[i]]['pack_name'];
-      const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip http://39.119.118.242:9010/download?type=package' + '\\\&' + 'name=' + package_name, {
+      const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip ' + URL + '/download?type=package' + '\\\&' + 'name=' + package_name, {
         encoding: 'utf8'
       });
-      const download_hash = execSync('cd package_tmp/ && wget -O ' + package_name + '.md5 http://39.119.118.242:9010/download?type=hash' + '\\\&' + 'name=' + package_name, {
+      const download_hash = execSync('cd package_tmp/ && wget -O ' + package_name + '.md5 ' + URL + '/download?type=hash' + '\\\&' + 'name=' + package_name, {
         encoding: 'utf8'
       });
 

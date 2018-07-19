@@ -24,7 +24,7 @@ module.exports = (passport) => {
     } else {
       return done(false, null)
     }
-  }))
+  }));
 
   /*
   passport.use(new FacebookStrategy({
