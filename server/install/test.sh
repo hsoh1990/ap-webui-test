@@ -178,6 +178,8 @@ echo "hostapd, dnsmasq 서비스 시작"
 #
 # systemctl start dnsmasq
 
+:<<'END'
+
 echo "2. nodejs 설치"
 
 apt-get remove nodejs -y
@@ -193,6 +195,7 @@ npm install nodemon -g
 cd ap-webui-test-master/server/
 
 npm install
+END
 
 :<<'END'
 echo "4. mocha 설치"
