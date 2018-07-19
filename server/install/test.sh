@@ -169,6 +169,14 @@ sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
 echo "hostapd, dnsmasq 서비스 시작"
 
+systemctl enable hostapd
+
+systemctl start hostapd
+
+systemctl enable dnsmasq
+
+systemctl start dnsmasq
+
 echo "2. nodejs 설치"
 
 apt-get remove nodejs -y
