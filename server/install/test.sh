@@ -185,6 +185,7 @@ cd ap-webui-test-master/server/
 
 npm install
 
+:<<'END'
 echo "4. mocha 설치"
 
 npm install -g mocha
@@ -198,5 +199,10 @@ mv ap-webui-test-master/server/install/nodeserver.service /etc/systemd/system/no
 chmod +x /etc/systemd/system/nodeserver.service
 
 systemctl enable nodeserver
+
+END
+
+echo "기기 다시 시작..."
+sleep 2s
 
 reboot
