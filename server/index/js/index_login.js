@@ -6,13 +6,12 @@ var isConnect = 0;
 
 function ipGet() {
   const xhr = new XMLHttpRequest();
-  
-  xhr.open("GET", "/ip", true);
+
+  xhr.open("GET", "/ip", false);
   // by default async
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       var check_data = this.response;
-      console.log(check_data);
     }
   };
   xhr.onerror = function() {
@@ -20,9 +19,12 @@ function ipGet() {
   };
   xhr.send();
 }
+
 function init_() {
-  ipGet();
-  socket = io.connect('http://' + ip() + ':8080');
+  let ipAddr = new Array();
+  ipAddr = ipGet();
+  console.log(ipAddr);
+  socket = io.connect('http://' + ipAddr[0] + ':8080');
   //connection_text(10, 1);
   //전역변수 선언
   connect_data = new Array();
