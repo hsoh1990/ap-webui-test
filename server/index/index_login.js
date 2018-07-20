@@ -9,7 +9,7 @@ var arp = require('node-arp');
 exports.ip_get = function() {
   var ips = execSync("ifconfig | grep inet | grep -v inet6 | awk '{gsub(/addr:/,\"\");print $2}'").toString().trim().split("\n");
   console.log('ip : ' + ips);
-  return ips;
+  return ips[0];
 }
 
 exports.sidemenu_get = function() {

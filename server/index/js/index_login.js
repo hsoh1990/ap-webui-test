@@ -12,6 +12,8 @@ function ipGet() {
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       var check_data = this.response;
+      console.log(check_data);
+      return check_data;
     }
   };
   xhr.onerror = function() {
@@ -21,10 +23,7 @@ function ipGet() {
 }
 
 function init_() {
-  let ipAddr = new Array();
-  ipAddr = ipGet();
-  console.log(ipAddr);
-  socket = io.connect('http://' + ipAddr[0] + ':8080');
+  socket = io.connect('http://' + ipGet() + ':8080');
   //connection_text(10, 1);
   //전역변수 선언
   connect_data = new Array();
