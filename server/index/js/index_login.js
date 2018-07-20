@@ -5,6 +5,8 @@ var isConnect = 0;
  */
 
 function ipGet() {
+  const xhr = new XMLHttpRequest();
+  
   xhr.open("GET", "/ip", true);
   // by default async
   xhr.onload = function() {
