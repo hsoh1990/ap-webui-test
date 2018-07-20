@@ -227,6 +227,6 @@ systemctl enable nodeserver
 END
 
 echo "기기 다시 시작..."
-sleep 2s
+sleep 3s
 
 reboot
