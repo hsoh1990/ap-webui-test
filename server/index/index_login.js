@@ -6,6 +6,12 @@ const {
 } = require('child_process');
 var arp = require('node-arp');
 
+exports.ip_get = function() {
+  var ips = execSync("ifconfig | grep inet | grep -v inet6 | awk '{gsub(/addr:/,\"\");print $2}'").toString().trim().split("\n");
+  console.log('ip : ' + ips);
+  return ips;
+}
+
 exports.sidemenu_get = function() {
   var files = fs.readdirSync(__dirname + '/../package');
   console.log(files.length);

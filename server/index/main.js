@@ -14,6 +14,11 @@ module.exports = function(app, fs, url, isAuthenticated, passport) {
     res.render('index.html');
   });
 
+  app.get('/ip', isAuthenticated, function(req, res) {
+    let data = router_index_login.ip_get();
+    res.send(data);
+  });
+
   app.get('/api/index_login', isAuthenticated, function(req, res) {
     req.accepts('application/json');
     var type = req.query.type;

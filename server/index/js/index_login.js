@@ -3,8 +3,23 @@ var isConnect = 0;
  * 소켓 접속 부분 - 전역변수 선언
  * @return {[type]} 없음
  */
+
+function ipGet() {
+  xhr.open("GET", "/ip", true);
+  // by default async
+  xhr.onload = function() {
+    if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
+      var check_data = this.response;
+      console.log(check_data);
+    }
+  };
+  xhr.onerror = function() {
+    console.log("confirm");
+  };
+  xhr.send();
+}
 function init_() {
-  console.log(ip());
+  ipGet();
   socket = io.connect('http://' + ip() + ':8080');
   //connection_text(10, 1);
   //전역변수 선언
