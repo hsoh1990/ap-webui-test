@@ -7,13 +7,14 @@ var isConnect = 0;
 function ipGet() {
   const xhr = new XMLHttpRequest();
 
-  xhr.open("GET", "/ip", false);
+  xhr.open("GET", "/ip", true);
   // by default async
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       var check_data = this.response;
       console.log(check_data);
-      return check_data;
+      init_();
+      socket_connect_draw();
     }
   };
   xhr.onerror = function() {
