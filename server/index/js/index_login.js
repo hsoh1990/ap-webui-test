@@ -4,7 +4,8 @@ var isConnect = 0;
  * @return {[type]} 없음
  */
 function init_() {
-  socket = io.connect(ip());
+  console.log(ip());
+  socket = io.connect('http://' + ip() + ':8080');
   //connection_text(10, 1);
   //전역변수 선언
   connect_data = new Array();
