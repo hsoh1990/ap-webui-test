@@ -13,7 +13,7 @@ function ipGet() {
     if (this.readyState == 4 && this.status == 200) { // onload called even on 404 etc so check the status
       var check_data = this.response;
       console.log(check_data);
-      init_();
+      init_(check_data);
       socket_connect_draw();
     }
   };
@@ -23,8 +23,8 @@ function ipGet() {
   xhr.send();
 }
 
-function init_() {
-  socket = io.connect('http://' + ipGet() + ':8080');
+function init_(check_data) {
+  socket = io.connect('http://' + check_data + ':8080');
   //connection_text(10, 1);
   //전역변수 선언
   connect_data = new Array();
@@ -70,7 +70,6 @@ function IsConnect() {
  * @return {[type]} [description]
  */
 function socket_connect_draw() {
-  init_();
 
   socket.on('isConnect',
     function(data) {
