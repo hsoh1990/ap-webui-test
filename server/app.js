@@ -14,6 +14,7 @@ var passport = require('passport');
 var cors = require('cors');
 app.use(cors());
 require('./server.js')(app, fs, url);
+require('./init-ui-db').runWebUiInitDb();
 
 app.engine('html', require('ejs').renderFile);
 
