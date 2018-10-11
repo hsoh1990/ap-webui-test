@@ -1,3 +1,5 @@
+global.interface = process.argv[2];
+
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -14,10 +16,9 @@ var passport = require('passport');
 var cors = require('cors');
 app.use(cors());
 require('./server.js')(app, fs, url);
+
 require('./init-ui-db').runWebUiInitDb();
-
 app.engine('html', require('ejs').renderFile);
-
 var server = app.listen(80, function() {
   console.log("RaspAP server has started on port 80");
 });

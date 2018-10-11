@@ -1,6 +1,6 @@
 {
-	"IP Address": "172.16.171.181",
-	"MAC Address": "b8:27:eb:b2:52:21",
-	"SSID": "RaspAP190",
+	"IP Address": "192.168.239.128",
+	"MAC Address": "00:0c:29:71:ca:23",
+	"SSID": "br0 ",
 	"owner": "cvb"
 }

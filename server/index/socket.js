@@ -127,8 +127,8 @@ function socket_init(socket) {
   sockets.push(socket);
   console.log("소켓 연결 완료 : " + sockets.length);
 
-  let ap_ip = exports.eth0_ip_rec();
-  let ap_mac = exports.eth0_mac_rec();
+  let ap_ip = exports.interface_ip_rec();
+  let ap_mac = exports.interface_mac_rec();
   let ap_ssid = exports.ssid_rec();
   wlan_infor = exports.wlan_whois();
   let wlan_exnetinfor = exports.wlan_exnet_data();
@@ -175,8 +175,8 @@ exports.ssid_rec = function() {
   return ssid[1];
 }
 
-exports.eth0_ip_rec = function() {
-  const text = execSync('ip a s eth0', {
+exports.interface_ip_rec = function() {
+  const text = execSync('ip a s ' + global.interface, {
     encoding: 'utf8'
   });
   var ip = text.match(/inet ([0-9.]+)/i);
@@ -191,8 +191,8 @@ exports.eth0_ip_rec = function() {
   }
 }
 
-exports.eth0_mac_rec = function() {
-  const text = execSync('ip a s eth0', {
+exports.interface_mac_rec = function() {
+  const text = execSync('ip a s ' + global.interface, {
     encoding: 'utf8'
   });
   var mac = text.match(/link\/ether ([0-9a-f:]+)/i);
@@ -354,7 +354,6 @@ function promise_arp_req(a, data__, data_key) {
     arp_req(a, data__, data_key, resolve, reject)
   });
 }
-
 
 function arp_req(a, data__, data_key, resolve, reject) {
   exec('arp -n ' + data__[data_key[a]]['IP Address'] + ' | awk NR==2 | awk \'{print $3}\'', (error, stdout, stderr) => {
