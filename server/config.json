@@ -1,5 +1,5 @@
 {
-  "apHubUrl":"http://39.119.118.153:9191",
+  "apHubUrl":"http://39.119.118.153:9191/api/package-hub",
   "interface":"ens33",
   "wlan":"wlxdc85de6542ee"
 }

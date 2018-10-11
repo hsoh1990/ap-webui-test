@@ -24,6 +24,8 @@
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "querystring": "^0.2.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
     "sequelize": "^4.28.6",
     "socket.io": "^2.0.4",
     "sqlite3": "^4.0.2",

@@ -163,14 +163,14 @@ exports.package_data_get = function() {
  * @return {[type]} [description]
  */
 exports.install_data_get = function() {
-  execSync('cd hub_package_data && wget ' + URL + '/file', {
+  execSync('cd hub_package_data && wget ' + URL + '/packages', {
     encoding: 'utf8'
   });
   var data = new Array();
-  var dataString = fs.readFileSync(__dirname + "/../../hub_package_data/file", 'utf8');
+  var dataString = fs.readFileSync(__dirname + "/../../hub_package_data/packages", 'utf8');
   console.log("dataString = " + dataString);
-  data = dataString.split(',');
-  fs.unlink(__dirname + "/../../hub_package_data/file", function(err) {
+  data = JSON.parse(dataString).result.content;
+  fs.unlink(__dirname + "/../../hub_package_data/packages", function(err) {
     if (err) throw err;
     console.log('임시 패키지 전체 목록 파일 삭제 완료');
   });
@@ -179,10 +179,13 @@ exports.install_data_get = function() {
   for(var a = 0;a < data.length; a++) {
     let dd = "package _" + String(a + 1);
     let sidemenu = {};
-    if (data[a].indexOf(".zip") != -1) {
-      sidemenu['pack_name'] = data[a].replace('.zip', '');
+    // if (data[a].indexOf(".zip") != -1) {
+    //   sidemenu['pack_name'] = data[a].replace('.zip', '');
+    //   sidemenus[dd] = sidemenu;
+    // }
+      sidemenu['idx'] = data[a].idx;
+      sidemenu['pack_name'] = data[a].fileName.replace('.zip', '');
       sidemenus[dd] = sidemenu;
-    }
   }
   data = sidemenus;
   console.log(data);
@@ -247,12 +250,11 @@ exports.hash_check = function(select) {
   for (var i = 0; i < Object.keys(data).length; i++) {
     if (select == i) {
       var package_name = data[install_data_key[i]]['pack_name'];
-      const download_package = execSync('cd package_tmp/ && wget -O ' + package_name + '.zip ' + URL + '/download?type=package' + '\\\&' + 'name=' + package_name, {
-        encoding: 'utf8'
-      });
-      const download_hash = execSync('cd package_tmp/ && wget -O ' + package_name + '.md5 ' + URL + '/download?type=hash' + '\\\&' + 'name=' + package_name, {
-        encoding: 'utf8'
-      });
+      var idx = data[install_data_key[i]]['idx'];
+      const download_package =
+          execSync('cd package_tmp/ && wget -O ' + package_name + '.zip ' + URL + '/packages/'+ idx + '/download?type=package', {encoding: 'utf8'});
+      const download_hash =
+          execSync('cd package_tmp/ && wget -O ' + package_name + '.md5 ' + URL + '/packages/'+ idx + '/download?type=hash', {encoding: 'utf8'});
 
       const hash_make = md5File.sync(__dirname + '/../../package_tmp/' + package_name + '.zip');
       var hash_installed = fs.readFileSync(__dirname + "/../../package_tmp/" + package_name + '.md5', 'utf8').replace(/\n/g, "");
