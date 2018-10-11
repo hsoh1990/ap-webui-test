@@ -6,7 +6,7 @@ const {
 } = require('child_process');
 const md5File = require('md5-file');
 
-const URL = 'http://39.119.118.242:9010';
+const URL = global.apHubUrl;
 
 exports.api_get = function() {
 
