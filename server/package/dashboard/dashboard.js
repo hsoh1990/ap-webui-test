@@ -6,13 +6,13 @@ const {
 } = require('child_process');
 
 exports.consolelog_serverdata = function() {
-  const stdout1 = execSync("ip a s wlan0", {
+  const stdout1 = execSync("ip a s " + global.wlan, {
     encoding: 'utf8'
   });
-  const stdout2 = execSync("iwconfig wlan0", {
+  const stdout2 = execSync("iwconfig " + global.wlan, {
     encoding: 'utf8'
   });
-  const stdout3 = execSync("ifconfig wlan0", {
+  const stdout3 = execSync("ifconfig " + global.wlan, {
     encoding: 'utf8'
   });
   var text = stdout1 + stdout2 + stdout3;
@@ -28,7 +28,7 @@ exports.consolelog_serverdata = function() {
   return dashboarddata;
 }
 exports.return_interface_infor = function(text) {
-  var interface_name = "wlan0";
+  var interface_name = global.wlan;
   var ip = exports.serverdata_get_ip(text);
   var netmask = exports.serverdata_get_netmask(text);
   var mac = exports.serverdata_get_mac(text);
@@ -324,20 +324,20 @@ exports.serverdata_Link_Quality = function(text) {
 }
 
 exports.start_stopbutton = function() {
-  const stdout = execSync("ifconfig wlan0 | grep -i running | wc -l", {
+  const stdout = execSync("ifconfig " + global.wlan + " | grep -i running | wc -l", {
     encoding: 'utf8'
   });
   return stdout;
 }
 
 exports.wlan0_stop = function() {
-  execSync("ip link set wlan0 down", {
+  execSync("ip link set " + global.wlan + " down", {
     encoding: 'utf8'
   });
   return 0;
 }
 exports.wlan0_start = function() {
-  execSync("ip link set wlan0 up", {
+  execSync("ip link set " + global.wlan + " up", {
     encoding: 'utf8'
   });
   return 1;

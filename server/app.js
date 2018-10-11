@@ -1,4 +1,6 @@
-global.interface = process.argv[2];
+global.interface = require('./config').interface;
+global.apHubUrl = require('./config').apHubUrl;
+global.wlan = require('./config').wlan;
 
 var express = require('express');
 var app = express();
